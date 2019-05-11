@@ -1,7 +1,7 @@
-name: "transcriptome_cll"
+name: transcriptome_cll
 output_dir: ../docs
 navbar:
-  title: "transcriptome_cll"
+  title: transcriptome_cll
   left:
   - text: Home
     href: index.html
@@ -9,6 +9,10 @@ navbar:
     href: about.html
   - text: License
     href: license.html
+  right:
+  - icon: fa-github
+    text: Source code
+    href: https://github.com/almutlue/transcriptome_cll
 output:
   workflowr::wflow_html:
     toc: yes
