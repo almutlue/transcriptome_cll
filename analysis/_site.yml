@@ -1,0 +1,17 @@
+name: "transcriptome_cll"
+output_dir: ../docs
+navbar:
+  title: "transcriptome_cll"
+  left:
+  - text: Home
+    href: index.html
+  - text: About
+    href: about.html
+  - text: License
+    href: license.html
+output:
+  workflowr::wflow_html:
+    toc: yes
+    toc_float: yes
+    theme: cosmo
+    highlight: textmate
