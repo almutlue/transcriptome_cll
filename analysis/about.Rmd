@@ -7,4 +7,16 @@ editor_options:
   chunk_output_type: console
 ---
 
-Describe your project.
+# Transcriptome CLL
+
+Here we provide a detailed analysis of bulk transcriptome data of 184 CLL patients.
+We investigate general transcriptomal pattern, most common genomic variants and how they are reflected in transcriptome signatures, interaction between variants and provide an extensive ressource to explore transcriptomal changes in CLL in detail.
+
+Our results are summarized and discussed in "Transcriptomal profiling reveals mixed epistats in Chronic Lymphatic Leukemia".
+Here we provide code and ressources to reproduce and extend our analysis and figures.
+
+In general our analysis can be split into 4 parts:  
+* Explorative data analysis and quality control.  
+* General pattern within CLL transcriptomes.  
+* Analysis of transcriptional signature in the most common genomic variants of CLL.   
+* Epistatic interaction between variants  

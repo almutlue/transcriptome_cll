@@ -1,0 +1,296 @@
+---
+title: "Methylation pattern"
+author: "almut"
+date: "11 Mai 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Methylation groups
+Analyse genes associated with methylation groups
+
+libraries
+```{r load libraries, warning=F, message=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(DESeq2)
+library(ggpubr)
+library(ComplexHeatmap)
+library(RColorBrewer)
+library(circlize)
+library(here)
+library(piano)
+```
+
+# Data preprocessing
+
+data
+```{r load data}
+data_dir <- here("data")
+output_dir <- here("output")
+figure_dir <- here("output/figures")
+
+#dds data set. gene expression data + patmetadata
+load(paste0(data_dir, "/ddsrnaCLL_150218.RData"))
+
+#arrange columns
+mutStatus <- data.frame(colData(ddsCLL)) %>% arrange(Methylation) %>% filter(!is.na(Methylation))
+colnames(ddsCLL) <-colData(ddsCLL)$PatID
+ddsCLL <- ddsCLL[, mutStatus$PatID]
+
+```
+
+Normalize
+```{r RNAnorm}
+#expression data
+ddsCLL <- estimateSizeFactors(ddsCLL)
+RNAnorm <- varianceStabilizingTransformation(ddsCLL, blind = T)
+
+```
+
+# Exploratory data analysis
+
+Clustering on the most variable genes already split methylation groups. How do methylation groups affect highly variable genes? 
+Can we distinguish all 3 groups?
+
+PCA
+```{r pca, fig.height=6, fig.width=6}
+#Plot PCA
+exprMat <- assay(RNAnorm)
+
+#top 5000 most variant genes
+sds <- rowSds(exprMat)
+exprMat <- exprMat[order(sds, decreasing = T)[1:150],]
+
+
+#Calculate PCA
+pcaRes <- prcomp(t(exprMat), scale =T)
+varExp <- (pcaRes$sdev^2 / sum(pcaRes$sdev^2)) * 100
+pcaTab <- data.frame(pcaRes$x[,c(1:10)])
+names(varExp) <- colnames(pcaRes$x)
+
+#add background information
+pcaTab <- cbind(pcaTab, data.frame(colData(RNAnorm)))
+
+
+#plot PCA and color samples based on annotations
+annocol <- get_palette("jco", 10)
+  
+p <- ggscatter(pcaTab, x = "PC1", y = "PC2", color = "Methylation", palette = c( annocol[7], annocol[5], annocol[6]),
+  ylab = sprintf("PC2 (%2.1f%%)",varExp[2]), xlab = sprintf("PC1 (%2.1f%%)",varExp[1]), legend = "right", main = "PCA Methylation groups") + coord_fixed()
+
+p
+
+ggsave(file=paste0(figure_dir, "/pca_Meth_top150.svg"), plot=p, width=5, height=5)
+```
+
+# Gene expression
+
+##Differential expression analysis
+
+deseq2
+```{r deseq2, eval = FALSE}
+
+###Deseq
+ddsCLL <- estimateSizeFactors(ddsCLL)
+
+# deseq2 function
+diff <- function(cond){
+  ddsCLL_new <- ddsCLL[,!is.na(colData(ddsCLL)[,cond])]
+  design(ddsCLL_new) <- as.formula(paste("~ ", paste(cond)))
+  rnaRaw <- DESeq(ddsCLL_new, betaPrior = FALSE)
+  res <- results(rnaRaw)
+  resOrdered <- res[order(res$pvalue),]
+}
+
+diff_meth <- diff("Methylation")
+
+saveRDS(diff_meth, file= paste0(output_dir,"/diff_meth.rds"))
+
+
+```
+
+Filter differentially expressed genes
+```{r diff genes}
+
+diff_meth <- readRDS(paste0(output_dir,"/diff_meth.rds"))
+
+dataTab <- data.frame(diff_meth)
+dataTab$ID <- rownames(dataTab)
+
+#filter using pvalues
+dataTab <- dataTab %>%
+    arrange(padj) %>%
+    mutate(Symbol = rowData(ddsCLL[ID,])$symbol)
+dataTab <- dataTab[!duplicated(dataTab$Symbol),]
+dataTab <- dataTab[!is.na(dataTab$Symbol),]
+rownames(dataTab) <- dataTab$ID
+write.csv(dataTab, file=paste0(output_dir, "/diff_genes/meth_diffGenes.csv"))
+
+```
+
+
+## Expression heatmap
+
+```{r complex heatmap, fig.width= 30, fig.height=45}
+#arrange columns
+mutStatus <- data.frame(colData(ddsCLL)) %>% arrange(Methylation)
+colnames(ddsCLL) <-colData(ddsCLL)$PatID
+ddsCLL <- ddsCLL[, mutStatus$PatID]
+
+
+#Differentially expressed genes
+genes <- dataTab %>% filter(padj <= 0.01, abs(stat) > 9)  
+exprMat <- assay(RNAnorm)
+exprMat<- exprMat[genes$ID,]
+
+#scale gene expression
+colnames(exprMat) <- colData(ddsCLL)$PatID
+exprMat.new <- log2(exprMat)
+exprMat.new <- t(scale(t(exprMat.new)))
+exprMat.new[exprMat.new > 4] <- 4
+exprMat.new[exprMat.new < -4] <- -4
+
+#colors
+colors <- colorRampPalette(rev( brewer.pal(10,"RdBu")) )(20)
+annocol <- get_palette("jco", 10)
+annocolor <- list(Methylation = c("IP" = annocol[5], "LP" = annocol[6], "HP" =  annocol[7]), IGHV = c("M" = annocol[1], "U" = annocol[2])) 
+
+#Annotation
+feature <- as.data.frame(colData(ddsCLL)[,c("Methylation", "IGHV")]) 
+colnames(feature) <- c("Methylation", "IGHV") 
+
+#gene symbol as rownames
+rownames(exprMat.new) <- rowData(RNAnorm[rownames(exprMat),])$symbol
+
+ha_col <- HeatmapAnnotation(feature, col = annocolor, annotation_height = unit(c(rep(1.3, 2)), "cm"), annotation_legend_param = list(title_gp = gpar(fontsize = 40), labels_gp = gpar(fontsize = 35),  grid_height = unit(1.9, "cm"), grid_width = unit(1.9, "cm")))
+
+
+h1 <- Heatmap(exprMat.new ,                                                     #Cluster param
+              km = 2,
+              cluster_columns = F,
+              #clustering_distance_columns = "euclidean",
+              #clustering_method_columns = "ward.D2",
+              clustering_distance_rows = "pearson",
+              clustering_method_rows = "ward.D2",
+              column_title ="Gene signature methylation groups ",                      #Graphic parameter
+              col = colors,
+              column_title_gp = gpar(fontsize = 50, fontface = "bold"), 
+              heatmap_legend_param = list(title = "expr", 
+                                          title_gp = gpar(fontsize = 40), 
+                                          grid_height = unit(1.9, "cm"), 
+                                          grid_width = unit(1.9, "cm"), 
+                                          gap = unit(2, "cm"), 
+                                          labels_gp = gpar(fontsize = 35)), 
+              #column_dend_height = unit(3.5, "cm"),
+              show_row_dend = FALSE, 
+              show_column_names = FALSE , 
+              show_row_names = FALSE, 
+              row_names_gp = gpar(fontsize = 21),
+              top_annotation = ha_col)
+
+
+
+#Annotate top 50 genes
+sub_names <- genes[1:50,"Symbol"]
+sub_names <- sub_names[-which(sub_names %in% "")]
+geneIDs <- which(rownames(exprMat.new) %in% sub_names)
+labels <- rownames(exprMat.new)[geneIDs]
+ha_genes <- rowAnnotation(link = row_anno_link(at = geneIDs, labels = labels, labels_gp = gpar(fontsize = 35)), width = unit(9, "cm"))
+
+
+#svg(filename=paste0(figure_dir, "/gene_expr_Methylationgroups.svg"), width=30, height=35)
+#pdf(file=paste0(figure_dir,"/gene_expr_Methylationgroups.pdf"), width=30, height=45)
+draw( h1 + ha_genes)
+#dev.off()
+
+
+
+
+```
+
+
+# Gene and Sample specific expression - top genes
+```{r single gene counts, message=FALSE}
+#function to create stripchart plots for specific genes
+gene_count <- function(gene_nam){
+  geneEnsID <- rownames(ddsCLL)[which(rowData(ddsCLL)$symbol %in% gene_nam)]
+  geneNum <- counts(ddsCLL)[geneEnsID,]
+  mutPat <- as.data.frame(colData(ddsCLL)[, c("Methylation")])
+  colnames(mutPat) <- c("genotype")
+  geneDat <- cbind(mutPat, geneNum)
+  colnames(geneDat) <- c("genotype", "counts")
+  
+  p <- ggstripchart(geneDat, x = "genotype", y = "counts",
+          color = "genotype",
+          palette = "jco",
+          add = "mean_sd",
+          title = paste(gene_nam),
+          ylab = "normalized counts")
+ # ggsave(file=paste0(figure_dir, "/methylation/genetic_interaction_", gene_nam, ".svg"), plot=p, width=6, height=5)
+  p
+}
+
+geneList <- sub_names[1:30]
+lapply(geneList, gene_count)
+
+
+```
+
+# Gene set enrichment
+```{r gsea, fig.width=16, fig.height=7}
+
+variant <- "Methylation"
+gmtFile <- loadGSC(paste0(data_dir,"/c2.cp.kegg.v6.0.symbols.gmt"), type="gmt")
+
+diff_res <- dataTab
+diff_res  <- diff_res[-which(diff_res$Symbol %in% c("", NA)),]
+#get genes and pvalues 
+geneNam <- diff_res$Symbol 
+pVal <- diff_res$padj
+logFold <- diff_res$log2FoldChange
+stat <- diff_res$stat
+gsTab <- data.frame(gene = geneNam, stat = stat)
+gsaTab <- data.frame(row.names = gsTab$gene, stat = gsTab$stat)
+res <- runGSA(geneLevelStats = gsaTab,
+                      geneSetStat = "gsea",
+                     adjMethod = "fdr", gsc=gmtFile,
+                     signifMethod = "geneSampling",
+                      nPerm = 50000,
+                      gsSizeLim=c(1, Inf))
+Res_up <- arrange(GSAsummaryTable(res), `p adj (dist.dir.up)`)                 #`p adj (non-dir.)`)
+Res_dn <- arrange(GSAsummaryTable(res), `p adj (dist.dir.dn)`)
+  
+
+#Plot
+resPlot <- Res_dn[, c(1:3,7,8,9)]
+colnames(resPlot) <- c("pathway", "gene_number", "stat", "p.adj","genes_up" , "genes_dn")
+
+
+enrichPlot <- resPlot %>% filter(p.adj < 0.1) %>% mutate(log10Padj = -log10(p.adj)) #%>% mutate(genes = ifelse(gene_number > 5, ">5", "<=5"))
+enrichPlot$log10Padj[which(enrichPlot$log10Padj == Inf)] <- 5
+
+p <- ggbarplot(enrichPlot, x = "pathway", y = "log10Padj",
+          fill = "gene_number",         
+          color = "white",           
+          palette =  "gsea",            
+          sort.val = "asc",          
+          sort.by.groups = FALSE,     
+          ylab = "-log10(padj)",
+          legend.title = "#diff.genes",
+          rotate = TRUE,
+          font.x = 20, font.y = 20, font.legend = 20, legend = "right", 
+          title = "Methylation groups - Kegg",
+          ggtheme = theme_pubr()) +
+  font("xy.text", size = 16) + 
+  font("title", size = 20, face = "bold")
+  
+ggsave(file=paste0(figure_dir, "/GSEA_Meth_Kegg.svg"), plot=p, width=14, height=7)
+
+p
+
+```
+
