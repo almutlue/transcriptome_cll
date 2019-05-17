@@ -12,8 +12,11 @@ Transcriptome CLL analysis
 
 * Dataset
 * General Analysis
-* Variants
-  + Trisomy12 [link](trisomy12.html)
-  + Methylation [link](methylation_groups.html)
+* Variants  
+  + [Trisomy12](trisomy12.html)  
+  + [Methylation](methylation_groups.html)  
+  + [BRAF](BRAF.html)  
+  + [SF3B1](SF3B1.html)  
+  + [del11q22](del11q22.html)  
 * Epistasis
 

@@ -1,0 +1,234 @@
+---
+title: "SF3B1"
+author: "almut"
+date: "17 Mai 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## SF3B1 signature
+
+# Differentially expressed genes
+
+### 1. Differential expression analysis
+load packages
+```{r packages, warning=FALSE, message=FALSE}
+library(DESeq2)
+library(tidyverse)
+library(ggsci)
+library(matrixStats)
+library(piano)
+library(reshape2)
+library(genefilter)
+library(Biobase)
+library(ComplexHeatmap)
+library(ggplot2)
+library(gtable)
+library(grid)
+library(circlize)
+library(gridExtra)
+library(ggpubr)
+library(RColorBrewer)
+library(here)
+
+```
+
+
+load data
+```{r datasets}
+data_dir <- here("data")
+output_dir <- here("output")
+figure_dir <- here("output/figures")
+
+#dds data set. gene expression data + patmetadata
+load(paste0(data_dir, "/ddsrnaCLL_150218.RData"))
+
+variant <- "SF3B1"
+#filter for patients without NA in variant
+ddsCLL <- ddsCLL[, !is.na(colData(ddsCLL)[,variant])]
+
+#differentially expressed genes between SF3B1 groups (see differential expression.html)
+diff_all <- read.csv(file=paste0(output_dir, "/diff_genes/", variant, "_diffGenes.csv"))
+
+
+rownames(diff_all) <- diff_all$X
+diff_all <- diff_all[which(diff_all$padj < 0.01 ),-1]
+diff <- diff_all[which(abs(diff_all$log2FoldChange) > 2 & diff_all$stat > 5),]
+
+
+mutStatus <- data.frame(colData(ddsCLL)) %>% arrange(SF3B1)
+colnames(ddsCLL) <-colData(ddsCLL)$PatID
+ddsCLL <- ddsCLL[, mutStatus$PatID]
+
+#expression data
+ddsCLL <- estimateSizeFactors(ddsCLL)
+RNAnorm <- varianceStabilizingTransformation(ddsCLL, blind = T)
+
+```
+
+
+Expression matrix
+```{r var gene expression}
+
+#filter for sign. genes in variant
+exprMat <- assay(RNAnorm)
+exprVariant <- exprMat[rownames(diff),]
+colnames(exprVariant) <- colData(ddsCLL)$PatID
+exprVariant.new <- log2(exprVariant)
+exprVariant.new <- t(scale(t(exprVariant.new)))
+exprVariant.new[exprVariant.new > 4] <- 4
+exprVariant.new[exprVariant.new < -4] <- -4
+rownames(exprVariant.new) <- rowData(RNAnorm[rownames(diff),])$symbol
+
+```
+
+
+## Expression signature
+```{r complex heatmap, fig.width= 22, fig.height=25}
+
+#colors
+colors = colorRamp2(c(-4,-2,0,2,4), c("#2166ac","#4393c3", "#f7f7f7", "#d6604d","#b2182b"))
+annocol <- get_palette("jco", 10)
+annocolor <- list(SF3B1 = c("1" = annocol[8], "0" = annocol[9]))
+rowcolors <-colorRampPalette(brewer.pal(5, "Set1"))(5)
+rowcolors[6] <- "white"
+
+
+feature <- as.data.frame(colData(ddsCLL)[,c(variant)])
+colnames(feature) <- c(variant)  
+
+ha_col <- HeatmapAnnotation(feature, col = annocolor, annotation_height = unit(c(rep(1.9, 1)), "cm"), annotation_legend_param = list(title_gp = gpar(fontsize = 50), labels_gp = gpar(fontsize = 45),  grid_height = unit(1.9, "cm"), grid_width = unit(1.9, "cm")))
+
+
+h1 <- Heatmap(exprVariant.new ,                                                     
+              km = 2,
+              gap = unit(0.5, "cm"),
+              cluster_columns = F,
+              clustering_distance_rows = "pearson",
+              clustering_method_rows = "ward.D2",
+              column_title = paste0("Gene signature: ", variant),                      
+              col = colors,
+              column_title_gp = gpar(fontsize = 60, fontface = "bold"), 
+              heatmap_legend_param = list(title = "expr", 
+                                          title_gp = gpar(fontsize = 50), 
+                                          grid_height = unit(1.9, "cm"), 
+                                          grid_width = unit(1.9, "cm"), 
+                                          gap = unit(2, "cm"), 
+                                          labels_gp = gpar(fontsize = 45)), 
+              column_dend_height = unit(2.5, "cm"),
+              show_row_dend = FALSE, 
+              show_column_names = FALSE , 
+              show_row_names = TRUE, 
+              row_names_gp = gpar(fontsize = 40),
+              top_annotation = ha_col)
+
+
+#svg(filename=paste0(figure_dir, "/", variant, "_gene_expr.svg"), width=30, height=45)
+#pdf(file=paste0(figure_dir, "/", variant, "_gene_expr.pdf"), width=22, height=25)
+
+draw(h1) 
+#dev.off()
+
+#draw(h1)
+```
+
+# Sample and gene specific expression - top genes
+
+```{r single gene counts, fig.width=6, fig.height=5}
+#function to create stripchart plots for specific genes
+gene_count <- function(gene_nam){
+  geneEnsID <- rownames(ddsCLL)[which(rowData(ddsCLL)$symbol %in% gene_nam)]
+  geneNum <- counts(ddsCLL)[geneEnsID,]
+  mutPat <- as.data.frame(colData(ddsCLL)[, c(variant)])
+  colnames(mutPat) <- c("genotype")
+  geneDat <- cbind(mutPat, geneNum)
+  colnames(geneDat) <- c("genotype", "counts")
+  
+  p <- ggstripchart(geneDat, x = "genotype", y = "counts",
+          color = "genotype",
+          palette = "jco",
+          add = "mean_sd",
+          title = paste(gene_nam),
+          font.x = 18, font.y = 18, font.legend = 16, 
+          ylab = "normalized counts") + font("xy.text", size = 15) + font("title", size = 20, face = "bold")
+  #ggsave(file=paste0(figure_dir, "/tri12/genetic_interaction_", gene_nam, ".svg"), plot=p, width=6, height=5)
+  p
+}
+
+geneList <- as.character(diff$Symbol[1:20])
+
+
+lapply(geneList, gene_count)
+
+
+```
+
+# Gene set enrichment analysis
+
+Gene sets
+```{r gene sets}
+#load gene set collection
+#Hallmark
+gsc <- loadGSC("/home/almut/Dokumente/masterarbeit/data/h.all.v6.0.symbols.gmt", type="gmt")
+#Kegg
+gsc_Kegg <- loadGSC("/home/almut/Dokumente/masterarbeit/data/c2.cp.kegg.v6.0.symbols.gmt", type="gmt")
+```
+
+Run piano
+```{r piano, fig.width=16, fig.height=7}
+
+gmtFile <- gsc_Kegg
+
+diff_res <- diff_all
+diff_res <- diff_res[-which(diff_res$Symbol %in% c("", NA)),]
+
+geneNam <- diff_res$Symbol 
+pVal <- diff_res$padj
+logFold <- diff_res$log2FoldChange
+stat <- diff_res$stat
+gsTab <- data.frame(gene = geneNam, stat = stat, logFold = logFold)
+gsaTab <- data.frame(row.names = gsTab$gene, stat = gsTab$stat)
+res <- runGSA(geneLevelStats = gsaTab,
+                    geneSetStat = "gsea",
+                    adjMethod = "fdr", gsc=gmtFile,
+                    signifMethod = "geneSampling",
+                    nPerm = 50000,
+                    gsSizeLim=c(1, Inf))
+Res_up <- arrange(GSAsummaryTable(res), `p adj (dist.dir.up)`)            
+Res_dn <- arrange(GSAsummaryTable(res), `p adj (dist.dir.dn)`)
+  
+
+#Plot
+resPlot <- Res_up[, c(1:3,5,8,9)]
+resPlot_dn <- Res_dn[, c(1:3,7,8,9)]
+colnames(resPlot) <- c("pathway", "gene_number", "stat", "p.adj","genes_up" , "genes_dn")
+colnames(resPlot_dn) <- c("pathway", "gene_number", "stat", "p.adj","genes_up" , "genes_dn")
+
+
+enrichPlot <- resPlot_dn[c(1:6),] %>% mutate(log10Padj = -log10(p.adj)) 
+
+#plot
+p <- ggbarplot(enrichPlot, x = "pathway", y = "log10Padj",
+          fill = "gene_number",         
+          color = "white",            
+          palette =  "gsea",            
+          sort.val = "asc",         
+          sort.by.groups = FALSE,     
+          ylab = "-log10(padj)",
+          legend.title = "#diff.genes",
+          rotate = TRUE,
+          font.x = 20, font.y = 20, font.legend = 20, legend = "right", 
+          title = "SF3B1 - Kegg",
+          ggtheme = theme_pubr()) + 
+  font("xy.text", size = 16) + 
+  font("title", size = 20, face = "bold")
+  
+#ggsave(file=paste0(figure_dir,"/GSEA_", variant, "_Kegg.svg"), plot=p, width=14, height=7)
+  p
+
+
+
+```
