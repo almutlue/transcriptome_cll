@@ -13,5 +13,7 @@ Transcriptome CLL analysis
 * Dataset
 * General Analysis
 * Variants
+  + Trisomy12 [link](trisomy12.html)
+  + Methylation [link](methylation_groups.html)
 * Epistasis
 
