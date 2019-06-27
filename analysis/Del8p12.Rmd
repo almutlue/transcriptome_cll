@@ -1,15 +1,17 @@
 ---
-title: "Del11q22"
-author: "almut"
-date: "17 Mai 2019"
-output: html_document
+title: "Del8p12"
+author: "aluetge"
+date: "2019-06-27"
+output: workflowr::wflow_html
+editor_options:
+  chunk_output_type: console
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Del11q22 signature
+## Del8p12 signature
 
 # Differentially expressed genes
 
@@ -46,20 +48,20 @@ figure_dir <- here("output/figures")
 #dds data set. gene expression data + patmetadata
 load(paste0(data_dir, "/ddsrnaCLL_150218.RData"))
 
-variant <- "del11q22.3"
+variant <- "del8p12"
 #filter for patients without NA in variant
 ddsCLL <- ddsCLL[, !is.na(colData(ddsCLL)[,variant])]
 
-#differentially expressed genes between del11q22.3 groups (see differential expression.html)
+#differentially expressed genes between del8p12 groups (see differential expression.html)
 diff_all <- read.csv(file=paste0(output_dir, "/diff_genes/", variant, "_diffGenes.csv"))
 
 
 rownames(diff_all) <- diff_all$X
 diff_all <- diff_all[which(diff_all$padj < 0.01 ),-1]
-diff <- diff_all[which(abs(diff_all$log2FoldChange) > 2 & diff_all$stat > 4),]
+diff <- diff_all
 
 
-mutStatus <- data.frame(colData(ddsCLL)) %>% arrange(del11q22.3)
+mutStatus <- data.frame(colData(ddsCLL)) %>% arrange(del8p12)
 colnames(ddsCLL) <-colData(ddsCLL)$PatID
 ddsCLL <- ddsCLL[, mutStatus$PatID]
 
@@ -92,13 +94,14 @@ rownames(exprVariant.new) <- rowData(RNAnorm[rownames(diff),])$symbol
 #colors
 colors = colorRamp2(c(-4,-2,0,2,4), c("#2166ac","#4393c3", "#f7f7f7", "#d6604d","#b2182b"))
 annocol <- get_palette("jco", 10)
-annocolor <- list(del11q22.3 = c("1" = annocol[8], "0" = annocol[9]))
+annocolor <- list(del8p12 = c("1" = annocol[8], "0" = annocol[9]))
 rowcolors <-colorRampPalette(brewer.pal(5, "Set1"))(5)
 rowcolors[6] <- "white"
 
 
 feature <- as.data.frame(colData(ddsCLL)[,c(variant)])
 colnames(feature) <- c(variant)  
+rownames(feature) <- colnames(RNAnorm)
 
 ha_col <- HeatmapAnnotation(df = feature, col = annocolor, annotation_height = unit(c(rep(1.9, 1)), "cm"), annotation_legend_param = list(title_gp = gpar(fontsize = 50), labels_gp = gpar(fontsize = 45),  grid_height = unit(1.9, "cm"), grid_width = unit(1.9, "cm")))
 
@@ -122,7 +125,7 @@ h1 <- Heatmap(exprVariant.new ,
               show_row_dend = FALSE, 
               show_column_names = FALSE , 
               show_row_names = TRUE, 
-              row_names_gp = gpar(fontsize = 40),
+              row_names_gp = gpar(fontsize = 20),
               top_annotation = ha_col)
 
 
@@ -159,7 +162,9 @@ gene_count <- function(gene_nam){
   p
 }
 
+diff <- diff_all[which(diff_all$stat > 4),]
 geneList <- as.character(diff$Symbol)
+geneList <- geneList[-which(geneList %in% "")]
 
 
 lapply(geneList, gene_count)
@@ -187,8 +192,7 @@ gmtFile <- gsc_Kegg
 diff_res <- diff_all
 diff_res$chromosome <- rowData(RNAnorm)[rownames(diff_res),]$chromosome
 diff_res <- diff_res[-which(diff_res$Symbol %in% c("", NA)),]
-#Filter chromosome 11 - we are not interested in the dosage effect 
-diff_res <- diff_res[-which(diff_res$chromosome %in% c("11")),]
+
 
 geneNam <- diff_res$Symbol 
 pVal <- diff_res$padj
@@ -213,7 +217,7 @@ colnames(resPlot) <- c("pathway", "gene_number", "stat", "p.adj","genes_up" , "g
 colnames(resPlot_dn) <- c("pathway", "gene_number", "stat", "p.adj","genes_up" , "genes_dn")
 
 
-enrichPlot <- resPlot[c(1:6),] %>% mutate(log10Padj = -log10(p.adj)) 
+enrichPlot <- resPlot[c(1:3),] %>% mutate(log10Padj = -log10(p.adj)) 
 
 #plot
 p <- ggbarplot(enrichPlot, x = "pathway", y = "log10Padj",
@@ -226,7 +230,7 @@ p <- ggbarplot(enrichPlot, x = "pathway", y = "log10Padj",
           legend.title = "#diff.genes",
           rotate = TRUE,
           font.x = 20, font.y = 20, font.legend = 20, legend = "right", 
-          title = "Del11q22.3 - Kegg",
+          title = "del8p12 - Kegg",
           ggtheme = theme_pubr()) + 
   font("xy.text", size = 16) + 
   font("title", size = 20, face = "bold")

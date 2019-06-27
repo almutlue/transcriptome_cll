@@ -18,5 +18,11 @@ Transcriptome CLL analysis
   + [BRAF](BRAF.html)  
   + [SF3B1](SF3B1.html)  
   + [del11q22](del11q22.html)  
+  + [TP53](TP53.html)
+  + [del13q14](Del13q14.html)
+  + [del17p13](Del17p13.html)
+  + [Notch1](Notch1.html)
+  + [gain8q24](Gain8q24.html) 
+  + [del8p12](Del8p12.html) 
 * Epistasis
 
