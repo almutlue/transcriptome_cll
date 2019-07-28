@@ -1,0 +1,335 @@
+---
+title: "epistasis"
+author: "aluetge"
+date: "2019-07-26"
+output: workflowr::wflow_html
+---
+
+# Epistasis in CLL 
+We find correlation and coexpression of several muatations and genetic variants in CLL. How is this reflected on the transcriptome level? Is there a connection? 
+
+## IGHV and Trisomy12
+IGHV and trisomy12 are the most severe genomic modification on transcriptome level. How do they affect each other?
+
+load packages
+```{r libraray, message=FALSE, warning=FALSE}
+library(Biobase)
+library(ggplot2)
+library(genefilter)
+library(DESeq2)
+library(gridExtra)
+library(reshape2)
+library(dplyr)
+library(geneplotter)
+library(RColorBrewer)
+library(ComplexHeatmap)
+library(circlize)
+library(piano)
+library(ggpubr)
+library(here)
+```
+
+load datasets
+```{r data}
+
+data_dir <- here("data")
+output_dir <- here("output")
+figure_dir <- here("output/figures")
+
+#Countdata
+load(paste0(data_dir, "/ddsrnaCLL_150218.RData"))
+
+
+```
+
+
+
+#Epistasis model
+Use deseq2 to determine genes, which can be described by epistatisc interactions
+(focus on trisomy12 and IGHV)
+```{r deseq}
+
+###Deseq
+ddsCLL <- estimateSizeFactors(ddsCLL)
+
+#exclude NAs
+ddsCLL <- ddsCLL[,!is.na(colData(ddsCLL)[,"IGHV"])]
+ddsCLL <- ddsCLL[,!is.na(colData(ddsCLL)[,"trisomy12"])]
+
+RNAnorm <- varianceStabilizingTransformation(ddsCLL, blind=T)
+colnames(RNAnorm) <- colData(RNAnorm)$PatID 
+
+#design matrix with interaction term
+design(ddsCLL) <- as.formula(paste("~ IGHV + trisomy12 + IGHV:trisomy12"))
+#rnaRaw <- DESeq(ddsCLL, betaPrior = FALSE)
+#resultsNames(rnaRaw)
+#res <- results(rnaRaw, name = "IGHVU.trisomy121")
+
+#saveRDS(res, paste0(output_dir, "/res_epistatsis_ighv_tri12.rds"))
+res <- readRDS(paste0(output_dir, "/res_epistatsis_ighv_tri12.rds"))
+
+resOrdered <- res[order(res$pvalue),]
+resOrderedTab <- as.data.frame(resOrdered)
+resOrderedTab$symbol <- rowData(RNAnorm[rownames(resOrdered),])$symbol
+
+resSig <- subset(resOrdered, padj < 0.1)# & abs(log2FoldChange) > 2)
+resTab <- as.data.frame(resSig)
+resTab$symbol <- rowData(RNAnorm[rownames(resSig),])$symbol
+
+```
+
+
+# Gene expression of epistatic genes
+
+## Heatmap of interacting genes
+
+```{r heatmap of interaction ighv, fig.width=35, fig.height=41}
+
+  #filter by variant
+  sig_Genes <- rownames(resSig)
+  
+  #gene expression data
+  geneExpression = assay(RNAnorm)[sig_Genes,]
+  rownames(geneExpression) <- rowData(RNAnorm)$symbol[which(rownames(RNAnorm) %in% sig_Genes)]
+
+  #scale and censor
+  geneExpression_new <- log2(geneExpression)
+  geneExpression_new<- t(scale(t(geneExpression_new)))
+  geneExpression_new[geneExpression_new > 6] <- 6
+  geneExpression_new[geneExpression_new < -6] <- -6
+
+  mutnames <- c("none", "IGHV", "trisomy12", "both")
+  
+  mutStatus <- data.frame(colData(RNAnorm)) %>% mutate(IGHVnew = ifelse(IGHV %in% "M", 1, 0)) %>% dplyr::select(-IGHV) %>% mutate(IGHV = IGHVnew) %>% dplyr::select_("PatID", "IGHV", "trisomy12") %>% mutate_("namA" = "IGHV", "namB" = "trisomy12") %>% mutate(naA = as.numeric(as.character(namA))) %>% mutate(naB = as.numeric(as.character(namB))) %>% mutate(mut = factor(mutnames[1 + naA + 2 * naB], levels = mutnames)) %>% arrange(mut)
+
+  geneExpression_new <- geneExpression_new[,mutStatus$PatID]
+
+
+  #colors
+  #colors <- colorRampPalette( rev(brewer.pal(11,"RdBu")) )(255)
+  colors = colorRamp2(c(-6,-2,0,2,6), c("#2166ac","#4393c3", "#f7f7f7", "#d6604d","#b2182b"))
+  annocol <- get_palette("jco", 10)
+  chromcol <- list(chromosome = c("12" = annocol[6], "other" = annocol[5]))
+  
+  annocolor <- list(Variant = c("none" = annocol[1], annocol[2], annocol[3], "both" = annocol[4]))
+  names(annocolor$Variant) <- c("none", "IGHV", "trisomy12", "both")
+  mutationStatus <- data.frame(mutStatus$mut)
+  rownames(mutationStatus) <- mutStatus$PatID
+  colnames(mutationStatus) <- "Variant"
+
+  #Column annotation
+  ha_col = HeatmapAnnotation(df = mutationStatus, col = annocolor, annotation_height = unit(1.8, "cm"), annotation_legend_param = list(title_gp = gpar(fontsize = 60), labels_gp = gpar(fontsize = 50),  grid_height = unit(2.5, "cm"), grid_width = unit(2.5, "cm"), gap = unit(15, "mm")))
+
+  #rowcluster
+  geneExpression_dist <- dist(geneExpression_new)
+  rowcluster = hclust(geneExpression_dist, method = "ward.D2")
+
+  #heatmap
+  h1 <- Heatmap(geneExpression_new, col = colors ,column_title = paste0("Gene interactions:", "IGHV", "-", "trisomy12"), column_title_gp = gpar(fontsize = 60, fontface = "bold"), heatmap_legend_param = list(title = "Expr", title_gp = gpar(fontsize = 60), grid_height = unit(2.5, "cm"), grid_width = unit(2.5, "cm"), gap = unit(15, "mm"), labels_gp = gpar(fontsize = 50), labels = c(-6,-3, 0,3, 6)) , row_dend_width = unit(3.5, "cm"), show_row_dend = T, show_column_names =FALSE , top_annotation = ha_col, show_row_names = FALSE, show_column_dend = FALSE, cluster_columns = FALSE, cluster_rows = rowcluster, split = 5, gap = unit(0.6,"cm"), column_order = mutStatus$PatID)
+
+  #chromosome annotation
+  #chromosome distribution
+chrom <- as.data.frame(rowData(RNAnorm[sig_Genes,])$chromosome)
+rownames(chrom) <- sig_Genes
+colnames(chrom ) <- "chromosome"
+#select for chromosome12
+chrom$chromosome <- ifelse(chrom$chromosome == 12, 12, "other")
+  
+  ha_chrom = rowAnnotation(df = chrom, col = chromcol, annotation_width = unit(2.3, "cm"), annotation_legend_param = list(ncol = 2, title_gp = gpar(fontsize = 60), labels_gp = gpar(fontsize = 50),  grid_height = unit(2.5, "cm"), grid_width = unit(2.5, "cm")))
+  
+   
+  #Annotate most significant genes
+  top50 <-  rownames(subset(resOrdered, padj < 0.001))
+  int_genes <- rowData(RNAnorm[top50,])$symbol
+
+subset <- as.data.frame(rowData(RNAnorm[sig_Genes,]))
+subset <- subset[-which(subset$symbol %in% ""),]
+subset <- subset[-which(subset$symbol %in% NA),]
+
+subset <- subset[which(subset$symbol %in% int_genes),]
+rownames(subset) <- subset$symbol
+geneIDs <- which(rownames(geneExpression_new) %in% rownames(subset))
+labels <- rownames(geneExpression_new)[geneIDs]
+ha_genes <- rowAnnotation(link = row_anno_link(at = geneIDs, labels = labels, labels_gp = gpar(fontsize = 45)), width = unit(9, "cm"))
+  
+
+  
+  #svg(filename="~/git/figures_thesis/gene_expr/epistatsisTri12IGHV.svg", width=30, height=50)
+  #pdf(file="/home/almut/Dokumente/git/Transcriptome_CLL/paper/figures/epistasis_Deseq.pdf", width=35, height=45)
+  draw(h1 + ha_genes + ha_chrom) 
+  #dev.off()
+  #draw(h1 + ha_chrom + ha_genes)
+ IGHVTri12 <- list("sig_Genes" = sig_Genes, "geneExp" = geneExpression_new, "h1"= h1)
+
+```
+
+
+## Genewise count distribution 
+
+```{r single gene counts, fig.width=7, fig.height=5}
+#function to create stripchart plots for specific genes
+gene_count <- function(gene_nam){
+  geneEnsID <- rownames(ddsCLL)[which(rowData(ddsCLL)$symbol %in% gene_nam)]
+  geneNum <- counts(ddsCLL)[geneEnsID,]
+  mutPat <- as.data.frame(mutationStatus[colData(ddsCLL)$PatID,])
+  colnames(mutPat) <- c("genotype")
+  geneDat <- cbind(mutPat, geneNum)
+  colnames(geneDat) <- c("genotype", "counts")
+  
+  p <- ggstripchart(geneDat, x = "genotype", y = "counts",
+          color = "genotype",
+          palette = "jco",
+          add = "mean_sd",
+          title = paste(gene_nam),
+          ylab = "gene counts",
+          font.x = 25, font.y = 25, font.legend = 20) + font("xy.text", size = 20) + font("title", size = 30, face = "bold")
+ #ggsave(file=paste0("/home/almut/Dokumente/git/Transcriptome_CLL/paper/figures/epi_genes/genetic_interaction_", gene_nam, ".svg"), plot=p, width=7, height=5)
+  p
+}
+
+
+#interesting genes
+geneList <- c("LEF1", "TIMELESS", "CHAD", "BCL2A1", "EML6", "PPP1R14A", "EPHB6", "GEN1", "EBF1", "EBF4")
+
+
+lapply(geneList, gene_count)
+
+
+```
+
+
+## Clusterwise count distribution
+
+```{r number of genes within cluster}
+
+cluster <- c("buffering_dn","sup_tri", "buffering_up" ,"buffering_up_strong", "inversion_up")
+
+cluster_size <- lapply(c(1:5), function(clusternr){
+  size <- length(row_order(IGHVTri12$h1)[[clusternr]])
+  name <- cluster[clusternr]
+  clust <- c(name, as.numeric(size))
+}) %>% do.call(rbind,.) 
+
+cluster_size <- as.data.frame(cluster_size)
+colnames(cluster_size) <- c("name", "size")
+cluster_size$size <- as.numeric(as.character(cluster_size$size))
+distr <- ggbarplot(cluster_size, "name", "size",
+   fill = "name", color = "name",
+   palette = "jco",
+   ylab = "Number of genes",
+   xlab = "cluster")
+ 
+ #ggsave(file="/home/almut/Dokumente/masterarbeit/workinprogress/distrib_ofEpiTypes.svg", plot=distr, width=8, height=5)
+distr
+
+```
+
+
+# Enrichment analysis
+List-based enrichment - Piano package Fisher's exact on genes from one cluster only.
+```{r list-based GSA, fig.width = 20, fig.height= 30}
+
+#load gene set collection
+#Hallmark
+gsc <- loadGSC("/home/almut/Dokumente/masterarbeit/data/h.all.v6.0.symbols.gmt", type="gmt")
+#Kegg
+gsc_Kegg <- loadGSC("/home/almut/Dokumente/masterarbeit/data/c2.cp.kegg.v6.0.symbols.gmt", type="gmt")
+tft <- loadGSC("/home/almut/Dokumente/masterarbeit/data/c3.tft.v6.0.symbols.gmt", type="gmt")
+c5 <- loadGSC("/home/almut/Dokumente/masterarbeit/data/c5.all.v6.0.symbols.gmt", type="gmt")
+c6 <- loadGSC("/home/almut/Dokumente/masterarbeit/data/c6.all.v6.0.symbols.gmt", type="gmt")
+c7 <- loadGSC("/home/almut/Dokumente/masterarbeit/data/c7.all.v6.0.symbols.gmt", type="gmt")
+cgp <- loadGSC("/home/almut/Dokumente/masterarbeit/data/c2.cgp.v6.0.symbols.gmt", type="gmt")
+
+
+```
+
+
+
+```{r GSEA piano, fig.height=7, fig.weight=16}
+#GSA on cluster defined by kmeans clustering. See cluster in heatmap...
+setWiseGSA <- function(clusternr, gmtFile){
+  #get sig genes and pvalues for each cluster
+  geneNam <- IGHVTri12$sig_Genes[row_order(IGHVTri12$h1)[[clusternr]]] 
+  pVal <- resSig[geneNam, "padj"]
+  #needs to be symbol/remove those without symbol, but ENSID only
+  genName <- rowData(RNAnorm[geneNam,])$symbol
+  gsTab <- data.frame(gene = genName, stat = pVal)
+  gsTab <- gsTab[-which(gsTab$gene %in% c("", NA)),]
+  gsaTab <- data.frame(row.names = gsTab$gene, stat = gsTab$stat)
+  res <- runGSA(geneLevelStats = gsaTab,
+                      geneSetStat = "fisher",
+                     adjMethod = "fdr", gsc=gmtFile,
+                     signifMethod = 'nullDist',
+                     #nPerm = 50000,
+                      gsSizeLim=c(1, Inf))
+  Res <- arrange(GSAsummaryTable(res),desc(`Stat (non-dir.)`))
+  #rename results to plot
+  resPlot <- Res[, c(1:5)]
+  colnames(resPlot) <- c("pathway", "gene_number", "stat", "p", "p.adj")
+
+  #barplot
+  #ggplot(resPlot %>% mutate(log10Padj = -log10(p.adj)), aes(x = reorder(pathway, log10Padj), y = log10Padj, fill = gene_number)) + geom_bar(stat = "identity") + coord_flip() + ggtitle(cluster[clusternr])
+  
+  enrichPlot <- resPlot[c(1:10),] %>% mutate(log10Padj = -log10(p.adj)) %>% mutate(genes = ifelse(gene_number > 5, ">5", "<=5"))
+  
+  p <- ggbarplot(enrichPlot, x = "pathway", y = "log10Padj",
+          fill = "genes",           # change fill color by mpg_level
+          color = "white",            # Set bar border colors to white
+          palette = "jco",            # jco journal color palett. see ?ggpar
+          sort.val = "asc",          # Sort the value in ascending order
+          sort.by.groups = FALSE,     # Don't sort inside each group
+          x.text.angle = 90,          # Rotate vertically x axis texts
+          ylab = "-log10(padj)",
+          legend.title = "Pathway",
+          rotate = TRUE,
+          font.x = 20, font.y = 20, font.legend = 20, legend = "right", 
+          title = paste0("GSEA in ", cluster[clusternr]),
+          ggtheme = theme_pubr()
+          ) + font("xy.text", size = 22) + font("title", size = 20, face = "bold")
+  
+   ggsave(file=paste0("/home/almut/Dokumente/masterarbeit/results/enrichment_epistasis/GSEA_in_", clusternr, ".pdf"), plot=p, width=16, height=7)
+#pdf(file= paste0("/home/almut/Dokumente/git/Transcriptome_CLL/paper/figures/GSEA_in_", clusternr, ".pdf"), width=40, height=35)
+  p
+ # dev.off()
+  
+  
+  }
+
+clusternr = c(1:5)
+
+
+lapply(as.numeric(clusternr), FUN = "setWiseGSA", gmtFile = gsc)
+
+
+
+```
+
+
+# Mixed epistatsis scheme
+
+Scheme to show different ways of mixed epistasis
+```{r epistasis scheme, fig.width=7, fig.height=5}
+#generate a dataframe
+mix <- t(data.frame(buffering_up = c(-0.1, -0.5, 0.5, 5), buffering_dn = c(0.5, 0.2, -0.2, -5), suppression_1 = c(0.5, -5, -6, 0.2), suppression_2 = c(-0.2, 5, 4,-0.5), suppression_3 = c(0.5, 0.1, -6, 1), suppression_4 = c(-0.2, 0.5, 4,-0.5), inversion_up = c(-0.2, -6, -4, 5), inversion_dn = c(0.1, 5, 4, -5)))
+colnames(mix) <-  c("none", "IGHV", "trisomy12", "both")
+
+annocol <- get_palette("jco", 10)
+annocolor <- list(Variant = c("none" = annocol[1], annocol[2], annocol[3], "both" = annocol[4]))
+names(annocolor$Variant) <- c("none", "IGHV", "trisomy12", "both")
+variants <- as.data.frame(colnames(mix))
+colnames(variants) <- "Variant"
+rownames(variants) <- variants$Variant
+
+  #Column annotation
+  ha_col = HeatmapAnnotation(df = variants, col = annocolor, annotation_height = unit(0.9, "cm"), annotation_legend_param = list(title_gp = gpar(fontsize = 20), labels_gp = gpar(fontsize = 15),  grid_height = unit(0.9, "cm"), grid_width = unit(0.9, "cm"), gap = unit(15, "mm")))
+
+#heatmap
+h1 <- Heatmap(mix, col = colors ,column_title = paste0("Types of mixed epistasis"), column_title_gp = gpar(fontsize = 20, fontface = "bold"), heatmap_legend_param = list(title = "Expr.", title_gp = gpar(fontsize = 20), grid_height = unit(1, "cm"), grid_width = unit(0.5, "cm"), gap = unit(10, "mm"), labels_gp = gpar(fontsize = 20), labels = c(-6,-3, 0,3, 6)) , show_row_dend = F, show_column_names =FALSE , top_annotation = ha_col, show_row_names = FALSE, show_column_dend = FALSE, cluster_columns = FALSE, cluster_rows = FALSE, split = c( rep("Buffering",2), rep("Suppression", 4), rep("Inversion", 2)), gap = unit(0.6,"cm"), row_title_gp = gpar(fontsize=19))
+
+#pdf(file="/home/almut/Dokumente/git/Transcriptome_CLL/paper/figures/mixed_epistasis_model.pdf", width=7, height=5)
+draw(h1)
+#dev.off()
+
+```
+
+

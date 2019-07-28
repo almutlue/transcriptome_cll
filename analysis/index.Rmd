@@ -23,6 +23,10 @@ Transcriptome CLL analysis
   + [del17p13](Del17p13.html)
   + [Notch1](Notch1.html)
   + [gain8q24](Gain8q24.html) 
-  + [del8p12](Del8p12.html) 
+  + [del8p12](Del8p12.html)
+  + [ATM](ATM.html)
+  + [IGHV](IGHV.html)
+  + [MED12](MED12.html)
 * Epistasis
+  + [epistatsis_tri12_ighv](epistasis.html)
 
