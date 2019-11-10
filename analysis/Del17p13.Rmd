@@ -154,20 +154,44 @@ gene_count <- function(gene_nam){
           add = "mean_sd",
           title = paste(gene_nam),
           font.x = 18, font.y = 18, font.legend = 16, 
-          ylab = "normalized counts") + font("xy.text", size = 15) + font("title", size = 20, face = "bold")
+          ylab = "counts") + font("xy.text", size = 15) + font("title", size = 20, face = "bold")
   #ggsave(file=paste0(figure_dir, "/tri12/genetic_interaction_", gene_nam, ".svg"), plot=p, width=6, height=5)
   p
 }
 
-diff <- diff_all[which(abs(diff_all$log2FoldChange) > 2 & diff_all$baseMean > 100),]
+diff <- diff_all[which(abs(diff_all$stat) > 5),]
 geneList <- as.character(diff$Symbol)
-
+geneList <- geneList[-which(geneList %in% "")]
 
 lapply(geneList, gene_count)
 
 
 ```
+# Interesting top genes
 
+A list of genes, with manual checked expression differences:
+Downregulated in **Del11q22**:
++ VPS53
++ MPDU1
++ DLV2
++ SENP3
++ TNK1
++ ZZEF1
++ C1QBP
++ ZBTB4
++ GLOD4
++ SMG6
++ PFAS
++ TNFSF12
++ MPRIP
++ RABEBPI
++ UBE2G1
++ CTNS
++ FXR2
++ more..
+
+Upregulated in **Del11q22**:
+..
 
 # Gene set enrichment analysis
 

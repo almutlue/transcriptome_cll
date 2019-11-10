@@ -56,7 +56,7 @@ diff_all <- read.csv(file=paste0(output_dir, "/diff_genes/", variant, "_diffGene
 
 rownames(diff_all) <- diff_all$X
 diff_all <- diff_all[which(diff_all$padj < 0.01 ),-1]
-diff <- diff_all[which(abs(diff_all$log2FoldChange) > 2 & diff_all$stat > 4),]
+diff <- diff_all[which( abs(diff_all$stat) > 5),]
 
 
 mutStatus <- data.frame(colData(ddsCLL)) %>% arrange(del11q22.3)
@@ -154,18 +154,46 @@ gene_count <- function(gene_nam){
           add = "mean_sd",
           title = paste(gene_nam),
           font.x = 18, font.y = 18, font.legend = 16, 
-          ylab = "normalized counts") + font("xy.text", size = 15) + font("title", size = 20, face = "bold")
+          ylab = "counts") + font("xy.text", size = 15) + font("title", size = 20, face = "bold")
   #ggsave(file=paste0(figure_dir, "/tri12/genetic_interaction_", gene_nam, ".svg"), plot=p, width=6, height=5)
   p
 }
 
 geneList <- as.character(diff$Symbol)
-
+geneList <- geneList[-which(geneList %in% "")]
 
 lapply(geneList, gene_count)
 
 
 ```
+# Interesting top genes
+
+A list of genes, with manual checked expression differences:
+Downregulated in **Del11q22**:
++ ATM
++ TTC12
++ SNED1
++ C11orf57
++ USP28
++ NT5e
++ AASDHPPT
++ ACAT1
++ BCO2
++ KDEL2
++ SDHD
++ RBM7
++ DDX10
++ SIK2
++ REXO2
++ CWF19L
++ PPP2R1B
++ KLF3
++ CASP4
++ FDX1 
+.. an more
+
+Upregulated in **Del11q22**:
++ FANCA
 
 
 # Gene set enrichment analysis

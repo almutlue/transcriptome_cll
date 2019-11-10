@@ -155,19 +155,43 @@ gene_count <- function(gene_nam){
           add = "mean_sd",
           title = paste(gene_nam),
           font.x = 18, font.y = 18, font.legend = 16, 
-          ylab = "normalized counts") + font("xy.text", size = 15) + font("title", size = 20, face = "bold")
+          ylab = "counts") + font("xy.text", size = 15) + font("title", size = 20, face = "bold")
   #ggsave(file=paste0(figure_dir, "/tri12/genetic_interaction_", gene_nam, ".svg"), plot=p, width=6, height=5)
   p
 }
 
-diff <- diff_all[which(diff_all$stat > 4),]
+diff <- diff_all[which(abs(diff_all$stat) > 4.5),]
 geneList <- as.character(diff$Symbol)
-
+geneList <- geneList[-which(geneList %in% "")]
 
 lapply(geneList, gene_count)
 
 
 ```
+# Interesting top genes
+
+A list of genes, with manual checked expression differences:
+Downregulated in **Del11q22**:
++ FLII
++ NUP88
++ DRG2
++ SPAG7
++ SMG6
++ RABEP1
++ ELAC2
++ TOP3A
++ MAP2K4
++ RNF167
++ PANK4
++ MED11
++ PELP1
++ MPDU1
++ CTDNEP1
++ SGF29
++ FXR2
+
+Upregulated in **Del11q22**:
++ HYPK
 
 
 # Gene set enrichment analysis
@@ -184,7 +208,7 @@ gsc_Kegg <- loadGSC("/home/almut/Dokumente/masterarbeit/data/c2.cp.kegg.v6.0.sym
 Run piano
 ```{r piano, fig.width=16, fig.height=7}
 
-gmtFile <- gsc_Kegg
+gmtFile <- gsc
 
 diff_res <- diff_all
 diff_res$chromosome <- rowData(RNAnorm)[rownames(diff_res),]$chromosome
@@ -214,7 +238,7 @@ colnames(resPlot) <- c("pathway", "gene_number", "stat", "p.adj","genes_up" , "g
 colnames(resPlot_dn) <- c("pathway", "gene_number", "stat", "p.adj","genes_up" , "genes_dn")
 
 
-enrichPlot <- resPlot[c(1:5),] %>% mutate(log10Padj = -log10(p.adj)) 
+enrichPlot <- resPlot_dn[c(1:5),] %>% mutate(log10Padj = -log10(p.adj)) 
 
 #plot
 p <- ggbarplot(enrichPlot, x = "pathway", y = "log10Padj",
@@ -227,7 +251,7 @@ p <- ggbarplot(enrichPlot, x = "pathway", y = "log10Padj",
           legend.title = "#diff.genes",
           rotate = TRUE,
           font.x = 20, font.y = 20, font.legend = 20, legend = "right", 
-          title = "TP53 - Kegg",
+          title = "TP53 - Hallmark",
           ggtheme = theme_pubr()) + 
   font("xy.text", size = 16) + 
   font("title", size = 20, face = "bold")
