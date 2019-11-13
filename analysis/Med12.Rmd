@@ -2,9 +2,7 @@
 title: "Med12"
 author: "aluetge"
 date: "2019-06-29"
-output: workflowr::wflow_html
-editor_options:
-  chunk_output_type: console
+output: html_document
 ---
 
 ```{r setup, include=FALSE}
@@ -59,7 +57,6 @@ diff_all <- read.csv(file=paste0(output_dir, "/diff_genes/", variant, "_diffGene
 rownames(diff_all) <- diff_all$X
 diff_all <- diff_all[which(diff_all$padj < 0.01 ),-1]
 diff <- diff_all
-
 
 mutStatus <- data.frame(colData(ddsCLL)) %>% arrange(MED12)
 colnames(ddsCLL) <-colData(ddsCLL)$PatID
