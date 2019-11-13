@@ -344,7 +344,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-07-28
+<strong>Last updated:</strong> 2019-11-13
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 2 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -375,10 +375,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltreecbac5c20fb1cfe83dd9f4f73132861dd916a2bbftargetblankcbac5c2a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/almutlue/transcriptome_cll/tree/cbac5c20fb1cfe83dd9f4f73132861dd916a2bbf" target="_blank">cbac5c2</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree79132075ff2b183bcd4f248185444478a3a84e8btargetblank7913207a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/almutlue/transcriptome_cll/tree/79132075ff2b183bcd4f248185444478a3a84e8b" target="_blank">7913207</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltreecbac5c20fb1cfe83dd9f4f73132861dd916a2bbftargetblankcbac5c2a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree79132075ff2b183bcd4f248185444478a3a84e8btargetblank7913207a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -391,18 +391,11 @@ Ignored files:
 Untracked files:
     Untracked:  data/c2.cp.kegg.v6.0.symbols.gmt
     Untracked:  data/ddsrnaCLL_150218.RData
-    Untracked:  docs/figure/ATM.Rmd/
-    Untracked:  docs/figure/Del17p13.Rmd/
-    Untracked:  docs/figure/Del8p12.Rmd/
-    Untracked:  docs/figure/Gain8q24.Rmd/
-    Untracked:  docs/figure/IGHV.Rmd/
-    Untracked:  docs/figure/Med12.Rmd/
-    Untracked:  docs/figure/Notch1.Rmd/
-    Untracked:  docs/figure/TP53.Rmd/
-    Untracked:  docs/figure/epistasis.Rmd/
+    Untracked:  docs/figure/methylation_IP_vs_all.Rmd/
     Untracked:  output/diff_genes/
     Untracked:  output/diff_meth.rds
     Untracked:  output/diff_meth_IGHV.rds
+    Untracked:  output/diff_meth_IP_vs_all.rds
     Untracked:  output/figures/
     Untracked:  output/res_epistatsis_ighv_tri12.rds
 
@@ -443,6 +436,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/79132075ff2b183bcd4f248185444478a3a84e8b/analysis/index.Rmd" target="_blank">7913207</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+<td>
+wflow_publish(c(“analysis/methylation_IP_vs_all.Rmd”, “analysis/methylation_HP_vs_IP.Rmd”, “analysis/index.Rmd”))
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/almutlue/transcriptome_cll/cc24f928b35f1d70caf1f312608fad772de22bab/docs/index.html" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -604,15 +631,19 @@ Start workflowr project.
 </div>
 </div>
 <p>Transcriptome CLL analysis</p>
+<div id="dataset" class="section level2">
+<h2>Dataset</h2>
+</div>
+<div id="general-analysis" class="section level2">
+<h2>General Analysis</h2>
+</div>
+<div id="variants" class="section level2">
+<h2>Variants</h2>
 <ul>
-<li>Dataset</li>
-<li>General Analysis</li>
-<li>Variants<br />
-</li>
 <li><a href="trisomy12.html">Trisomy12</a><br />
 </li>
-<li><a href="methylation_groups.html">Methylation</a><br />
-</li>
+<li><a href="methylation_groups.html">Methylation</a></li>
+<li><a href="methylation_IP_vs_all.html">Methylation_IP_group</a></li>
 <li><a href="BRAF.html">BRAF</a><br />
 </li>
 <li><a href="SF3B1.html">SF3B1</a><br />
@@ -628,9 +659,14 @@ Start workflowr project.
 <li><a href="ATM.html">ATM</a></li>
 <li><a href="IGHV.html">IGHV</a></li>
 <li><a href="MED12.html">MED12</a></li>
-<li>Epistasis</li>
+</ul>
+</div>
+<div id="epistasis" class="section level2">
+<h2>Epistasis</h2>
+<ul>
 <li><a href="epistasis.html">epistatsis_tri12_ighv</a></li>
 </ul>
+</div>
 
 
 <!-- Adjust MathJax settings so that all math formulae are shown using
