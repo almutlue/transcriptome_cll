@@ -2,7 +2,7 @@
 title: "Notch1"
 author: "aluetge"
 date: "2019-06-27"
-output: workflowr::wflow_html
+output: html_document
 ---
 
 
@@ -57,7 +57,7 @@ diff_all <- read.csv(file=paste0(output_dir, "/diff_genes/", variant, "_diffGene
 
 rownames(diff_all) <- diff_all$X
 diff_all <- diff_all[which(diff_all$padj < 0.01 ),-1]
-diff <- diff_all[which(abs(diff_all$log2FoldChange) > 2) ,]
+diff <- diff_all[which(abs(diff_all$stat) > 4.5) ,]
 
 
 mutStatus <- data.frame(colData(ddsCLL)) %>% arrange(NOTCH1)

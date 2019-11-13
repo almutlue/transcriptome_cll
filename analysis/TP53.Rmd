@@ -171,7 +171,7 @@ lapply(geneList, gene_count)
 # Interesting top genes
 
 A list of genes, with manual checked expression differences:
-Downregulated in **Del11q22**:
+Downregulated in **TP53**:
 + FLII
 + NUP88
 + DRG2
@@ -190,7 +190,7 @@ Downregulated in **Del11q22**:
 + SGF29
 + FXR2
 
-Upregulated in **Del11q22**:
+Upregulated in **TP53**:
 + HYPK
 
 
