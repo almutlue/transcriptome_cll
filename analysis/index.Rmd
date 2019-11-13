@@ -10,11 +10,12 @@ editor_options:
 
 Transcriptome CLL analysis
 
-* Dataset
-* General Analysis
-* Variants  
+## Dataset
+## General Analysis
+## Variants  
   + [Trisomy12](trisomy12.html)  
-  + [Methylation](methylation_groups.html)  
+  + [Methylation](methylation_groups.html)
+  + [Methylation_IP_group](methylation_IP_vs_all.html)
   + [BRAF](BRAF.html)  
   + [SF3B1](SF3B1.html)  
   + [del11q22](del11q22.html)  
@@ -27,6 +28,8 @@ Transcriptome CLL analysis
   + [ATM](ATM.html)
   + [IGHV](IGHV.html)
   + [MED12](MED12.html)
-* Epistasis
+  
+## Epistasis
+
   + [epistatsis_tri12_ighv](epistasis.html)
 
