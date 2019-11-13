@@ -170,7 +170,7 @@ lapply(geneList, gene_count)
 # Interesting top genes
 
 A list of genes, with manual checked expression differences:
-Downregulated in **Del11q22**:
+Downregulated in **Del17p13**:
 + VPS53
 + MPDU1
 + DLV2
@@ -190,7 +190,7 @@ Downregulated in **Del11q22**:
 + FXR2
 + more..
 
-Upregulated in **Del11q22**:
+Upregulated in **Del17p13**:
 ..
 
 # Gene set enrichment analysis

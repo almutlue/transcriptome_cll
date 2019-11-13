@@ -58,8 +58,6 @@ diff_all <- read.csv(file=paste0(output_dir, "/diff_genes/", variant, "_diffGene
 
 rownames(diff_all) <- diff_all$X
 diff_all <- diff_all[which(diff_all$padj < 0.01 ),-1]
-diff <- diff_all
-
 
 mutStatus <- data.frame(colData(ddsCLL)) %>% arrange(del8p12)
 colnames(ddsCLL) <-colData(ddsCLL)$PatID
@@ -162,7 +160,7 @@ gene_count <- function(gene_nam){
   p
 }
 
-diff <- diff_all[which(diff_all$stat > 4),]
+diff <- diff_all[which(abs(diff_all$stat) > 4.5) ,]
 geneList <- as.character(diff$Symbol)
 geneList <- geneList[-which(geneList %in% "")]
 
