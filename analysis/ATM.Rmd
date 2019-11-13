@@ -59,7 +59,8 @@ diff_all <- read.csv(file=paste0(output_dir, "/diff_genes/", variant, "_diffGene
 
 rownames(diff_all) <- diff_all$X
 diff_all <- diff_all[which(diff_all$padj < 0.01 ),-1]
-diff <- diff_all
+diff <- diff_all[which(abs(diff_all$stat) > 4.5) ,]
+
 
 
 mutStatus <- data.frame(colData(ddsCLL)) %>% arrange(ATM)
