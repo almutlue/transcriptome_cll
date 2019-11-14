@@ -131,4 +131,10 @@ ggbarplot(sum_dat_long2[order(match(sum_dat_long2$variant, sum_order$variant)),]
 
 ```
 
+## summary table
+```{r table}
+#pdf(file=paste0(output_dir,"/sum_diffGenes_table.pdf"), width=5, height=7.5)
+sum_dat
+#dev.off()
 
+```
