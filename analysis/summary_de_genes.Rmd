@@ -4,8 +4,9 @@ author: "almut"
 date: "14 November 2019"
 output: html_document
 ---
+# Summary DE genes by variants
 
-##Aim: Generate a summary plot giving an overview on the number of differntially expressed genes / number upreagulated / number downregulated genes and chromosomal distribution for CNVs.
+Aim: Generate a summary plot giving an overview on the number of differntially expressed genes / number upreagulated / number downregulated genes and chromosomal distribution for CNVs.
 
 
 libraries
