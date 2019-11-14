@@ -536,10 +536,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltreee8e7a32a20bc370973f689dbf661ffdcdcb03eaetargetblanke8e7a32a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/almutlue/transcriptome_cll/tree/e8e7a32a20bc370973f689dbf661ffdcdcb03eae" target="_blank">e8e7a32</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree7a81840f848321ce6bbf4eded147cc81c14f3486targetblank7a81840a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/almutlue/transcriptome_cll/tree/7a81840f848321ce6bbf4eded147cc81c14f3486" target="_blank">7a81840</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltreee8e7a32a20bc370973f689dbf661ffdcdcb03eaetargetblanke8e7a32a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree7a81840f848321ce6bbf4eded147cc81c14f3486targetblank7a81840a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -591,6 +591,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/7a81840f848321ce6bbf4eded147cc81c14f3486/analysis/summary_de_genes.Rmd" target="_blank">7a81840</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-14
+</td>
+<td>
+wflow_publish(“analysis/summary_de_genes.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/almutlue/transcriptome_cll/794365a48207a7c995969c1b6a97cb0f94b3f802/docs/summary_de_genes.html" target="_blank">794365a</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-14
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -866,6 +900,27 @@ aluetge
 </div>
 </div>
 <pre class="r"><code>#dev.off()</code></pre>
+</div>
+</div>
+<div id="summary-table" class="section level2">
+<h2>summary table</h2>
+<pre class="r"><code>#pdf(file=paste0(output_dir,&quot;/sum_diffGenes_table.pdf&quot;), width=5, height=7.5)
+sum_dat</code></pre>
+<pre><code>      variant n_genes up_genes dn_genes nr_up nr_dn nr_chrom nr_other
+1   trisomy12    3828     1930     1898   540    13      553     3275
+2    del13q14     167       29      138     0    11       11      156
+3     del8p12      65       24       41     5    28       33       32
+4    gain8q24      66       54       12    32     7       39       27
+5  del11q22.3     171       82       89     1    48       49      122
+6    del17p13     287      162      125    11    82       93      194
+7        BRAF     226      189       37     0     0        0      226
+8      NOTCH1      73       41       32     0     0        0       73
+9       SF3B1     361      232      129     0     0        0      361
+10       TP53      95       49       46     0     0        0       95
+11        ATM      24       19        5     0     0        0       24
+12      MED12      35       17       18     0     0        0       35
+13       IGHV    3557     2108     1449     0     0        0     3557</code></pre>
+<pre class="r"><code>#dev.off()</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -940,7 +995,6 @@ loaded via a namespace (and not attached):
 [79] locfit_1.5-9.1         grid_3.6.0             readxl_1.3.1          
 [82] data.table_1.12.2      blob_1.1.1             git2r_0.25.2          
 [85] digest_0.6.19          xtable_1.8-4           munsell_0.5.0         </code></pre>
-</div>
 </div>
 </div>
 </div>
