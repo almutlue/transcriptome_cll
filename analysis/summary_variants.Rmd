@@ -1,0 +1,161 @@
+---
+title: "summary_variants"
+author: "almut"
+date: "14 November 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Summary Variants
+
+Mutations in our dataset/Generate an overview of our data set
+- number of mutations/sample
+- number of cases/variant
+- co-occurence/corplot
+
+load packages
+```{r packages, warning=FALSE, message=FALSE}
+suppressPackageStartupMessages({
+  library(DESeq2)
+  library(dplyr)
+  library(ggplot2)
+  library(tidyverse)
+  library(corrplot)
+  library(ggpubr)
+  library(reshape2)
+  library(here)
+})
+```
+
+
+load datasets
+```{r data}
+data_dir <- here("data")
+output_dir <- here("output")
+figure_dir <- here("output/figures")
+
+#dds data set. gene expression data + patmetadata
+load(paste0(data_dir, "/ddsrnaCLL_150218.RData"))
+
+#load meta data including genotyping info
+load(paste0(data_dir, "/patmeta_170324.RData"))
+excluded_columns <- c("HIPO.ID","PID", "gender","project", "diagnosis", "date.of.diagnosis", "treatment", "date.of.first.treatment", "IGHV.status","Methylation_Cluster")
+
+patMeta <- as.tibble(patMeta) %>% filter(Patient.ID %in% ddsCLL$PatID) %>% dplyr::select(-one_of(excluded_columns))
+
+variants <- c( "trisomy12", "del13q14", "del8p12", "gain8q24", "del11q22.3", "del17p13", "BRAF", "NOTCH1", "SF3B1","TP53", "ATM", "MED12", "IGHV")
+
+pat_new <- as.tibble(colData(ddsCLL)) %>% select(variants)
+
+```
+
+
+## Number of recurrecnt mutations/patient
+
+```{r hist, fig.width=4, fig.height=3}
+N_mut <- patMeta %>% dplyr::select(-Patient.ID) %>% mutate_if(is.factor, as.character) %>% mutate_if(is.character, as.numeric) %>% mutate(mutations=rowSums(.,na.rm = TRUE))
+
+N_mut$IGHV <- pat_new$IGHV
+N_mut$color <- c(rep("blue", nrow(N_mut)))
+
+p <- gghistogram(N_mut, x = "mutations",
+   add = "mean", bins = 12, fill = "color",
+  palette = "jco")
+
+ggsave(file=paste0(figure_dir, "/hist_mutations.svg"), plot=p, width=4, height=3)
+p
+mean(N_mut$mutations)
+```
+
+
+# Variant frequency
+
+```{r overview, fig.height=5, fig.width=15}
+
+#group by IGHV status
+overview <- pat_new %>% mutate_at(vars(-IGHV), as.character) %>% mutate_at(vars(-IGHV), as.numeric) %>% dplyr::group_by(IGHV) %>% dplyr::summarize_if(is.numeric, sum, na.rm =T) 
+
+#Add total numbers 
+Sum <- pat_new %>% dplyr::select(-IGHV) %>% mutate_if(is.factor, as.character) %>% mutate_if(is.character, as.numeric) %>% summarize_if(is.numeric, sum, na.rm =T)
+
+#Add IGHV status
+IGHV_status <- as_data_frame(pat_new$IGHV) %>% dplyr::summarize(M = sum(value %in% "M"), U = sum(value %in% "U"), "NA" = sum(is.na(value)), Total = n())
+Sum$IGHV <- "Total"
+IGHV_status <- t(IGHV_status)
+
+#Combine all
+sum_tab <- rbind(overview,Sum)
+sum_tab <- cbind(sum_tab, IGHV_status)
+
+sum_melted <- melt(sum_tab)
+
+#plot
+p <- ggplot(sum_melted, aes(x = variable, y = factor(IGHV, levels = c("Total", "NA", "M", "U")))) +  
+      geom_tile(aes(fill = value)) + 
+      geom_text(aes(label = round(value, 1)), size =8) + ylab("IGHV_status") +
+      scale_fill_gradient(low = "white", high = "#ED0000FF") + 
+      theme(axis.title.x = element_text(face="bold", size=30), axis.text.x=element_text(size=25, angle = 90)) + 
+      theme(axis.title.y = element_text(face="bold", size=25), axis.text.y= element_text(size=20))
+
+
+#pdf(file=paste0(figure_dir, "/overview_mutations.pdf"), width=15, height=5)
+p
+#dev.off()
+
+
+```
+
+
+
+# Variant co-occurence
+
+```{r corMat chi, fig.height=10, fig.width= 10, warning = FALSE}
+
+#Chisquare p.adj matrix
+my_chisquare <- function(variant_in){
+  pat_new_sorted <- pat_new %>% set_rownames(ddsCLL$PatID)
+  pat_new_sorted <- pat_new_sorted[patMeta$Patient.ID,]
+  patMeta$IGHV_mu <- pat_new_sorted$IGHV
+  patMeta <- patMeta %>% mutate("IGHV" = ifelse(IGHV_mu %in% "M", 1,0))
+  patMat <- as.matrix(patMeta)
+  rownames(patMat) <- patMeta$Patient.ID
+  variant1 <- patMat[, c("Patient.ID",variant_in)]
+  rownames(variant1) <- patMeta$Patient.ID
+  variant1 <- variant1[which(!is.na(variant1[,variant_in])),]
+  geneBack <- patMat[rownames(variant1), variants]
+
+  coRes <- apply(geneBack, 2, function(x) {
+  nonNA <- !is.na(x)
+  res <- chisq.test(variant1[,variant_in][nonNA], x[nonNA])
+  data.frame(p=res$p.value, stat = res$statistic[[1]], residu = ifelse(res$residuals[1] > 0, 1, -1))
+  }) %>% do.call(rbind,.)
+  
+  coRes$p.adj <- p.adjust(coRes$p)
+  resultDat <- as.data.frame(-log10(coRes$p.adj) * coRes$residu)
+  rownames(resultDat) <- rownames(coRes)
+  colnames(resultDat) <- variant_in
+  resultDat[variant_in,] <- 0
+  resultDat
+}
+
+resChi <-lapply(variants, my_chisquare) %>% do.call(cbind,.)
+resChiMat <- as.matrix(resChi)
+
+col <- colorRampPalette(rev(c("#BB4444", "#EE9988", "#FFFFFF", "#77AADD", "#4477AA")))(50)
+
+#svg(file=paste0(figure_dir, "/corplot_chiquare.svg"), width=10, height=10)
+corrplot(resChiMat, is.corr = FALSE, method="color", col = col,
+ type = "upper", order = "hclust", number.cex = 1.2,
+         addCoef.col = "black",                       # Add coefficient of correlation
+         tl.col = "black", tl.srt = 90,               # Text label color and rotation
+         tl.cex=1.4,
+         cl.lim = c(-6, 12),
+         cl.cex = 1.0,
+         diag = FALSE,
+         title = "-log10(p.adjust) * cor_direction")
+#dev.off()
+
+```
