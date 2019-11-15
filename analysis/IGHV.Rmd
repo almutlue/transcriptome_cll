@@ -2,9 +2,7 @@
 title: "IGHV"
 author: "aluetge"
 date: "2019-06-29"
-output: workflowr::wflow_html
-editor_options:
-  chunk_output_type: console
+output: html_document
 ---
 
 
@@ -12,9 +10,9 @@ editor_options:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## IGHV signature
+# IGHV signature
 
-# Differentially expressed genes
+## Differentially expressed genes
 
 ### 1. Differential expression analysis
 load packages
@@ -140,7 +138,7 @@ draw(h1 )
 ```
 
 
-# Sample and gene specific expression - top genes
+## Top genes
 
 ```{r single gene counts, fig.width=6, fig.height=5}
 #function to create stripchart plots for specific genes
@@ -173,15 +171,12 @@ lapply(geneList, gene_count)
 ```
 
 
-# Gene set enrichment analysis
+## Gene set enrichment analysis
 
 Gene sets
 ```{r gene sets}
 #load gene set collection
-#Hallmark
-gsc <- loadGSC("/home/almut/Dokumente/masterarbeit/data/h.all.v6.0.symbols.gmt", type="gmt")
-#Kegg
-gsc_Kegg <- loadGSC("/home/almut/Dokumente/masterarbeit/data/c2.cp.kegg.v6.0.symbols.gmt", type="gmt")
+gsc_Kegg <- loadGSC(paste0(data_dir, "/c2.cp.kegg.v6.0.symbols.gmt"), type="gmt")
 ```
 
 Run piano
@@ -242,3 +237,40 @@ p <- ggbarplot(enrichPlot, x = "pathway", y = "log10Padj",
 
 ```
 
+## IG gene status
+
+```{r IG variants}
+
+#load object with variant status
+load(paste0(data_dir, "/2018-03-05_IGHV.RData"))
+#sort patIDs by ddsCll object
+IG_gene <- as.tibble(IG_gene_analysis_Uppsala) %>% mutate(IGHV1_69 = ifelse(Vgene %in% "IGHV1-69", 1, 0), PatID = patientID) %>% dplyr::select(IGHV1_69, PatID)
+
+colData_tib <- as.tibble(colData(ddsCLL)) 
+
+colDat_integrated <- left_join(colData_tib,IG_gene)
+
+colData(ddsCLL)$IGHV1_69 <- as.factor(colDat_integrated$IGHV1_69)
+
+
+geneEnsID <- rownames(ddsCLL)[which(rowData(ddsCLL)$symbol %in% "IGHV1-69")]
+geneNum <- counts(ddsCLL)[geneEnsID,]
+mutPat <- as.data.frame(colData(ddsCLL)[, c("IGHV", "IGHV1_69")])
+colnames(mutPat) <- c("genotype", "IGHV1_69_variant")
+geneDat <- cbind(mutPat, geneNum)
+colnames(geneDat) <- c("genotype", "IGHV1_69_variant","counts")
+geneDat <- geneDat[!is.na(geneDat$IGHV1_69_variant),]
+  
+p <- ggstripchart(geneDat, x = "IGHV1_69_variant", y = "counts",
+          color = "IGHV1_69_variant",
+          palette = c("#00AFBB", "#FC4E07"),
+          #add = "mean_sd",
+          title = "IGHV1-69 gene expression",
+          font.x = 18, font.y = 18, font.legend = 16, 
+          ylab = "normalized counts", xlab = "IGHV1-69 variant", shape = "genotype", 
+          legend = "right", size = 3) + font("xy.text", size = 15) + font("title", size = 20, face = "bold")
+  ggsave(file=paste0(output_dir, "/IGHV1_69.svg"), plot=p, width=8, height=5)
+p
+
+
+```
