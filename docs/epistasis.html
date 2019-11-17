@@ -445,7 +445,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-07-28
+<strong>Last updated:</strong> 2019-11-17
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -536,10 +536,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltreecbac5c20fb1cfe83dd9f4f73132861dd916a2bbftargetblankcbac5c2a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/almutlue/transcriptome_cll/tree/cbac5c20fb1cfe83dd9f4f73132861dd916a2bbf" target="_blank">cbac5c2</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltreed6075084faf2e7b2a8b88921cc87f18a64f0ebd3targetblankd607508a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/almutlue/transcriptome_cll/tree/d6075084faf2e7b2a8b88921cc87f18a64f0ebd3" target="_blank">d607508</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltreecbac5c20fb1cfe83dd9f4f73132861dd916a2bbftargetblankcbac5c2a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltreed6075084faf2e7b2a8b88921cc87f18a64f0ebd3targetblankd607508a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -550,20 +550,41 @@ Ignored files:
     Ignored:    .Rproj.user/
 
 Untracked files:
-    Untracked:  data/c2.cp.kegg.v6.0.symbols.gmt
-    Untracked:  data/ddsrnaCLL_150218.RData
-    Untracked:  docs/figure/ATM.Rmd/
-    Untracked:  docs/figure/Del17p13.Rmd/
-    Untracked:  docs/figure/Del8p12.Rmd/
-    Untracked:  docs/figure/Gain8q24.Rmd/
-    Untracked:  docs/figure/Med12.Rmd/
-    Untracked:  docs/figure/Notch1.Rmd/
-    Untracked:  docs/figure/TP53.Rmd/
-    Untracked:  output/diff_genes/
-    Untracked:  output/diff_meth.rds
-    Untracked:  output/diff_meth_IGHV.rds
-    Untracked:  output/figures/
-    Untracked:  output/res_epistatsis_ighv_tri12.rds
+    Untracked:  data/2018-03-05_IGHV.RData
+    Untracked:  data/patmeta_170324.RData
+    Untracked:  output/IGHV1_69.svg
+    Untracked:  output/cluster1000exprgenes.pdf
+    Untracked:  output/cluster500exprgenes.pdf
+    Untracked:  output/desRes_15112019.RData
+    Untracked:  output/figures/hist_mutations.svg
+    Untracked:  output/figures/overview_mutations.pdf
+    Untracked:  output/figures/r_objects/
+    Untracked:  output/figures/sum_diffGenes_0.05_2.pdf
+    Untracked:  output/figures/sum_diffGenes_noTsig.pdf
+    Untracked:  output/figures/sum_diffGenes_noTsig_IGHVTri12.pdf
+
+Unstaged changes:
+    Modified:   analysis/Gain8q24.Rmd
+    Modified:   analysis/Med12.Rmd
+    Modified:   analysis/SF3B1.Rmd
+    Modified:   analysis/index.Rmd
+    Modified:   analysis/methylation_IP_vs_all.Rmd
+    Modified:   analysis/summary_de_genes.Rmd
+    Modified:   analysis/summary_variants.Rmd
+    Modified:   analysis/trisomy12.Rmd
+    Modified:   output/diff_genes/ATM_diffGenes.csv
+    Modified:   output/diff_genes/BRAF_diffGenes.csv
+    Modified:   output/diff_genes/MED12_diffGenes.csv
+    Modified:   output/diff_genes/NOTCH1_diffGenes.csv
+    Modified:   output/diff_genes/SF3B1_diffGenes.csv
+    Modified:   output/diff_genes/TP53_diffGenes.csv
+    Modified:   output/diff_genes/del11q22.3_diffGenes.csv
+    Modified:   output/diff_genes/del13q14_diffGenes.csv
+    Modified:   output/diff_genes/del17p13_diffGenes.csv
+    Modified:   output/diff_genes/del8p12_diffGenes.csv
+    Modified:   output/diff_genes/gain8q24_diffGenes.csv
+    Modified:   output/diff_genes/trisomy12_diffGenes.csv
+    Modified:   output/figures/pca_Meth_top150.svg
 
 </code></pre>
 <p>
@@ -576,9 +597,69 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/d6075084faf2e7b2a8b88921cc87f18a64f0ebd3/analysis/epistasis.Rmd" target="_blank">d607508</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+<td>
+wflow_publish(c(“analysis/epistasis.Rmd”))
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/almutlue/transcriptome_cll/cc24f928b35f1d70caf1f312608fad772de22bab/docs/epistasis.html" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+<td>
+Build site.
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
@@ -727,11 +808,49 @@ ha_genes &lt;- rowAnnotation(link = row_anno_link(at = geneIDs, labels = labels,
 <pre><code>Warning: anno_link() is deprecated, please use anno_mark() instead.</code></pre>
 <pre class="r"><code>  #svg(filename=&quot;~/git/figures_thesis/gene_expr/epistatsisTri12IGHV.svg&quot;, width=30, height=50)
   #pdf(file=&quot;/home/almut/Dokumente/git/Transcriptome_CLL/paper/figures/epistasis_Deseq.pdf&quot;, width=35, height=45)
-  draw(h1 + ha_genes + ha_chrom) </code></pre>
+p1 &lt;- draw(h1 + ha_genes + ha_chrom) </code></pre>
 <p><img src="figure/epistasis.Rmd/heatmap%20of%20interaction%20ighv-1.png" width="3360" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-heatmap-of-interaction-ighv-1">
+Past versions of “heatmap of interaction ighv-1.png”
+</button>
+</p>
+<div id="fig-no-spaces-heatmap-of-interaction-ighv-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/epistasis.Rmd/heatmap of interaction ighv-1.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>  #dev.off()
   #draw(h1 + ha_chrom + ha_genes)
- IGHVTri12 &lt;- list(&quot;sig_Genes&quot; = sig_Genes, &quot;geneExp&quot; = geneExpression_new, &quot;h1&quot;= h1)</code></pre>
+saveRDS(p1, file = paste0(output_dir, &quot;/figures/r_objects/epistasis/epistasis_heatmap.rds&quot;))
+IGHVTri12 &lt;- list(&quot;sig_Genes&quot; = sig_Genes, &quot;geneExp&quot; = geneExpression_new, &quot;h1&quot;= h1)</code></pre>
 </div>
 <div id="genewise-count-distribution" class="section level2">
 <h2>Genewise count distribution</h2>
@@ -752,6 +871,7 @@ gene_count &lt;- function(gene_nam){
           ylab = &quot;gene counts&quot;,
           font.x = 25, font.y = 25, font.legend = 20) + font(&quot;xy.text&quot;, size = 20) + font(&quot;title&quot;, size = 30, face = &quot;bold&quot;)
  #ggsave(file=paste0(&quot;/home/almut/Dokumente/git/Transcriptome_CLL/paper/figures/epi_genes/genetic_interaction_&quot;, gene_nam, &quot;.svg&quot;), plot=p, width=7, height=5)
+  saveRDS(p, file = paste0(output_dir, &quot;/figures/r_objects/epistasis/de_genes/&quot;, gene_nam, &quot;.rds&quot;))
   p
 }
 
@@ -763,33 +883,403 @@ geneList &lt;- c(&quot;LEF1&quot;, &quot;TIMELESS&quot;, &quot;CHAD&quot;, &quot
 lapply(geneList, gene_count)</code></pre>
 <pre><code>[[1]]</code></pre>
 <p><img src="figure/epistasis.Rmd/single%20gene%20counts-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-1">
+Past versions of “single gene counts-1.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/epistasis.Rmd/single gene counts-1.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[2]]</code></pre>
 <p><img src="figure/epistasis.Rmd/single%20gene%20counts-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-2">
+Past versions of “single gene counts-2.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/epistasis.Rmd/single gene counts-2.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[3]]</code></pre>
 <p><img src="figure/epistasis.Rmd/single%20gene%20counts-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-3">
+Past versions of “single gene counts-3.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/epistasis.Rmd/single gene counts-3.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[4]]</code></pre>
 <p><img src="figure/epistasis.Rmd/single%20gene%20counts-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-4">
+Past versions of “single gene counts-4.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-4" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/epistasis.Rmd/single gene counts-4.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[5]]</code></pre>
 <p><img src="figure/epistasis.Rmd/single%20gene%20counts-5.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-5">
+Past versions of “single gene counts-5.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-5" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/epistasis.Rmd/single gene counts-5.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[6]]</code></pre>
 <p><img src="figure/epistasis.Rmd/single%20gene%20counts-6.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-6">
+Past versions of “single gene counts-6.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-6" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/epistasis.Rmd/single gene counts-6.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[7]]</code></pre>
 <p><img src="figure/epistasis.Rmd/single%20gene%20counts-7.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-7">
+Past versions of “single gene counts-7.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-7" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/epistasis.Rmd/single gene counts-7.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[8]]</code></pre>
 <p><img src="figure/epistasis.Rmd/single%20gene%20counts-8.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-8">
+Past versions of “single gene counts-8.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-8" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/epistasis.Rmd/single gene counts-8.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[9]]</code></pre>
 <p><img src="figure/epistasis.Rmd/single%20gene%20counts-9.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-9">
+Past versions of “single gene counts-9.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-9" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/epistasis.Rmd/single gene counts-9.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[10]]</code></pre>
 <p><img src="figure/epistasis.Rmd/single%20gene%20counts-10.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-10">
+Past versions of “single gene counts-10.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-10" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/epistasis.Rmd/single gene counts-10.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="clusterwise-count-distribution" class="section level2">
 <h2>Clusterwise count distribution</h2>
@@ -813,23 +1303,55 @@ distr &lt;- ggbarplot(cluster_size, &quot;name&quot;, &quot;size&quot;,
  #ggsave(file=&quot;/home/almut/Dokumente/masterarbeit/workinprogress/distrib_ofEpiTypes.svg&quot;, plot=distr, width=8, height=5)
 distr</code></pre>
 <p><img src="figure/epistasis.Rmd/number%20of%20genes%20within%20cluster-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-number-of-genes-within-cluster-1">
+Past versions of “number of genes within cluster-1.png”
+</button>
+</p>
+<div id="fig-no-spaces-number-of-genes-within-cluster-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/epistasis.Rmd/number of genes within cluster-1.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>saveRDS(distr, file = paste0(output_dir, &quot;/figures/r_objects/epistasis/epistasis_gene_distr.rds&quot;))</code></pre>
 </div>
 </div>
 <div id="enrichment-analysis" class="section level1">
 <h1>Enrichment analysis</h1>
 <p>List-based enrichment - Piano package Fisher’s exact on genes from one cluster only.</p>
 <pre class="r"><code>#load gene set collection
-#Hallmark
-gsc &lt;- loadGSC(&quot;/home/almut/Dokumente/masterarbeit/data/h.all.v6.0.symbols.gmt&quot;, type=&quot;gmt&quot;)
+
 #Kegg
-gsc_Kegg &lt;- loadGSC(&quot;/home/almut/Dokumente/masterarbeit/data/c2.cp.kegg.v6.0.symbols.gmt&quot;, type=&quot;gmt&quot;)
-tft &lt;- loadGSC(&quot;/home/almut/Dokumente/masterarbeit/data/c3.tft.v6.0.symbols.gmt&quot;, type=&quot;gmt&quot;)
-c5 &lt;- loadGSC(&quot;/home/almut/Dokumente/masterarbeit/data/c5.all.v6.0.symbols.gmt&quot;, type=&quot;gmt&quot;)
-c6 &lt;- loadGSC(&quot;/home/almut/Dokumente/masterarbeit/data/c6.all.v6.0.symbols.gmt&quot;, type=&quot;gmt&quot;)
-c7 &lt;- loadGSC(&quot;/home/almut/Dokumente/masterarbeit/data/c7.all.v6.0.symbols.gmt&quot;, type=&quot;gmt&quot;)
-cgp &lt;- loadGSC(&quot;/home/almut/Dokumente/masterarbeit/data/c2.cgp.v6.0.symbols.gmt&quot;, type=&quot;gmt&quot;)</code></pre>
+gsc_kegg &lt;- loadGSC(paste0(data_dir,&quot;/c2.cp.kegg.v6.0.symbols.gmt&quot;), type=&quot;gmt&quot;)</code></pre>
 <pre class="r"><code>#GSA on cluster defined by kmeans clustering. See cluster in heatmap...
-setWiseGSA &lt;- function(clusternr, gmtFile){
+setWiseGSA &lt;- function(clusternr){
   #get sig genes and pvalues for each cluster
   geneNam &lt;- IGHVTri12$sig_Genes[row_order(IGHVTri12$h1)[[clusternr]]] 
   pVal &lt;- resSig[geneNam, &quot;padj&quot;]
@@ -840,7 +1362,7 @@ setWiseGSA &lt;- function(clusternr, gmtFile){
   gsaTab &lt;- data.frame(row.names = gsTab$gene, stat = gsTab$stat)
   res &lt;- runGSA(geneLevelStats = gsaTab,
                       geneSetStat = &quot;fisher&quot;,
-                     adjMethod = &quot;fdr&quot;, gsc=gmtFile,
+                     adjMethod = &quot;fdr&quot;, gsc=gsc_kegg,
                      signifMethod = &#39;nullDist&#39;,
                      #nPerm = 50000,
                       gsSizeLim=c(1, Inf))
@@ -869,8 +1391,9 @@ setWiseGSA &lt;- function(clusternr, gmtFile){
           ggtheme = theme_pubr()
           ) + font(&quot;xy.text&quot;, size = 22) + font(&quot;title&quot;, size = 20, face = &quot;bold&quot;)
   
-   ggsave(file=paste0(&quot;/home/almut/Dokumente/masterarbeit/results/enrichment_epistasis/GSEA_in_&quot;, clusternr, &quot;.pdf&quot;), plot=p, width=16, height=7)
+   #ggsave(file=paste0(&quot;/home/almut/Dokumente/masterarbeit/results/enrichment_epistasis/GSEA_in_&quot;, clusternr, &quot;.pdf&quot;), plot=p, width=16, height=7)
 #pdf(file= paste0(&quot;/home/almut/Dokumente/git/Transcriptome_CLL/paper/figures/GSEA_in_&quot;, clusternr, &quot;.pdf&quot;), width=40, height=35)
+   saveRDS(p, file = paste0(output_dir, &quot;/figures/r_objects/epistasis/epistasis_&quot;, clusternr, &quot;_enrichment.rds&quot;))
   p
  # dev.off()
   
@@ -880,81 +1403,266 @@ setWiseGSA &lt;- function(clusternr, gmtFile){
 clusternr = c(1:5)
 
 
-lapply(as.numeric(clusternr), FUN = &quot;setWiseGSA&quot;, gmtFile = gsc)</code></pre>
+lapply(as.numeric(clusternr), setWiseGSA)</code></pre>
 <pre><code>Running gene set analysis:</code></pre>
 <pre><code>Checking arguments...done!</code></pre>
-<pre><code>Final gene/gene-set association: 34 genes and 35 gene sets</code></pre>
+<pre><code>Final gene/gene-set association: 36 genes and 70 gene sets</code></pre>
 <pre><code>  Details:</code></pre>
-<pre><code>  Calculating gene set statistics from 34 out of 118 gene-level statistics</code></pre>
-<pre><code>  Removed 4352 genes from GSC due to lack of matching gene statistics</code></pre>
-<pre><code>  Removed 15 gene sets containing no genes after gene removal</code></pre>
+<pre><code>  Calculating gene set statistics from 36 out of 118 gene-level statistics</code></pre>
+<pre><code>  Removed 5230 genes from GSC due to lack of matching gene statistics</code></pre>
+<pre><code>  Removed 116 gene sets containing no genes after gene removal</code></pre>
 <pre><code>  Removed additionally 0 gene sets not matching the size limits</code></pre>
-<pre><code>  Loaded additional information for 35 gene sets</code></pre>
+<pre><code>  Loaded additional information for 70 gene sets</code></pre>
 <pre><code>Calculating gene set statistics...done!
 Calculating gene set significance...done!
 Adjusting for multiple testing...done!</code></pre>
 <pre><code>Running gene set analysis:</code></pre>
 <pre><code>Checking arguments...done!</code></pre>
-<pre><code>Final gene/gene-set association: 37 genes and 33 gene sets</code></pre>
+<pre><code>Final gene/gene-set association: 48 genes and 67 gene sets</code></pre>
 <pre><code>  Details:</code></pre>
-<pre><code>  Calculating gene set statistics from 37 out of 220 gene-level statistics</code></pre>
-<pre><code>  Removed 4349 genes from GSC due to lack of matching gene statistics</code></pre>
-<pre><code>  Removed 17 gene sets containing no genes after gene removal</code></pre>
+<pre><code>  Calculating gene set statistics from 48 out of 220 gene-level statistics</code></pre>
+<pre><code>  Removed 5218 genes from GSC due to lack of matching gene statistics</code></pre>
+<pre><code>  Removed 119 gene sets containing no genes after gene removal</code></pre>
 <pre><code>  Removed additionally 0 gene sets not matching the size limits</code></pre>
-<pre><code>  Loaded additional information for 33 gene sets</code></pre>
+<pre><code>  Loaded additional information for 67 gene sets</code></pre>
 <pre><code>Calculating gene set statistics...done!
 Calculating gene set significance...done!
 Adjusting for multiple testing...done!</code></pre>
 <pre><code>Running gene set analysis:</code></pre>
 <pre><code>Checking arguments...done!</code></pre>
-<pre><code>Final gene/gene-set association: 36 genes and 35 gene sets</code></pre>
+<pre><code>Final gene/gene-set association: 28 genes and 55 gene sets</code></pre>
 <pre><code>  Details:</code></pre>
-<pre><code>  Calculating gene set statistics from 36 out of 111 gene-level statistics</code></pre>
-<pre><code>  Removed 4350 genes from GSC due to lack of matching gene statistics</code></pre>
-<pre><code>  Removed 15 gene sets containing no genes after gene removal</code></pre>
+<pre><code>  Calculating gene set statistics from 28 out of 111 gene-level statistics</code></pre>
+<pre><code>  Removed 5238 genes from GSC due to lack of matching gene statistics</code></pre>
+<pre><code>  Removed 131 gene sets containing no genes after gene removal</code></pre>
 <pre><code>  Removed additionally 0 gene sets not matching the size limits</code></pre>
-<pre><code>  Loaded additional information for 35 gene sets</code></pre>
+<pre><code>  Loaded additional information for 55 gene sets</code></pre>
 <pre><code>Calculating gene set statistics...done!
 Calculating gene set significance...done!
 Adjusting for multiple testing...done!</code></pre>
 <pre><code>Running gene set analysis:</code></pre>
 <pre><code>Checking arguments...done!</code></pre>
-<pre><code>Final gene/gene-set association: 20 genes and 23 gene sets</code></pre>
+<pre><code>Final gene/gene-set association: 27 genes and 40 gene sets</code></pre>
 <pre><code>  Details:</code></pre>
-<pre><code>  Calculating gene set statistics from 20 out of 105 gene-level statistics</code></pre>
-<pre><code>  Removed 4366 genes from GSC due to lack of matching gene statistics</code></pre>
-<pre><code>  Removed 27 gene sets containing no genes after gene removal</code></pre>
+<pre><code>  Calculating gene set statistics from 27 out of 105 gene-level statistics</code></pre>
+<pre><code>  Removed 5239 genes from GSC due to lack of matching gene statistics</code></pre>
+<pre><code>  Removed 146 gene sets containing no genes after gene removal</code></pre>
 <pre><code>  Removed additionally 0 gene sets not matching the size limits</code></pre>
-<pre><code>  Loaded additional information for 23 gene sets</code></pre>
+<pre><code>  Loaded additional information for 40 gene sets</code></pre>
 <pre><code>Calculating gene set statistics...done!
 Calculating gene set significance...done!
 Adjusting for multiple testing...done!</code></pre>
 <pre><code>Running gene set analysis:</code></pre>
 <pre><code>Checking arguments...done!</code></pre>
-<pre><code>Final gene/gene-set association: 39 genes and 29 gene sets</code></pre>
+<pre><code>Final gene/gene-set association: 40 genes and 82 gene sets</code></pre>
 <pre><code>  Details:</code></pre>
-<pre><code>  Calculating gene set statistics from 39 out of 164 gene-level statistics</code></pre>
-<pre><code>  Removed 4347 genes from GSC due to lack of matching gene statistics</code></pre>
-<pre><code>  Removed 21 gene sets containing no genes after gene removal</code></pre>
+<pre><code>  Calculating gene set statistics from 40 out of 164 gene-level statistics</code></pre>
+<pre><code>  Removed 5226 genes from GSC due to lack of matching gene statistics</code></pre>
+<pre><code>  Removed 104 gene sets containing no genes after gene removal</code></pre>
 <pre><code>  Removed additionally 0 gene sets not matching the size limits</code></pre>
-<pre><code>  Loaded additional information for 29 gene sets</code></pre>
+<pre><code>  Loaded additional information for 82 gene sets</code></pre>
 <pre><code>Calculating gene set statistics...done!
 Calculating gene set significance...done!
 Adjusting for multiple testing...done!</code></pre>
 <pre><code>[[1]]</code></pre>
 <p><img src="figure/epistasis.Rmd/GSEA%20piano-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-GSEA-piano-1">
+Past versions of “GSEA piano-1.png”
+</button>
+</p>
+<div id="fig-no-spaces-GSEA-piano-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/epistasis.Rmd/GSEA piano-1.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[2]]</code></pre>
 <p><img src="figure/epistasis.Rmd/GSEA%20piano-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-GSEA-piano-2">
+Past versions of “GSEA piano-2.png”
+</button>
+</p>
+<div id="fig-no-spaces-GSEA-piano-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/epistasis.Rmd/GSEA piano-2.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[3]]</code></pre>
 <p><img src="figure/epistasis.Rmd/GSEA%20piano-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-GSEA-piano-3">
+Past versions of “GSEA piano-3.png”
+</button>
+</p>
+<div id="fig-no-spaces-GSEA-piano-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/epistasis.Rmd/GSEA piano-3.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[4]]</code></pre>
 <p><img src="figure/epistasis.Rmd/GSEA%20piano-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-GSEA-piano-4">
+Past versions of “GSEA piano-4.png”
+</button>
+</p>
+<div id="fig-no-spaces-GSEA-piano-4" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/epistasis.Rmd/GSEA piano-4.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[5]]</code></pre>
 <p><img src="figure/epistasis.Rmd/GSEA%20piano-5.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-GSEA-piano-5">
+Past versions of “GSEA piano-5.png”
+</button>
+</p>
+<div id="fig-no-spaces-GSEA-piano-5" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/epistasis.Rmd/GSEA piano-5.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="mixed-epistatsis-scheme" class="section level1">
 <h1>Mixed epistatsis scheme</h1>
@@ -979,7 +1687,46 @@ h1 &lt;- Heatmap(mix, col = colors ,column_title = paste0(&quot;Types of mixed e
 #pdf(file=&quot;/home/almut/Dokumente/git/Transcriptome_CLL/paper/figures/mixed_epistasis_model.pdf&quot;, width=7, height=5)
 draw(h1)</code></pre>
 <p><img src="figure/epistasis.Rmd/epistasis%20scheme-1.png" width="672" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>#dev.off()</code></pre>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-epistasis-scheme-1">
+Past versions of “epistasis scheme-1.png”
+</button>
+</p>
+<div id="fig-no-spaces-epistasis-scheme-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/epistasis.Rmd/epistasis scheme-1.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>#dev.off()
+
+saveRDS(h1, file = paste0(output_dir, &quot;/figures/r_objects/epistasis/epistasis_scheme.rds&quot;))</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1050,13 +1797,13 @@ loaded via a namespace (and not attached):
 [67] bit_1.1-14             tidyselect_0.2.5       ggsci_2.9             
 [70] plyr_1.8.4             R6_2.4.0               gplots_3.0.1.1        
 [73] Hmisc_4.2-0            DBI_1.0.0              pillar_1.4.1          
-[76] foreign_0.8-71         withr_2.1.2            survival_2.44-1.1     
-[79] RCurl_1.95-4.12        nnet_7.3-12            tibble_2.1.3          
-[82] crayon_1.3.4           KernSmooth_2.23-15     rmarkdown_1.13        
-[85] GetoptLong_0.1.7       locfit_1.5-9.1         data.table_1.12.2     
-[88] marray_1.62.0          blob_1.1.1             git2r_0.25.2          
-[91] digest_0.6.19          xtable_1.8-4           httpuv_1.5.1          
-[94] munsell_0.5.0          shinyjs_1.0           </code></pre>
+[76] whisker_0.3-2          foreign_0.8-71         withr_2.1.2           
+[79] survival_2.44-1.1      RCurl_1.95-4.12        nnet_7.3-12           
+[82] tibble_2.1.3           crayon_1.3.4           KernSmooth_2.23-15    
+[85] rmarkdown_1.13         GetoptLong_0.1.7       locfit_1.5-9.1        
+[88] data.table_1.12.2      marray_1.62.0          blob_1.1.1            
+[91] git2r_0.25.2           digest_0.6.19          xtable_1.8-4          
+[94] httpuv_1.5.1           munsell_0.5.0          shinyjs_1.0           </code></pre>
 </div>
 </div>
 
