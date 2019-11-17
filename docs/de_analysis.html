@@ -536,10 +536,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree0836a80214c2b4fc59730a109dbe26555de335b6targetblank0836a80a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/almutlue/transcriptome_cll/tree/0836a80214c2b4fc59730a109dbe26555de335b6" target="_blank">0836a80</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree935865196c2b55c1e3125a5c2f602aeb6e2a1bb4targetblank9358651a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/almutlue/transcriptome_cll/tree/935865196c2b55c1e3125a5c2f602aeb6e2a1bb4" target="_blank">9358651</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree0836a80214c2b4fc59730a109dbe26555de335b6targetblank0836a80a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree935865196c2b55c1e3125a5c2f602aeb6e2a1bb4targetblank9358651a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -554,18 +554,6 @@ Untracked files:
     Untracked:  data/patmeta_170324.RData
     Untracked:  output/IGHV1_69.svg
     Untracked:  output/desRes_15112019.RData
-    Untracked:  output/diff_genesATM_diffGenes.csv
-    Untracked:  output/diff_genesBRAF_diffGenes.csv
-    Untracked:  output/diff_genesMED12_diffGenes.csv
-    Untracked:  output/diff_genesNOTCH1_diffGenes.csv
-    Untracked:  output/diff_genesSF3B1_diffGenes.csv
-    Untracked:  output/diff_genesTP53_diffGenes.csv
-    Untracked:  output/diff_genesdel11q22.3_diffGenes.csv
-    Untracked:  output/diff_genesdel13q14_diffGenes.csv
-    Untracked:  output/diff_genesdel17p13_diffGenes.csv
-    Untracked:  output/diff_genesdel8p12_diffGenes.csv
-    Untracked:  output/diff_genesgain8q24_diffGenes.csv
-    Untracked:  output/diff_genestrisomy12_diffGenes.csv
     Untracked:  output/figures/hist_mutations.svg
     Untracked:  output/figures/overview_mutations.pdf
     Untracked:  output/figures/sum_diffGenes_0.05_2.pdf
@@ -574,6 +562,18 @@ Untracked files:
 
 Unstaged changes:
     Modified:   analysis/index.Rmd
+    Modified:   output/diff_genes/ATM_diffGenes.csv
+    Modified:   output/diff_genes/BRAF_diffGenes.csv
+    Modified:   output/diff_genes/MED12_diffGenes.csv
+    Modified:   output/diff_genes/NOTCH1_diffGenes.csv
+    Modified:   output/diff_genes/SF3B1_diffGenes.csv
+    Modified:   output/diff_genes/TP53_diffGenes.csv
+    Modified:   output/diff_genes/del11q22.3_diffGenes.csv
+    Modified:   output/diff_genes/del13q14_diffGenes.csv
+    Modified:   output/diff_genes/del17p13_diffGenes.csv
+    Modified:   output/diff_genes/del8p12_diffGenes.csv
+    Modified:   output/diff_genes/gain8q24_diffGenes.csv
+    Modified:   output/diff_genes/trisomy12_diffGenes.csv
 
 </code></pre>
 <p>
@@ -612,6 +612,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/935865196c2b55c1e3125a5c2f602aeb6e2a1bb4/analysis/de_analysis.Rmd" target="_blank">9358651</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+<td>
+wflow_publish(“analysis/de_analysis.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/almutlue/transcriptome_cll/b757e9a3041a384f98b47238342662a256d11ddc/docs/de_analysis.html" target="_blank">b757e9a</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -707,7 +741,7 @@ difftab &lt;- function(condition){
   dataTab &lt;- dataTab[!duplicated(dataTab$Symbol),]
   dataTab &lt;- dataTab[!is.na(dataTab$Symbol),]
   rownames(dataTab) &lt;- dataTab$ID
-  write.csv(dataTab, file=paste0(output_dir,&quot;/diff_genes&quot;, condition, &quot;_diffGenes.csv&quot;))
+  write.csv(dataTab, file=paste0(output_dir,&quot;/diff_genes/&quot;, condition, &quot;_diffGenes.csv&quot;))
   dataTab
 }
 
@@ -725,7 +759,462 @@ myMaPlot &lt;-function(condition){
 }
 
 lapply(cond, myMaPlot)</code></pre>
-<p><img src="figure/de_analysis.Rmd/ma-plots-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/ma-plots-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/ma-plots-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/ma-plots-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/ma-plots-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/ma-plots-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/ma-plots-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/ma-plots-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/ma-plots-9.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/ma-plots-10.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/ma-plots-11.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/ma-plots-12.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/de_analysis.Rmd/ma-plots-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-ma-plots-1">
+Past versions of ma-plots-1.png
+</button>
+</p>
+<div id="fig-ma-plots-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/b757e9a3041a384f98b47238342662a256d11ddc/docs/figure/de_analysis.Rmd/ma-plots-1.png" target="_blank">b757e9a</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/de_analysis.Rmd/ma-plots-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-ma-plots-2">
+Past versions of ma-plots-2.png
+</button>
+</p>
+<div id="fig-ma-plots-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/b757e9a3041a384f98b47238342662a256d11ddc/docs/figure/de_analysis.Rmd/ma-plots-2.png" target="_blank">b757e9a</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/de_analysis.Rmd/ma-plots-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-ma-plots-3">
+Past versions of ma-plots-3.png
+</button>
+</p>
+<div id="fig-ma-plots-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/b757e9a3041a384f98b47238342662a256d11ddc/docs/figure/de_analysis.Rmd/ma-plots-3.png" target="_blank">b757e9a</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/de_analysis.Rmd/ma-plots-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-ma-plots-4">
+Past versions of ma-plots-4.png
+</button>
+</p>
+<div id="fig-ma-plots-4" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/b757e9a3041a384f98b47238342662a256d11ddc/docs/figure/de_analysis.Rmd/ma-plots-4.png" target="_blank">b757e9a</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/de_analysis.Rmd/ma-plots-5.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-ma-plots-5">
+Past versions of ma-plots-5.png
+</button>
+</p>
+<div id="fig-ma-plots-5" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/b757e9a3041a384f98b47238342662a256d11ddc/docs/figure/de_analysis.Rmd/ma-plots-5.png" target="_blank">b757e9a</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/de_analysis.Rmd/ma-plots-6.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-ma-plots-6">
+Past versions of ma-plots-6.png
+</button>
+</p>
+<div id="fig-ma-plots-6" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/b757e9a3041a384f98b47238342662a256d11ddc/docs/figure/de_analysis.Rmd/ma-plots-6.png" target="_blank">b757e9a</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/de_analysis.Rmd/ma-plots-7.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-ma-plots-7">
+Past versions of ma-plots-7.png
+</button>
+</p>
+<div id="fig-ma-plots-7" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/b757e9a3041a384f98b47238342662a256d11ddc/docs/figure/de_analysis.Rmd/ma-plots-7.png" target="_blank">b757e9a</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/de_analysis.Rmd/ma-plots-8.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-ma-plots-8">
+Past versions of ma-plots-8.png
+</button>
+</p>
+<div id="fig-ma-plots-8" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/b757e9a3041a384f98b47238342662a256d11ddc/docs/figure/de_analysis.Rmd/ma-plots-8.png" target="_blank">b757e9a</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/de_analysis.Rmd/ma-plots-9.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-ma-plots-9">
+Past versions of ma-plots-9.png
+</button>
+</p>
+<div id="fig-ma-plots-9" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/b757e9a3041a384f98b47238342662a256d11ddc/docs/figure/de_analysis.Rmd/ma-plots-9.png" target="_blank">b757e9a</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/de_analysis.Rmd/ma-plots-10.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-ma-plots-10">
+Past versions of ma-plots-10.png
+</button>
+</p>
+<div id="fig-ma-plots-10" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/b757e9a3041a384f98b47238342662a256d11ddc/docs/figure/de_analysis.Rmd/ma-plots-10.png" target="_blank">b757e9a</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/de_analysis.Rmd/ma-plots-11.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-ma-plots-11">
+Past versions of ma-plots-11.png
+</button>
+</p>
+<div id="fig-ma-plots-11" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/b757e9a3041a384f98b47238342662a256d11ddc/docs/figure/de_analysis.Rmd/ma-plots-11.png" target="_blank">b757e9a</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/de_analysis.Rmd/ma-plots-12.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-ma-plots-12">
+Past versions of ma-plots-12.png
+</button>
+</p>
+<div id="fig-ma-plots-12" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/b757e9a3041a384f98b47238342662a256d11ddc/docs/figure/de_analysis.Rmd/ma-plots-12.png" target="_blank">b757e9a</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>[[1]]
 NULL
 
@@ -771,7 +1260,462 @@ NULL</code></pre>
 }
 
 hist_cond &lt;- lapply(cond, myHist)</code></pre>
-<p><img src="figure/de_analysis.Rmd/hist-1.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/hist-2.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/hist-3.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/hist-4.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/hist-5.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/hist-6.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/hist-7.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/hist-8.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/hist-9.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/hist-10.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/hist-11.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/hist-12.png" width="672" style="display: block; margin: auto;" /></p>
+<p><img src="figure/de_analysis.Rmd/hist-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-hist-1">
+Past versions of hist-1.png
+</button>
+</p>
+<div id="fig-hist-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/b757e9a3041a384f98b47238342662a256d11ddc/docs/figure/de_analysis.Rmd/hist-1.png" target="_blank">b757e9a</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/de_analysis.Rmd/hist-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-hist-2">
+Past versions of hist-2.png
+</button>
+</p>
+<div id="fig-hist-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/b757e9a3041a384f98b47238342662a256d11ddc/docs/figure/de_analysis.Rmd/hist-2.png" target="_blank">b757e9a</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/de_analysis.Rmd/hist-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-hist-3">
+Past versions of hist-3.png
+</button>
+</p>
+<div id="fig-hist-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/b757e9a3041a384f98b47238342662a256d11ddc/docs/figure/de_analysis.Rmd/hist-3.png" target="_blank">b757e9a</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/de_analysis.Rmd/hist-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-hist-4">
+Past versions of hist-4.png
+</button>
+</p>
+<div id="fig-hist-4" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/b757e9a3041a384f98b47238342662a256d11ddc/docs/figure/de_analysis.Rmd/hist-4.png" target="_blank">b757e9a</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/de_analysis.Rmd/hist-5.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-hist-5">
+Past versions of hist-5.png
+</button>
+</p>
+<div id="fig-hist-5" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/b757e9a3041a384f98b47238342662a256d11ddc/docs/figure/de_analysis.Rmd/hist-5.png" target="_blank">b757e9a</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/de_analysis.Rmd/hist-6.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-hist-6">
+Past versions of hist-6.png
+</button>
+</p>
+<div id="fig-hist-6" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/b757e9a3041a384f98b47238342662a256d11ddc/docs/figure/de_analysis.Rmd/hist-6.png" target="_blank">b757e9a</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/de_analysis.Rmd/hist-7.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-hist-7">
+Past versions of hist-7.png
+</button>
+</p>
+<div id="fig-hist-7" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/b757e9a3041a384f98b47238342662a256d11ddc/docs/figure/de_analysis.Rmd/hist-7.png" target="_blank">b757e9a</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/de_analysis.Rmd/hist-8.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-hist-8">
+Past versions of hist-8.png
+</button>
+</p>
+<div id="fig-hist-8" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/b757e9a3041a384f98b47238342662a256d11ddc/docs/figure/de_analysis.Rmd/hist-8.png" target="_blank">b757e9a</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/de_analysis.Rmd/hist-9.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-hist-9">
+Past versions of hist-9.png
+</button>
+</p>
+<div id="fig-hist-9" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/b757e9a3041a384f98b47238342662a256d11ddc/docs/figure/de_analysis.Rmd/hist-9.png" target="_blank">b757e9a</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/de_analysis.Rmd/hist-10.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-hist-10">
+Past versions of hist-10.png
+</button>
+</p>
+<div id="fig-hist-10" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/b757e9a3041a384f98b47238342662a256d11ddc/docs/figure/de_analysis.Rmd/hist-10.png" target="_blank">b757e9a</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/de_analysis.Rmd/hist-11.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-hist-11">
+Past versions of hist-11.png
+</button>
+</p>
+<div id="fig-hist-11" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/b757e9a3041a384f98b47238342662a256d11ddc/docs/figure/de_analysis.Rmd/hist-11.png" target="_blank">b757e9a</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figure/de_analysis.Rmd/hist-12.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-hist-12">
+Past versions of hist-12.png
+</button>
+</p>
+<div id="fig-hist-12" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/b757e9a3041a384f98b47238342662a256d11ddc/docs/figure/de_analysis.Rmd/hist-12.png" target="_blank">b757e9a</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
