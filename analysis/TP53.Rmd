@@ -133,7 +133,7 @@ h1 <- Heatmap(exprVariant.new ,
 draw(h1 ) 
 #dev.off()
 
-#draw(h1)
+saveRDS(h1, file = paste0(output_dir, "/figures/r_objects/TP53/TP53_heatmap.rds"))
 ```
 
 
@@ -158,6 +158,7 @@ gene_count <- function(gene_nam){
           ylab = "counts") + font("xy.text", size = 15) + font("title", size = 20, face = "bold")
   #ggsave(file=paste0(figure_dir, "/tri12/genetic_interaction_", gene_nam, ".svg"), plot=p, width=6, height=5)
   p
+  saveRDS(p, file = paste0(output_dir, "/figures/r_objects/TP53/de_genes/", gene_nam, ".rds"))
 }
 
 diff <- diff_all[which(abs(diff_all$stat) > 4.5),]
@@ -259,6 +260,7 @@ p <- ggbarplot(enrichPlot, x = "pathway", y = "log10Padj",
 #ggsave(file=paste0(figure_dir,"/GSEA_", variant, "_Kegg.svg"), plot=p, width=14, height=7)
   p
 
+saveRDS(p, file = paste0(output_dir, "/figures/r_objects/TP53/TP53_enrichment.rds"))
 
 
 ```
