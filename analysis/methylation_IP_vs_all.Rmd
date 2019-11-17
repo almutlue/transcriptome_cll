@@ -107,9 +107,9 @@ diff <- function(cond){
   resOrdered <- res[order(res$pvalue),]
 }
 
-diff_meth <- diff("IP")
+#diff_meth <- diff("IP")
 
-saveRDS(diff_meth, file= paste0(output_dir,"/diff_meth_IP_vs_all.rds"))
+#saveRDS(diff_meth, file= paste0(output_dir,"/diff_meth_IP_vs_all.rds"))
 
 
 ```
@@ -202,10 +202,10 @@ ha_genes <- rowAnnotation(link = row_anno_link(at = geneIDs, labels = labels, la
 
 #svg(filename=paste0(figure_dir, "/gene_expr_Methylation_IP_all.svg"), width=30, height=35)
 #pdf(file=paste0(figure_dir,"/gene_expr_Methylation_IP_all.pdf"), width=30, height=45)
-draw( h1 + ha_genes)
+p1 <- draw( h1 + ha_genes)
 #dev.off()
 
-
+saveRDS(p1, file = paste0(output_dir, "/figures/r_objects/Methylation_IP/meth_ip_heatmap.rds"))
 
 
 ```
@@ -229,6 +229,7 @@ gene_count <- function(gene_nam){
           title = paste(gene_nam),
           ylab = "normalized counts")
  # ggsave(file=paste0(figure_dir, "/methylation_IP_all/genetic_interaction_", gene_nam, ".svg"), plot=p, width=6, height=5)
+  saveRDS(p, file = paste0(output_dir, "/figures/r_objects/Methylation_IP/de_genes/", gene_nam, ".rds"))
   p
 }
 
@@ -286,9 +287,11 @@ p <- ggbarplot(enrichPlot, x = "pathway", y = "log10Padj",
   font("xy.text", size = 16) + 
   font("title", size = 20, face = "bold")
   
-ggsave(file=paste0(figure_dir, "/GSEA_Meth_IP_vs_all_Kegg.svg"), plot=p, width=14, height=7)
+#ggsave(file=paste0(figure_dir, "/GSEA_Meth_IP_vs_all_Kegg.svg"), plot=p, width=14, height=7)
 
 p
 
+
+saveRDS(p, file = paste0(output_dir, "/figures/r_objects/Methylation_IP/meth_ip_enrichment.rds"))
 ```
 
