@@ -156,10 +156,11 @@ ha_genes <- rowAnnotation(link = row_anno_link(at = geneIDs, labels = labels, la
   
   #svg(filename="~/git/figures_thesis/gene_expr/epistatsisTri12IGHV.svg", width=30, height=50)
   #pdf(file="/home/almut/Dokumente/git/Transcriptome_CLL/paper/figures/epistasis_Deseq.pdf", width=35, height=45)
-  draw(h1 + ha_genes + ha_chrom) 
+p1 <- draw(h1 + ha_genes + ha_chrom) 
   #dev.off()
   #draw(h1 + ha_chrom + ha_genes)
- IGHVTri12 <- list("sig_Genes" = sig_Genes, "geneExp" = geneExpression_new, "h1"= h1)
+saveRDS(p1, file = paste0(output_dir, "/figures/r_objects/epistasis/epistasis_heatmap.rds"))
+IGHVTri12 <- list("sig_Genes" = sig_Genes, "geneExp" = geneExpression_new, "h1"= h1)
 
 ```
 
@@ -184,6 +185,7 @@ gene_count <- function(gene_nam){
           ylab = "gene counts",
           font.x = 25, font.y = 25, font.legend = 20) + font("xy.text", size = 20) + font("title", size = 30, face = "bold")
  #ggsave(file=paste0("/home/almut/Dokumente/git/Transcriptome_CLL/paper/figures/epi_genes/genetic_interaction_", gene_nam, ".svg"), plot=p, width=7, height=5)
+  saveRDS(p, file = paste0(output_dir, "/figures/r_objects/epistasis/de_genes/", gene_nam, ".rds"))
   p
 }
 
@@ -222,6 +224,8 @@ distr <- ggbarplot(cluster_size, "name", "size",
  #ggsave(file="/home/almut/Dokumente/masterarbeit/workinprogress/distrib_ofEpiTypes.svg", plot=distr, width=8, height=5)
 distr
 
+saveRDS(distr, file = paste0(output_dir, "/figures/r_objects/epistasis/epistasis_gene_distr.rds"))
+
 ```
 
 
@@ -230,15 +234,10 @@ List-based enrichment - Piano package Fisher's exact on genes from one cluster o
 ```{r list-based GSA, fig.width = 20, fig.height= 30}
 
 #load gene set collection
-#Hallmark
-gsc <- loadGSC("/home/almut/Dokumente/masterarbeit/data/h.all.v6.0.symbols.gmt", type="gmt")
+
 #Kegg
-gsc_Kegg <- loadGSC("/home/almut/Dokumente/masterarbeit/data/c2.cp.kegg.v6.0.symbols.gmt", type="gmt")
-tft <- loadGSC("/home/almut/Dokumente/masterarbeit/data/c3.tft.v6.0.symbols.gmt", type="gmt")
-c5 <- loadGSC("/home/almut/Dokumente/masterarbeit/data/c5.all.v6.0.symbols.gmt", type="gmt")
-c6 <- loadGSC("/home/almut/Dokumente/masterarbeit/data/c6.all.v6.0.symbols.gmt", type="gmt")
-c7 <- loadGSC("/home/almut/Dokumente/masterarbeit/data/c7.all.v6.0.symbols.gmt", type="gmt")
-cgp <- loadGSC("/home/almut/Dokumente/masterarbeit/data/c2.cgp.v6.0.symbols.gmt", type="gmt")
+gsc_kegg <- loadGSC(paste0(data_dir,"/c2.cp.kegg.v6.0.symbols.gmt"), type="gmt")
+
 
 
 ```
@@ -247,7 +246,7 @@ cgp <- loadGSC("/home/almut/Dokumente/masterarbeit/data/c2.cgp.v6.0.symbols.gmt"
 
 ```{r GSEA piano, fig.height=7, fig.weight=16}
 #GSA on cluster defined by kmeans clustering. See cluster in heatmap...
-setWiseGSA <- function(clusternr, gmtFile){
+setWiseGSA <- function(clusternr){
   #get sig genes and pvalues for each cluster
   geneNam <- IGHVTri12$sig_Genes[row_order(IGHVTri12$h1)[[clusternr]]] 
   pVal <- resSig[geneNam, "padj"]
@@ -258,7 +257,7 @@ setWiseGSA <- function(clusternr, gmtFile){
   gsaTab <- data.frame(row.names = gsTab$gene, stat = gsTab$stat)
   res <- runGSA(geneLevelStats = gsaTab,
                       geneSetStat = "fisher",
-                     adjMethod = "fdr", gsc=gmtFile,
+                     adjMethod = "fdr", gsc=gsc_kegg,
                      signifMethod = 'nullDist',
                      #nPerm = 50000,
                       gsSizeLim=c(1, Inf))
@@ -287,8 +286,9 @@ setWiseGSA <- function(clusternr, gmtFile){
           ggtheme = theme_pubr()
           ) + font("xy.text", size = 22) + font("title", size = 20, face = "bold")
   
-   ggsave(file=paste0("/home/almut/Dokumente/masterarbeit/results/enrichment_epistasis/GSEA_in_", clusternr, ".pdf"), plot=p, width=16, height=7)
+   #ggsave(file=paste0("/home/almut/Dokumente/masterarbeit/results/enrichment_epistasis/GSEA_in_", clusternr, ".pdf"), plot=p, width=16, height=7)
 #pdf(file= paste0("/home/almut/Dokumente/git/Transcriptome_CLL/paper/figures/GSEA_in_", clusternr, ".pdf"), width=40, height=35)
+   saveRDS(p, file = paste0(output_dir, "/figures/r_objects/epistasis/epistasis_", clusternr, "_enrichment.rds"))
   p
  # dev.off()
   
@@ -298,7 +298,7 @@ setWiseGSA <- function(clusternr, gmtFile){
 clusternr = c(1:5)
 
 
-lapply(as.numeric(clusternr), FUN = "setWiseGSA", gmtFile = gsc)
+lapply(as.numeric(clusternr), setWiseGSA)
 
 
 
@@ -329,6 +329,8 @@ h1 <- Heatmap(mix, col = colors ,column_title = paste0("Types of mixed epistasis
 #pdf(file="/home/almut/Dokumente/git/Transcriptome_CLL/paper/figures/mixed_epistasis_model.pdf", width=7, height=5)
 draw(h1)
 #dev.off()
+
+saveRDS(h1, file = paste0(output_dir, "/figures/r_objects/epistasis/epistasis_scheme.rds"))
 
 ```
 
