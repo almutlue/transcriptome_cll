@@ -444,7 +444,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-11-13
+<strong>Last updated:</strong> 2019-11-17
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -535,10 +535,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree8f9f56ff51f45085fcff59b1123f93abb2849a90targetblank8f9f56fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/almutlue/transcriptome_cll/tree/8f9f56ff51f45085fcff59b1123f93abb2849a90" target="_blank">8f9f56f</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree8eee73ac103d83519c7316caf56b6fd7c0a220cctargetblank8eee73aa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/almutlue/transcriptome_cll/tree/8eee73ac103d83519c7316caf56b6fd7c0a220cc" target="_blank">8eee73a</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree8f9f56ff51f45085fcff59b1123f93abb2849a90targetblank8f9f56fa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree8eee73ac103d83519c7316caf56b6fd7c0a220cctargetblank8eee73aa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -547,27 +547,47 @@ Great! You are using Git for version control. Tracking code development and conn
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+    Ignored:    analysis/figure/
 
 Untracked files:
-    Untracked:  analysis/methylation_IP_vs_all.Rmd
-    Untracked:  data/c2.cp.kegg.v6.0.symbols.gmt
-    Untracked:  data/ddsrnaCLL_150218.RData
-    Untracked:  docs/figure/methylation_IP_vs_all.Rmd/
-    Untracked:  output/diff_genes/
-    Untracked:  output/diff_meth.rds
-    Untracked:  output/diff_meth_IGHV.rds
-    Untracked:  output/diff_meth_IP_vs_all.rds
-    Untracked:  output/figures/
-    Untracked:  output/res_epistatsis_ighv_tri12.rds
+    Untracked:  data/2018-03-05_IGHV.RData
+    Untracked:  data/patmeta_170324.RData
+    Untracked:  output/IGHV1_69.svg
+    Untracked:  output/cluster1000exprgenes.pdf
+    Untracked:  output/cluster500exprgenes.pdf
+    Untracked:  output/desRes_15112019.RData
+    Untracked:  output/figures/hist_mutations.svg
+    Untracked:  output/figures/overview_mutations.pdf
+    Untracked:  output/figures/r_objects/
+    Untracked:  output/figures/sum_diffGenes_0.05_2.pdf
+    Untracked:  output/figures/sum_diffGenes_noTsig.pdf
+    Untracked:  output/figures/sum_diffGenes_noTsig_IGHVTri12.pdf
 
 Unstaged changes:
-    Modified:   analysis/Del17p13.Rmd
+    Modified:   analysis/ATM.Rmd
+    Modified:   analysis/BRAF.Rmd
     Modified:   analysis/Del8p12.Rmd
     Modified:   analysis/Gain8q24.Rmd
+    Modified:   analysis/IGHV.Rmd
     Modified:   analysis/Med12.Rmd
     Modified:   analysis/Notch1.Rmd
     Modified:   analysis/SF3B1.Rmd
-    Modified:   analysis/TP53.Rmd
+    Modified:   analysis/epistasis.Rmd
+    Modified:   analysis/index.Rmd
+    Modified:   analysis/methylation_IP_vs_all.Rmd
+    Modified:   output/diff_genes/ATM_diffGenes.csv
+    Modified:   output/diff_genes/BRAF_diffGenes.csv
+    Modified:   output/diff_genes/MED12_diffGenes.csv
+    Modified:   output/diff_genes/NOTCH1_diffGenes.csv
+    Modified:   output/diff_genes/SF3B1_diffGenes.csv
+    Modified:   output/diff_genes/TP53_diffGenes.csv
+    Modified:   output/diff_genes/del11q22.3_diffGenes.csv
+    Modified:   output/diff_genes/del13q14_diffGenes.csv
+    Modified:   output/diff_genes/del17p13_diffGenes.csv
+    Modified:   output/diff_genes/del8p12_diffGenes.csv
+    Modified:   output/diff_genes/gain8q24_diffGenes.csv
+    Modified:   output/diff_genes/trisomy12_diffGenes.csv
+    Modified:   output/figures/pca_Meth_top150.svg
 
 </code></pre>
 <p>
@@ -606,6 +626,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/almutlue/transcriptome_cll/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/Del13q14.html" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -796,6 +833,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/complex heatmap-1.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/838b14afded5f9cf875cce6d538f97f69deb1415/docs/figure/Del13q14.Rmd/complex heatmap-1.png" target="_blank">838b14a</a>
 </td>
 <td>
@@ -811,7 +859,7 @@ aluetge
 </div>
 <pre class="r"><code>#dev.off()
 
-#draw(h1)</code></pre>
+saveRDS(h1, file = paste0(output_dir, &quot;/figures/r_objects/del13q14/del13q14_heatmap.rds&quot;))</code></pre>
 </div>
 </div>
 <div id="sample-and-gene-specific-expression---top-genes" class="section level1">
@@ -833,6 +881,7 @@ gene_count &lt;- function(gene_nam){
           font.x = 18, font.y = 18, font.legend = 16, 
           ylab = &quot;normalized counts&quot;) + font(&quot;xy.text&quot;, size = 15) + font(&quot;title&quot;, size = 20, face = &quot;bold&quot;)
   #ggsave(file=paste0(figure_dir, &quot;/tri12/genetic_interaction_&quot;, gene_nam, &quot;.svg&quot;), plot=p, width=6, height=5)
+  saveRDS(p, file = paste0(output_dir, &quot;/figures/r_objects/del13q14/de_genes/&quot;, gene_nam, &quot;.rds&quot;))
   p
 }
 
@@ -987,6 +1036,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-4.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/838b14afded5f9cf875cce6d538f97f69deb1415/docs/figure/Del13q14.Rmd/single gene counts-4.png" target="_blank">838b14a</a>
 </td>
 <td>
@@ -1025,6 +1085,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-5.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/838b14afded5f9cf875cce6d538f97f69deb1415/docs/figure/Del13q14.Rmd/single gene counts-5.png" target="_blank">838b14a</a>
@@ -1067,6 +1138,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-6.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/838b14afded5f9cf875cce6d538f97f69deb1415/docs/figure/Del13q14.Rmd/single gene counts-6.png" target="_blank">838b14a</a>
 </td>
 <td>
@@ -1105,6 +1187,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-7.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/838b14afded5f9cf875cce6d538f97f69deb1415/docs/figure/Del13q14.Rmd/single gene counts-7.png" target="_blank">838b14a</a>
@@ -1147,6 +1240,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-8.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/838b14afded5f9cf875cce6d538f97f69deb1415/docs/figure/Del13q14.Rmd/single gene counts-8.png" target="_blank">838b14a</a>
 </td>
 <td>
@@ -1185,6 +1289,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-9.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/838b14afded5f9cf875cce6d538f97f69deb1415/docs/figure/Del13q14.Rmd/single gene counts-9.png" target="_blank">838b14a</a>
@@ -1227,6 +1342,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-10.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/838b14afded5f9cf875cce6d538f97f69deb1415/docs/figure/Del13q14.Rmd/single gene counts-10.png" target="_blank">838b14a</a>
 </td>
 <td>
@@ -1265,6 +1391,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-11.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/838b14afded5f9cf875cce6d538f97f69deb1415/docs/figure/Del13q14.Rmd/single gene counts-11.png" target="_blank">838b14a</a>
@@ -1307,6 +1444,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-12.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/838b14afded5f9cf875cce6d538f97f69deb1415/docs/figure/Del13q14.Rmd/single gene counts-12.png" target="_blank">838b14a</a>
 </td>
 <td>
@@ -1345,6 +1493,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-13.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/838b14afded5f9cf875cce6d538f97f69deb1415/docs/figure/Del13q14.Rmd/single gene counts-13.png" target="_blank">838b14a</a>
@@ -1387,6 +1546,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-14.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/838b14afded5f9cf875cce6d538f97f69deb1415/docs/figure/Del13q14.Rmd/single gene counts-14.png" target="_blank">838b14a</a>
 </td>
 <td>
@@ -1427,6 +1597,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-15.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/838b14afded5f9cf875cce6d538f97f69deb1415/docs/figure/Del13q14.Rmd/single gene counts-15.png" target="_blank">838b14a</a>
 </td>
 <td>
@@ -1443,132 +1624,2002 @@ aluetge
 <pre><code>
 [[16]]</code></pre>
 <p><img src="figure/Del13q14.Rmd/single%20gene%20counts-16.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-16">
+Past versions of “single gene counts-16.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-16" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-16.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[17]]</code></pre>
 <p><img src="figure/Del13q14.Rmd/single%20gene%20counts-17.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-17">
+Past versions of “single gene counts-17.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-17" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-17.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[18]]</code></pre>
 <p><img src="figure/Del13q14.Rmd/single%20gene%20counts-18.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-18">
+Past versions of “single gene counts-18.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-18" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-18.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[19]]</code></pre>
 <p><img src="figure/Del13q14.Rmd/single%20gene%20counts-19.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-19">
+Past versions of “single gene counts-19.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-19" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-19.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[20]]</code></pre>
 <p><img src="figure/Del13q14.Rmd/single%20gene%20counts-20.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-20">
+Past versions of “single gene counts-20.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-20" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-20.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[21]]</code></pre>
 <p><img src="figure/Del13q14.Rmd/single%20gene%20counts-21.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-21">
+Past versions of “single gene counts-21.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-21" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-21.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[22]]</code></pre>
 <p><img src="figure/Del13q14.Rmd/single%20gene%20counts-22.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-22">
+Past versions of “single gene counts-22.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-22" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-22.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[23]]</code></pre>
 <p><img src="figure/Del13q14.Rmd/single%20gene%20counts-23.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-23">
+Past versions of “single gene counts-23.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-23" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-23.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[24]]</code></pre>
 <p><img src="figure/Del13q14.Rmd/single%20gene%20counts-24.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-24">
+Past versions of “single gene counts-24.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-24" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-24.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[25]]</code></pre>
 <p><img src="figure/Del13q14.Rmd/single%20gene%20counts-25.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-25">
+Past versions of “single gene counts-25.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-25" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-25.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[26]]</code></pre>
 <p><img src="figure/Del13q14.Rmd/single%20gene%20counts-26.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-26">
+Past versions of “single gene counts-26.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-26" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-26.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[27]]</code></pre>
 <p><img src="figure/Del13q14.Rmd/single%20gene%20counts-27.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-27">
+Past versions of “single gene counts-27.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-27" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-27.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[28]]</code></pre>
 <p><img src="figure/Del13q14.Rmd/single%20gene%20counts-28.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-28">
+Past versions of “single gene counts-28.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-28" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-28.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[29]]</code></pre>
 <p><img src="figure/Del13q14.Rmd/single%20gene%20counts-29.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-29">
+Past versions of “single gene counts-29.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-29" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-29.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[30]]</code></pre>
 <p><img src="figure/Del13q14.Rmd/single%20gene%20counts-30.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-30">
+Past versions of “single gene counts-30.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-30" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-30.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[31]]</code></pre>
 <p><img src="figure/Del13q14.Rmd/single%20gene%20counts-31.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-31">
+Past versions of “single gene counts-31.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-31" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-31.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[32]]</code></pre>
 <p><img src="figure/Del13q14.Rmd/single%20gene%20counts-32.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-32">
+Past versions of “single gene counts-32.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-32" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-32.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[33]]</code></pre>
 <p><img src="figure/Del13q14.Rmd/single%20gene%20counts-33.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-33">
+Past versions of “single gene counts-33.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-33" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-33.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[34]]</code></pre>
 <p><img src="figure/Del13q14.Rmd/single%20gene%20counts-34.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-34">
+Past versions of “single gene counts-34.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-34" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-34.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[35]]</code></pre>
 <p><img src="figure/Del13q14.Rmd/single%20gene%20counts-35.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-35">
+Past versions of “single gene counts-35.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-35" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-35.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[36]]</code></pre>
 <p><img src="figure/Del13q14.Rmd/single%20gene%20counts-36.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-36">
+Past versions of “single gene counts-36.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-36" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-36.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[37]]</code></pre>
 <p><img src="figure/Del13q14.Rmd/single%20gene%20counts-37.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-37">
+Past versions of “single gene counts-37.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-37" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-37.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[38]]</code></pre>
 <p><img src="figure/Del13q14.Rmd/single%20gene%20counts-38.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-38">
+Past versions of “single gene counts-38.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-38" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-38.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[39]]</code></pre>
 <p><img src="figure/Del13q14.Rmd/single%20gene%20counts-39.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-39">
+Past versions of “single gene counts-39.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-39" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-39.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[40]]</code></pre>
 <p><img src="figure/Del13q14.Rmd/single%20gene%20counts-40.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-40">
+Past versions of “single gene counts-40.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-40" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-40.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[41]]</code></pre>
 <p><img src="figure/Del13q14.Rmd/single%20gene%20counts-41.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-41">
+Past versions of “single gene counts-41.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-41" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-41.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[42]]</code></pre>
 <p><img src="figure/Del13q14.Rmd/single%20gene%20counts-42.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-42">
+Past versions of “single gene counts-42.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-42" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-42.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[43]]</code></pre>
 <p><img src="figure/Del13q14.Rmd/single%20gene%20counts-43.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-43">
+Past versions of “single gene counts-43.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-43" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-43.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[44]]</code></pre>
 <p><img src="figure/Del13q14.Rmd/single%20gene%20counts-44.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-44">
+Past versions of “single gene counts-44.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-44" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-44.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[45]]</code></pre>
 <p><img src="figure/Del13q14.Rmd/single%20gene%20counts-45.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-45">
+Past versions of “single gene counts-45.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-45" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-45.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[46]]</code></pre>
 <p><img src="figure/Del13q14.Rmd/single%20gene%20counts-46.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-46">
+Past versions of “single gene counts-46.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-46" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-46.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[47]]</code></pre>
 <p><img src="figure/Del13q14.Rmd/single%20gene%20counts-47.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-47">
+Past versions of “single gene counts-47.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-47" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-47.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[48]]</code></pre>
 <p><img src="figure/Del13q14.Rmd/single%20gene%20counts-48.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-48">
+Past versions of “single gene counts-48.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-48" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-48.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[49]]</code></pre>
 <p><img src="figure/Del13q14.Rmd/single%20gene%20counts-49.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-49">
+Past versions of “single gene counts-49.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-49" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-49.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[50]]</code></pre>
 <p><img src="figure/Del13q14.Rmd/single%20gene%20counts-50.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-50">
+Past versions of “single gene counts-50.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-50" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-50.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[51]]</code></pre>
 <p><img src="figure/Del13q14.Rmd/single%20gene%20counts-51.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-51">
+Past versions of “single gene counts-51.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-51" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-51.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[52]]</code></pre>
 <p><img src="figure/Del13q14.Rmd/single%20gene%20counts-52.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-52">
+Past versions of “single gene counts-52.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-52" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-52.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[53]]</code></pre>
 <p><img src="figure/Del13q14.Rmd/single%20gene%20counts-53.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-53">
+Past versions of “single gene counts-53.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-53" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-53.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[54]]</code></pre>
 <p><img src="figure/Del13q14.Rmd/single%20gene%20counts-54.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-54">
+Past versions of “single gene counts-54.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-54" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-54.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[55]]</code></pre>
 <p><img src="figure/Del13q14.Rmd/single%20gene%20counts-55.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-55">
+Past versions of “single gene counts-55.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-55" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-55.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[56]]</code></pre>
 <p><img src="figure/Del13q14.Rmd/single%20gene%20counts-56.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-56">
+Past versions of “single gene counts-56.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-56" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-56.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[57]]</code></pre>
 <p><img src="figure/Del13q14.Rmd/single%20gene%20counts-57.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-57">
+Past versions of “single gene counts-57.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-57" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-57.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[58]]</code></pre>
 <p><img src="figure/Del13q14.Rmd/single%20gene%20counts-58.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-58">
+Past versions of “single gene counts-58.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-58" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/Del13q14.Rmd/single gene counts-58.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[59]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-59.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[60]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-60.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[61]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-61.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[62]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-62.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[63]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-63.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[64]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-64.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[65]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-65.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[66]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-66.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[67]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-67.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[68]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-68.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[69]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-69.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[70]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-70.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[71]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-71.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[72]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-72.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[73]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-73.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[74]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-74.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[75]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-75.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[76]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-76.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[77]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-77.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[78]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-78.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[79]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-79.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[80]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-80.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[81]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-81.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[82]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-82.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[83]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-83.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[84]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-84.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[85]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-85.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[86]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-86.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[87]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-87.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[88]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-88.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[89]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-89.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[90]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-90.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[91]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-91.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[92]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-92.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[93]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-93.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[94]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-94.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[95]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-95.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[96]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-96.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[97]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-97.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[98]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-98.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[99]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-99.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[100]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-100.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[101]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-101.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[102]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-102.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[103]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-103.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[104]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-104.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[105]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-105.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[106]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-106.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[107]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-107.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[108]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-108.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[109]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-109.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[110]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-110.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[111]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-111.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[112]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-112.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[113]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-113.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[114]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-114.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[115]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-115.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[116]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-116.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[117]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-117.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[118]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-118.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[119]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-119.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[120]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-120.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[121]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-121.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[122]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-122.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[123]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-123.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[124]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-124.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[125]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-125.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[126]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-126.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[127]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-127.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[128]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-128.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[129]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-129.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[130]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-130.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[131]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-131.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[132]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-132.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[133]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-133.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[134]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-134.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[135]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-135.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[136]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-136.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[137]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-137.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[138]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-138.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[139]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-139.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[140]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-140.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[141]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-141.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[142]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-142.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[143]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-143.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[144]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-144.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[145]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-145.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[146]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-146.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[147]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-147.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[148]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-148.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[149]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-149.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[150]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-150.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[151]]</code></pre>
+<p><img src="figure/Del13q14.Rmd/single%20gene%20counts-151.png" width="576" style="display: block; margin: auto;" /></p>
 </div>
 <div id="gene-set-enrichment-analysis" class="section level1">
 <h1>Gene set enrichment analysis</h1>
@@ -1602,14 +3653,14 @@ res &lt;- runGSA(geneLevelStats = gsaTab,
 <pre><code>Running gene set analysis:</code></pre>
 <pre><code>Checking arguments...done!</code></pre>
 <pre><code>*** Please note that running the GSEA-method may take a substantial amount of time! ***</code></pre>
-<pre><code>Final gene/gene-set association: 37 genes and 56 gene sets</code></pre>
+<pre><code>Final gene/gene-set association: 188 genes and 150 gene sets</code></pre>
 <pre><code>  Details:</code></pre>
-<pre><code>  Calculating gene set statistics from 37 out of 155 gene-level statistics</code></pre>
-<pre><code>  Using all 155 gene-level statistics for significance estimation</code></pre>
-<pre><code>  Removed 5229 genes from GSC due to lack of matching gene statistics</code></pre>
-<pre><code>  Removed 130 gene sets containing no genes after gene removal</code></pre>
+<pre><code>  Calculating gene set statistics from 188 out of 786 gene-level statistics</code></pre>
+<pre><code>  Using all 786 gene-level statistics for significance estimation</code></pre>
+<pre><code>  Removed 5078 genes from GSC due to lack of matching gene statistics</code></pre>
+<pre><code>  Removed 36 gene sets containing no genes after gene removal</code></pre>
 <pre><code>  Removed additionally 0 gene sets not matching the size limits</code></pre>
-<pre><code>  Loaded additional information for 56 gene sets</code></pre>
+<pre><code>  Loaded additional information for 150 gene sets</code></pre>
 <pre><code>Calculating gene set statistics...done!
 Calculating gene set significance...done!
 Adjusting for multiple testing...done!</code></pre>
@@ -1682,6 +3733,7 @@ aluetge
 </table>
 </div>
 </div>
+<pre class="r"><code>saveRDS(p, file = paste0(output_dir, &quot;/figures/r_objects/del13q14/del13q14_enrichment.rds&quot;))</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
