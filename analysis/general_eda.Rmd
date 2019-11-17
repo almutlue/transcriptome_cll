@@ -1,0 +1,255 @@
+---
+title: "Hierarchical structure"
+author: "almut"
+date: "17 November 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Hierarchical structure
+Find variables that explain the data#s structure in ansupervised way using hierarchical clustering and Principal component analysis
+
+```{r libraries}
+suppressPackageStartupMessages({
+  library(DESeq2)
+  library(dplyr)
+  library(ggplot2)
+  library(tidyverse)
+  library(ComplexHeatmap)
+  library(ggpubr)
+  library(RColorBrewer)
+  library(circlize)
+  library(here)
+})
+```
+
+Data 
+```{r data}
+data_dir <- here("data")
+output_dir <- here("output")
+figure_dir <- here("output/figures")
+
+#dds data set. gene expression data + patmetadata
+load(paste0(data_dir, "/ddsrnaCLL_150218.RData"))
+
+#load meta data including genotyping info
+load(paste0(data_dir, "/patmeta_170324.RData"))
+```
+
+normalize data
+```{r norm data}
+
+#Variance stabilization transformation of the raw data
+ddsCLL <- estimateSizeFactors(ddsCLL)
+RNAnorm <- varianceStabilizingTransformation(ddsCLL, blind=T)
+
+
+```
+
+
+Filter genes
+```{r filtering}
+exprMat <- assay(RNAnorm)
+
+# filter IG genes
+filtered <- as_tibble(rowData(ddsCLL)) %>% mutate(geneID = rownames(ddsCLL)) %>% filter(!grepl("IGH",symbol)) %>% filter(!grepl("IGK",symbol)) %>% filter(!grepl("IGL",symbol))  
+
+exprMat <- exprMat[filtered$geneID,]
+
+#top 500 most variant genes
+sds <- rowSds(exprMat)
+exprMat <- exprMat[order(sds, decreasing = T)[1:500],]
+colnames(exprMat) <- colData(ddsCLL)$PatID
+exprMat.new <- log2(exprMat)
+exprMat.new <- t(scale(t(exprMat.new)))
+exprMat.new[exprMat.new > 4] <- 4
+exprMat.new[exprMat.new < -4] <- -4
+rownames(exprMat.new) <- rowData(RNAnorm[rownames(exprMat),])$symbol
+```
+
+
+# Hierarchical clustering - heatmap
+
+```{r expr heatmap, fig.height= 25, fig.width= 25}
+
+#colors
+colors = colorRamp2(c(-4,-1.5,0,1.5,4), c("#2166ac","#4393c3", "#f7f7f7", "#d6604d","#b2182b"))
+annocol <- get_palette("jco", 10)
+annocolor <- list(IGHV = c("M" = annocol[1], "U" = annocol[2]) , 
+                  trisomy12 = c( "1" = annocol[8], "0" = annocol[4]), 
+                  Methylation = c("IP" = annocol[5], "LP" = annocol[6], "HP" =  annocol[7]))
+
+
+# Annotations
+#Top annotations
+ha_top = HeatmapAnnotation(df = data.frame(colData(RNAnorm)[, c("IGHV", "trisomy12", "Methylation")]), 
+                           col = annocolor, annotation_width = unit(c(rep(4, 3)), "cm"), 
+                           show_legend = FALSE, 
+                           simple_anno_size = unit(1.3, "cm"),
+                           annotation_name_gp = gpar(fontsize = 35),
+                           annotation_legend_param = list(title_gp = gpar(fontsize = 70), 
+                                                          labels_gp = gpar(fontsize = 55),  
+                                                          grid_height = unit(3, "cm"), 
+                                                          grid_width = unit(1.5, "cm"), 
+                                                          gap = unit(2, "cm")))
+
+# Annotration legend
+anno_legend_list = lapply(ha_top@anno_list[c("IGHV", "trisomy12", "Methylation")], function(anno){
+  color_mapping_legend(anno@color_mapping, plot = FALSE,
+                       title_gp = gpar(fontsize = 45, fontface = "bold"),
+                       grid_height = unit(1.5, "cm"),
+                       grid_width = unit(0.5, "cm"),
+                       labels_gp = gpar(fontsize = 35))
+  })
+
+#Annotate known genes from litertaure
+marker_genes <- c("ADAM29", "ATM", "CLLU1", "DMD", "GLO1", "HCSL1", "KIAA0977", 
+                  "LPL", "MGC9913", "PCDH9", "PEG10", "SEPT10", "TCF7", "TCL1", 
+                  "TP53", "VIM", "ZAP70", "CD38")
+
+geneIDs <- which(rownames(exprMat.new) %in% marker_genes)
+labels <- rownames(exprMat.new)[geneIDs]
+ha_genes <- rowAnnotation(link = row_anno_link(at = geneIDs, 
+                                               labels = labels, 
+                                               labels_gp = gpar(fontsize = 30)), 
+                          width = unit(2.5, "cm"))
+
+
+h1 <- Heatmap(exprMat.new ,                                                     
+              km = 3,
+              gap = unit(0.5, "cm"),
+              clustering_distance_columns = "euclidean",
+              clustering_method_columns = "ward.D2",
+              clustering_distance_rows = "pearson",
+              clustering_method_rows = "ward.D2",                    
+              col = colors,
+              column_title_gp = gpar(fontsize = 60, fontface = "bold"), 
+              column_dend_height = unit(2.5, "cm"),
+              show_row_dend = FALSE, 
+              show_column_names = FALSE , 
+              show_row_names = FALSE, 
+              row_names_gp = gpar(fontsize = 45),
+              show_heatmap_legend = FALSE,
+              top_annotation = ha_top, 
+              right_annotation = ha_genes)
+
+heatmap_legend = color_mapping_legend(h1@matrix_color_mapping, plot = FALSE, 
+                                      title = "Expr", title_gp = gpar(fontsize = 45, fontface = "bold"),
+                                      grid_height = unit(1.5, "cm"),
+                                      grid_width = unit(0.5, "cm"),
+                                      labels_gp = gpar(fontsize = 35))
+
+
+# arrange annotations 
+pd = packLegend(anno_legend_list[[1]], anno_legend_list[[2]], anno_legend_list[[3]], heatmap_legend, max_height = unit(20, "cm"), 
+    column_gap = unit(1, "cm"))
+
+pdf(file=paste0(output_dir, "/cluster500exprgenes.pdf"), width=20, height=20)
+draw(h1 + ha_genes, heatmap_legend_list = pd)
+dev.off()
+
+p1 <- draw(h1, heatmap_legend_list = pd)
+
+#save to create figure using cowplot 
+saveRDS(p1, paste0(output_dir, "/figures/r_objects/heatmap_top500genes.rds"))
+```
+
+
+# Principal component analysis
+
+```{r pca, fig.width=7, fig.height=7}
+#Plot PCA
+exprMat <- assay(RNAnorm)
+
+#top 5000 most variant genes
+sds <- rowSds(exprMat)
+na_ids <- which(is.na(ddsCLL$IGHV) | is.na(ddsCLL$trisomy12) | is.na(ddsCLL$Methylation))
+exprMat <- exprMat[order(sds, decreasing = T)[1:500], -na_ids]
+
+
+#Calculate PCA
+pcaRes <- prcomp(t(exprMat), scale =T)
+varExp <- (pcaRes$sdev^2 / sum(pcaRes$sdev^2)) * 100
+pcaTab <- data.frame(pcaRes$x[,c(1:10)])
+names(varExp) <- colnames(pcaRes$x)
+
+#add background information
+pcaTab <- cbind(pcaTab, data.frame(colData(RNAnorm)[-na_ids, ]))
+
+#IGHV
+p <- ggscatter(pcaTab, x = "PC1", y = "PC2", color = "IGHV", palette = "jco", size = 3,
+  ylab = sprintf("PC2 (%2.1f%%)",varExp[2]), xlab = sprintf("PC1 (%2.1f%%)",varExp[1]), 
+  legend = "right", main = "PCA IGHV status", 
+  font.legend = c(23, "plain", "black"), 
+  font.tickslab = c(23, "plain", "black"), 
+  font.main = 25, font.submain = 28, font.caption = 28, font.x = 28, font.y= 28) + 
+  coord_fixed()
+
+p
+
+#Tri12
+p1 <- ggscatter(pcaTab, x = "PC1", y = "PC2", color = "trisomy12", size = 3,
+  ylab = sprintf("PC2 (%2.1f%%)",varExp[2]), xlab = sprintf("PC1 (%2.1f%%)",varExp[1]), 
+  legend = "right", main = "PCA trisomy12", 
+  font.legend = c(23, "plain", "black"), 
+  font.tickslab = c(23, "plain", "black"), 
+  font.main = 25, font.submain = 28, font.caption = 28, font.x = 28, font.y= 28) + 
+  coord_fixed() + 
+  scale_colour_manual(values = c(annocol[4], annocol[8]))
+
+p1
+
+
+#Methylation
+p2 <- ggscatter(pcaTab, x = "PC1", y = "PC2", color = "Methylation", size = 3,
+  ylab = sprintf("PC2 (%2.1f%%)",varExp[2]), xlab = sprintf("PC1 (%2.1f%%)",varExp[1]), 
+  legend = "right", main = "PCA Methylation - top 500 genes", 
+  font.legend = c(23, "plain", "black"), 
+  font.tickslab = c(23, "plain", "black"), 
+  font.main = 25, font.submain = 28, font.caption = 28, font.x = 28, font.y= 28) + 
+  coord_fixed() + 
+  scale_colour_manual(values = c(annocol[7], annocol[5], annocol[6]))
+
+p2
+
+#Methylation reduced gene number
+#change gene number only 300 top variant genes
+#Plot PCA
+exprMat <- assay(RNAnorm)
+
+#top 5000 most variant genes
+sds <- rowSds(exprMat)
+na_ids <- which(is.na(ddsCLL$Methylation))
+exprMat <- exprMat[order(sds, decreasing = T)[1:300], -na_ids]
+
+
+#Calculate PCA
+pcaRes <- prcomp(t(exprMat), scale =T)
+varExp <- (pcaRes$sdev^2 / sum(pcaRes$sdev^2)) * 100
+pcaTab <- data.frame(pcaRes$x[,c(1:10)])
+names(varExp) <- colnames(pcaRes$x)
+
+#add background information
+pcaTab <- cbind(pcaTab, data.frame(colData(RNAnorm)[-na_ids, ]))
+
+p3 <- ggscatter(pcaTab, x = "PC1", y = "PC2", color = "Methylation", size = 3,
+  ylab = sprintf("PC2 (%2.1f%%)",varExp[2]), xlab = sprintf("PC1 (%2.1f%%)",varExp[1]), 
+  legend = "right", main = "PCA Methylation - top 300 genes", 
+  font.legend = c(23, "plain", "black"), 
+  font.tickslab = c(23, "plain", "black"), 
+  font.main = 25, font.submain = 28, font.caption = 28, font.x = 28, font.y= 28) + 
+  coord_fixed() + 
+  scale_colour_manual(values = c(annocol[7], annocol[5], annocol[6]))
+
+p3
+
+
+saveRDS(list("IGHV" = p, "trisomy12" = p1, "Methylation" = p2, "Methylation_red_genes" = p3), 
+        file = paste0(output_dir, "/figures/r_objects/pca_top500genes.rds"))
+
+```
+
+
