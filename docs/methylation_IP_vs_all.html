@@ -445,7 +445,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-11-13
+<strong>Last updated:</strong> 2019-11-17
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -536,10 +536,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree79132075ff2b183bcd4f248185444478a3a84e8btargetblank7913207a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/almutlue/transcriptome_cll/tree/79132075ff2b183bcd4f248185444478a3a84e8b" target="_blank">7913207</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree33701f44fd5bd280bbc91f485db31609cdc7f63dtargetblank33701f4a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/almutlue/transcriptome_cll/tree/33701f44fd5bd280bbc91f485db31609cdc7f63d" target="_blank">33701f4</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree79132075ff2b183bcd4f248185444478a3a84e8btargetblank7913207a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree33701f44fd5bd280bbc91f485db31609cdc7f63dtargetblank33701f4a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -548,17 +548,40 @@ Great! You are using Git for version control. Tracking code development and conn
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-    Ignored:    analysis/figure/
 
 Untracked files:
-    Untracked:  data/c2.cp.kegg.v6.0.symbols.gmt
-    Untracked:  data/ddsrnaCLL_150218.RData
-    Untracked:  output/diff_genes/
-    Untracked:  output/diff_meth.rds
-    Untracked:  output/diff_meth_IGHV.rds
-    Untracked:  output/diff_meth_IP_vs_all.rds
-    Untracked:  output/figures/
-    Untracked:  output/res_epistatsis_ighv_tri12.rds
+    Untracked:  data/2018-03-05_IGHV.RData
+    Untracked:  data/patmeta_170324.RData
+    Untracked:  output/IGHV1_69.svg
+    Untracked:  output/cluster1000exprgenes.pdf
+    Untracked:  output/cluster500exprgenes.pdf
+    Untracked:  output/desRes_15112019.RData
+    Untracked:  output/figures/hist_mutations.svg
+    Untracked:  output/figures/overview_mutations.pdf
+    Untracked:  output/figures/r_objects/
+    Untracked:  output/figures/sum_diffGenes_0.05_2.pdf
+    Untracked:  output/figures/sum_diffGenes_noTsig.pdf
+    Untracked:  output/figures/sum_diffGenes_noTsig_IGHVTri12.pdf
+
+Unstaged changes:
+    Modified:   analysis/SF3B1.Rmd
+    Modified:   analysis/index.Rmd
+    Modified:   analysis/summary_de_genes.Rmd
+    Modified:   analysis/summary_variants.Rmd
+    Modified:   analysis/trisomy12.Rmd
+    Modified:   output/diff_genes/ATM_diffGenes.csv
+    Modified:   output/diff_genes/BRAF_diffGenes.csv
+    Modified:   output/diff_genes/MED12_diffGenes.csv
+    Modified:   output/diff_genes/NOTCH1_diffGenes.csv
+    Modified:   output/diff_genes/SF3B1_diffGenes.csv
+    Modified:   output/diff_genes/TP53_diffGenes.csv
+    Modified:   output/diff_genes/del11q22.3_diffGenes.csv
+    Modified:   output/diff_genes/del13q14_diffGenes.csv
+    Modified:   output/diff_genes/del17p13_diffGenes.csv
+    Modified:   output/diff_genes/del8p12_diffGenes.csv
+    Modified:   output/diff_genes/gain8q24_diffGenes.csv
+    Modified:   output/diff_genes/trisomy12_diffGenes.csv
+    Modified:   output/figures/pca_Meth_top150.svg
 
 </code></pre>
 <p>
@@ -597,6 +620,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/almutlue/transcriptome_cll/672654d57b7ee2aa13238ec871616218d9c09297/docs/methylation_IP_vs_all.html" target="_blank">672654d</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -689,6 +729,43 @@ p &lt;- ggscatter(pcaTab, x = &quot;PC1&quot;, y = &quot;PC2&quot;, color = &quo
 
 p</code></pre>
 <p><img src="figure/methylation_IP_vs_all.Rmd/pca-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-pca-1">
+Past versions of pca-1.png
+</button>
+</p>
+<div id="fig-pca-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/672654d57b7ee2aa13238ec871616218d9c09297/docs/figure/methylation_IP_vs_all.Rmd/pca-1.png" target="_blank">672654d</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>#ggsave(file=paste0(figure_dir, &quot;/pca_Meth_IP_all_top150.svg&quot;), plot=p, width=5, height=5)</code></pre>
 </div>
 <div id="gene-expression" class="section level1">
@@ -708,9 +785,9 @@ diff &lt;- function(cond){
   resOrdered &lt;- res[order(res$pvalue),]
 }
 
-diff_meth &lt;- diff(&quot;IP&quot;)
+#diff_meth &lt;- diff(&quot;IP&quot;)
 
-saveRDS(diff_meth, file= paste0(output_dir,&quot;/diff_meth_IP_vs_all.rds&quot;))</code></pre>
+#saveRDS(diff_meth, file= paste0(output_dir,&quot;/diff_meth_IP_vs_all.rds&quot;))</code></pre>
 <p>Filter differentially expressed genes</p>
 <pre class="r"><code>diff_meth &lt;- readRDS(paste0(output_dir,&quot;/diff_meth_IP_vs_all.rds&quot;))
 
@@ -792,9 +869,48 @@ ha_genes &lt;- rowAnnotation(link = row_anno_link(at = geneIDs, labels = labels,
 <pre><code>Warning: anno_link() is deprecated, please use anno_mark() instead.</code></pre>
 <pre class="r"><code>#svg(filename=paste0(figure_dir, &quot;/gene_expr_Methylation_IP_all.svg&quot;), width=30, height=35)
 #pdf(file=paste0(figure_dir,&quot;/gene_expr_Methylation_IP_all.pdf&quot;), width=30, height=45)
-draw( h1 + ha_genes)</code></pre>
+p1 &lt;- draw( h1 + ha_genes)</code></pre>
 <p><img src="figure/methylation_IP_vs_all.Rmd/complex%20heatmap-1.png" width="2880" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>#dev.off()</code></pre>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-complex-heatmap-1">
+Past versions of “complex heatmap-1.png”
+</button>
+</p>
+<div id="fig-no-spaces-complex-heatmap-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/672654d57b7ee2aa13238ec871616218d9c09297/docs/figure/methylation_IP_vs_all.Rmd/complex heatmap-1.png" target="_blank">672654d</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>#dev.off()
+
+saveRDS(p1, file = paste0(output_dir, &quot;/figures/r_objects/Methylation_IP/meth_ip_heatmap.rds&quot;))</code></pre>
 </div>
 </div>
 <div id="gene-and-sample-specific-expression---top-genes" class="section level1">
@@ -815,6 +931,7 @@ gene_count &lt;- function(gene_nam){
           title = paste(gene_nam),
           ylab = &quot;normalized counts&quot;)
  # ggsave(file=paste0(figure_dir, &quot;/methylation_IP_all/genetic_interaction_&quot;, gene_nam, &quot;.svg&quot;), plot=p, width=6, height=5)
+  saveRDS(p, file = paste0(output_dir, &quot;/figures/r_objects/Methylation_IP/de_genes/&quot;, gene_nam, &quot;.rds&quot;))
   p
 }
 
@@ -822,95 +939,1242 @@ geneList &lt;- sub_names[1:30]
 lapply(geneList, gene_count)</code></pre>
 <pre><code>[[1]]</code></pre>
 <p><img src="figure/methylation_IP_vs_all.Rmd/single%20gene%20counts-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-1">
+Past versions of “single gene counts-1.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/672654d57b7ee2aa13238ec871616218d9c09297/docs/figure/methylation_IP_vs_all.Rmd/single gene counts-1.png" target="_blank">672654d</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[2]]</code></pre>
 <p><img src="figure/methylation_IP_vs_all.Rmd/single%20gene%20counts-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-2">
+Past versions of “single gene counts-2.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/672654d57b7ee2aa13238ec871616218d9c09297/docs/figure/methylation_IP_vs_all.Rmd/single gene counts-2.png" target="_blank">672654d</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[3]]</code></pre>
 <p><img src="figure/methylation_IP_vs_all.Rmd/single%20gene%20counts-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-3">
+Past versions of “single gene counts-3.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/672654d57b7ee2aa13238ec871616218d9c09297/docs/figure/methylation_IP_vs_all.Rmd/single gene counts-3.png" target="_blank">672654d</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[4]]</code></pre>
 <p><img src="figure/methylation_IP_vs_all.Rmd/single%20gene%20counts-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-4">
+Past versions of “single gene counts-4.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-4" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/672654d57b7ee2aa13238ec871616218d9c09297/docs/figure/methylation_IP_vs_all.Rmd/single gene counts-4.png" target="_blank">672654d</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[5]]</code></pre>
 <p><img src="figure/methylation_IP_vs_all.Rmd/single%20gene%20counts-5.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-5">
+Past versions of “single gene counts-5.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-5" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/672654d57b7ee2aa13238ec871616218d9c09297/docs/figure/methylation_IP_vs_all.Rmd/single gene counts-5.png" target="_blank">672654d</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[6]]</code></pre>
 <p><img src="figure/methylation_IP_vs_all.Rmd/single%20gene%20counts-6.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-6">
+Past versions of “single gene counts-6.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-6" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/672654d57b7ee2aa13238ec871616218d9c09297/docs/figure/methylation_IP_vs_all.Rmd/single gene counts-6.png" target="_blank">672654d</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[7]]</code></pre>
 <p><img src="figure/methylation_IP_vs_all.Rmd/single%20gene%20counts-7.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-7">
+Past versions of “single gene counts-7.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-7" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/672654d57b7ee2aa13238ec871616218d9c09297/docs/figure/methylation_IP_vs_all.Rmd/single gene counts-7.png" target="_blank">672654d</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[8]]</code></pre>
 <p><img src="figure/methylation_IP_vs_all.Rmd/single%20gene%20counts-8.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-8">
+Past versions of “single gene counts-8.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-8" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/672654d57b7ee2aa13238ec871616218d9c09297/docs/figure/methylation_IP_vs_all.Rmd/single gene counts-8.png" target="_blank">672654d</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[9]]</code></pre>
 <p><img src="figure/methylation_IP_vs_all.Rmd/single%20gene%20counts-9.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-9">
+Past versions of “single gene counts-9.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-9" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/672654d57b7ee2aa13238ec871616218d9c09297/docs/figure/methylation_IP_vs_all.Rmd/single gene counts-9.png" target="_blank">672654d</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[10]]</code></pre>
 <p><img src="figure/methylation_IP_vs_all.Rmd/single%20gene%20counts-10.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-10">
+Past versions of “single gene counts-10.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-10" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/672654d57b7ee2aa13238ec871616218d9c09297/docs/figure/methylation_IP_vs_all.Rmd/single gene counts-10.png" target="_blank">672654d</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[11]]</code></pre>
 <p><img src="figure/methylation_IP_vs_all.Rmd/single%20gene%20counts-11.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-11">
+Past versions of “single gene counts-11.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-11" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/672654d57b7ee2aa13238ec871616218d9c09297/docs/figure/methylation_IP_vs_all.Rmd/single gene counts-11.png" target="_blank">672654d</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[12]]</code></pre>
 <p><img src="figure/methylation_IP_vs_all.Rmd/single%20gene%20counts-12.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-12">
+Past versions of “single gene counts-12.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-12" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/672654d57b7ee2aa13238ec871616218d9c09297/docs/figure/methylation_IP_vs_all.Rmd/single gene counts-12.png" target="_blank">672654d</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[13]]</code></pre>
 <p><img src="figure/methylation_IP_vs_all.Rmd/single%20gene%20counts-13.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-13">
+Past versions of “single gene counts-13.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-13" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/672654d57b7ee2aa13238ec871616218d9c09297/docs/figure/methylation_IP_vs_all.Rmd/single gene counts-13.png" target="_blank">672654d</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[14]]</code></pre>
 <p><img src="figure/methylation_IP_vs_all.Rmd/single%20gene%20counts-14.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-14">
+Past versions of “single gene counts-14.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-14" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/672654d57b7ee2aa13238ec871616218d9c09297/docs/figure/methylation_IP_vs_all.Rmd/single gene counts-14.png" target="_blank">672654d</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[15]]</code></pre>
 <p><img src="figure/methylation_IP_vs_all.Rmd/single%20gene%20counts-15.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-15">
+Past versions of “single gene counts-15.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-15" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/672654d57b7ee2aa13238ec871616218d9c09297/docs/figure/methylation_IP_vs_all.Rmd/single gene counts-15.png" target="_blank">672654d</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[16]]</code></pre>
 <p><img src="figure/methylation_IP_vs_all.Rmd/single%20gene%20counts-16.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-16">
+Past versions of “single gene counts-16.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-16" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/672654d57b7ee2aa13238ec871616218d9c09297/docs/figure/methylation_IP_vs_all.Rmd/single gene counts-16.png" target="_blank">672654d</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[17]]</code></pre>
 <p><img src="figure/methylation_IP_vs_all.Rmd/single%20gene%20counts-17.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-17">
+Past versions of “single gene counts-17.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-17" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/672654d57b7ee2aa13238ec871616218d9c09297/docs/figure/methylation_IP_vs_all.Rmd/single gene counts-17.png" target="_blank">672654d</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[18]]</code></pre>
 <p><img src="figure/methylation_IP_vs_all.Rmd/single%20gene%20counts-18.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-18">
+Past versions of “single gene counts-18.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-18" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/672654d57b7ee2aa13238ec871616218d9c09297/docs/figure/methylation_IP_vs_all.Rmd/single gene counts-18.png" target="_blank">672654d</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[19]]</code></pre>
 <p><img src="figure/methylation_IP_vs_all.Rmd/single%20gene%20counts-19.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-19">
+Past versions of “single gene counts-19.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-19" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/672654d57b7ee2aa13238ec871616218d9c09297/docs/figure/methylation_IP_vs_all.Rmd/single gene counts-19.png" target="_blank">672654d</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[20]]</code></pre>
 <p><img src="figure/methylation_IP_vs_all.Rmd/single%20gene%20counts-20.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-20">
+Past versions of “single gene counts-20.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-20" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/672654d57b7ee2aa13238ec871616218d9c09297/docs/figure/methylation_IP_vs_all.Rmd/single gene counts-20.png" target="_blank">672654d</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[21]]</code></pre>
 <p><img src="figure/methylation_IP_vs_all.Rmd/single%20gene%20counts-21.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-21">
+Past versions of “single gene counts-21.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-21" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/672654d57b7ee2aa13238ec871616218d9c09297/docs/figure/methylation_IP_vs_all.Rmd/single gene counts-21.png" target="_blank">672654d</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[22]]</code></pre>
 <p><img src="figure/methylation_IP_vs_all.Rmd/single%20gene%20counts-22.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-22">
+Past versions of “single gene counts-22.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-22" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/672654d57b7ee2aa13238ec871616218d9c09297/docs/figure/methylation_IP_vs_all.Rmd/single gene counts-22.png" target="_blank">672654d</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[23]]</code></pre>
 <p><img src="figure/methylation_IP_vs_all.Rmd/single%20gene%20counts-23.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-23">
+Past versions of “single gene counts-23.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-23" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/672654d57b7ee2aa13238ec871616218d9c09297/docs/figure/methylation_IP_vs_all.Rmd/single gene counts-23.png" target="_blank">672654d</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[24]]</code></pre>
 <p><img src="figure/methylation_IP_vs_all.Rmd/single%20gene%20counts-24.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-24">
+Past versions of “single gene counts-24.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-24" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/672654d57b7ee2aa13238ec871616218d9c09297/docs/figure/methylation_IP_vs_all.Rmd/single gene counts-24.png" target="_blank">672654d</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[25]]</code></pre>
 <p><img src="figure/methylation_IP_vs_all.Rmd/single%20gene%20counts-25.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-25">
+Past versions of “single gene counts-25.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-25" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/672654d57b7ee2aa13238ec871616218d9c09297/docs/figure/methylation_IP_vs_all.Rmd/single gene counts-25.png" target="_blank">672654d</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[26]]</code></pre>
 <p><img src="figure/methylation_IP_vs_all.Rmd/single%20gene%20counts-26.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-26">
+Past versions of “single gene counts-26.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-26" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/672654d57b7ee2aa13238ec871616218d9c09297/docs/figure/methylation_IP_vs_all.Rmd/single gene counts-26.png" target="_blank">672654d</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[27]]</code></pre>
 <p><img src="figure/methylation_IP_vs_all.Rmd/single%20gene%20counts-27.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-27">
+Past versions of “single gene counts-27.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-27" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/672654d57b7ee2aa13238ec871616218d9c09297/docs/figure/methylation_IP_vs_all.Rmd/single gene counts-27.png" target="_blank">672654d</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[28]]</code></pre>
 <p><img src="figure/methylation_IP_vs_all.Rmd/single%20gene%20counts-28.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-28">
+Past versions of “single gene counts-28.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-28" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/672654d57b7ee2aa13238ec871616218d9c09297/docs/figure/methylation_IP_vs_all.Rmd/single gene counts-28.png" target="_blank">672654d</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[29]]</code></pre>
 <p><img src="figure/methylation_IP_vs_all.Rmd/single%20gene%20counts-29.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-29">
+Past versions of “single gene counts-29.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-29" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/672654d57b7ee2aa13238ec871616218d9c09297/docs/figure/methylation_IP_vs_all.Rmd/single gene counts-29.png" target="_blank">672654d</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[30]]</code></pre>
 <p><img src="figure/methylation_IP_vs_all.Rmd/single%20gene%20counts-30.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-30">
+Past versions of “single gene counts-30.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-30" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/672654d57b7ee2aa13238ec871616218d9c09297/docs/figure/methylation_IP_vs_all.Rmd/single gene counts-30.png" target="_blank">672654d</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>gene_count(&quot;SOX11&quot;)</code></pre>
 <p><img src="figure/methylation_IP_vs_all.Rmd/single%20gene%20counts-31.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-31">
+Past versions of “single gene counts-31.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-31" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/672654d57b7ee2aa13238ec871616218d9c09297/docs/figure/methylation_IP_vs_all.Rmd/single gene counts-31.png" target="_blank">672654d</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 </div>
 <div id="gene-set-enrichment" class="section level1">
 <h1>Gene set enrichment</h1>
@@ -973,10 +2237,48 @@ p &lt;- ggbarplot(enrichPlot, x = &quot;pathway&quot;, y = &quot;log10Padj&quot;
   font(&quot;xy.text&quot;, size = 16) + 
   font(&quot;title&quot;, size = 20, face = &quot;bold&quot;)
   
-ggsave(file=paste0(figure_dir, &quot;/GSEA_Meth_IP_vs_all_Kegg.svg&quot;), plot=p, width=14, height=7)
+#ggsave(file=paste0(figure_dir, &quot;/GSEA_Meth_IP_vs_all_Kegg.svg&quot;), plot=p, width=14, height=7)
 
 p</code></pre>
 <p><img src="figure/methylation_IP_vs_all.Rmd/gsea-1.png" width="1536" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-gsea-1">
+Past versions of gsea-1.png
+</button>
+</p>
+<div id="fig-gsea-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/672654d57b7ee2aa13238ec871616218d9c09297/docs/figure/methylation_IP_vs_all.Rmd/gsea-1.png" target="_blank">672654d</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>saveRDS(p, file = paste0(output_dir, &quot;/figures/r_objects/Methylation_IP/meth_ip_enrichment.rds&quot;))</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1006,20 +2308,20 @@ attached base packages:
  [8] datasets  methods   base     
 
 other attached packages:
- [1] gdtools_0.1.9               piano_2.0.2                
- [3] here_0.1                    circlize_0.4.6             
- [5] RColorBrewer_1.1-2          ComplexHeatmap_2.0.0       
- [7] ggpubr_0.2                  magrittr_1.5               
- [9] DESeq2_1.24.0               SummarizedExperiment_1.14.0
-[11] DelayedArray_0.10.0         BiocParallel_1.18.0        
-[13] matrixStats_0.54.0          Biobase_2.44.0             
-[15] GenomicRanges_1.36.0        GenomeInfoDb_1.20.0        
-[17] IRanges_2.18.1              S4Vectors_0.22.0           
-[19] BiocGenerics_0.30.0         forcats_0.4.0              
-[21] stringr_1.4.0               dplyr_0.8.1                
-[23] purrr_0.3.2                 readr_1.3.1                
-[25] tidyr_0.8.3                 tibble_2.1.3               
-[27] ggplot2_3.1.1               tidyverse_1.2.1            
+ [1] piano_2.0.2                 here_0.1                   
+ [3] circlize_0.4.6              RColorBrewer_1.1-2         
+ [5] ComplexHeatmap_2.0.0        ggpubr_0.2                 
+ [7] magrittr_1.5                DESeq2_1.24.0              
+ [9] SummarizedExperiment_1.14.0 DelayedArray_0.10.0        
+[11] BiocParallel_1.18.0         matrixStats_0.54.0         
+[13] Biobase_2.44.0              GenomicRanges_1.36.0       
+[15] GenomeInfoDb_1.20.0         IRanges_2.18.1             
+[17] S4Vectors_0.22.0            BiocGenerics_0.30.0        
+[19] forcats_0.4.0               stringr_1.4.0              
+[21] dplyr_0.8.1                 purrr_0.3.2                
+[23] readr_1.3.1                 tidyr_0.8.3                
+[25] tibble_2.1.3                ggplot2_3.1.1              
+[27] tidyverse_1.2.1            
 
 loaded via a namespace (and not attached):
   [1] readxl_1.3.1           backports_1.1.4        Hmisc_4.2-0           
@@ -1028,38 +2330,38 @@ loaded via a namespace (and not attached):
  [10] splines_3.6.0          digest_0.6.19          htmltools_0.3.6       
  [13] gdata_2.18.0           checkmate_1.9.3        memoise_1.1.0         
  [16] cluster_2.1.0          limma_3.40.2           annotate_1.62.0       
- [19] modelr_0.1.4           svglite_1.2.2          colorspace_1.4-1      
- [22] blob_1.1.1             rvest_0.3.4            haven_2.1.0           
- [25] xfun_0.7               crayon_1.3.4           RCurl_1.95-4.12       
- [28] jsonlite_1.6           genefilter_1.66.0      survival_2.44-1.1     
- [31] glue_1.3.1             gtable_0.3.0           zlibbioc_1.30.0       
- [34] XVector_0.24.0         GetoptLong_0.1.7       shape_1.4.4           
- [37] scales_1.0.0           DBI_1.0.0              relations_0.6-8       
- [40] Rcpp_1.0.1             xtable_1.8-4           htmlTable_1.13.1      
- [43] clue_0.3-57            foreign_0.8-71         bit_1.1-14            
- [46] Formula_1.2-3          DT_0.7                 htmlwidgets_1.3       
- [49] httr_1.4.0             fgsea_1.10.0           gplots_3.0.1.1        
- [52] acepack_1.4.1          pkgconfig_2.0.2        XML_3.98-1.20         
- [55] nnet_7.3-12            locfit_1.5-9.1         labeling_0.3          
- [58] tidyselect_0.2.5       rlang_0.3.4            later_0.8.0           
- [61] AnnotationDbi_1.46.0   visNetwork_2.0.7       munsell_0.5.0         
- [64] cellranger_1.1.0       tools_3.6.0            cli_1.1.0             
- [67] generics_0.0.2         RSQLite_2.1.1          broom_0.5.2           
- [70] evaluate_0.14          yaml_2.2.0             knitr_1.23            
- [73] bit64_0.9-7            fs_1.3.1               caTools_1.17.1.2      
- [76] nlme_3.1-140           whisker_0.3-2          mime_0.7              
- [79] slam_0.1-45            xml2_1.2.0             compiler_3.6.0        
- [82] rstudioapi_0.10        png_0.1-7              marray_1.62.0         
- [85] geneplotter_1.62.0     stringi_1.4.3          lattice_0.20-38       
- [88] Matrix_1.2-17          ggsci_2.9              shinyjs_1.0           
- [91] pillar_1.4.1           GlobalOptions_0.1.0    data.table_1.12.2     
- [94] bitops_1.0-6           httpuv_1.5.1           R6_2.4.0              
- [97] latticeExtra_0.6-28    promises_1.0.1         KernSmooth_2.23-15    
-[100] gridExtra_2.3          gtools_3.8.1           assertthat_0.2.1      
-[103] rprojroot_1.3-2        rjson_0.2.20           withr_2.1.2           
-[106] GenomeInfoDbData_1.2.1 hms_0.4.2              rpart_4.1-15          
-[109] rmarkdown_1.13         git2r_0.25.2           sets_1.0-18           
-[112] shiny_1.3.2            lubridate_1.7.4        base64enc_0.1-3       </code></pre>
+ [19] modelr_0.1.4           colorspace_1.4-1       blob_1.1.1            
+ [22] rvest_0.3.4            haven_2.1.0            xfun_0.7              
+ [25] crayon_1.3.4           RCurl_1.95-4.12        jsonlite_1.6          
+ [28] genefilter_1.66.0      survival_2.44-1.1      glue_1.3.1            
+ [31] gtable_0.3.0           zlibbioc_1.30.0        XVector_0.24.0        
+ [34] GetoptLong_0.1.7       shape_1.4.4            scales_1.0.0          
+ [37] DBI_1.0.0              relations_0.6-8        Rcpp_1.0.1            
+ [40] xtable_1.8-4           htmlTable_1.13.1       clue_0.3-57           
+ [43] foreign_0.8-71         bit_1.1-14             Formula_1.2-3         
+ [46] DT_0.7                 htmlwidgets_1.3        httr_1.4.0            
+ [49] fgsea_1.10.0           gplots_3.0.1.1         acepack_1.4.1         
+ [52] pkgconfig_2.0.2        XML_3.98-1.20          nnet_7.3-12           
+ [55] locfit_1.5-9.1         labeling_0.3           tidyselect_0.2.5      
+ [58] rlang_0.3.4            later_0.8.0            AnnotationDbi_1.46.0  
+ [61] visNetwork_2.0.7       munsell_0.5.0          cellranger_1.1.0      
+ [64] tools_3.6.0            cli_1.1.0              generics_0.0.2        
+ [67] RSQLite_2.1.1          broom_0.5.2            evaluate_0.14         
+ [70] yaml_2.2.0             knitr_1.23             bit64_0.9-7           
+ [73] fs_1.3.1               caTools_1.17.1.2       nlme_3.1-140          
+ [76] whisker_0.3-2          mime_0.7               slam_0.1-45           
+ [79] xml2_1.2.0             compiler_3.6.0         rstudioapi_0.10       
+ [82] png_0.1-7              marray_1.62.0          geneplotter_1.62.0    
+ [85] stringi_1.4.3          lattice_0.20-38        Matrix_1.2-17         
+ [88] ggsci_2.9              shinyjs_1.0            pillar_1.4.1          
+ [91] GlobalOptions_0.1.0    data.table_1.12.2      bitops_1.0-6          
+ [94] httpuv_1.5.1           R6_2.4.0               latticeExtra_0.6-28   
+ [97] promises_1.0.1         KernSmooth_2.23-15     gridExtra_2.3         
+[100] gtools_3.8.1           assertthat_0.2.1       rprojroot_1.3-2       
+[103] rjson_0.2.20           withr_2.1.2            GenomeInfoDbData_1.2.1
+[106] hms_0.4.2              rpart_4.1-15           rmarkdown_1.13        
+[109] git2r_0.25.2           sets_1.0-18            shiny_1.3.2           
+[112] lubridate_1.7.4        base64enc_0.1-3       </code></pre>
 </div>
 </div>
 
