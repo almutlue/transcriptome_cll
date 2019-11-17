@@ -445,7 +445,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-11-13
+<strong>Last updated:</strong> 2019-11-17
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -536,10 +536,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree8f9f56ff51f45085fcff59b1123f93abb2849a90targetblank8f9f56fa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/almutlue/transcriptome_cll/tree/8f9f56ff51f45085fcff59b1123f93abb2849a90" target="_blank">8f9f56f</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree51c4fabc1aff55294926a6d9633a702717d9e925targetblank51c4faba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/almutlue/transcriptome_cll/tree/51c4fabc1aff55294926a6d9633a702717d9e925" target="_blank">51c4fab</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree8f9f56ff51f45085fcff59b1123f93abb2849a90targetblank8f9f56fa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree51c4fabc1aff55294926a6d9633a702717d9e925targetblank51c4faba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -550,25 +550,44 @@ Ignored files:
     Ignored:    .Rproj.user/
 
 Untracked files:
-    Untracked:  analysis/methylation_IP_vs_all.Rmd
-    Untracked:  data/c2.cp.kegg.v6.0.symbols.gmt
-    Untracked:  data/ddsrnaCLL_150218.RData
-    Untracked:  docs/figure/methylation_IP_vs_all.Rmd/
-    Untracked:  output/diff_genes/
-    Untracked:  output/diff_meth.rds
-    Untracked:  output/diff_meth_IGHV.rds
-    Untracked:  output/diff_meth_IP_vs_all.rds
-    Untracked:  output/figures/
-    Untracked:  output/res_epistatsis_ighv_tri12.rds
+    Untracked:  data/2018-03-05_IGHV.RData
+    Untracked:  data/patmeta_170324.RData
+    Untracked:  output/IGHV1_69.svg
+    Untracked:  output/cluster1000exprgenes.pdf
+    Untracked:  output/cluster500exprgenes.pdf
+    Untracked:  output/desRes_15112019.RData
+    Untracked:  output/figures/hist_mutations.svg
+    Untracked:  output/figures/overview_mutations.pdf
+    Untracked:  output/figures/r_objects/
+    Untracked:  output/figures/sum_diffGenes_0.05_2.pdf
+    Untracked:  output/figures/sum_diffGenes_noTsig.pdf
+    Untracked:  output/figures/sum_diffGenes_noTsig_IGHVTri12.pdf
 
 Unstaged changes:
-    Modified:   analysis/Del17p13.Rmd
     Modified:   analysis/Del8p12.Rmd
     Modified:   analysis/Gain8q24.Rmd
+    Modified:   analysis/IGHV.Rmd
     Modified:   analysis/Med12.Rmd
-    Modified:   analysis/Notch1.Rmd
     Modified:   analysis/SF3B1.Rmd
-    Modified:   analysis/TP53.Rmd
+    Modified:   analysis/epistasis.Rmd
+    Modified:   analysis/index.Rmd
+    Modified:   analysis/methylation_IP_vs_all.Rmd
+    Modified:   analysis/summary_de_genes.Rmd
+    Modified:   analysis/summary_variants.Rmd
+    Modified:   analysis/trisomy12.Rmd
+    Modified:   output/diff_genes/ATM_diffGenes.csv
+    Modified:   output/diff_genes/BRAF_diffGenes.csv
+    Modified:   output/diff_genes/MED12_diffGenes.csv
+    Modified:   output/diff_genes/NOTCH1_diffGenes.csv
+    Modified:   output/diff_genes/SF3B1_diffGenes.csv
+    Modified:   output/diff_genes/TP53_diffGenes.csv
+    Modified:   output/diff_genes/del11q22.3_diffGenes.csv
+    Modified:   output/diff_genes/del13q14_diffGenes.csv
+    Modified:   output/diff_genes/del17p13_diffGenes.csv
+    Modified:   output/diff_genes/del8p12_diffGenes.csv
+    Modified:   output/diff_genes/gain8q24_diffGenes.csv
+    Modified:   output/diff_genes/trisomy12_diffGenes.csv
+    Modified:   output/figures/pca_Meth_top150.svg
 
 </code></pre>
 <p>
@@ -607,6 +626,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/almutlue/transcriptome_cll/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/ATM.html" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -782,6 +818,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0b836e2a74c2a3715c710e9e4e195b8e09035a66/docs/figure/ATM.Rmd/complex heatmap-1.png" target="_blank">0b836e2</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-13
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/ATM.Rmd/complex heatmap-1.png" target="_blank">cc24f92</a>
 </td>
 <td>
@@ -797,7 +844,7 @@ aluetge
 </div>
 <pre class="r"><code>#dev.off()
 
-#draw(h1)</code></pre>
+saveRDS(h1, file = paste0(output_dir, &quot;/figures/r_objects/atm/atm_heatmap.rds&quot;))</code></pre>
 </div>
 </div>
 <div id="sample-and-gene-specific-expression---top-genes" class="section level1">
@@ -819,6 +866,7 @@ gene_count &lt;- function(gene_nam){
           font.x = 18, font.y = 18, font.legend = 16, 
           ylab = &quot;normalized counts&quot;) + font(&quot;xy.text&quot;, size = 15) + font(&quot;title&quot;, size = 20, face = &quot;bold&quot;)
   #ggsave(file=paste0(figure_dir, &quot;/tri12/genetic_interaction_&quot;, gene_nam, &quot;.svg&quot;), plot=p, width=6, height=5)
+  saveRDS(p, file = paste0(output_dir, &quot;/figures/r_objects/atm/de_genes/&quot;, gene_nam, &quot;.rds&quot;))
   p
 }
 
@@ -1347,206 +1395,6 @@ aluetge
 </table>
 </div>
 </div>
-<pre><code>
-[[14]]</code></pre>
-<p><img src="figure/ATM.Rmd/single%20gene%20counts-14.png" width="576" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-14">
-Past versions of “single gene counts-14.png”
-</button>
-</p>
-<div id="fig-no-spaces-single-gene-counts-14" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/ATM.Rmd/single gene counts-14.png" target="_blank">cc24f92</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-07-28
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-[[15]]</code></pre>
-<p><img src="figure/ATM.Rmd/single%20gene%20counts-15.png" width="576" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-15">
-Past versions of “single gene counts-15.png”
-</button>
-</p>
-<div id="fig-no-spaces-single-gene-counts-15" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/ATM.Rmd/single gene counts-15.png" target="_blank">cc24f92</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-07-28
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-[[16]]</code></pre>
-<p><img src="figure/ATM.Rmd/single%20gene%20counts-16.png" width="576" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-16">
-Past versions of “single gene counts-16.png”
-</button>
-</p>
-<div id="fig-no-spaces-single-gene-counts-16" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/ATM.Rmd/single gene counts-16.png" target="_blank">cc24f92</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-07-28
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-[[17]]</code></pre>
-<p><img src="figure/ATM.Rmd/single%20gene%20counts-17.png" width="576" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-17">
-Past versions of “single gene counts-17.png”
-</button>
-</p>
-<div id="fig-no-spaces-single-gene-counts-17" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/ATM.Rmd/single gene counts-17.png" target="_blank">cc24f92</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-07-28
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-[[18]]</code></pre>
-<p><img src="figure/ATM.Rmd/single%20gene%20counts-18.png" width="576" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-18">
-Past versions of “single gene counts-18.png”
-</button>
-</p>
-<div id="fig-no-spaces-single-gene-counts-18" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/ATM.Rmd/single gene counts-18.png" target="_blank">cc24f92</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-07-28
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
 </div>
 <div id="gene-set-enrichment-analysis" class="section level1">
 <h1>Gene set enrichment analysis</h1>
@@ -1581,8 +1429,8 @@ res &lt;- runGSA(geneLevelStats = gsaTab,
 <pre><code>*** Please note that running the GSEA-method may take a substantial amount of time! ***</code></pre>
 <pre><code>Final gene/gene-set association: 6 genes and 27 gene sets</code></pre>
 <pre><code>  Details:</code></pre>
-<pre><code>  Calculating gene set statistics from 6 out of 23 gene-level statistics</code></pre>
-<pre><code>  Using all 23 gene-level statistics for significance estimation</code></pre>
+<pre><code>  Calculating gene set statistics from 6 out of 20 gene-level statistics</code></pre>
+<pre><code>  Using all 20 gene-level statistics for significance estimation</code></pre>
 <pre><code>  Removed 5260 genes from GSC due to lack of matching gene statistics</code></pre>
 <pre><code>  Removed 159 gene sets containing no genes after gene removal</code></pre>
 <pre><code>  Removed additionally 0 gene sets not matching the size limits</code></pre>
@@ -1659,6 +1507,7 @@ aluetge
 </table>
 </div>
 </div>
+<pre class="r"><code>saveRDS(p, file = paste0(output_dir, &quot;/figures/r_objects/atm/atm_enrichment.rds&quot;))</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
