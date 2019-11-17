@@ -1,0 +1,139 @@
+---
+title: "Differentially expressed genes"
+author: "almut"
+date: "15 November 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Differentially expressed genes in CLL
+
+Aim: Find gene signatures for mutational status of CLL patients
+
+load packages
+```{r packages, warning=FALSE, message=FALSE}
+library(DESeq2)
+library(dplyr)
+library(magrittr)
+library(tidyverse)
+library(gridExtra)
+library(ComplexHeatmap)
+library(matrixStats)
+library(here)
+```
+
+
+load data
+```{r datasets}
+data_dir <- here("data")
+output_dir <- here("output")
+figure_dir <- here("output/figures")
+
+#dds data set. gene expression data + patmetadata
+load(paste0(data_dir, "/ddsrnaCLL_150218.RData"))
+
+#load meta data including genotyping info
+load(paste0(data_dir, "/patmeta_170324.RData"))
+
+
+```
+
+
+```{r deseq}
+###Deseq
+ddsCLL <- estimateSizeFactors(ddsCLL)
+
+#write a function to perform deseq for different genetic conditions 
+diff <- function(cond){
+  ddsCLL_new <- ddsCLL[,!is.na(colData(ddsCLL)[,cond])]
+  ddsCLL_new <- ddsCLL_new[,!is.na(colData(ddsCLL_new)[,"IGHV"])]
+  #ddsCLL_new <- ddsCLL_new[,!is.na(colData(ddsCLL_new)[,"trisomy12"])]
+  colData(ddsCLL_new)[,"IGHV"] <-droplevels(colData(ddsCLL_new)[,"IGHV"])
+  design(ddsCLL_new) <- as.formula(paste("~ IGHV + ", paste(cond)))
+  rnaRaw <- DESeq(ddsCLL_new, betaPrior = FALSE)
+  res <- results(rnaRaw)
+  resOrdered <- res[order(res$pvalue),]
+}
+
+gene_conditions <- c("del13q14", "del8p12", "gain8q24", "del11q22.3", "del17p13", "BRAF", "NOTCH1", "SF3B1", "TP53", "ATM", "MED12", "trisomy12")
+
+#res_list <- lapply(gene_conditions, diff)
+#names(res_list) <- gene_conditions
+
+diff_notri12 <- function(cond){
+  ddsCLL_new <- ddsCLL[,!is.na(colData(ddsCLL)[,cond])]
+  ddsCLL_new <- ddsCLL_new[,!is.na(colData(ddsCLL_new)[,"trisomy12"])]
+  design(ddsCLL_new) <- as.formula(paste("~ trisomy12 + ", paste(cond)))
+  rnaRaw <- DESeq(ddsCLL_new, betaPrior = FALSE)
+  res <- results(rnaRaw)
+  resOrdered <- res[order(res$pvalue),]
+}
+
+#res_list[["IGHV"]] <- diff_notri12("IGHV")
+
+
+#save(res_list, file=paste0(output_dir,"/desRes_15112019.RData"))
+
+load(paste0(output_dir,"/desRes_15112019.RData"))
+```
+
+Diff genes
+```{r create csv of diff genes}
+
+pCut <- 0.01
+
+difftab <- function(condition){
+  dataTab <- data.frame(res_list[[condition]])
+  dataTab$ID <- rownames(dataTab)
+  #filter using pvalues
+  dataTab <- filter(dataTab, padj <= pCut) %>%
+    arrange(padj) %>%
+    mutate(Symbol = rowData(ddsCLL[ID,])$symbol)# %>%
+    #filter(abs(log2FoldChange) > 2)
+  dataTab <- dataTab[!duplicated(dataTab$Symbol),]
+  dataTab <- dataTab[!is.na(dataTab$Symbol),]
+  rownames(dataTab) <- dataTab$ID
+  write.csv(dataTab, file=paste0(output_dir,"/diff_genes", condition, "_diffGenes.csv"))
+  dataTab
+}
+
+cond <- gene_conditions
+
+#Only run when you want to write result tables! Change path according to test! 
+sigRes <- lapply(cond, difftab)
+names(sigRes) <- cond
+
+
+```
+
+
+### MA-plots
+```{r ma-plots}
+#Check Ma plots
+
+myMaPlot <-function(condition){
+  DESeq2::plotMA(res_list[[condition]], ylim=c(-5,5), main= paste(condition))
+}
+
+lapply(cond, myMaPlot)
+
+```
+
+
+### Histogramm of pvalues
+
+```{r hist}
+
+myHist <- function(condition){
+  res <- res_list[[condition]]
+  hist(res$pvalue, breaks=100, col="skyblue", border="slateblue", 
+                    main=paste0("Histogramm of pvalues:", condition),plot = TRUE)
+}
+
+hist_cond <- lapply(cond, myHist)
+
+```
+
