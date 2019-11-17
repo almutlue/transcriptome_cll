@@ -96,7 +96,7 @@ difftab <- function(condition){
   dataTab <- dataTab[!duplicated(dataTab$Symbol),]
   dataTab <- dataTab[!is.na(dataTab$Symbol),]
   rownames(dataTab) <- dataTab$ID
-  write.csv(dataTab, file=paste0(output_dir,"/diff_genes", condition, "_diffGenes.csv"))
+  write.csv(dataTab, file=paste0(output_dir,"/diff_genes/", condition, "_diffGenes.csv"))
   dataTab
 }
 
