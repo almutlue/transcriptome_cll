@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="almut" />
+
+<meta name="date" content="2019-11-17" />
+
+<title>Hierarchical structure</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+</style>
+
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 51px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h2 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h3 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h4 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h5 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.section h6 {
+  padding-top: 56px;
+  margin-top: -56px;
+}
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #ffffff;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open')
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+
+<script>
+$(document).ready(function ()  {
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_').toLowerCase();
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row-fluid">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">transcriptome_cll</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">Home</a>
+</li>
+<li>
+  <a href="about.html">About</a>
+</li>
+<li>
+  <a href="license.html">License</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li>
+  <a href="https://github.com/almutlue/transcriptome_cll">
+    <span class="fa fa-github"></span>
+     
+    Source code
+  </a>
+</li>
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<!-- Add a small amount of space between sections. -->
+<style type="text/css">
+div.section {
+  padding-top: 12px;
+}
+</style>
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Hierarchical structure</h1>
+<h4 class="author">almut</h4>
+<h4 class="date">17 November 2019</h4>
+
+</div>
+
+
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+</button>
+</p>
+<div id="workflowr-report" class="collapse">
+<ul class="nav nav-tabs">
+<li class="active">
+<a data-toggle="tab" href="#summary">Summary</a>
+</li>
+<li>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+</li>
+<li>
+<a data-toggle="tab" href="#versions">Past versions</a>
+</li>
+</ul>
+<div class="tab-content">
+<div id="summary" class="tab-pane fade in active">
+<p>
+<strong>Last updated:</strong> 2019-11-17
+</p>
+<p>
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+</p>
+<p>
+<strong>Knit directory:</strong> <code>transcriptome_cll/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
+</p>
+<p>
+This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis was created with <a
+  href="https://github.com/jdblischak/workflowr">workflowr</a> (version 1.4.0). The <em>Checks</em> tab describes the reproducibility checks that were applied when the results were created. The <em>Past versions</em> tab lists the development history.
+</p>
+<hr>
+</div>
+<div id="checks" class="tab-pane fade">
+<div id="workflowr-checks" class="panel-group">
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+</p>
+</div>
+<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongEnvironmentstrongempty"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Environment:</strong> empty </a>
+</p>
+</div>
+<div id="strongEnvironmentstrongempty" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! The global environment was empty. Objects defined in the global environment can affect the analysis in your R Markdown file in unknown ways. For reproduciblity it’s best to always run the code in an empty environment.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSeedstrongcodesetseed20190511code"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Seed:</strong> <code>set.seed(20190511)</code> </a>
+</p>
+</div>
+<div id="strongSeedstrongcodesetseed20190511code" class="panel-collapse collapse">
+<div class="panel-body">
+<p>The command <code>set.seed(20190511)</code> was run prior to running the code in the R Markdown file. Setting a seed ensures that any results that rely on randomness, e.g. subsampling or permutations, are reproducible.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongSessioninformationstrongrecorded"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Session information:</strong> recorded </a>
+</p>
+</div>
+<div id="strongSessioninformationstrongrecorded" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Recording the operating system, R version, and package versions is critical for reproducibility.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongCachestrongnone"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Cache:</strong> none </a>
+</p>
+</div>
+<div id="strongCachestrongnone" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Nice! There were no cached chunks for this analysis, so you can be confident that you successfully produced the results during this run.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongFilepathsstrongrelative"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>File paths:</strong> relative </a>
+</p>
+</div>
+<div id="strongFilepathsstrongrelative" class="panel-collapse collapse">
+<div class="panel-body">
+<p>Great job! Using relative paths to the files within your workflowr project makes it easier to run your code on other machines.</p>
+</div>
+</div>
+</div>
+<div class="panel panel-default">
+<div class="panel-heading">
+<p class="panel-title">
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree6c5aabc03d022a4ecef7199f1276f971344cb035targetblank6c5aabca"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/almutlue/transcriptome_cll/tree/6c5aabc03d022a4ecef7199f1276f971344cb035" target="_blank">6c5aabc</a> </a>
+</p>
+</div>
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree6c5aabc03d022a4ecef7199f1276f971344cb035targetblank6c5aabca" class="panel-collapse collapse">
+<div class="panel-body">
+<p>
+Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
+</p>
+<pre><code>
+Ignored files:
+    Ignored:    .Rhistory
+    Ignored:    .Rproj.user/
+
+Untracked files:
+    Untracked:  data/2018-03-05_IGHV.RData
+    Untracked:  data/patmeta_170324.RData
+    Untracked:  output/IGHV1_69.svg
+    Untracked:  output/cluster1000exprgenes.pdf
+    Untracked:  output/cluster500exprgenes.pdf
+    Untracked:  output/desRes_15112019.RData
+    Untracked:  output/figures/hist_mutations.svg
+    Untracked:  output/figures/overview_mutations.pdf
+    Untracked:  output/figures/r_objects/
+    Untracked:  output/figures/sum_diffGenes_0.05_2.pdf
+    Untracked:  output/figures/sum_diffGenes_noTsig.pdf
+    Untracked:  output/figures/sum_diffGenes_noTsig_IGHVTri12.pdf
+
+Unstaged changes:
+    Modified:   analysis/index.Rmd
+    Modified:   output/diff_genes/ATM_diffGenes.csv
+    Modified:   output/diff_genes/BRAF_diffGenes.csv
+    Modified:   output/diff_genes/MED12_diffGenes.csv
+    Modified:   output/diff_genes/NOTCH1_diffGenes.csv
+    Modified:   output/diff_genes/SF3B1_diffGenes.csv
+    Modified:   output/diff_genes/TP53_diffGenes.csv
+    Modified:   output/diff_genes/del11q22.3_diffGenes.csv
+    Modified:   output/diff_genes/del13q14_diffGenes.csv
+    Modified:   output/diff_genes/del17p13_diffGenes.csv
+    Modified:   output/diff_genes/del8p12_diffGenes.csv
+    Modified:   output/diff_genes/gain8q24_diffGenes.csv
+    Modified:   output/diff_genes/trisomy12_diffGenes.csv
+
+</code></pre>
+<p>
+Note that any generated files, e.g. HTML, png, CSS, etc., are not included in this status report because it is ok for generated content to have uncommitted changes.
+</p>
+</div>
+</div>
+</div>
+</div>
+<hr>
+</div>
+<div id="versions" class="tab-pane fade">
+
+<p>
+These are the previous versions of the R Markdown and HTML files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view them.
+</p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6c5aabc03d022a4ecef7199f1276f971344cb035/analysis/general_eda.Rmd" target="_blank">6c5aabc</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+<td>
+wflow_publish(“analysis/general_eda.Rmd”)
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr>
+</div>
+</div>
+</div>
+<div id="hierarchical-structure" class="section level1">
+<h1>Hierarchical structure</h1>
+<p>Find variables that explain the data#s structure in ansupervised way using hierarchical clustering and Principal component analysis</p>
+<pre class="r"><code>suppressPackageStartupMessages({
+  library(DESeq2)
+  library(dplyr)
+  library(ggplot2)
+  library(tidyverse)
+  library(ComplexHeatmap)
+  library(ggpubr)
+  library(RColorBrewer)
+  library(circlize)
+  library(here)
+})</code></pre>
+<p>Data</p>
+<pre class="r"><code>data_dir &lt;- here(&quot;data&quot;)
+output_dir &lt;- here(&quot;output&quot;)
+figure_dir &lt;- here(&quot;output/figures&quot;)
+
+#dds data set. gene expression data + patmetadata
+load(paste0(data_dir, &quot;/ddsrnaCLL_150218.RData&quot;))
+
+#load meta data including genotyping info
+load(paste0(data_dir, &quot;/patmeta_170324.RData&quot;))</code></pre>
+<p>normalize data</p>
+<pre class="r"><code>#Variance stabilization transformation of the raw data
+ddsCLL &lt;- estimateSizeFactors(ddsCLL)
+RNAnorm &lt;- varianceStabilizingTransformation(ddsCLL, blind=T)</code></pre>
+<p>Filter genes</p>
+<pre class="r"><code>exprMat &lt;- assay(RNAnorm)
+
+# filter IG genes
+filtered &lt;- as_tibble(rowData(ddsCLL)) %&gt;% mutate(geneID = rownames(ddsCLL)) %&gt;% filter(!grepl(&quot;IGH&quot;,symbol)) %&gt;% filter(!grepl(&quot;IGK&quot;,symbol)) %&gt;% filter(!grepl(&quot;IGL&quot;,symbol))  
+
+exprMat &lt;- exprMat[filtered$geneID,]
+
+#top 500 most variant genes
+sds &lt;- rowSds(exprMat)
+exprMat &lt;- exprMat[order(sds, decreasing = T)[1:500],]
+colnames(exprMat) &lt;- colData(ddsCLL)$PatID
+exprMat.new &lt;- log2(exprMat)
+exprMat.new &lt;- t(scale(t(exprMat.new)))
+exprMat.new[exprMat.new &gt; 4] &lt;- 4
+exprMat.new[exprMat.new &lt; -4] &lt;- -4
+rownames(exprMat.new) &lt;- rowData(RNAnorm[rownames(exprMat),])$symbol</code></pre>
+</div>
+<div id="hierarchical-clustering---heatmap" class="section level1">
+<h1>Hierarchical clustering - heatmap</h1>
+<pre class="r"><code>#colors
+colors = colorRamp2(c(-4,-1.5,0,1.5,4), c(&quot;#2166ac&quot;,&quot;#4393c3&quot;, &quot;#f7f7f7&quot;, &quot;#d6604d&quot;,&quot;#b2182b&quot;))
+annocol &lt;- get_palette(&quot;jco&quot;, 10)
+annocolor &lt;- list(IGHV = c(&quot;M&quot; = annocol[1], &quot;U&quot; = annocol[2]) , 
+                  trisomy12 = c( &quot;1&quot; = annocol[8], &quot;0&quot; = annocol[4]), 
+                  Methylation = c(&quot;IP&quot; = annocol[5], &quot;LP&quot; = annocol[6], &quot;HP&quot; =  annocol[7]))
+
+
+# Annotations
+#Top annotations
+ha_top = HeatmapAnnotation(df = data.frame(colData(RNAnorm)[, c(&quot;IGHV&quot;, &quot;trisomy12&quot;, &quot;Methylation&quot;)]), 
+                           col = annocolor, annotation_width = unit(c(rep(4, 3)), &quot;cm&quot;), 
+                           show_legend = FALSE, 
+                           simple_anno_size = unit(1.3, &quot;cm&quot;),
+                           annotation_name_gp = gpar(fontsize = 35),
+                           annotation_legend_param = list(title_gp = gpar(fontsize = 70), 
+                                                          labels_gp = gpar(fontsize = 55),  
+                                                          grid_height = unit(3, &quot;cm&quot;), 
+                                                          grid_width = unit(1.5, &quot;cm&quot;), 
+                                                          gap = unit(2, &quot;cm&quot;)))
+
+# Annotration legend
+anno_legend_list = lapply(ha_top@anno_list[c(&quot;IGHV&quot;, &quot;trisomy12&quot;, &quot;Methylation&quot;)], function(anno){
+  color_mapping_legend(anno@color_mapping, plot = FALSE,
+                       title_gp = gpar(fontsize = 45, fontface = &quot;bold&quot;),
+                       grid_height = unit(1.5, &quot;cm&quot;),
+                       grid_width = unit(0.5, &quot;cm&quot;),
+                       labels_gp = gpar(fontsize = 35))
+  })
+
+#Annotate known genes from litertaure
+marker_genes &lt;- c(&quot;ADAM29&quot;, &quot;ATM&quot;, &quot;CLLU1&quot;, &quot;DMD&quot;, &quot;GLO1&quot;, &quot;HCSL1&quot;, &quot;KIAA0977&quot;, 
+                  &quot;LPL&quot;, &quot;MGC9913&quot;, &quot;PCDH9&quot;, &quot;PEG10&quot;, &quot;SEPT10&quot;, &quot;TCF7&quot;, &quot;TCL1&quot;, 
+                  &quot;TP53&quot;, &quot;VIM&quot;, &quot;ZAP70&quot;, &quot;CD38&quot;)
+
+geneIDs &lt;- which(rownames(exprMat.new) %in% marker_genes)
+labels &lt;- rownames(exprMat.new)[geneIDs]
+ha_genes &lt;- rowAnnotation(link = row_anno_link(at = geneIDs, 
+                                               labels = labels, 
+                                               labels_gp = gpar(fontsize = 30)), 
+                          width = unit(2.5, &quot;cm&quot;))</code></pre>
+<pre><code>Warning: anno_link() is deprecated, please use anno_mark() instead.</code></pre>
+<pre class="r"><code>h1 &lt;- Heatmap(exprMat.new ,                                                     
+              km = 3,
+              gap = unit(0.5, &quot;cm&quot;),
+              clustering_distance_columns = &quot;euclidean&quot;,
+              clustering_method_columns = &quot;ward.D2&quot;,
+              clustering_distance_rows = &quot;pearson&quot;,
+              clustering_method_rows = &quot;ward.D2&quot;,                    
+              col = colors,
+              column_title_gp = gpar(fontsize = 60, fontface = &quot;bold&quot;), 
+              column_dend_height = unit(2.5, &quot;cm&quot;),
+              show_row_dend = FALSE, 
+              show_column_names = FALSE , 
+              show_row_names = FALSE, 
+              row_names_gp = gpar(fontsize = 45),
+              show_heatmap_legend = FALSE,
+              top_annotation = ha_top, 
+              right_annotation = ha_genes)
+
+heatmap_legend = color_mapping_legend(h1@matrix_color_mapping, plot = FALSE, 
+                                      title = &quot;Expr&quot;, title_gp = gpar(fontsize = 45, fontface = &quot;bold&quot;),
+                                      grid_height = unit(1.5, &quot;cm&quot;),
+                                      grid_width = unit(0.5, &quot;cm&quot;),
+                                      labels_gp = gpar(fontsize = 35))
+
+
+# arrange annotations 
+pd = packLegend(anno_legend_list[[1]], anno_legend_list[[2]], anno_legend_list[[3]], heatmap_legend, max_height = unit(20, &quot;cm&quot;), 
+    column_gap = unit(1, &quot;cm&quot;))
+
+pdf(file=paste0(output_dir, &quot;/cluster500exprgenes.pdf&quot;), width=20, height=20)
+draw(h1 + ha_genes, heatmap_legend_list = pd)
+dev.off()</code></pre>
+<pre><code>png 
+  2 </code></pre>
+<pre class="r"><code>p1 &lt;- draw(h1, heatmap_legend_list = pd)</code></pre>
+<p><img src="figure/general_eda.Rmd/expr%20heatmap-1.png" width="2400" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#save to create figure using cowplot 
+saveRDS(p1, paste0(output_dir, &quot;/figures/r_objects/heatmap_top500genes.rds&quot;))</code></pre>
+</div>
+<div id="principal-component-analysis" class="section level1">
+<h1>Principal component analysis</h1>
+<pre class="r"><code>#Plot PCA
+exprMat &lt;- assay(RNAnorm)
+
+#top 5000 most variant genes
+sds &lt;- rowSds(exprMat)
+na_ids &lt;- which(is.na(ddsCLL$IGHV) | is.na(ddsCLL$trisomy12) | is.na(ddsCLL$Methylation))
+exprMat &lt;- exprMat[order(sds, decreasing = T)[1:500], -na_ids]
+
+
+#Calculate PCA
+pcaRes &lt;- prcomp(t(exprMat), scale =T)
+varExp &lt;- (pcaRes$sdev^2 / sum(pcaRes$sdev^2)) * 100
+pcaTab &lt;- data.frame(pcaRes$x[,c(1:10)])
+names(varExp) &lt;- colnames(pcaRes$x)
+
+#add background information
+pcaTab &lt;- cbind(pcaTab, data.frame(colData(RNAnorm)[-na_ids, ]))
+
+#IGHV
+p &lt;- ggscatter(pcaTab, x = &quot;PC1&quot;, y = &quot;PC2&quot;, color = &quot;IGHV&quot;, palette = &quot;jco&quot;, size = 3,
+  ylab = sprintf(&quot;PC2 (%2.1f%%)&quot;,varExp[2]), xlab = sprintf(&quot;PC1 (%2.1f%%)&quot;,varExp[1]), 
+  legend = &quot;right&quot;, main = &quot;PCA IGHV status&quot;, 
+  font.legend = c(23, &quot;plain&quot;, &quot;black&quot;), 
+  font.tickslab = c(23, &quot;plain&quot;, &quot;black&quot;), 
+  font.main = 25, font.submain = 28, font.caption = 28, font.x = 28, font.y= 28) + 
+  coord_fixed()
+
+p</code></pre>
+<p><img src="figure/general_eda.Rmd/pca-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#Tri12
+p1 &lt;- ggscatter(pcaTab, x = &quot;PC1&quot;, y = &quot;PC2&quot;, color = &quot;trisomy12&quot;, size = 3,
+  ylab = sprintf(&quot;PC2 (%2.1f%%)&quot;,varExp[2]), xlab = sprintf(&quot;PC1 (%2.1f%%)&quot;,varExp[1]), 
+  legend = &quot;right&quot;, main = &quot;PCA trisomy12&quot;, 
+  font.legend = c(23, &quot;plain&quot;, &quot;black&quot;), 
+  font.tickslab = c(23, &quot;plain&quot;, &quot;black&quot;), 
+  font.main = 25, font.submain = 28, font.caption = 28, font.x = 28, font.y= 28) + 
+  coord_fixed() + 
+  scale_colour_manual(values = c(annocol[4], annocol[8]))
+
+p1</code></pre>
+<p><img src="figure/general_eda.Rmd/pca-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#Methylation
+p2 &lt;- ggscatter(pcaTab, x = &quot;PC1&quot;, y = &quot;PC2&quot;, color = &quot;Methylation&quot;, size = 3,
+  ylab = sprintf(&quot;PC2 (%2.1f%%)&quot;,varExp[2]), xlab = sprintf(&quot;PC1 (%2.1f%%)&quot;,varExp[1]), 
+  legend = &quot;right&quot;, main = &quot;PCA Methylation - top 500 genes&quot;, 
+  font.legend = c(23, &quot;plain&quot;, &quot;black&quot;), 
+  font.tickslab = c(23, &quot;plain&quot;, &quot;black&quot;), 
+  font.main = 25, font.submain = 28, font.caption = 28, font.x = 28, font.y= 28) + 
+  coord_fixed() + 
+  scale_colour_manual(values = c(annocol[7], annocol[5], annocol[6]))
+
+p2</code></pre>
+<p><img src="figure/general_eda.Rmd/pca-3.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#Methylation reduced gene number
+#change gene number only 300 top variant genes
+#Plot PCA
+exprMat &lt;- assay(RNAnorm)
+
+#top 5000 most variant genes
+sds &lt;- rowSds(exprMat)
+na_ids &lt;- which(is.na(ddsCLL$Methylation))
+exprMat &lt;- exprMat[order(sds, decreasing = T)[1:300], -na_ids]
+
+
+#Calculate PCA
+pcaRes &lt;- prcomp(t(exprMat), scale =T)
+varExp &lt;- (pcaRes$sdev^2 / sum(pcaRes$sdev^2)) * 100
+pcaTab &lt;- data.frame(pcaRes$x[,c(1:10)])
+names(varExp) &lt;- colnames(pcaRes$x)
+
+#add background information
+pcaTab &lt;- cbind(pcaTab, data.frame(colData(RNAnorm)[-na_ids, ]))
+
+p3 &lt;- ggscatter(pcaTab, x = &quot;PC1&quot;, y = &quot;PC2&quot;, color = &quot;Methylation&quot;, size = 3,
+  ylab = sprintf(&quot;PC2 (%2.1f%%)&quot;,varExp[2]), xlab = sprintf(&quot;PC1 (%2.1f%%)&quot;,varExp[1]), 
+  legend = &quot;right&quot;, main = &quot;PCA Methylation - top 300 genes&quot;, 
+  font.legend = c(23, &quot;plain&quot;, &quot;black&quot;), 
+  font.tickslab = c(23, &quot;plain&quot;, &quot;black&quot;), 
+  font.main = 25, font.submain = 28, font.caption = 28, font.x = 28, font.y= 28) + 
+  coord_fixed() + 
+  scale_colour_manual(values = c(annocol[7], annocol[5], annocol[6]))
+
+p3</code></pre>
+<p><img src="figure/general_eda.Rmd/pca-4.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>saveRDS(list(&quot;IGHV&quot; = p, &quot;trisomy12&quot; = p1, &quot;Methylation&quot; = p2, &quot;Methylation_red_genes&quot; = p3), 
+        file = paste0(output_dir, &quot;/figures/r_objects/pca_top500genes.rds&quot;))</code></pre>
+<br>
+<p>
+<button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
+<span class="glyphicon glyphicon-wrench" aria-hidden="true"></span> Session information
+</button>
+</p>
+<div id="workflowr-sessioninfo" class="collapse">
+<pre class="r"><code>sessionInfo()</code></pre>
+<pre><code>R version 3.6.0 (2019-04-26)
+Platform: x86_64-pc-linux-gnu (64-bit)
+Running under: Ubuntu 16.04.6 LTS
+
+Matrix products: default
+BLAS:   /usr/lib/libblas/libblas.so.3.6.0
+LAPACK: /usr/lib/lapack/liblapack.so.3.6.0
+
+locale:
+ [1] LC_CTYPE=de_DE.UTF-8       LC_NUMERIC=C              
+ [3] LC_TIME=de_DE.UTF-8        LC_COLLATE=de_DE.UTF-8    
+ [5] LC_MONETARY=de_DE.UTF-8    LC_MESSAGES=de_DE.UTF-8   
+ [7] LC_PAPER=de_DE.UTF-8       LC_NAME=C                 
+ [9] LC_ADDRESS=C               LC_TELEPHONE=C            
+[11] LC_MEASUREMENT=de_DE.UTF-8 LC_IDENTIFICATION=C       
+
+attached base packages:
+ [1] grid      parallel  stats4    stats     graphics  grDevices utils    
+ [8] datasets  methods   base     
+
+other attached packages:
+ [1] here_0.1                    circlize_0.4.6             
+ [3] RColorBrewer_1.1-2          ggpubr_0.2                 
+ [5] magrittr_1.5                ComplexHeatmap_2.0.0       
+ [7] forcats_0.4.0               stringr_1.4.0              
+ [9] purrr_0.3.2                 readr_1.3.1                
+[11] tidyr_0.8.3                 tibble_2.1.3               
+[13] tidyverse_1.2.1             ggplot2_3.1.1              
+[15] dplyr_0.8.1                 DESeq2_1.24.0              
+[17] SummarizedExperiment_1.14.0 DelayedArray_0.10.0        
+[19] BiocParallel_1.18.0         matrixStats_0.54.0         
+[21] Biobase_2.44.0              GenomicRanges_1.36.0       
+[23] GenomeInfoDb_1.20.0         IRanges_2.18.1             
+[25] S4Vectors_0.22.0            BiocGenerics_0.30.0        
+
+loaded via a namespace (and not attached):
+ [1] colorspace_1.4-1       rjson_0.2.20           rprojroot_1.3-2       
+ [4] htmlTable_1.13.1       XVector_0.24.0         GlobalOptions_0.1.0   
+ [7] base64enc_0.1-3        fs_1.3.1               clue_0.3-57           
+[10] rstudioapi_0.10        bit64_0.9-7            AnnotationDbi_1.46.0  
+[13] lubridate_1.7.4        xml2_1.2.0             splines_3.6.0         
+[16] geneplotter_1.62.0     knitr_1.23             Formula_1.2-3         
+[19] jsonlite_1.6           workflowr_1.4.0        broom_0.5.2           
+[22] annotate_1.62.0        cluster_2.1.0          png_0.1-7             
+[25] compiler_3.6.0         httr_1.4.0             backports_1.1.4       
+[28] assertthat_0.2.1       Matrix_1.2-17          lazyeval_0.2.2        
+[31] cli_1.1.0              acepack_1.4.1          htmltools_0.3.6       
+[34] tools_3.6.0            gtable_0.3.0           glue_1.3.1            
+[37] GenomeInfoDbData_1.2.1 Rcpp_1.0.1             cellranger_1.1.0      
+[40] nlme_3.1-140           xfun_0.7               rvest_0.3.4           
+[43] XML_3.98-1.20          zlibbioc_1.30.0        scales_1.0.0          
+[46] hms_0.4.2              yaml_2.2.0             memoise_1.1.0         
+[49] gridExtra_2.3          rpart_4.1-15           latticeExtra_0.6-28   
+[52] stringi_1.4.3          RSQLite_2.1.1          genefilter_1.66.0     
+[55] checkmate_1.9.3        shape_1.4.4            rlang_0.3.4           
+[58] pkgconfig_2.0.2        bitops_1.0-6           evaluate_0.14         
+[61] lattice_0.20-38        labeling_0.3           htmlwidgets_1.3       
+[64] bit_1.1-14             tidyselect_0.2.5       ggsci_2.9             
+[67] plyr_1.8.4             R6_2.4.0               generics_0.0.2        
+[70] Hmisc_4.2-0            DBI_1.0.0              pillar_1.4.1          
+[73] haven_2.1.0            whisker_0.3-2          foreign_0.8-71        
+[76] withr_2.1.2            survival_2.44-1.1      RCurl_1.95-4.12       
+[79] nnet_7.3-12            modelr_0.1.4           crayon_1.3.4          
+[82] rmarkdown_1.13         GetoptLong_0.1.7       locfit_1.5-9.1        
+[85] readxl_1.3.1           data.table_1.12.2      blob_1.1.1            
+[88] git2r_0.25.2           digest_0.6.19          xtable_1.8-4          
+[91] munsell_0.5.0         </code></pre>
+</div>
+</div>
+
+
+<!-- Adjust MathJax settings so that all math formulae are shown using
+TeX fonts only; see
+http://docs.mathjax.org/en/latest/configuration.html.  This will make
+the presentation more consistent at the cost of the webpage sometimes
+taking slightly longer to load. Note that this only works because the
+footer is added to webpages before the MathJax javascript. -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    "HTML-CSS": { availableFonts: ["TeX"] }
+  });
+</script>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
