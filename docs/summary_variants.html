@@ -445,7 +445,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-11-15
+<strong>Last updated:</strong> 2019-11-18
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -536,10 +536,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltreef97f4750b73dce01bff326b3f53c89ad1f1781bctargetblankf97f475a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/almutlue/transcriptome_cll/tree/f97f4750b73dce01bff326b3f53c89ad1f1781bc" target="_blank">f97f475</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree062f878076eb2b3cdee04bb6d0086e4c4b4f8556targetblank062f878a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/almutlue/transcriptome_cll/tree/062f878076eb2b3cdee04bb6d0086e4c4b4f8556" target="_blank">062f878</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltreef97f4750b73dce01bff326b3f53c89ad1f1781bctargetblankf97f475a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree062f878076eb2b3cdee04bb6d0086e4c4b4f8556targetblank062f878a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -550,15 +550,34 @@ Ignored files:
     Ignored:    .Rproj.user/
 
 Untracked files:
+    Untracked:  data/2018-03-05_IGHV.RData
     Untracked:  data/patmeta_170324.RData
+    Untracked:  output/IGHV1_69.svg
+    Untracked:  output/cluster1000exprgenes.pdf
+    Untracked:  output/cluster500exprgenes.pdf
+    Untracked:  output/desRes_15112019.RData
     Untracked:  output/figures/hist_mutations.svg
     Untracked:  output/figures/overview_mutations.pdf
+    Untracked:  output/figures/r_objects/
     Untracked:  output/figures/sum_diffGenes_0.05_2.pdf
     Untracked:  output/figures/sum_diffGenes_noTsig.pdf
     Untracked:  output/figures/sum_diffGenes_noTsig_IGHVTri12.pdf
 
 Unstaged changes:
-    Modified:   analysis/index.Rmd
+    Modified:   analysis/trisomy12.Rmd
+    Modified:   output/diff_genes/ATM_diffGenes.csv
+    Modified:   output/diff_genes/BRAF_diffGenes.csv
+    Modified:   output/diff_genes/MED12_diffGenes.csv
+    Modified:   output/diff_genes/NOTCH1_diffGenes.csv
+    Modified:   output/diff_genes/SF3B1_diffGenes.csv
+    Modified:   output/diff_genes/TP53_diffGenes.csv
+    Modified:   output/diff_genes/del11q22.3_diffGenes.csv
+    Modified:   output/diff_genes/del13q14_diffGenes.csv
+    Modified:   output/diff_genes/del17p13_diffGenes.csv
+    Modified:   output/diff_genes/del8p12_diffGenes.csv
+    Modified:   output/diff_genes/gain8q24_diffGenes.csv
+    Modified:   output/diff_genes/trisomy12_diffGenes.csv
+    Modified:   output/figures/pca_Meth_top150.svg
 
 </code></pre>
 <p>
@@ -597,6 +616,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/almutlue/transcriptome_cll/e10c2b96d9e50f58ba8368dc8d918e774fb4df41/docs/summary_variants.html" target="_blank">e10c2b9</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-15
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -668,7 +704,45 @@ p &lt;- gghistogram(N_mut, x = &quot;mutations&quot;,
 ggsave(file=paste0(figure_dir, &quot;/hist_mutations.svg&quot;), plot=p, width=4, height=3)
 p</code></pre>
 <p><img src="figure/summary_variants.Rmd/hist-1.png" width="384" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>mean(N_mut$mutations)</code></pre>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-hist-1">
+Past versions of hist-1.png
+</button>
+</p>
+<div id="fig-hist-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/e10c2b96d9e50f58ba8368dc8d918e774fb4df41/docs/figure/summary_variants.Rmd/hist-1.png" target="_blank">e10c2b9</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-15
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>saveRDS(p, file = paste0(output_dir, &quot;/figures/r_objects/summary_variant_patient.rds&quot;))
+mean(N_mut$mutations)</code></pre>
 <pre><code>[1] 2.983696</code></pre>
 </div>
 <div id="variant-frequency" class="section level1">
@@ -705,7 +779,45 @@ p &lt;- ggplot(sum_melted, aes(x = variable, y = factor(IGHV, levels = c(&quot;T
 #pdf(file=paste0(figure_dir, &quot;/overview_mutations.pdf&quot;), width=15, height=5)
 p</code></pre>
 <p><img src="figure/summary_variants.Rmd/overview-1.png" width="1440" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>#dev.off()</code></pre>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-overview-1">
+Past versions of overview-1.png
+</button>
+</p>
+<div id="fig-overview-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/e10c2b96d9e50f58ba8368dc8d918e774fb4df41/docs/figure/summary_variants.Rmd/overview-1.png" target="_blank">e10c2b9</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-15
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>#dev.off()
+saveRDS(p, file = paste0(output_dir, &quot;/figures/r_objects/summary_var_freq_IGHV.rds&quot;))</code></pre>
 </div>
 <div id="variant-co-occurence" class="section level1">
 <h1>Variant co-occurence</h1>
@@ -752,6 +864,43 @@ corrplot(resChiMat, is.corr = FALSE, method=&quot;color&quot;, col = col,
          diag = FALSE,
          title = &quot;-log10(p.adjust) * cor_direction&quot;)</code></pre>
 <p><img src="figure/summary_variants.Rmd/corMat%20chi-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-corMat-chi-1">
+Past versions of “corMat chi-1.png”
+</button>
+</p>
+<div id="fig-no-spaces-corMat-chi-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/e10c2b96d9e50f58ba8368dc8d918e774fb4df41/docs/figure/summary_variants.Rmd/corMat chi-1.png" target="_blank">e10c2b9</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-15
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>#dev.off()</code></pre>
 <br>
 <p>
