@@ -8,11 +8,17 @@ editor_options:
   chunk_output_type: console
 ---
 
-Transcriptome CLL analysis
+# Transcriptome CLL analysis
 
-## Dataset
-## General Analysis
+## General Analysis  
+
+  + [DE summary](summary_de_genes.html)
+  + [Variants summary](summary_variants.html)
+  + [DE analysis](de_analysis.html)
+  + [Exploratory data analysis](general_eda.html)
+  
 ## Variants  
+
   + [Trisomy12](trisomy12.html)  
   + [Methylation](methylation_groups.html)
   + [Methylation_IP_group](methylation_IP_vs_all.html)
