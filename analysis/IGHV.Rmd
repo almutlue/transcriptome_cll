@@ -88,7 +88,7 @@ rownames(exprVariant.new) <- rowData(RNAnorm[rownames(diff),])$symbol
 
 
 ## Expression signature
-```{r complex heatmap, fig.height= 15, fig.width= 14.22}
+```{r complex heatmap, fig.height= 18, fig.width= 14.22}
 
 #colors
 colors = colorRamp2(c(-4,-1,0,1,4), c("#2166ac","#4393c3", "#f7f7f7", "#d6604d","#b2182b"))
@@ -131,9 +131,11 @@ h1 <- Heatmap(exprVariant.new,
 #Annotate top 50 genes
 sub_names <- diff[1:50,"Symbol"]
 sub_names <- sub_names[-which(sub_names %in% "")]
+sub_names <- c(as.character(sub_names), "CD38", "LPL", "ZAP70", "SEPT10", "ADAM29", "PEG10")
+#
 geneIDs <- which(rownames(exprVariant.new) %in% sub_names)
 labels <- rownames(exprVariant.new)[geneIDs]
-ha_genes <- rowAnnotation(link = row_anno_link(at = geneIDs, labels = labels, labels_gp = gpar(fontsize = 15)), width = unit(2.5, "cm"))
+ha_genes <- rowAnnotation(link = row_anno_link(at = geneIDs, labels = labels, labels_gp = gpar(fontsize = 13)), width = unit(2.5, "cm"))
 
 
 #svg(filename=paste0(figure_dir, "/", variant, "_gene_expr.svg"), width=30, height=45)
@@ -173,6 +175,7 @@ gene_count <- function(gene_nam){
 diff <- diff_all[which(abs(diff_all$stat) > 10),]
 geneList <- as.character(diff$Symbol)
 geneList <- geneList[-which(geneList %in% "")]
+geneList <- c(geneList, "CD38", "LPL", "ZAP70", "SEPT10", "ADAM29", "PEG10")
 
 lapply(geneList, gene_count)
 
