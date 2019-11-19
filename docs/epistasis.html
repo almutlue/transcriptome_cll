@@ -445,7 +445,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-11-17
+<strong>Last updated:</strong> 2019-11-19
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -536,10 +536,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltreed6075084faf2e7b2a8b88921cc87f18a64f0ebd3targetblankd607508a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/almutlue/transcriptome_cll/tree/d6075084faf2e7b2a8b88921cc87f18a64f0ebd3" target="_blank">d607508</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltreea132f77a820392f3dc7f05ad566a74156974309etargetblanka132f77a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/almutlue/transcriptome_cll/tree/a132f77a820392f3dc7f05ad566a74156974309e" target="_blank">a132f77</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltreed6075084faf2e7b2a8b88921cc87f18a64f0ebd3targetblankd607508a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltreea132f77a820392f3dc7f05ad566a74156974309etargetblanka132f77a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -558,19 +558,16 @@ Untracked files:
     Untracked:  output/desRes_15112019.RData
     Untracked:  output/figures/hist_mutations.svg
     Untracked:  output/figures/overview_mutations.pdf
+    Untracked:  output/figures/paper_fig/
     Untracked:  output/figures/r_objects/
     Untracked:  output/figures/sum_diffGenes_0.05_2.pdf
     Untracked:  output/figures/sum_diffGenes_noTsig.pdf
     Untracked:  output/figures/sum_diffGenes_noTsig_IGHVTri12.pdf
 
 Unstaged changes:
-    Modified:   analysis/Gain8q24.Rmd
-    Modified:   analysis/Med12.Rmd
-    Modified:   analysis/SF3B1.Rmd
-    Modified:   analysis/index.Rmd
-    Modified:   analysis/methylation_IP_vs_all.Rmd
-    Modified:   analysis/summary_de_genes.Rmd
-    Modified:   analysis/summary_variants.Rmd
+    Modified:   analysis/IGHV.Rmd
+    Modified:   analysis/Notch1.Rmd
+    Modified:   analysis/TP53.Rmd
     Modified:   analysis/trisomy12.Rmd
     Modified:   output/diff_genes/ATM_diffGenes.csv
     Modified:   output/diff_genes/BRAF_diffGenes.csv
@@ -623,6 +620,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/a132f77a820392f3dc7f05ad566a74156974309e/analysis/epistasis.Rmd" target="_blank">a132f77</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+<td>
+wflow_publish(c(“analysis/epistasis.Rmd”, “analysis/Gain8q24.Rmd”, “analysis/general_eda.Rmd”, “analysis/Med12.Rmd”))
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/almutlue/transcriptome_cll/2cd07c0ba69936230dbbcd36fb108c16634294c2/docs/epistasis.html" target="_blank">2cd07c0</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -738,12 +769,18 @@ resTab$symbol &lt;- rowData(RNAnorm[rownames(resSig),])$symbol</code></pre>
   #scale and censor
   geneExpression_new &lt;- log2(geneExpression)
   geneExpression_new&lt;- t(scale(t(geneExpression_new)))
-  geneExpression_new[geneExpression_new &gt; 6] &lt;- 6
-  geneExpression_new[geneExpression_new &lt; -6] &lt;- -6
+  geneExpression_new[geneExpression_new &gt; 4] &lt;- 4
+  geneExpression_new[geneExpression_new &lt; -4] &lt;- -4
 
   mutnames &lt;- c(&quot;none&quot;, &quot;IGHV&quot;, &quot;trisomy12&quot;, &quot;both&quot;)
   
-  mutStatus &lt;- data.frame(colData(RNAnorm)) %&gt;% mutate(IGHVnew = ifelse(IGHV %in% &quot;M&quot;, 1, 0)) %&gt;% dplyr::select(-IGHV) %&gt;% mutate(IGHV = IGHVnew) %&gt;% dplyr::select_(&quot;PatID&quot;, &quot;IGHV&quot;, &quot;trisomy12&quot;) %&gt;% mutate_(&quot;namA&quot; = &quot;IGHV&quot;, &quot;namB&quot; = &quot;trisomy12&quot;) %&gt;% mutate(naA = as.numeric(as.character(namA))) %&gt;% mutate(naB = as.numeric(as.character(namB))) %&gt;% mutate(mut = factor(mutnames[1 + naA + 2 * naB], levels = mutnames)) %&gt;% arrange(mut)</code></pre>
+  mutStatus &lt;- data.frame(colData(RNAnorm)) %&gt;% mutate(IGHVnew = ifelse(IGHV %in% &quot;M&quot;, 1, 0)) %&gt;% 
+    dplyr::select(-IGHV) %&gt;% mutate(IGHV = IGHVnew) %&gt;% 
+    dplyr::select_(&quot;PatID&quot;, &quot;IGHV&quot;, &quot;trisomy12&quot;) %&gt;% 
+    mutate_(&quot;namA&quot; = &quot;IGHV&quot;, &quot;namB&quot; = &quot;trisomy12&quot;) %&gt;% 
+    mutate(naA = as.numeric(as.character(namA))) %&gt;% 
+    mutate(naB = as.numeric(as.character(namB))) %&gt;% 
+    mutate(mut = factor(mutnames[1 + naA + 2 * naB], levels = mutnames)) %&gt;% arrange(mut)</code></pre>
 <pre><code>Warning: select_() is deprecated. 
 Please use select() instead
 
@@ -761,7 +798,7 @@ This warning is displayed once per session.</code></pre>
 
   #colors
   #colors &lt;- colorRampPalette( rev(brewer.pal(11,&quot;RdBu&quot;)) )(255)
-  colors = colorRamp2(c(-6,-2,0,2,6), c(&quot;#2166ac&quot;,&quot;#4393c3&quot;, &quot;#f7f7f7&quot;, &quot;#d6604d&quot;,&quot;#b2182b&quot;))
+  colors = colorRamp2(c(-4, -1, 0, 1, 4), c(&quot;#2166ac&quot;, &quot;#4393c3&quot;, &quot;#f7f7f7&quot;, &quot;#d6604d&quot;, &quot;#b2182b&quot;))
   annocol &lt;- get_palette(&quot;jco&quot;, 10)
   chromcol &lt;- list(chromosome = c(&quot;12&quot; = annocol[6], &quot;other&quot; = annocol[5]))
   
@@ -772,14 +809,40 @@ This warning is displayed once per session.</code></pre>
   colnames(mutationStatus) &lt;- &quot;Variant&quot;
 
   #Column annotation
-  ha_col = HeatmapAnnotation(df = mutationStatus, col = annocolor, annotation_height = unit(1.8, &quot;cm&quot;), annotation_legend_param = list(title_gp = gpar(fontsize = 60), labels_gp = gpar(fontsize = 50),  grid_height = unit(2.5, &quot;cm&quot;), grid_width = unit(2.5, &quot;cm&quot;), gap = unit(15, &quot;mm&quot;)))
+  ha_col = HeatmapAnnotation(df = mutationStatus, col = annocolor, annotation_height = unit(1.8, &quot;cm&quot;),
+                             annotation_legend_param = list(title_gp = gpar(fontsize = 23), 
+                                                            labels_gp = gpar(fontsize = 18),  
+                                                            grid_height = unit(0.7, &quot;cm&quot;), 
+                                                            grid_width = unit(0.3, &quot;cm&quot;), 
+                                                            gap = unit(15, &quot;mm&quot;)))
 
   #rowcluster
   geneExpression_dist &lt;- dist(geneExpression_new)
   rowcluster = hclust(geneExpression_dist, method = &quot;ward.D2&quot;)
 
   #heatmap
-  h1 &lt;- Heatmap(geneExpression_new, col = colors ,column_title = paste0(&quot;Gene interactions:&quot;, &quot;IGHV&quot;, &quot;-&quot;, &quot;trisomy12&quot;), column_title_gp = gpar(fontsize = 60, fontface = &quot;bold&quot;), heatmap_legend_param = list(title = &quot;Expr&quot;, title_gp = gpar(fontsize = 60), grid_height = unit(2.5, &quot;cm&quot;), grid_width = unit(2.5, &quot;cm&quot;), gap = unit(15, &quot;mm&quot;), labels_gp = gpar(fontsize = 50), labels = c(-6,-3, 0,3, 6)) , row_dend_width = unit(3.5, &quot;cm&quot;), show_row_dend = T, show_column_names =FALSE , top_annotation = ha_col, show_row_names = FALSE, show_column_dend = FALSE, cluster_columns = FALSE, cluster_rows = rowcluster, split = 5, gap = unit(0.6,&quot;cm&quot;), column_order = mutStatus$PatID)
+  h1 &lt;- Heatmap(geneExpression_new, 
+                col = colors,
+                column_title = paste0(&quot;Gene interactions:&quot;, &quot;IGHV&quot;, &quot;-&quot;, &quot;trisomy12&quot;), 
+                column_title_gp = gpar(fontsize = 23, fontface = &quot;bold&quot;), 
+                heatmap_legend_param = list(title = &quot;Expr&quot;, 
+                                            title_gp = gpar(fontsize = 23), 
+                                            grid_height = unit(0.7, &quot;cm&quot;), 
+                                            grid_width = unit(0.3, &quot;cm&quot;), 
+                                            gap = unit(15, &quot;mm&quot;), 
+                                            labels_gp = gpar(fontsize = 18), 
+                                            labels = c(-4, -1, 0, 1, 4)), 
+                row_dend_width = unit(0.7, &quot;cm&quot;), 
+                show_row_dend = T, 
+                show_column_names =FALSE ,
+                top_annotation = ha_col,
+                show_row_names = FALSE, 
+                show_column_dend = FALSE, 
+                row_title_gp = gpar(fontsize = 0),
+                cluster_columns = FALSE, 
+                cluster_rows = rowcluster, 
+                split = 5, gap = unit(0.2,&quot;cm&quot;), 
+                column_order = mutStatus$PatID)
 
   #chromosome annotation
   #chromosome distribution
@@ -789,11 +852,18 @@ colnames(chrom ) &lt;- &quot;chromosome&quot;
 #select for chromosome12
 chrom$chromosome &lt;- ifelse(chrom$chromosome == 12, 12, &quot;other&quot;)
   
-  ha_chrom = rowAnnotation(df = chrom, col = chromcol, annotation_width = unit(2.3, &quot;cm&quot;), annotation_legend_param = list(ncol = 2, title_gp = gpar(fontsize = 60), labels_gp = gpar(fontsize = 50),  grid_height = unit(2.5, &quot;cm&quot;), grid_width = unit(2.5, &quot;cm&quot;)))
+  ha_chrom = rowAnnotation(df = chrom, 
+                           col = chromcol, 
+                           annotation_width = unit(0.8, &quot;cm&quot;), 
+                           annotation_legend_param = list(ncol = 2, 
+                                                          title_gp = gpar(fontsize = 23), 
+                                                          labels_gp = gpar(fontsize = 18),  
+                                                          grid_height = unit(0.7, &quot;cm&quot;), 
+                                                          grid_width = unit(0.3, &quot;cm&quot;)))
   
    
   #Annotate most significant genes
-  top50 &lt;-  rownames(subset(resOrdered, padj &lt; 0.001))
+  top50 &lt;-  rownames(resTab[which(abs(resTab$stat) &gt; 5 ),])
   int_genes &lt;- rowData(RNAnorm[top50,])$symbol
 
 subset &lt;- as.data.frame(rowData(RNAnorm[sig_Genes,]))
@@ -804,12 +874,14 @@ subset &lt;- subset[which(subset$symbol %in% int_genes),]
 rownames(subset) &lt;- subset$symbol
 geneIDs &lt;- which(rownames(geneExpression_new) %in% rownames(subset))
 labels &lt;- rownames(geneExpression_new)[geneIDs]
-ha_genes &lt;- rowAnnotation(link = row_anno_link(at = geneIDs, labels = labels, labels_gp = gpar(fontsize = 45)), width = unit(9, &quot;cm&quot;))</code></pre>
+ha_genes &lt;- rowAnnotation(link = row_anno_link(at = geneIDs, labels = labels, 
+                                               labels_gp = gpar(fontsize = 15)), 
+                          width = unit(2.5, &quot;cm&quot;))</code></pre>
 <pre><code>Warning: anno_link() is deprecated, please use anno_mark() instead.</code></pre>
 <pre class="r"><code>  #svg(filename=&quot;~/git/figures_thesis/gene_expr/epistatsisTri12IGHV.svg&quot;, width=30, height=50)
   #pdf(file=&quot;/home/almut/Dokumente/git/Transcriptome_CLL/paper/figures/epistasis_Deseq.pdf&quot;, width=35, height=45)
-p1 &lt;- draw(h1 + ha_genes + ha_chrom) </code></pre>
-<p><img src="figure/epistasis.Rmd/heatmap%20of%20interaction%20ighv-1.png" width="3360" style="display: block; margin: auto;" /></p>
+p1 &lt;- draw(h1 + ha_genes ) </code></pre>
+<p><img src="figure/epistasis.Rmd/heatmap%20of%20interaction%20ighv-1.png" width="1440" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-heatmap-of-interaction-ighv-1">
 Past versions of “heatmap of interaction ighv-1.png”
@@ -857,7 +929,7 @@ IGHVTri12 &lt;- list(&quot;sig_Genes&quot; = sig_Genes, &quot;geneExp&quot; = ge
 <pre class="r"><code>#function to create stripchart plots for specific genes
 gene_count &lt;- function(gene_nam){
   geneEnsID &lt;- rownames(ddsCLL)[which(rowData(ddsCLL)$symbol %in% gene_nam)]
-  geneNum &lt;- counts(ddsCLL)[geneEnsID,]
+  geneNum &lt;- assay(RNAnorm)[geneEnsID,]
   mutPat &lt;- as.data.frame(mutationStatus[colData(ddsCLL)$PatID,])
   colnames(mutPat) &lt;- c(&quot;genotype&quot;)
   geneDat &lt;- cbind(mutPat, geneNum)
@@ -865,11 +937,13 @@ gene_count &lt;- function(gene_nam){
   
   p &lt;- ggstripchart(geneDat, x = &quot;genotype&quot;, y = &quot;counts&quot;,
           color = &quot;genotype&quot;,
+          size = 3,
           palette = &quot;jco&quot;,
           add = &quot;mean_sd&quot;,
           title = paste(gene_nam),
-          ylab = &quot;gene counts&quot;,
-          font.x = 25, font.y = 25, font.legend = 20) + font(&quot;xy.text&quot;, size = 20) + font(&quot;title&quot;, size = 30, face = &quot;bold&quot;)
+          ylab = &quot;normalized counts&quot;,
+          font.x = 20, font.y = 20, font.legend = 20) + 
+    font(&quot;xy.text&quot;, size = 20) + font(&quot;title&quot;, size = 25, face = &quot;bold&quot;)
  #ggsave(file=paste0(&quot;/home/almut/Dokumente/git/Transcriptome_CLL/paper/figures/epi_genes/genetic_interaction_&quot;, gene_nam, &quot;.svg&quot;), plot=p, width=7, height=5)
   saveRDS(p, file = paste0(output_dir, &quot;/figures/r_objects/epistasis/de_genes/&quot;, gene_nam, &quot;.rds&quot;))
   p
@@ -877,7 +951,10 @@ gene_count &lt;- function(gene_nam){
 
 
 #interesting genes
-geneList &lt;- c(&quot;LEF1&quot;, &quot;TIMELESS&quot;, &quot;CHAD&quot;, &quot;BCL2A1&quot;, &quot;EML6&quot;, &quot;PPP1R14A&quot;, &quot;EPHB6&quot;, &quot;GEN1&quot;, &quot;EBF1&quot;, &quot;EBF4&quot;)
+diff &lt;- resTab[which(abs(resTab$stat) &gt; 6 ),]
+geneList &lt;- diff$Symbol
+geneList &lt;- geneList[-which(geneList %in% &quot;&quot;)]
+geneList &lt;- c(geneList, &quot;LEF1&quot;, &quot;TIMELESS&quot;, &quot;CHAD&quot;, &quot;BCL2A1&quot;, &quot;EML6&quot;, &quot;PPP1R14A&quot;, &quot;EPHB6&quot;, &quot;GEN1&quot;, &quot;EBF1&quot;, &quot;EBF4&quot;)
 
 
 lapply(geneList, gene_count)</code></pre>
@@ -1406,10 +1483,10 @@ clusternr = c(1:5)
 lapply(as.numeric(clusternr), setWiseGSA)</code></pre>
 <pre><code>Running gene set analysis:</code></pre>
 <pre><code>Checking arguments...done!</code></pre>
-<pre><code>Final gene/gene-set association: 36 genes and 70 gene sets</code></pre>
+<pre><code>Final gene/gene-set association: 39 genes and 70 gene sets</code></pre>
 <pre><code>  Details:</code></pre>
-<pre><code>  Calculating gene set statistics from 36 out of 118 gene-level statistics</code></pre>
-<pre><code>  Removed 5230 genes from GSC due to lack of matching gene statistics</code></pre>
+<pre><code>  Calculating gene set statistics from 39 out of 130 gene-level statistics</code></pre>
+<pre><code>  Removed 5227 genes from GSC due to lack of matching gene statistics</code></pre>
 <pre><code>  Removed 116 gene sets containing no genes after gene removal</code></pre>
 <pre><code>  Removed additionally 0 gene sets not matching the size limits</code></pre>
 <pre><code>  Loaded additional information for 70 gene sets</code></pre>
@@ -1418,49 +1495,49 @@ Calculating gene set significance...done!
 Adjusting for multiple testing...done!</code></pre>
 <pre><code>Running gene set analysis:</code></pre>
 <pre><code>Checking arguments...done!</code></pre>
-<pre><code>Final gene/gene-set association: 48 genes and 67 gene sets</code></pre>
+<pre><code>Final gene/gene-set association: 42 genes and 71 gene sets</code></pre>
 <pre><code>  Details:</code></pre>
-<pre><code>  Calculating gene set statistics from 48 out of 220 gene-level statistics</code></pre>
-<pre><code>  Removed 5218 genes from GSC due to lack of matching gene statistics</code></pre>
-<pre><code>  Removed 119 gene sets containing no genes after gene removal</code></pre>
+<pre><code>  Calculating gene set statistics from 42 out of 197 gene-level statistics</code></pre>
+<pre><code>  Removed 5224 genes from GSC due to lack of matching gene statistics</code></pre>
+<pre><code>  Removed 115 gene sets containing no genes after gene removal</code></pre>
 <pre><code>  Removed additionally 0 gene sets not matching the size limits</code></pre>
-<pre><code>  Loaded additional information for 67 gene sets</code></pre>
+<pre><code>  Loaded additional information for 71 gene sets</code></pre>
 <pre><code>Calculating gene set statistics...done!
 Calculating gene set significance...done!
 Adjusting for multiple testing...done!</code></pre>
 <pre><code>Running gene set analysis:</code></pre>
 <pre><code>Checking arguments...done!</code></pre>
-<pre><code>Final gene/gene-set association: 28 genes and 55 gene sets</code></pre>
+<pre><code>Final gene/gene-set association: 35 genes and 51 gene sets</code></pre>
 <pre><code>  Details:</code></pre>
-<pre><code>  Calculating gene set statistics from 28 out of 111 gene-level statistics</code></pre>
+<pre><code>  Calculating gene set statistics from 35 out of 112 gene-level statistics</code></pre>
+<pre><code>  Removed 5231 genes from GSC due to lack of matching gene statistics</code></pre>
+<pre><code>  Removed 135 gene sets containing no genes after gene removal</code></pre>
+<pre><code>  Removed additionally 0 gene sets not matching the size limits</code></pre>
+<pre><code>  Loaded additional information for 51 gene sets</code></pre>
+<pre><code>Calculating gene set statistics...done!
+Calculating gene set significance...done!
+Adjusting for multiple testing...done!</code></pre>
+<pre><code>Running gene set analysis:</code></pre>
+<pre><code>Checking arguments...done!</code></pre>
+<pre><code>Final gene/gene-set association: 28 genes and 63 gene sets</code></pre>
+<pre><code>  Details:</code></pre>
+<pre><code>  Calculating gene set statistics from 28 out of 124 gene-level statistics</code></pre>
 <pre><code>  Removed 5238 genes from GSC due to lack of matching gene statistics</code></pre>
-<pre><code>  Removed 131 gene sets containing no genes after gene removal</code></pre>
+<pre><code>  Removed 123 gene sets containing no genes after gene removal</code></pre>
 <pre><code>  Removed additionally 0 gene sets not matching the size limits</code></pre>
-<pre><code>  Loaded additional information for 55 gene sets</code></pre>
+<pre><code>  Loaded additional information for 63 gene sets</code></pre>
 <pre><code>Calculating gene set statistics...done!
 Calculating gene set significance...done!
 Adjusting for multiple testing...done!</code></pre>
 <pre><code>Running gene set analysis:</code></pre>
 <pre><code>Checking arguments...done!</code></pre>
-<pre><code>Final gene/gene-set association: 27 genes and 40 gene sets</code></pre>
+<pre><code>Final gene/gene-set association: 35 genes and 66 gene sets</code></pre>
 <pre><code>  Details:</code></pre>
-<pre><code>  Calculating gene set statistics from 27 out of 105 gene-level statistics</code></pre>
-<pre><code>  Removed 5239 genes from GSC due to lack of matching gene statistics</code></pre>
-<pre><code>  Removed 146 gene sets containing no genes after gene removal</code></pre>
+<pre><code>  Calculating gene set statistics from 35 out of 155 gene-level statistics</code></pre>
+<pre><code>  Removed 5231 genes from GSC due to lack of matching gene statistics</code></pre>
+<pre><code>  Removed 120 gene sets containing no genes after gene removal</code></pre>
 <pre><code>  Removed additionally 0 gene sets not matching the size limits</code></pre>
-<pre><code>  Loaded additional information for 40 gene sets</code></pre>
-<pre><code>Calculating gene set statistics...done!
-Calculating gene set significance...done!
-Adjusting for multiple testing...done!</code></pre>
-<pre><code>Running gene set analysis:</code></pre>
-<pre><code>Checking arguments...done!</code></pre>
-<pre><code>Final gene/gene-set association: 40 genes and 82 gene sets</code></pre>
-<pre><code>  Details:</code></pre>
-<pre><code>  Calculating gene set statistics from 40 out of 164 gene-level statistics</code></pre>
-<pre><code>  Removed 5226 genes from GSC due to lack of matching gene statistics</code></pre>
-<pre><code>  Removed 104 gene sets containing no genes after gene removal</code></pre>
-<pre><code>  Removed additionally 0 gene sets not matching the size limits</code></pre>
-<pre><code>  Loaded additional information for 82 gene sets</code></pre>
+<pre><code>  Loaded additional information for 66 gene sets</code></pre>
 <pre><code>Calculating gene set statistics...done!
 Calculating gene set significance...done!
 Adjusting for multiple testing...done!</code></pre>
@@ -1488,6 +1565,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/2cd07c0ba69936230dbbcd36fb108c16634294c2/docs/figure/epistasis.Rmd/GSEA piano-1.png" target="_blank">2cd07c0</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/epistasis.Rmd/GSEA piano-1.png" target="_blank">cc24f92</a>
@@ -1530,6 +1618,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/2cd07c0ba69936230dbbcd36fb108c16634294c2/docs/figure/epistasis.Rmd/GSEA piano-2.png" target="_blank">2cd07c0</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/epistasis.Rmd/GSEA piano-2.png" target="_blank">cc24f92</a>
 </td>
 <td>
@@ -1568,6 +1667,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/2cd07c0ba69936230dbbcd36fb108c16634294c2/docs/figure/epistasis.Rmd/GSEA piano-3.png" target="_blank">2cd07c0</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/epistasis.Rmd/GSEA piano-3.png" target="_blank">cc24f92</a>
@@ -1610,6 +1720,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/2cd07c0ba69936230dbbcd36fb108c16634294c2/docs/figure/epistasis.Rmd/GSEA piano-4.png" target="_blank">2cd07c0</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/epistasis.Rmd/GSEA piano-4.png" target="_blank">cc24f92</a>
 </td>
 <td>
@@ -1648,6 +1769,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/2cd07c0ba69936230dbbcd36fb108c16634294c2/docs/figure/epistasis.Rmd/GSEA piano-5.png" target="_blank">2cd07c0</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/epistasis.Rmd/GSEA piano-5.png" target="_blank">cc24f92</a>
