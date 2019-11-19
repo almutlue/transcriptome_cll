@@ -536,10 +536,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltreedc58826fa6bf2b3a85a99f482a1488feb3abc5a4targetblankdc58826a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/almutlue/transcriptome_cll/tree/dc58826fa6bf2b3a85a99f482a1488feb3abc5a4" target="_blank">dc58826</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree6cd849b30b8d6630695b5a524ed7ba42ba656164targetblank6cd849ba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/almutlue/transcriptome_cll/tree/6cd849b30b8d6630695b5a524ed7ba42ba656164" target="_blank">6cd849b</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltreedc58826fa6bf2b3a85a99f482a1488feb3abc5a4targetblankdc58826a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree6cd849b30b8d6630695b5a524ed7ba42ba656164targetblank6cd849ba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -616,6 +616,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6cd849b30b8d6630695b5a524ed7ba42ba656164/analysis/IGHV.Rmd" target="_blank">6cd849b</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+<td>
+wflow_publish(“analysis/IGHV.Rmd”)
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/almutlue/transcriptome_cll/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/IGHV.html" target="_blank">adccf9e</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -815,9 +849,11 @@ h1 &lt;- Heatmap(exprVariant.new,
 #Annotate top 50 genes
 sub_names &lt;- diff[1:50,&quot;Symbol&quot;]
 sub_names &lt;- sub_names[-which(sub_names %in% &quot;&quot;)]
+sub_names &lt;- c(as.character(sub_names), &quot;CD38&quot;, &quot;LPL&quot;, &quot;ZAP70&quot;, &quot;SEPT10&quot;, &quot;ADAM29&quot;, &quot;PEG10&quot;)
+#
 geneIDs &lt;- which(rownames(exprVariant.new) %in% sub_names)
 labels &lt;- rownames(exprVariant.new)[geneIDs]
-ha_genes &lt;- rowAnnotation(link = row_anno_link(at = geneIDs, labels = labels, labels_gp = gpar(fontsize = 15)), width = unit(2.5, &quot;cm&quot;))</code></pre>
+ha_genes &lt;- rowAnnotation(link = row_anno_link(at = geneIDs, labels = labels, labels_gp = gpar(fontsize = 13)), width = unit(2.5, &quot;cm&quot;))</code></pre>
 <pre><code>Warning: anno_link() is deprecated, please use anno_mark() instead.</code></pre>
 <pre class="r"><code>#svg(filename=paste0(figure_dir, &quot;/&quot;, variant, &quot;_gene_expr.svg&quot;), width=30, height=45)
 #pdf(file=paste0(figure_dir, &quot;/&quot;, variant, &quot;_gene_expr.pdf&quot;), width=22, height=25)
@@ -846,6 +882,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/IGHV.Rmd/complex heatmap-1.png" target="_blank">adccf9e</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/IGHV.Rmd/complex heatmap-1.png" target="_blank">cc24f92</a>
@@ -891,6 +938,7 @@ gene_count &lt;- function(gene_nam){
 diff &lt;- diff_all[which(abs(diff_all$stat) &gt; 10),]
 geneList &lt;- as.character(diff$Symbol)
 geneList &lt;- geneList[-which(geneList %in% &quot;&quot;)]
+geneList &lt;- c(geneList, &quot;CD38&quot;, &quot;LPL&quot;, &quot;ZAP70&quot;, &quot;SEPT10&quot;, &quot;ADAM29&quot;, &quot;PEG10&quot;)
 
 lapply(geneList, gene_count)</code></pre>
 <pre><code>[[1]]</code></pre>
@@ -917,6 +965,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/IGHV.Rmd/single gene counts-1.png" target="_blank">adccf9e</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/IGHV.Rmd/single gene counts-1.png" target="_blank">cc24f92</a>
@@ -959,6 +1018,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/IGHV.Rmd/single gene counts-2.png" target="_blank">adccf9e</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/IGHV.Rmd/single gene counts-2.png" target="_blank">cc24f92</a>
 </td>
 <td>
@@ -997,6 +1067,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/IGHV.Rmd/single gene counts-3.png" target="_blank">adccf9e</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/IGHV.Rmd/single gene counts-3.png" target="_blank">cc24f92</a>
@@ -1039,6 +1120,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/IGHV.Rmd/single gene counts-4.png" target="_blank">adccf9e</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/IGHV.Rmd/single gene counts-4.png" target="_blank">cc24f92</a>
 </td>
 <td>
@@ -1077,6 +1169,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/IGHV.Rmd/single gene counts-5.png" target="_blank">adccf9e</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/IGHV.Rmd/single gene counts-5.png" target="_blank">cc24f92</a>
@@ -1119,6 +1222,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/IGHV.Rmd/single gene counts-6.png" target="_blank">adccf9e</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/IGHV.Rmd/single gene counts-6.png" target="_blank">cc24f92</a>
 </td>
 <td>
@@ -1157,6 +1271,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/IGHV.Rmd/single gene counts-7.png" target="_blank">adccf9e</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/IGHV.Rmd/single gene counts-7.png" target="_blank">cc24f92</a>
@@ -1199,6 +1324,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/IGHV.Rmd/single gene counts-8.png" target="_blank">adccf9e</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/IGHV.Rmd/single gene counts-8.png" target="_blank">cc24f92</a>
 </td>
 <td>
@@ -1237,6 +1373,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/IGHV.Rmd/single gene counts-9.png" target="_blank">adccf9e</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/IGHV.Rmd/single gene counts-9.png" target="_blank">cc24f92</a>
@@ -1279,6 +1426,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/IGHV.Rmd/single gene counts-10.png" target="_blank">adccf9e</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/IGHV.Rmd/single gene counts-10.png" target="_blank">cc24f92</a>
 </td>
 <td>
@@ -1317,6 +1475,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/IGHV.Rmd/single gene counts-11.png" target="_blank">adccf9e</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/IGHV.Rmd/single gene counts-11.png" target="_blank">cc24f92</a>
@@ -1359,6 +1528,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/IGHV.Rmd/single gene counts-12.png" target="_blank">adccf9e</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/IGHV.Rmd/single gene counts-12.png" target="_blank">cc24f92</a>
 </td>
 <td>
@@ -1397,6 +1577,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/IGHV.Rmd/single gene counts-13.png" target="_blank">adccf9e</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/IGHV.Rmd/single gene counts-13.png" target="_blank">cc24f92</a>
@@ -1439,6 +1630,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/IGHV.Rmd/single gene counts-14.png" target="_blank">adccf9e</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/IGHV.Rmd/single gene counts-14.png" target="_blank">cc24f92</a>
 </td>
 <td>
@@ -1477,6 +1679,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/IGHV.Rmd/single gene counts-15.png" target="_blank">adccf9e</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/IGHV.Rmd/single gene counts-15.png" target="_blank">cc24f92</a>
@@ -1519,6 +1732,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/IGHV.Rmd/single gene counts-16.png" target="_blank">adccf9e</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/IGHV.Rmd/single gene counts-16.png" target="_blank">cc24f92</a>
 </td>
 <td>
@@ -1557,6 +1781,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/IGHV.Rmd/single gene counts-17.png" target="_blank">adccf9e</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/IGHV.Rmd/single gene counts-17.png" target="_blank">cc24f92</a>
@@ -1599,6 +1834,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/IGHV.Rmd/single gene counts-18.png" target="_blank">adccf9e</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/IGHV.Rmd/single gene counts-18.png" target="_blank">cc24f92</a>
 </td>
 <td>
@@ -1637,6 +1883,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/IGHV.Rmd/single gene counts-19.png" target="_blank">adccf9e</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/IGHV.Rmd/single gene counts-19.png" target="_blank">cc24f92</a>
@@ -1679,6 +1936,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/IGHV.Rmd/single gene counts-20.png" target="_blank">adccf9e</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/IGHV.Rmd/single gene counts-20.png" target="_blank">cc24f92</a>
 </td>
 <td>
@@ -1717,6 +1985,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/IGHV.Rmd/single gene counts-21.png" target="_blank">adccf9e</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/IGHV.Rmd/single gene counts-21.png" target="_blank">cc24f92</a>
@@ -1759,6 +2038,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/IGHV.Rmd/single gene counts-22.png" target="_blank">adccf9e</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/IGHV.Rmd/single gene counts-22.png" target="_blank">cc24f92</a>
 </td>
 <td>
@@ -1797,6 +2087,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/IGHV.Rmd/single gene counts-23.png" target="_blank">adccf9e</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/IGHV.Rmd/single gene counts-23.png" target="_blank">cc24f92</a>
@@ -1839,6 +2140,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/IGHV.Rmd/single gene counts-24.png" target="_blank">adccf9e</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/IGHV.Rmd/single gene counts-24.png" target="_blank">cc24f92</a>
 </td>
 <td>
@@ -1877,6 +2189,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/IGHV.Rmd/single gene counts-25.png" target="_blank">adccf9e</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/IGHV.Rmd/single gene counts-25.png" target="_blank">cc24f92</a>
@@ -1919,6 +2242,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/IGHV.Rmd/single gene counts-26.png" target="_blank">adccf9e</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/IGHV.Rmd/single gene counts-26.png" target="_blank">cc24f92</a>
 </td>
 <td>
@@ -1957,6 +2291,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/IGHV.Rmd/single gene counts-27.png" target="_blank">adccf9e</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/IGHV.Rmd/single gene counts-27.png" target="_blank">cc24f92</a>
@@ -1999,6 +2344,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/IGHV.Rmd/single gene counts-28.png" target="_blank">adccf9e</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/IGHV.Rmd/single gene counts-28.png" target="_blank">cc24f92</a>
 </td>
 <td>
@@ -2037,6 +2393,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/IGHV.Rmd/single gene counts-29.png" target="_blank">adccf9e</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/IGHV.Rmd/single gene counts-29.png" target="_blank">cc24f92</a>
@@ -2079,6 +2446,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/IGHV.Rmd/single gene counts-30.png" target="_blank">adccf9e</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/IGHV.Rmd/single gene counts-30.png" target="_blank">cc24f92</a>
 </td>
 <td>
@@ -2119,6 +2497,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/IGHV.Rmd/single gene counts-31.png" target="_blank">adccf9e</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/IGHV.Rmd/single gene counts-31.png" target="_blank">cc24f92</a>
 </td>
 <td>
@@ -2135,21 +2524,261 @@ aluetge
 <pre><code>
 [[32]]</code></pre>
 <p><img src="figure/IGHV.Rmd/single%20gene%20counts-32.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-32">
+Past versions of “single gene counts-32.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-32" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/IGHV.Rmd/single gene counts-32.png" target="_blank">adccf9e</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[33]]</code></pre>
 <p><img src="figure/IGHV.Rmd/single%20gene%20counts-33.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-33">
+Past versions of “single gene counts-33.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-33" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/IGHV.Rmd/single gene counts-33.png" target="_blank">adccf9e</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[34]]</code></pre>
 <p><img src="figure/IGHV.Rmd/single%20gene%20counts-34.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-34">
+Past versions of “single gene counts-34.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-34" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/IGHV.Rmd/single gene counts-34.png" target="_blank">adccf9e</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[35]]</code></pre>
 <p><img src="figure/IGHV.Rmd/single%20gene%20counts-35.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-35">
+Past versions of “single gene counts-35.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-35" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/IGHV.Rmd/single gene counts-35.png" target="_blank">adccf9e</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[36]]</code></pre>
 <p><img src="figure/IGHV.Rmd/single%20gene%20counts-36.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-36">
+Past versions of “single gene counts-36.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-36" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/IGHV.Rmd/single gene counts-36.png" target="_blank">adccf9e</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[37]]</code></pre>
 <p><img src="figure/IGHV.Rmd/single%20gene%20counts-37.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-37">
+Past versions of “single gene counts-37.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-37" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/IGHV.Rmd/single gene counts-37.png" target="_blank">adccf9e</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[38]]</code></pre>
+<p><img src="figure/IGHV.Rmd/single%20gene%20counts-38.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[39]]</code></pre>
+<p><img src="figure/IGHV.Rmd/single%20gene%20counts-39.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[40]]</code></pre>
+<p><img src="figure/IGHV.Rmd/single%20gene%20counts-40.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[41]]</code></pre>
+<p><img src="figure/IGHV.Rmd/single%20gene%20counts-41.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[42]]</code></pre>
+<p><img src="figure/IGHV.Rmd/single%20gene%20counts-42.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[43]]</code></pre>
+<p><img src="figure/IGHV.Rmd/single%20gene%20counts-43.png" width="576" style="display: block; margin: auto;" /></p>
 </div>
 <div id="gene-set-enrichment-analysis" class="section level2">
 <h2>Gene set enrichment analysis</h2>
@@ -2244,6 +2873,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/IGHV.Rmd/piano-1.png" target="_blank">adccf9e</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/IGHV.Rmd/piano-1.png" target="_blank">cc24f92</a>
