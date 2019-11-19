@@ -444,7 +444,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-11-17
+<strong>Last updated:</strong> 2019-11-19
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -535,10 +535,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree636715ea15fd111260913aea180bcec512732dbetargetblank636715ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/almutlue/transcriptome_cll/tree/636715ea15fd111260913aea180bcec512732dbe" target="_blank">636715e</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltreeccd8f5dbc1f3989cae382912a154e756b793818btargetblankccd8f5da"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/almutlue/transcriptome_cll/tree/ccd8f5dbc1f3989cae382912a154e756b793818b" target="_blank">ccd8f5d</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree636715ea15fd111260913aea180bcec512732dbetargetblank636715ea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltreeccd8f5dbc1f3989cae382912a154e756b793818btargetblankccd8f5da" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -547,7 +547,6 @@ Great! You are using Git for version control. Tracking code development and conn
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
-    Ignored:    analysis/figure/
 
 Untracked files:
     Untracked:  data/2018-03-05_IGHV.RData
@@ -558,16 +557,14 @@ Untracked files:
     Untracked:  output/desRes_15112019.RData
     Untracked:  output/figures/hist_mutations.svg
     Untracked:  output/figures/overview_mutations.pdf
+    Untracked:  output/figures/paper_fig/
     Untracked:  output/figures/r_objects/
     Untracked:  output/figures/sum_diffGenes_0.05_2.pdf
     Untracked:  output/figures/sum_diffGenes_noTsig.pdf
     Untracked:  output/figures/sum_diffGenes_noTsig_IGHVTri12.pdf
 
 Unstaged changes:
-    Modified:   analysis/Del13q14.Rmd
-    Modified:   analysis/Del17p13.Rmd
-    Modified:   analysis/TP53.Rmd
-    Modified:   analysis/index.Rmd
+    Modified:   analysis/epistasis.Rmd
     Modified:   output/diff_genes/ATM_diffGenes.csv
     Modified:   output/diff_genes/BRAF_diffGenes.csv
     Modified:   output/diff_genes/MED12_diffGenes.csv
@@ -579,7 +576,6 @@ Unstaged changes:
     Modified:   output/diff_genes/del17p13_diffGenes.csv
     Modified:   output/diff_genes/del8p12_diffGenes.csv
     Modified:   output/diff_genes/gain8q24_diffGenes.csv
-    Modified:   output/diff_genes/meth_diffGenes.csv
     Modified:   output/diff_genes/trisomy12_diffGenes.csv
     Modified:   output/figures/pca_Meth_top150.svg
 
@@ -620,6 +616,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/ccd8f5dbc1f3989cae382912a154e756b793818b/analysis/methylation_groups.Rmd" target="_blank">ccd8f5d</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+<td>
+analysis/epistasis.Rmd
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/almutlue/transcriptome_cll/f00a3d3a3e15477dac13d2ac90af1a8b08a8ba00/docs/methylation_groups.html" target="_blank">f00a3d3</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -837,7 +867,7 @@ exprMat.new[exprMat.new &gt; 4] &lt;- 4
 exprMat.new[exprMat.new &lt; -4] &lt;- -4
 
 #colors
-colors &lt;- colorRampPalette(rev( brewer.pal(10,&quot;RdBu&quot;)) )(20)
+colors = colorRamp2(c(-4,-1,0,1,4), c(&quot;#2166ac&quot;,&quot;#4393c3&quot;, &quot;#f7f7f7&quot;, &quot;#d6604d&quot;,&quot;#b2182b&quot;))
 annocol &lt;- get_palette(&quot;jco&quot;, 10)
 annocolor &lt;- list(Methylation = c(&quot;IP&quot; = annocol[5], &quot;LP&quot; = annocol[6], &quot;HP&quot; =  annocol[7]), IGHV = c(&quot;M&quot; = annocol[1], &quot;U&quot; = annocol[2])) 
 
@@ -911,6 +941,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/f00a3d3a3e15477dac13d2ac90af1a8b08a8ba00/docs/figure/methylation_groups.Rmd/complex heatmap-1.png" target="_blank">f00a3d3</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/7b048d9d1783cb67b62c941473f87968fc46b645/docs/figure/methylation_groups.Rmd/complex heatmap-1.png" target="_blank">7b048d9</a>
 </td>
 <td>
@@ -934,7 +975,7 @@ saveRDS(p1, file = paste0(output_dir, &quot;/figures/r_objects/Methylation/methy
 <pre class="r"><code>#function to create stripchart plots for specific genes
 gene_count &lt;- function(gene_nam){
   geneEnsID &lt;- rownames(ddsCLL)[which(rowData(ddsCLL)$symbol %in% gene_nam)]
-  geneNum &lt;- counts(ddsCLL)[geneEnsID,]
+  geneNum &lt;- assay(RNAnorm)[geneEnsID,]
   mutPat &lt;- as.data.frame(colData(ddsCLL)[, c(&quot;Methylation&quot;)])
   colnames(mutPat) &lt;- c(&quot;genotype&quot;)
   geneDat &lt;- cbind(mutPat, geneNum)
@@ -979,6 +1020,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/f00a3d3a3e15477dac13d2ac90af1a8b08a8ba00/docs/figure/methylation_groups.Rmd/single gene counts-1.png" target="_blank">f00a3d3</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/7b048d9d1783cb67b62c941473f87968fc46b645/docs/figure/methylation_groups.Rmd/single gene counts-1.png" target="_blank">7b048d9</a>
 </td>
 <td>
@@ -1017,6 +1069,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/f00a3d3a3e15477dac13d2ac90af1a8b08a8ba00/docs/figure/methylation_groups.Rmd/single gene counts-2.png" target="_blank">f00a3d3</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/7b048d9d1783cb67b62c941473f87968fc46b645/docs/figure/methylation_groups.Rmd/single gene counts-2.png" target="_blank">7b048d9</a>
@@ -1059,6 +1122,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/f00a3d3a3e15477dac13d2ac90af1a8b08a8ba00/docs/figure/methylation_groups.Rmd/single gene counts-3.png" target="_blank">f00a3d3</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/7b048d9d1783cb67b62c941473f87968fc46b645/docs/figure/methylation_groups.Rmd/single gene counts-3.png" target="_blank">7b048d9</a>
 </td>
 <td>
@@ -1097,6 +1171,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/f00a3d3a3e15477dac13d2ac90af1a8b08a8ba00/docs/figure/methylation_groups.Rmd/single gene counts-4.png" target="_blank">f00a3d3</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/7b048d9d1783cb67b62c941473f87968fc46b645/docs/figure/methylation_groups.Rmd/single gene counts-4.png" target="_blank">7b048d9</a>
@@ -1139,6 +1224,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/f00a3d3a3e15477dac13d2ac90af1a8b08a8ba00/docs/figure/methylation_groups.Rmd/single gene counts-5.png" target="_blank">f00a3d3</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/7b048d9d1783cb67b62c941473f87968fc46b645/docs/figure/methylation_groups.Rmd/single gene counts-5.png" target="_blank">7b048d9</a>
 </td>
 <td>
@@ -1177,6 +1273,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/f00a3d3a3e15477dac13d2ac90af1a8b08a8ba00/docs/figure/methylation_groups.Rmd/single gene counts-6.png" target="_blank">f00a3d3</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/7b048d9d1783cb67b62c941473f87968fc46b645/docs/figure/methylation_groups.Rmd/single gene counts-6.png" target="_blank">7b048d9</a>
@@ -1219,6 +1326,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/f00a3d3a3e15477dac13d2ac90af1a8b08a8ba00/docs/figure/methylation_groups.Rmd/single gene counts-7.png" target="_blank">f00a3d3</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/7b048d9d1783cb67b62c941473f87968fc46b645/docs/figure/methylation_groups.Rmd/single gene counts-7.png" target="_blank">7b048d9</a>
 </td>
 <td>
@@ -1257,6 +1375,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/f00a3d3a3e15477dac13d2ac90af1a8b08a8ba00/docs/figure/methylation_groups.Rmd/single gene counts-8.png" target="_blank">f00a3d3</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/7b048d9d1783cb67b62c941473f87968fc46b645/docs/figure/methylation_groups.Rmd/single gene counts-8.png" target="_blank">7b048d9</a>
@@ -1299,6 +1428,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/f00a3d3a3e15477dac13d2ac90af1a8b08a8ba00/docs/figure/methylation_groups.Rmd/single gene counts-9.png" target="_blank">f00a3d3</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/7b048d9d1783cb67b62c941473f87968fc46b645/docs/figure/methylation_groups.Rmd/single gene counts-9.png" target="_blank">7b048d9</a>
 </td>
 <td>
@@ -1337,6 +1477,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/f00a3d3a3e15477dac13d2ac90af1a8b08a8ba00/docs/figure/methylation_groups.Rmd/single gene counts-10.png" target="_blank">f00a3d3</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/7b048d9d1783cb67b62c941473f87968fc46b645/docs/figure/methylation_groups.Rmd/single gene counts-10.png" target="_blank">7b048d9</a>
@@ -1379,6 +1530,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/f00a3d3a3e15477dac13d2ac90af1a8b08a8ba00/docs/figure/methylation_groups.Rmd/single gene counts-11.png" target="_blank">f00a3d3</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/7b048d9d1783cb67b62c941473f87968fc46b645/docs/figure/methylation_groups.Rmd/single gene counts-11.png" target="_blank">7b048d9</a>
 </td>
 <td>
@@ -1417,6 +1579,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/f00a3d3a3e15477dac13d2ac90af1a8b08a8ba00/docs/figure/methylation_groups.Rmd/single gene counts-12.png" target="_blank">f00a3d3</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/7b048d9d1783cb67b62c941473f87968fc46b645/docs/figure/methylation_groups.Rmd/single gene counts-12.png" target="_blank">7b048d9</a>
@@ -1459,6 +1632,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/f00a3d3a3e15477dac13d2ac90af1a8b08a8ba00/docs/figure/methylation_groups.Rmd/single gene counts-13.png" target="_blank">f00a3d3</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/7b048d9d1783cb67b62c941473f87968fc46b645/docs/figure/methylation_groups.Rmd/single gene counts-13.png" target="_blank">7b048d9</a>
 </td>
 <td>
@@ -1497,6 +1681,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/f00a3d3a3e15477dac13d2ac90af1a8b08a8ba00/docs/figure/methylation_groups.Rmd/single gene counts-14.png" target="_blank">f00a3d3</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/7b048d9d1783cb67b62c941473f87968fc46b645/docs/figure/methylation_groups.Rmd/single gene counts-14.png" target="_blank">7b048d9</a>
@@ -1539,6 +1734,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/f00a3d3a3e15477dac13d2ac90af1a8b08a8ba00/docs/figure/methylation_groups.Rmd/single gene counts-15.png" target="_blank">f00a3d3</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/7b048d9d1783cb67b62c941473f87968fc46b645/docs/figure/methylation_groups.Rmd/single gene counts-15.png" target="_blank">7b048d9</a>
 </td>
 <td>
@@ -1577,6 +1783,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/f00a3d3a3e15477dac13d2ac90af1a8b08a8ba00/docs/figure/methylation_groups.Rmd/single gene counts-16.png" target="_blank">f00a3d3</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/7b048d9d1783cb67b62c941473f87968fc46b645/docs/figure/methylation_groups.Rmd/single gene counts-16.png" target="_blank">7b048d9</a>
@@ -1619,6 +1836,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/f00a3d3a3e15477dac13d2ac90af1a8b08a8ba00/docs/figure/methylation_groups.Rmd/single gene counts-17.png" target="_blank">f00a3d3</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/7b048d9d1783cb67b62c941473f87968fc46b645/docs/figure/methylation_groups.Rmd/single gene counts-17.png" target="_blank">7b048d9</a>
 </td>
 <td>
@@ -1657,6 +1885,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/f00a3d3a3e15477dac13d2ac90af1a8b08a8ba00/docs/figure/methylation_groups.Rmd/single gene counts-18.png" target="_blank">f00a3d3</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/7b048d9d1783cb67b62c941473f87968fc46b645/docs/figure/methylation_groups.Rmd/single gene counts-18.png" target="_blank">7b048d9</a>
@@ -1699,6 +1938,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/f00a3d3a3e15477dac13d2ac90af1a8b08a8ba00/docs/figure/methylation_groups.Rmd/single gene counts-19.png" target="_blank">f00a3d3</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/7b048d9d1783cb67b62c941473f87968fc46b645/docs/figure/methylation_groups.Rmd/single gene counts-19.png" target="_blank">7b048d9</a>
 </td>
 <td>
@@ -1737,6 +1987,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/f00a3d3a3e15477dac13d2ac90af1a8b08a8ba00/docs/figure/methylation_groups.Rmd/single gene counts-20.png" target="_blank">f00a3d3</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/7b048d9d1783cb67b62c941473f87968fc46b645/docs/figure/methylation_groups.Rmd/single gene counts-20.png" target="_blank">7b048d9</a>
@@ -1779,6 +2040,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/f00a3d3a3e15477dac13d2ac90af1a8b08a8ba00/docs/figure/methylation_groups.Rmd/single gene counts-21.png" target="_blank">f00a3d3</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/7b048d9d1783cb67b62c941473f87968fc46b645/docs/figure/methylation_groups.Rmd/single gene counts-21.png" target="_blank">7b048d9</a>
 </td>
 <td>
@@ -1817,6 +2089,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/f00a3d3a3e15477dac13d2ac90af1a8b08a8ba00/docs/figure/methylation_groups.Rmd/single gene counts-22.png" target="_blank">f00a3d3</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/7b048d9d1783cb67b62c941473f87968fc46b645/docs/figure/methylation_groups.Rmd/single gene counts-22.png" target="_blank">7b048d9</a>
@@ -1859,6 +2142,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/f00a3d3a3e15477dac13d2ac90af1a8b08a8ba00/docs/figure/methylation_groups.Rmd/single gene counts-23.png" target="_blank">f00a3d3</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/7b048d9d1783cb67b62c941473f87968fc46b645/docs/figure/methylation_groups.Rmd/single gene counts-23.png" target="_blank">7b048d9</a>
 </td>
 <td>
@@ -1897,6 +2191,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/f00a3d3a3e15477dac13d2ac90af1a8b08a8ba00/docs/figure/methylation_groups.Rmd/single gene counts-24.png" target="_blank">f00a3d3</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/7b048d9d1783cb67b62c941473f87968fc46b645/docs/figure/methylation_groups.Rmd/single gene counts-24.png" target="_blank">7b048d9</a>
@@ -1939,6 +2244,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/f00a3d3a3e15477dac13d2ac90af1a8b08a8ba00/docs/figure/methylation_groups.Rmd/single gene counts-25.png" target="_blank">f00a3d3</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/7b048d9d1783cb67b62c941473f87968fc46b645/docs/figure/methylation_groups.Rmd/single gene counts-25.png" target="_blank">7b048d9</a>
 </td>
 <td>
@@ -1977,6 +2293,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/f00a3d3a3e15477dac13d2ac90af1a8b08a8ba00/docs/figure/methylation_groups.Rmd/single gene counts-26.png" target="_blank">f00a3d3</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/7b048d9d1783cb67b62c941473f87968fc46b645/docs/figure/methylation_groups.Rmd/single gene counts-26.png" target="_blank">7b048d9</a>
@@ -2019,6 +2346,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/f00a3d3a3e15477dac13d2ac90af1a8b08a8ba00/docs/figure/methylation_groups.Rmd/single gene counts-27.png" target="_blank">f00a3d3</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/7b048d9d1783cb67b62c941473f87968fc46b645/docs/figure/methylation_groups.Rmd/single gene counts-27.png" target="_blank">7b048d9</a>
 </td>
 <td>
@@ -2057,6 +2395,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/f00a3d3a3e15477dac13d2ac90af1a8b08a8ba00/docs/figure/methylation_groups.Rmd/single gene counts-28.png" target="_blank">f00a3d3</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/7b048d9d1783cb67b62c941473f87968fc46b645/docs/figure/methylation_groups.Rmd/single gene counts-28.png" target="_blank">7b048d9</a>
@@ -2099,6 +2448,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/f00a3d3a3e15477dac13d2ac90af1a8b08a8ba00/docs/figure/methylation_groups.Rmd/single gene counts-29.png" target="_blank">f00a3d3</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/7b048d9d1783cb67b62c941473f87968fc46b645/docs/figure/methylation_groups.Rmd/single gene counts-29.png" target="_blank">7b048d9</a>
 </td>
 <td>
@@ -2137,6 +2497,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/f00a3d3a3e15477dac13d2ac90af1a8b08a8ba00/docs/figure/methylation_groups.Rmd/single gene counts-30.png" target="_blank">f00a3d3</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/7b048d9d1783cb67b62c941473f87968fc46b645/docs/figure/methylation_groups.Rmd/single gene counts-30.png" target="_blank">7b048d9</a>
@@ -2240,6 +2611,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/f00a3d3a3e15477dac13d2ac90af1a8b08a8ba00/docs/figure/methylation_groups.Rmd/gsea-1.png" target="_blank">f00a3d3</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/7b048d9d1783cb67b62c941473f87968fc46b645/docs/figure/methylation_groups.Rmd/gsea-1.png" target="_blank">7b048d9</a>
