@@ -444,7 +444,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-11-17
+<strong>Last updated:</strong> 2019-11-19
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -535,10 +535,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltreed5d9635f3b47ad16692565897802b5751bf0e1batargetblankd5d9635a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/almutlue/transcriptome_cll/tree/d5d9635f3b47ad16692565897802b5751bf0e1ba" target="_blank">d5d9635</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltreedc58826fa6bf2b3a85a99f482a1488feb3abc5a4targetblankdc58826a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/almutlue/transcriptome_cll/tree/dc58826fa6bf2b3a85a99f482a1488feb3abc5a4" target="_blank">dc58826</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltreed5d9635f3b47ad16692565897802b5751bf0e1batargetblankd5d9635a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltreedc58826fa6bf2b3a85a99f482a1488feb3abc5a4targetblankdc58826a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -557,21 +557,13 @@ Untracked files:
     Untracked:  output/desRes_15112019.RData
     Untracked:  output/figures/hist_mutations.svg
     Untracked:  output/figures/overview_mutations.pdf
+    Untracked:  output/figures/paper_fig/
     Untracked:  output/figures/r_objects/
     Untracked:  output/figures/sum_diffGenes_0.05_2.pdf
     Untracked:  output/figures/sum_diffGenes_noTsig.pdf
     Untracked:  output/figures/sum_diffGenes_noTsig_IGHVTri12.pdf
 
 Unstaged changes:
-    Modified:   analysis/ATM.Rmd
-    Modified:   analysis/Del13q14.Rmd
-    Modified:   analysis/Del17p13.Rmd
-    Modified:   analysis/Del8p12.Rmd
-    Modified:   analysis/Gain8q24.Rmd
-    Modified:   analysis/IGHV.Rmd
-    Modified:   analysis/Med12.Rmd
-    Modified:   analysis/Notch1.Rmd
-    Modified:   analysis/index.Rmd
     Modified:   output/diff_genes/ATM_diffGenes.csv
     Modified:   output/diff_genes/BRAF_diffGenes.csv
     Modified:   output/diff_genes/MED12_diffGenes.csv
@@ -623,6 +615,40 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/dc58826fa6bf2b3a85a99f482a1488feb3abc5a4/analysis/TP53.Rmd" target="_blank">dc58826</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+<td>
+wflow_publish(c(“analysis/IGHV.Rmd”, “analysis/trisomy12.Rmd”, “analysis/Notch1.Rmd”, “analysis/TP53.Rmd”))
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/almutlue/transcriptome_cll/0418f09f31d9983507a3b8eb222fe631d23ccaed/docs/TP53.html" target="_blank">0418f09</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -882,6 +908,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0418f09f31d9983507a3b8eb222fe631d23ccaed/docs/figure/TP53.Rmd/complex heatmap-1.png" target="_blank">0418f09</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/complex heatmap-1.png" target="_blank">cc24f92</a>
 </td>
 <td>
@@ -919,8 +956,8 @@ gene_count &lt;- function(gene_nam){
           font.x = 18, font.y = 18, font.legend = 16, 
           ylab = &quot;counts&quot;) + font(&quot;xy.text&quot;, size = 15) + font(&quot;title&quot;, size = 20, face = &quot;bold&quot;)
   #ggsave(file=paste0(figure_dir, &quot;/tri12/genetic_interaction_&quot;, gene_nam, &quot;.svg&quot;), plot=p, width=6, height=5)
-  p
   saveRDS(p, file = paste0(output_dir, &quot;/figures/r_objects/TP53/de_genes/&quot;, gene_nam, &quot;.rds&quot;))
+  p
 }
 
 diff &lt;- diff_all[which(abs(diff_all$stat) &gt; 4.5),]
@@ -928,248 +965,2745 @@ geneList &lt;- as.character(diff$Symbol)
 geneList &lt;- geneList[-which(geneList %in% &quot;&quot;)]
 
 lapply(geneList, gene_count)</code></pre>
-<pre><code>[[1]]
-NULL
-
-[[2]]
-NULL
-
-[[3]]
-NULL
-
-[[4]]
-NULL
-
-[[5]]
-NULL
-
-[[6]]
-NULL
-
-[[7]]
-NULL
-
-[[8]]
-NULL
-
-[[9]]
-NULL
-
-[[10]]
-NULL
-
-[[11]]
-NULL
-
-[[12]]
-NULL
-
-[[13]]
-NULL
-
-[[14]]
-NULL
-
-[[15]]
-NULL
-
-[[16]]
-NULL
-
-[[17]]
-NULL
-
-[[18]]
-NULL
-
-[[19]]
-NULL
-
-[[20]]
-NULL
-
-[[21]]
-NULL
-
-[[22]]
-NULL
-
-[[23]]
-NULL
-
-[[24]]
-NULL
-
-[[25]]
-NULL
-
-[[26]]
-NULL
-
-[[27]]
-NULL
-
-[[28]]
-NULL
-
-[[29]]
-NULL
-
-[[30]]
-NULL
-
-[[31]]
-NULL
-
-[[32]]
-NULL
-
-[[33]]
-NULL
-
-[[34]]
-NULL
-
-[[35]]
-NULL
-
-[[36]]
-NULL
-
-[[37]]
-NULL
-
-[[38]]
-NULL
-
-[[39]]
-NULL
-
-[[40]]
-NULL
-
-[[41]]
-NULL
-
-[[42]]
-NULL
-
-[[43]]
-NULL
-
-[[44]]
-NULL
-
-[[45]]
-NULL
-
-[[46]]
-NULL
-
-[[47]]
-NULL
-
-[[48]]
-NULL
-
-[[49]]
-NULL
-
-[[50]]
-NULL
-
-[[51]]
-NULL
-
-[[52]]
-NULL
-
-[[53]]
-NULL
-
-[[54]]
-NULL
-
-[[55]]
-NULL
-
-[[56]]
-NULL
-
-[[57]]
-NULL
-
-[[58]]
-NULL
-
-[[59]]
-NULL
-
-[[60]]
-NULL
-
-[[61]]
-NULL
-
-[[62]]
-NULL
-
-[[63]]
-NULL
-
-[[64]]
-NULL
-
-[[65]]
-NULL
-
-[[66]]
-NULL
-
-[[67]]
-NULL
-
-[[68]]
-NULL
-
-[[69]]
-NULL
-
-[[70]]
-NULL
-
-[[71]]
-NULL
-
-[[72]]
-NULL
-
-[[73]]
-NULL
-
-[[74]]
-NULL
-
-[[75]]
-NULL
-
-[[76]]
-NULL
-
-[[77]]
-NULL
-
-[[78]]
-NULL
-
-[[79]]
-NULL
-
-[[80]]
-NULL</code></pre>
+<pre><code>[[1]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-1.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-1">
+Past versions of “single gene counts-1.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-1.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-1.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
 </div>
-<div id="interesting-top-genes" class="section level1">
-<h1>Interesting top genes</h1>
+</div>
+<pre><code>
+[[2]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-2.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-2">
+Past versions of “single gene counts-2.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-2.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-2.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[3]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-3.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-3">
+Past versions of “single gene counts-3.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-3.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-3.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[4]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-4.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-4">
+Past versions of “single gene counts-4.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-4" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-4.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-4.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[5]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-5.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-5">
+Past versions of “single gene counts-5.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-5" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-5.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-5.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[6]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-6.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-6">
+Past versions of “single gene counts-6.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-6" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-6.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-6.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[7]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-7.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-7">
+Past versions of “single gene counts-7.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-7" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-7.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-7.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[8]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-8.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-8">
+Past versions of “single gene counts-8.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-8" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-8.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-8.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[9]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-9.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-9">
+Past versions of “single gene counts-9.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-9" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-9.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-9.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[10]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-10.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-10">
+Past versions of “single gene counts-10.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-10" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-10.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-10.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[11]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-11.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-11">
+Past versions of “single gene counts-11.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-11" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-11.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-11.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[12]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-12.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-12">
+Past versions of “single gene counts-12.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-12" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-12.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-12.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[13]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-13.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-13">
+Past versions of “single gene counts-13.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-13" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-13.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-13.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[14]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-14.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-14">
+Past versions of “single gene counts-14.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-14" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-14.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-14.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[15]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-15.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-15">
+Past versions of “single gene counts-15.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-15" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-15.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-15.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[16]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-16.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-16">
+Past versions of “single gene counts-16.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-16" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-16.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-16.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[17]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-17.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-17">
+Past versions of “single gene counts-17.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-17" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-17.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-17.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[18]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-18.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-18">
+Past versions of “single gene counts-18.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-18" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-18.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-18.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[19]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-19.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-19">
+Past versions of “single gene counts-19.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-19" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-19.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-19.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[20]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-20.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-20">
+Past versions of “single gene counts-20.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-20" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-20.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-20.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[21]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-21.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-21">
+Past versions of “single gene counts-21.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-21" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-21.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-21.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[22]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-22.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-22">
+Past versions of “single gene counts-22.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-22" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-22.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-22.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[23]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-23.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-23">
+Past versions of “single gene counts-23.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-23" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-23.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-23.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[24]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-24.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-24">
+Past versions of “single gene counts-24.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-24" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-24.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-24.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[25]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-25.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-25">
+Past versions of “single gene counts-25.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-25" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-25.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-25.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[26]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-26.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-26">
+Past versions of “single gene counts-26.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-26" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-26.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-26.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[27]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-27.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-27">
+Past versions of “single gene counts-27.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-27" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-27.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-27.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[28]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-28.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-28">
+Past versions of “single gene counts-28.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-28" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-28.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-28.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[29]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-29.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-29">
+Past versions of “single gene counts-29.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-29" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-29.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-29.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[30]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-30.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-30">
+Past versions of “single gene counts-30.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-30" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-30.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-30.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[31]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-31.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-31">
+Past versions of “single gene counts-31.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-31" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-31.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-31.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[32]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-32.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-32">
+Past versions of “single gene counts-32.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-32" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-32.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-32.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[33]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-33.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-33">
+Past versions of “single gene counts-33.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-33" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-33.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-33.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[34]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-34.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-34">
+Past versions of “single gene counts-34.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-34" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-34.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-34.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[35]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-35.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-35">
+Past versions of “single gene counts-35.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-35" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-35.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-35.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[36]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-36.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-36">
+Past versions of “single gene counts-36.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-36" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-36.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-36.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[37]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-37.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-37">
+Past versions of “single gene counts-37.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-37" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-37.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-37.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[38]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-38.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-38">
+Past versions of “single gene counts-38.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-38" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-38.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-38.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[39]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-39.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-39">
+Past versions of “single gene counts-39.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-39" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-39.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-39.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[40]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-40.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-40">
+Past versions of “single gene counts-40.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-40" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-40.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-40.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[41]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-41.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-41">
+Past versions of “single gene counts-41.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-41" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-41.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-41.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[42]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-42.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-42">
+Past versions of “single gene counts-42.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-42" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-42.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-42.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[43]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-43.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-43">
+Past versions of “single gene counts-43.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-43" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-43.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-43.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[44]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-44.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-44">
+Past versions of “single gene counts-44.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-44" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-44.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-44.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[45]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-45.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-45">
+Past versions of “single gene counts-45.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-45" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-45.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-45.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[46]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-46.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-46">
+Past versions of “single gene counts-46.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-46" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-46.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-46.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[47]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-47.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-47">
+Past versions of “single gene counts-47.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-47" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-47.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-47.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[48]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-48.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-48">
+Past versions of “single gene counts-48.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-48" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-48.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-48.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[49]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-49.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-49">
+Past versions of “single gene counts-49.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-49" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-49.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/TP53.Rmd/single gene counts-49.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[50]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-50.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-50">
+Past versions of “single gene counts-50.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-50" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-50.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[51]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-51.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-51">
+Past versions of “single gene counts-51.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-51" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-51.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[52]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-52.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-52">
+Past versions of “single gene counts-52.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-52" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-52.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[53]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-53.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-53">
+Past versions of “single gene counts-53.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-53" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-53.png" target="_blank">239b1ce</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-10
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[54]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-54.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[55]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-55.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[56]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-56.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[57]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-57.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[58]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-58.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[59]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-59.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[60]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-60.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[61]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-61.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[62]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-62.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[63]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-63.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[64]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-64.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[65]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-65.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[66]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-66.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[67]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-67.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[68]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-68.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[69]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-69.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[70]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-70.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[71]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-71.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[72]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-72.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[73]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-73.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[74]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-74.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[75]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-75.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[76]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-76.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[77]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-77.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[78]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-78.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[79]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-79.png" width="576" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[80]]</code></pre>
+<p><img src="figure/TP53.Rmd/single%20gene%20counts-80.png" width="576" style="display: block; margin: auto;" /> # Interesting top genes</p>
 <p>A list of genes, with manual checked expression differences: Downregulated in <strong>TP53</strong>: + FLII + NUP88 + DRG2 + SPAG7 + SMG6 + RABEP1 + ELAC2 + TOP3A + MAP2K4 + RNF167 + PANK4 + MED11 + PELP1 + MPDU1 + CTDNEP1 + SGF29 + FXR2</p>
 <p>Upregulated in <strong>TP53</strong>: + HYPK</p>
 </div>
@@ -1269,6 +3803,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/0418f09f31d9983507a3b8eb222fe631d23ccaed/docs/figure/TP53.Rmd/piano-1.png" target="_blank">0418f09</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/piano-1.png" target="_blank">239b1ce</a>
