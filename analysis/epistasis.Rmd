@@ -2,7 +2,7 @@
 title: "epistasis"
 author: "aluetge"
 date: "2019-07-26"
-output: workflowr::wflow_html
+output: html_document
 ---
 
 # Epistasis in CLL 
@@ -83,7 +83,7 @@ resTab$symbol <- rowData(RNAnorm[rownames(resSig),])$symbol
 
 ## Heatmap of interacting genes
 
-```{r heatmap of interaction ighv, fig.width=35, fig.height=41}
+```{r heatmap of interaction ighv, fig.width=15, fig.height=20}
 
   #filter by variant
   sig_Genes <- rownames(resSig)
@@ -95,19 +95,25 @@ resTab$symbol <- rowData(RNAnorm[rownames(resSig),])$symbol
   #scale and censor
   geneExpression_new <- log2(geneExpression)
   geneExpression_new<- t(scale(t(geneExpression_new)))
-  geneExpression_new[geneExpression_new > 6] <- 6
-  geneExpression_new[geneExpression_new < -6] <- -6
+  geneExpression_new[geneExpression_new > 4] <- 4
+  geneExpression_new[geneExpression_new < -4] <- -4
 
   mutnames <- c("none", "IGHV", "trisomy12", "both")
   
-  mutStatus <- data.frame(colData(RNAnorm)) %>% mutate(IGHVnew = ifelse(IGHV %in% "M", 1, 0)) %>% dplyr::select(-IGHV) %>% mutate(IGHV = IGHVnew) %>% dplyr::select_("PatID", "IGHV", "trisomy12") %>% mutate_("namA" = "IGHV", "namB" = "trisomy12") %>% mutate(naA = as.numeric(as.character(namA))) %>% mutate(naB = as.numeric(as.character(namB))) %>% mutate(mut = factor(mutnames[1 + naA + 2 * naB], levels = mutnames)) %>% arrange(mut)
+  mutStatus <- data.frame(colData(RNAnorm)) %>% mutate(IGHVnew = ifelse(IGHV %in% "M", 1, 0)) %>% 
+    dplyr::select(-IGHV) %>% mutate(IGHV = IGHVnew) %>% 
+    dplyr::select_("PatID", "IGHV", "trisomy12") %>% 
+    mutate_("namA" = "IGHV", "namB" = "trisomy12") %>% 
+    mutate(naA = as.numeric(as.character(namA))) %>% 
+    mutate(naB = as.numeric(as.character(namB))) %>% 
+    mutate(mut = factor(mutnames[1 + naA + 2 * naB], levels = mutnames)) %>% arrange(mut)
 
   geneExpression_new <- geneExpression_new[,mutStatus$PatID]
 
 
   #colors
   #colors <- colorRampPalette( rev(brewer.pal(11,"RdBu")) )(255)
-  colors = colorRamp2(c(-6,-2,0,2,6), c("#2166ac","#4393c3", "#f7f7f7", "#d6604d","#b2182b"))
+  colors = colorRamp2(c(-4, -1, 0, 1, 4), c("#2166ac", "#4393c3", "#f7f7f7", "#d6604d", "#b2182b"))
   annocol <- get_palette("jco", 10)
   chromcol <- list(chromosome = c("12" = annocol[6], "other" = annocol[5]))
   
@@ -118,14 +124,40 @@ resTab$symbol <- rowData(RNAnorm[rownames(resSig),])$symbol
   colnames(mutationStatus) <- "Variant"
 
   #Column annotation
-  ha_col = HeatmapAnnotation(df = mutationStatus, col = annocolor, annotation_height = unit(1.8, "cm"), annotation_legend_param = list(title_gp = gpar(fontsize = 60), labels_gp = gpar(fontsize = 50),  grid_height = unit(2.5, "cm"), grid_width = unit(2.5, "cm"), gap = unit(15, "mm")))
+  ha_col = HeatmapAnnotation(df = mutationStatus, col = annocolor, annotation_height = unit(1.8, "cm"),
+                             annotation_legend_param = list(title_gp = gpar(fontsize = 23), 
+                                                            labels_gp = gpar(fontsize = 18),  
+                                                            grid_height = unit(0.7, "cm"), 
+                                                            grid_width = unit(0.3, "cm"), 
+                                                            gap = unit(15, "mm")))
 
   #rowcluster
   geneExpression_dist <- dist(geneExpression_new)
   rowcluster = hclust(geneExpression_dist, method = "ward.D2")
 
   #heatmap
-  h1 <- Heatmap(geneExpression_new, col = colors ,column_title = paste0("Gene interactions:", "IGHV", "-", "trisomy12"), column_title_gp = gpar(fontsize = 60, fontface = "bold"), heatmap_legend_param = list(title = "Expr", title_gp = gpar(fontsize = 60), grid_height = unit(2.5, "cm"), grid_width = unit(2.5, "cm"), gap = unit(15, "mm"), labels_gp = gpar(fontsize = 50), labels = c(-6,-3, 0,3, 6)) , row_dend_width = unit(3.5, "cm"), show_row_dend = T, show_column_names =FALSE , top_annotation = ha_col, show_row_names = FALSE, show_column_dend = FALSE, cluster_columns = FALSE, cluster_rows = rowcluster, split = 5, gap = unit(0.6,"cm"), column_order = mutStatus$PatID)
+  h1 <- Heatmap(geneExpression_new, 
+                col = colors,
+                column_title = paste0("Gene interactions:", "IGHV", "-", "trisomy12"), 
+                column_title_gp = gpar(fontsize = 23, fontface = "bold"), 
+                heatmap_legend_param = list(title = "Expr", 
+                                            title_gp = gpar(fontsize = 23), 
+                                            grid_height = unit(0.7, "cm"), 
+                                            grid_width = unit(0.3, "cm"), 
+                                            gap = unit(15, "mm"), 
+                                            labels_gp = gpar(fontsize = 18), 
+                                            labels = c(-4, -1, 0, 1, 4)), 
+                row_dend_width = unit(0.7, "cm"), 
+                show_row_dend = T, 
+                show_column_names =FALSE ,
+                top_annotation = ha_col,
+                show_row_names = FALSE, 
+                show_column_dend = FALSE, 
+                row_title_gp = gpar(fontsize = 0),
+                cluster_columns = FALSE, 
+                cluster_rows = rowcluster, 
+                split = 5, gap = unit(0.2,"cm"), 
+                column_order = mutStatus$PatID)
 
   #chromosome annotation
   #chromosome distribution
@@ -135,11 +167,18 @@ colnames(chrom ) <- "chromosome"
 #select for chromosome12
 chrom$chromosome <- ifelse(chrom$chromosome == 12, 12, "other")
   
-  ha_chrom = rowAnnotation(df = chrom, col = chromcol, annotation_width = unit(2.3, "cm"), annotation_legend_param = list(ncol = 2, title_gp = gpar(fontsize = 60), labels_gp = gpar(fontsize = 50),  grid_height = unit(2.5, "cm"), grid_width = unit(2.5, "cm")))
+  ha_chrom = rowAnnotation(df = chrom, 
+                           col = chromcol, 
+                           annotation_width = unit(0.8, "cm"), 
+                           annotation_legend_param = list(ncol = 2, 
+                                                          title_gp = gpar(fontsize = 23), 
+                                                          labels_gp = gpar(fontsize = 18),  
+                                                          grid_height = unit(0.7, "cm"), 
+                                                          grid_width = unit(0.3, "cm")))
   
    
   #Annotate most significant genes
-  top50 <-  rownames(subset(resOrdered, padj < 0.001))
+  top50 <-  rownames(resTab[which(abs(resTab$stat) > 5 ),])
   int_genes <- rowData(RNAnorm[top50,])$symbol
 
 subset <- as.data.frame(rowData(RNAnorm[sig_Genes,]))
@@ -150,13 +189,15 @@ subset <- subset[which(subset$symbol %in% int_genes),]
 rownames(subset) <- subset$symbol
 geneIDs <- which(rownames(geneExpression_new) %in% rownames(subset))
 labels <- rownames(geneExpression_new)[geneIDs]
-ha_genes <- rowAnnotation(link = row_anno_link(at = geneIDs, labels = labels, labels_gp = gpar(fontsize = 45)), width = unit(9, "cm"))
+ha_genes <- rowAnnotation(link = row_anno_link(at = geneIDs, labels = labels, 
+                                               labels_gp = gpar(fontsize = 15)), 
+                          width = unit(2.5, "cm"))
   
 
   
   #svg(filename="~/git/figures_thesis/gene_expr/epistatsisTri12IGHV.svg", width=30, height=50)
   #pdf(file="/home/almut/Dokumente/git/Transcriptome_CLL/paper/figures/epistasis_Deseq.pdf", width=35, height=45)
-p1 <- draw(h1 + ha_genes + ha_chrom) 
+p1 <- draw(h1 + ha_genes ) 
   #dev.off()
   #draw(h1 + ha_chrom + ha_genes)
 saveRDS(p1, file = paste0(output_dir, "/figures/r_objects/epistasis/epistasis_heatmap.rds"))
@@ -171,7 +212,7 @@ IGHVTri12 <- list("sig_Genes" = sig_Genes, "geneExp" = geneExpression_new, "h1"=
 #function to create stripchart plots for specific genes
 gene_count <- function(gene_nam){
   geneEnsID <- rownames(ddsCLL)[which(rowData(ddsCLL)$symbol %in% gene_nam)]
-  geneNum <- counts(ddsCLL)[geneEnsID,]
+  geneNum <- assay(RNAnorm)[geneEnsID,]
   mutPat <- as.data.frame(mutationStatus[colData(ddsCLL)$PatID,])
   colnames(mutPat) <- c("genotype")
   geneDat <- cbind(mutPat, geneNum)
@@ -179,11 +220,13 @@ gene_count <- function(gene_nam){
   
   p <- ggstripchart(geneDat, x = "genotype", y = "counts",
           color = "genotype",
+          size = 3,
           palette = "jco",
           add = "mean_sd",
           title = paste(gene_nam),
-          ylab = "gene counts",
-          font.x = 25, font.y = 25, font.legend = 20) + font("xy.text", size = 20) + font("title", size = 30, face = "bold")
+          ylab = "normalized counts",
+          font.x = 20, font.y = 20, font.legend = 20) + 
+    font("xy.text", size = 20) + font("title", size = 25, face = "bold")
  #ggsave(file=paste0("/home/almut/Dokumente/git/Transcriptome_CLL/paper/figures/epi_genes/genetic_interaction_", gene_nam, ".svg"), plot=p, width=7, height=5)
   saveRDS(p, file = paste0(output_dir, "/figures/r_objects/epistasis/de_genes/", gene_nam, ".rds"))
   p
@@ -191,7 +234,10 @@ gene_count <- function(gene_nam){
 
 
 #interesting genes
-geneList <- c("LEF1", "TIMELESS", "CHAD", "BCL2A1", "EML6", "PPP1R14A", "EPHB6", "GEN1", "EBF1", "EBF4")
+diff <- resTab[which(abs(resTab$stat) > 6 ),]
+geneList <- diff$Symbol
+geneList <- geneList[-which(geneList %in% "")]
+geneList <- c(geneList, "LEF1", "TIMELESS", "CHAD", "BCL2A1", "EML6", "PPP1R14A", "EPHB6", "GEN1", "EBF1", "EBF4")
 
 
 lapply(geneList, gene_count)

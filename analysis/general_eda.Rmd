@@ -73,10 +73,10 @@ rownames(exprMat.new) <- rowData(RNAnorm[rownames(exprMat),])$symbol
 
 # Hierarchical clustering - heatmap
 
-```{r expr heatmap, fig.height= 25, fig.width= 25}
+```{r expr heatmap, fig.height= 15, fig.width= 14.22}
 
 #colors
-colors = colorRamp2(c(-4,-1.5,0,1.5,4), c("#2166ac","#4393c3", "#f7f7f7", "#d6604d","#b2182b"))
+colors = colorRamp2(c(-4, -1 ,0, 1, 4), c("#2166ac","#4393c3", "#f7f7f7", "#d6604d","#b2182b"))
 annocol <- get_palette("jco", 10)
 annocolor <- list(IGHV = c("M" = annocol[1], "U" = annocol[2]) , 
                   trisomy12 = c( "1" = annocol[8], "0" = annocol[4]), 
@@ -88,8 +88,8 @@ annocolor <- list(IGHV = c("M" = annocol[1], "U" = annocol[2]) ,
 ha_top = HeatmapAnnotation(df = data.frame(colData(RNAnorm)[, c("IGHV", "trisomy12", "Methylation")]), 
                            col = annocolor, annotation_width = unit(c(rep(4, 3)), "cm"), 
                            show_legend = FALSE, 
-                           simple_anno_size = unit(1.3, "cm"),
-                           annotation_name_gp = gpar(fontsize = 35),
+                           simple_anno_size = unit(0.9, "cm"),
+                           annotation_name_gp = gpar(fontsize = 20),
                            annotation_legend_param = list(title_gp = gpar(fontsize = 70), 
                                                           labels_gp = gpar(fontsize = 55),  
                                                           grid_height = unit(3, "cm"), 
@@ -99,10 +99,10 @@ ha_top = HeatmapAnnotation(df = data.frame(colData(RNAnorm)[, c("IGHV", "trisomy
 # Annotration legend
 anno_legend_list = lapply(ha_top@anno_list[c("IGHV", "trisomy12", "Methylation")], function(anno){
   color_mapping_legend(anno@color_mapping, plot = FALSE,
-                       title_gp = gpar(fontsize = 45, fontface = "bold"),
-                       grid_height = unit(1.5, "cm"),
-                       grid_width = unit(0.5, "cm"),
-                       labels_gp = gpar(fontsize = 35))
+                       title_gp = gpar(fontsize = 20, fontface = "bold"),
+                       grid_height = unit(0.7, "cm"),
+                       grid_width = unit(0.3, "cm"),
+                       labels_gp = gpar(fontsize = 15))
   })
 
 #Annotate known genes from litertaure
@@ -114,7 +114,7 @@ geneIDs <- which(rownames(exprMat.new) %in% marker_genes)
 labels <- rownames(exprMat.new)[geneIDs]
 ha_genes <- rowAnnotation(link = row_anno_link(at = geneIDs, 
                                                labels = labels, 
-                                               labels_gp = gpar(fontsize = 30)), 
+                                               labels_gp = gpar(fontsize = 20)), 
                           width = unit(2.5, "cm"))
 
 
@@ -137,15 +137,15 @@ h1 <- Heatmap(exprMat.new ,
               right_annotation = ha_genes)
 
 heatmap_legend = color_mapping_legend(h1@matrix_color_mapping, plot = FALSE, 
-                                      title = "Expr", title_gp = gpar(fontsize = 45, fontface = "bold"),
-                                      grid_height = unit(1.5, "cm"),
-                                      grid_width = unit(0.5, "cm"),
-                                      labels_gp = gpar(fontsize = 35))
+                                      title = "Expr", title_gp = gpar(fontsize = 20, fontface = "bold"),
+                                      grid_height = unit(0.7, "cm"),
+                                      grid_width = unit(0.3, "cm"),
+                                      labels_gp = gpar(fontsize = 15))
 
 
 # arrange annotations 
 pd = packLegend(anno_legend_list[[1]], anno_legend_list[[2]], anno_legend_list[[3]], heatmap_legend, max_height = unit(20, "cm"), 
-    column_gap = unit(1, "cm"))
+    column_gap = unit(0.5, "cm"))
 
 pdf(file=paste0(output_dir, "/cluster500exprgenes.pdf"), width=20, height=20)
 draw(h1 + ha_genes, heatmap_legend_list = pd)
