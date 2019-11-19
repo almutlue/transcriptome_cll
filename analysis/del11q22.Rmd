@@ -87,10 +87,10 @@ rownames(exprVariant.new) <- rowData(RNAnorm[rownames(diff),])$symbol
 
 
 ## Expression signature
-```{r complex heatmap, fig.width= 22, fig.height=25}
+```{r complex heatmap, fig.width= 22, fig.height=30}
 
 #colors
-colors = colorRamp2(c(-4,-2,0,2,4), c("#2166ac","#4393c3", "#f7f7f7", "#d6604d","#b2182b"))
+colors = colorRamp2(c(-4,-1,0,1,4), c("#2166ac","#4393c3", "#f7f7f7", "#d6604d","#b2182b"))
 annocol <- get_palette("jco", 10)
 annocolor <- list(del11q22.3 = c("1" = annocol[8], "0" = annocol[9]))
 rowcolors <-colorRampPalette(brewer.pal(5, "Set1"))(5)
@@ -159,6 +159,7 @@ gene_count <- function(gene_nam){
   p
 }
 
+diff <- diff_all[which( abs(diff_all$stat) > 6),]
 geneList <- as.character(diff$Symbol)
 geneList <- geneList[-which(geneList %in% "")]
 
