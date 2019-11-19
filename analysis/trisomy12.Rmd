@@ -56,7 +56,7 @@ diff_all <- read.csv(file=paste0(output_dir, "/diff_genes/", variant, "_diffGene
 
 rownames(diff_all) <- diff_all$X
 diff_all <- diff_all[which(diff_all$padj < 0.01 ),-1]
-diff <- diff_all[which(abs(diff_all$stat) > 7),]
+diff <- diff_all[which(abs(diff_all$stat) > 8),]
 
 
 mutStatus <- data.frame(colData(ddsCLL)) %>% arrange(trisomy12)
@@ -87,7 +87,7 @@ rownames(exprVariant.new) <- rowData(RNAnorm[rownames(diff),])$symbol
 
 
 ## Expression signature
-```{r complex heatmap, fig.width= 22, fig.height=25}
+```{r complex heatmap, fig.width= 15, fig.height=15}
 
 #colors
 colors = colorRamp2(c(-4,-2,0,2,4), c("#2166ac","#4393c3", "#f7f7f7", "#d6604d","#b2182b"))
@@ -101,12 +101,12 @@ feature <- as.data.frame(colData(ddsCLL)[,c(variant)])
 colnames(feature) <- c(variant)  
 
 ha_col <- HeatmapAnnotation(df=feature, col = annocolor, annotation_height = unit(c(rep(1.9, 1)), "cm"), 
-                           simple_anno_size = unit(1.3, "cm"),
-                           annotation_name_gp = gpar(fontsize = 35),
-                            annotation_legend_param = list(title_gp = gpar(fontsize = 40), 
-                                                           labels_gp = gpar(fontsize = 30),  
-                                                           grid_height = unit(1.9, "cm"), 
-                                                           grid_width = unit(1.9, "cm"),
+                           simple_anno_size = unit(0.7, "cm"),
+                           annotation_name_gp = gpar(fontsize = 25),
+                            annotation_legend_param = list(title_gp = gpar(fontsize = 23), 
+                                                           labels_gp = gpar(fontsize = 18),  
+                                                           grid_height = unit(0.7, "cm"), 
+                                                           grid_width = unit(0.3, "cm"),
                                                            gap = unit(0.5, "cm")))
 
 #Rowannotation
@@ -120,14 +120,14 @@ chrom$chr <- ifelse(chrom$chr == 12, 12, "other")
 chromcolor <- pal_jama("default")(7)
 chromcol <- list(chr = c("12" = chromcolor[1], "other" = chromcolor[5]))
 
-ha_chrom = rowAnnotation(df = chrom, col = chromcol, annotation_width = unit(1.9, "cm"), 
+ha_chrom = rowAnnotation(df = chrom, col = chromcol, annotation_width = unit(0.7, "cm"), 
                          show_annotation_name = FALSE,
-                         simple_anno_size = unit(1.3, "cm"),
-                         annotation_legend_param = list(ncol = 1, title_gp = gpar(fontsize = 40), 
-                                                        labels_gp = gpar(fontsize = 30),  
-                                                        grid_height = unit(1.9, "cm"), 
-                                                        grid_width = unit(1.9, "cm"), 
-                                                        gap = unit(1.3,"cm")))
+                         simple_anno_size = unit(0.7, "cm"),
+                         annotation_legend_param = list(ncol = 1, title_gp = gpar(fontsize = 23), 
+                                                        labels_gp = gpar(fontsize = 18),  
+                                                        grid_height = unit(0.7, "cm"), 
+                                                        grid_width = unit(0.3, "cm"), 
+                                                        gap = unit(0.5,"cm")))
 
 h1 <- Heatmap(exprVariant.new ,                                                     
               km = 2,
@@ -137,25 +137,31 @@ h1 <- Heatmap(exprVariant.new ,
               clustering_method_rows = "ward.D2",
               column_title = paste0("Gene signature: ", variant),                      
               col = colors,
-              column_title_gp = gpar(fontsize = 60, fontface = "bold"), 
+              column_title_gp = gpar(fontsize = 25, fontface = "bold"), 
               heatmap_legend_param = list(title = "expr", 
-                                          title_gp = gpar(fontsize = 40), 
-                                          grid_height = unit(1.9, "cm"), 
-                                          grid_width = unit(1.9, "cm"), 
+                                          title_gp = gpar(fontsize = 23), 
+                                          grid_height = unit(0.7, "cm"), 
+                                          grid_width = unit(0.3, "cm"), 
                                           gap = unit(2, "cm"), 
-                                          labels_gp = gpar(fontsize = 30)), 
-              column_dend_height = unit(2.5, "cm"),
+                                          labels_gp = gpar(fontsize = 18)), 
+              column_dend_height = unit(1, "cm"),
               show_row_dend = FALSE, 
               show_column_names = FALSE , 
-              show_row_names = TRUE, 
-              row_names_gp = gpar(fontsize = 40),
+              show_row_names = FALSE, 
+              row_names_gp = gpar(fontsize = 0),
               top_annotation = ha_col)
 
+#Annotate top 50 genes
+sub_names <- diff[1:50,"Symbol"]
+sub_names <- sub_names[-which(sub_names %in% "")]
+geneIDs <- which(rownames(exprVariant.new) %in% sub_names)
+labels <- rownames(exprVariant.new)[geneIDs]
+ha_genes <- rowAnnotation(link = row_anno_link(at = geneIDs, labels = labels, labels_gp = gpar(fontsize = 15)), width = unit(3, "cm"))
 
 #svg(filename=paste0(figure_dir, "/", variant, "_gene_expr.svg"), width=30, height=45)
 #pdf(file=paste0(figure_dir, "/", variant, "_gene_expr.pdf"), width=22, height=25)
 
-draw(h1 + ha_chrom) 
+draw(h1 + ha_chrom + ha_genes) 
 #dev.off()
 saveRDS(h1, file = paste0(output_dir, "/figures/r_objects/trisomy12/tri12_heatmap.rds"))
 ```
@@ -167,7 +173,7 @@ saveRDS(h1, file = paste0(output_dir, "/figures/r_objects/trisomy12/tri12_heatma
 #function to create stripchart plots for specific genes
 gene_count <- function(gene_nam){
   geneEnsID <- rownames(ddsCLL)[which(rowData(ddsCLL)$symbol %in% gene_nam)]
-  geneNum <- counts(ddsCLL)[geneEnsID,]
+  geneNum <- assay(RNAnorm)[geneEnsID,]
   mutPat <- as.data.frame(colData(ddsCLL)[, c(variant)])
   colnames(mutPat) <- c("genotype")
   geneDat <- cbind(mutPat, geneNum)
@@ -175,18 +181,19 @@ gene_count <- function(gene_nam){
   
   p <- ggstripchart(geneDat, x = "genotype", y = "counts",
           color = "genotype",
+          size = 3,
           palette = "jco",
           add = "mean_sd",
           title = paste(gene_nam),
-          font.x = 18, font.y = 18, font.legend = 16, 
-          ylab = "normalized counts") + font("xy.text", size = 15) + font("title", size = 20, face = "bold")
+          font.x = 20, font.y = 20, font.legend = 20, 
+          ylab = "normalized counts") + font("xy.text", size = 20) + font("title", size = 20, face = "bold")
   #ggsave(file=paste0(figure_dir, "/tri12/genetic_interaction_", gene_nam, ".svg"), plot=p, width=6, height=5)
   saveRDS(p, file = paste0(output_dir, "/figures/r_objects/trisomy12/de_genes/", gene_nam, ".rds"))
   p
 }
 
-geneList <- diff$Symbol[1:30]
-
+diff <- diff_all[which(abs(diff_all$stat) > 9 & !rowData(RNAnorm[rownames(diff_all),])$chromosome %in% "12"),]
+geneList <- c(as.character(diff$Symbol), "CTLA4", "CHFR", "SOCS3", "MERTK")
 
 lapply(geneList, gene_count)
 
@@ -206,7 +213,7 @@ gsc_Kegg <- loadGSC("/home/almut/Dokumente/masterarbeit/data/c2.cp.kegg.v6.0.sym
 ```
 
 Run piano
-```{r piano, fig.width=16, fig.height=7}
+```{r piano, fig.width=10, fig.height=7}
 
 gmtFile <- gsc_Kegg
 
@@ -251,16 +258,16 @@ p <- ggbarplot(enrichPlot, x = "pathway", y = "log10Padj",
           ylab = "-log10(padj)",
           legend.title = "#diff.genes",
           rotate = TRUE,
-          font.x = 20, font.y = 20, font.legend = 20, legend = "right", 
+          font.x = 12, font.y = 12, font.legend = 15, legend = "right",  
           title = "Trisomy12 - Kegg",
           ggtheme = theme_pubr()) + 
-  font("xy.text", size = 16) + 
-  font("title", size = 20, face = "bold")
+  font("xy.text", size = 14) + 
+  font("title", size = 16, face = "bold")
   
 #ggsave(file=paste0(figure_dir,"/GSEA_", variant, "_Kegg.svg"), plot=p, width=14, height=7)
   p
 
-
+saveRDS(p, file = paste0(output_dir, "/figures/r_objects/trisomy12/tri12_enrichment.rds"))
 
 ```
 
@@ -269,8 +276,8 @@ p <- ggbarplot(enrichPlot, x = "pathway", y = "log10Padj",
 
 ```{r stripchart, fig.width=8, fig.height=5}
 
-tri12Groups <- diff %>%  mutate(group = ifelse(stat > 0, "up", "down"))
-rownames(tri12Groups) <- rownames(diff)
+tri12Groups <- diff_all  %>%  mutate(group = ifelse(stat > 0, "up", "down"))
+rownames(tri12Groups) <- rownames(diff_all )
 
 #specify colors/change order to get a better color for chromosome 12
 palette <- pal_igv(palette = c("default"), alpha = 1)(24)
@@ -299,6 +306,6 @@ p
 #save plot 
 #ggsave(file=paste0(figure_dir, "/chromosom_dist_tri12.svg", plot=p, width=8, height=5)  
   
-saveRDS(p, file = paste0(output_dir, "/figures/r_objects/trisomy12/tri12_enrichment.rds"))
+saveRDS(p, file = paste0(output_dir, "/figures/r_objects/trisomy12/tri12_dosage.rds"))
 
 ```

@@ -57,7 +57,7 @@ diff_all <- read.csv(file=paste0(output_dir, "/diff_genes/", variant, "_diffGene
 
 rownames(diff_all) <- diff_all$X
 diff_all <- diff_all[which(diff_all$padj < 0.01 ),-1]
-diff <- diff_all[which(abs(diff_all$log2FoldChange) > 2 & diff_all$baseMean > 200),]
+diff <- diff_all[which(abs(diff_all$stat) > 8),]
 
 
 mutStatus <- data.frame(colData(ddsCLL)) %>% arrange(IGHV)
@@ -88,12 +88,12 @@ rownames(exprVariant.new) <- rowData(RNAnorm[rownames(diff),])$symbol
 
 
 ## Expression signature
-```{r complex heatmap, fig.width= 22, fig.height=25}
+```{r complex heatmap, fig.height= 15, fig.width= 14.22}
 
 #colors
-colors = colorRamp2(c(-4,-2,0,2,4), c("#2166ac","#4393c3", "#f7f7f7", "#d6604d","#b2182b"))
+colors = colorRamp2(c(-4,-1,0,1,4), c("#2166ac","#4393c3", "#f7f7f7", "#d6604d","#b2182b"))
 annocol <- get_palette("jco", 10)
-annocolor <- list(IGHV = c("M" = annocol[8], "U" = annocol[9]))
+annocolor <- list(IGHV = c("M" = annocol[1], "U" = annocol[2]))
 rowcolors <-colorRampPalette(brewer.pal(5, "Set1"))(5)
 rowcolors[6] <- "white"
 
@@ -102,10 +102,10 @@ feature <- as.data.frame(colData(ddsCLL)[,c(variant)])
 colnames(feature) <- c(variant)  
 rownames(feature) <- colnames(RNAnorm)
 
-ha_col <- HeatmapAnnotation(df = feature, col = annocolor, annotation_height = unit(c(rep(1.9, 1)), "cm"), annotation_legend_param = list(title_gp = gpar(fontsize = 50), labels_gp = gpar(fontsize = 45),  grid_height = unit(1.9, "cm"), grid_width = unit(1.9, "cm")))
+ha_col <- HeatmapAnnotation(df = feature, col = annocolor, annotation_height = unit(c(rep(1.9, 1)), "cm"), annotation_legend_param = list(title_gp = gpar(fontsize = 17), labels_gp = gpar(fontsize = 15),  grid_height = unit(0.7, "cm"), grid_width = unit(0.3, "cm")))
 
 
-h1 <- Heatmap(exprVariant.new ,                                                     
+h1 <- Heatmap(exprVariant.new,                                                     
               km = 2,
               gap = unit(0.5, "cm"),
               cluster_columns = F,
@@ -113,27 +113,35 @@ h1 <- Heatmap(exprVariant.new ,
               clustering_method_rows = "ward.D2",
               column_title = paste0("Gene signature: ", variant),                      
               col = colors,
-              column_title_gp = gpar(fontsize = 60, fontface = "bold"), 
+              column_title_gp = gpar(fontsize = 20, fontface = "bold"), 
               heatmap_legend_param = list(title = "expr", 
-                                          title_gp = gpar(fontsize = 50), 
-                                          grid_height = unit(1.9, "cm"), 
-                                          grid_width = unit(1.9, "cm"), 
+                                          title_gp = gpar(fontsize = 20), 
+                                          grid_height = unit(0.7, "cm"), 
+                                          grid_width = unit(0.3, "cm"), 
                                           gap = unit(2, "cm"), 
-                                          labels_gp = gpar(fontsize = 45)), 
-              column_dend_height = unit(2.5, "cm"),
+                                          labels_gp = gpar(fontsize = 15)), 
+              column_dend_height = unit(1, "cm"),
               show_row_dend = FALSE, 
               show_column_names = FALSE , 
-              show_row_names = TRUE, 
-              row_names_gp = gpar(fontsize = 20),
+              row_title_gp = gpar(fontsize = 0),
+              show_row_names = FALSE, 
+              row_names_gp = gpar(fontsize = 0),
               top_annotation = ha_col)
+
+#Annotate top 50 genes
+sub_names <- diff[1:50,"Symbol"]
+sub_names <- sub_names[-which(sub_names %in% "")]
+geneIDs <- which(rownames(exprVariant.new) %in% sub_names)
+labels <- rownames(exprVariant.new)[geneIDs]
+ha_genes <- rowAnnotation(link = row_anno_link(at = geneIDs, labels = labels, labels_gp = gpar(fontsize = 15)), width = unit(2.5, "cm"))
 
 
 #svg(filename=paste0(figure_dir, "/", variant, "_gene_expr.svg"), width=30, height=45)
 #pdf(file=paste0(figure_dir, "/", variant, "_gene_expr.pdf"), width=22, height=25)
 
-draw(h1 ) 
+p1 <- draw(h1 + ha_genes ) 
 #dev.off()
-saveRDS(h1, file = paste0(output_dir, "/figures/r_objects/ighv/ighv_heatmap.rds"))
+saveRDS(p1, file = paste0(output_dir, "/figures/r_objects/ighv/ighv_heatmap.rds"))
 ```
 
 
@@ -143,7 +151,7 @@ saveRDS(h1, file = paste0(output_dir, "/figures/r_objects/ighv/ighv_heatmap.rds"
 #function to create stripchart plots for specific genes
 gene_count <- function(gene_nam){
   geneEnsID <- rownames(ddsCLL)[which(rowData(ddsCLL)$symbol %in% gene_nam)]
-  geneNum <- counts(ddsCLL)[geneEnsID,]
+  geneNum <- assay(RNAnorm)[geneEnsID,]
   mutPat <- as.data.frame(colData(ddsCLL)[, c(variant)])
   colnames(mutPat) <- c("genotype")
   geneDat <- cbind(mutPat, geneNum)
@@ -151,19 +159,20 @@ gene_count <- function(gene_nam){
   
   p <- ggstripchart(geneDat, x = "genotype", y = "counts",
           color = "genotype",
+          size = 3,
           palette = "jco",
           add = "mean_sd",
           title = paste(gene_nam),
-          font.x = 18, font.y = 18, font.legend = 16, 
-          ylab = "normalized counts") + font("xy.text", size = 15) + font("title", size = 20, face = "bold")
+          font.x = 20, font.y = 20, font.legend = 20, 
+          ylab = "normalized counts") + font("xy.text", size = 20) + font("title", size = 20, face = "bold")
   #ggsave(file=paste0(figure_dir, "/tri12/genetic_interaction_", gene_nam, ".svg"), plot=p, width=6, height=5)
   saveRDS(p, file = paste0(output_dir, "/figures/r_objects/ighv/de_genes/", gene_nam, ".rds"))
   p
 }
 
-diff <- diff_all[which(abs(diff_all$log2FoldChange) > 3 & diff_all$baseMean > 200),]
+diff <- diff_all[which(abs(diff_all$stat) > 10),]
 geneList <- as.character(diff$Symbol)
-
+geneList <- geneList[-which(geneList %in% "")]
 
 lapply(geneList, gene_count)
 
@@ -180,7 +189,7 @@ gsc_Kegg <- loadGSC(paste0(data_dir, "/c2.cp.kegg.v6.0.symbols.gmt"), type="gmt"
 ```
 
 Run piano
-```{r piano, fig.width=16, fig.height=7}
+```{r piano, fig.width=9, fig.height=6}
 
 gmtFile <- gsc_Kegg
 
@@ -224,11 +233,11 @@ p <- ggbarplot(enrichPlot, x = "pathway", y = "log10Padj",
           ylab = "-log10(padj)",
           legend.title = "#diff.genes",
           rotate = TRUE,
-          font.x = 20, font.y = 20, font.legend = 20, legend = "right", 
+          font.x = 12, font.y = 12, font.legend = 15, legend = "right", 
           title = "IGHV - Kegg",
           ggtheme = theme_pubr()) + 
-  font("xy.text", size = 16) + 
-  font("title", size = 20, face = "bold")
+  font("xy.text", size = 14) + 
+  font("title", size = 15, face = "bold")
   
 #ggsave(file=paste0(figure_dir,"/GSEA_", variant, "_Kegg.svg"), plot=p, width=14, height=7)
   p

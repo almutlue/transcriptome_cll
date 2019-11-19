@@ -144,7 +144,7 @@ saveRDS(h1, file = paste0(output_dir, "/figures/r_objects/Notch1/notch1_heatmap.
 #function to create stripchart plots for specific genes
 gene_count <- function(gene_nam){
   geneEnsID <- rownames(ddsCLL)[which(rowData(ddsCLL)$symbol %in% gene_nam)]
-  geneNum <- counts(ddsCLL)[geneEnsID,]
+  geneNum <- assay(RNAnorm)[geneEnsID,]
   mutPat <- as.data.frame(colData(ddsCLL)[, c(variant)])
   colnames(mutPat) <- c("genotype")
   geneDat <- cbind(mutPat, geneNum)
