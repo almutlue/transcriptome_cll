@@ -427,7 +427,7 @@ div.section {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -436,7 +436,7 @@ div.section {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -445,10 +445,10 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-11-18
+<strong>Last updated:</strong> 2020-05-04
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>transcriptome_cll/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -464,12 +464,12 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
@@ -536,10 +536,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree062f878076eb2b3cdee04bb6d0086e4c4b4f8556targetblank062f878a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/almutlue/transcriptome_cll/tree/062f878076eb2b3cdee04bb6d0086e4c4b4f8556" target="_blank">062f878</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltreeddc94b1a8c1df62f33f5cb3068a3d9c07449cb50targetblankddc94b1a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/almutlue/transcriptome_cll/tree/ddc94b1a8c1df62f33f5cb3068a3d9c07449cb50" target="_blank">ddc94b1</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree062f878076eb2b3cdee04bb6d0086e4c4b4f8556targetblank062f878a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltreeddc94b1a8c1df62f33f5cb3068a3d9c07449cb50targetblankddc94b1a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -550,23 +550,66 @@ Ignored files:
     Ignored:    .Rproj.user/
 
 Untracked files:
+    Untracked:  analysis/mapping_adapter.Rmd
+    Untracked:  analysis/methylation_IP_vs_HPLP.Rmd
     Untracked:  data/2018-03-05_IGHV.RData
+    Untracked:  data/c1c2/
+    Untracked:  data/mapping/
     Untracked:  data/patmeta_170324.RData
     Untracked:  output/IGHV1_69.svg
     Untracked:  output/cluster1000exprgenes.pdf
     Untracked:  output/cluster500exprgenes.pdf
     Untracked:  output/desRes_15112019.RData
+    Untracked:  output/diff_genes/ACTN2_diffGenes.csv
+    Untracked:  output/diff_genes/Chromothripsis_diffGenes.csv
+    Untracked:  output/diff_genes/EGR2_diffGenes.csv
+    Untracked:  output/diff_genes/KLHL6_diffGenes.csv
+    Untracked:  output/diff_genes/KRAS_diffGenes.csv
+    Untracked:  output/diff_genes/MGA_diffGenes.csv
+    Untracked:  output/diff_genes/NFKBIE_diffGenes.csv
+    Untracked:  output/diff_genes/PCLO_diffGenes.csv
+    Untracked:  output/diff_genes/XPO1_diffGenes.csv
+    Untracked:  output/diff_genes/del15q15.1_diffGenes.csv
+    Untracked:  output/diff_genes/gain14q32_diffGenes.csv
+    Untracked:  output/diff_genes/gain2p25.3_diffGenes.csv
+    Untracked:  output/diff_genes/meth_IP_vs_HP_diffGenes.csv
+    Untracked:  output/diff_genes/meth_IP_vs_LP_diffGenes.csv
+    Untracked:  output/diff_meth_IP_vs_HP_LP.rds
+    Untracked:  output/enrichment/
+    Untracked:  output/figure_IP_group.pdf
+    Untracked:  output/figure_IP_group.svg
     Untracked:  output/figures/hist_mutations.svg
     Untracked:  output/figures/overview_mutations.pdf
+    Untracked:  output/figures/paper_fig/
+    Untracked:  output/figures/pca_readlengthOld.pdf
     Untracked:  output/figures/r_objects/
     Untracked:  output/figures/sum_diffGenes_0.05_2.pdf
     Untracked:  output/figures/sum_diffGenes_noTsig.pdf
     Untracked:  output/figures/sum_diffGenes_noTsig_IGHVTri12.pdf
 
 Unstaged changes:
+    Modified:   analysis/ATM.Rmd
+    Modified:   analysis/BRAF.Rmd
+    Modified:   analysis/Del13q14.Rmd
+    Modified:   analysis/Del17p13.Rmd
+    Modified:   analysis/Del8p12.Rmd
+    Modified:   analysis/Gain8q24.Rmd
+    Modified:   analysis/IGHV.Rmd
+    Modified:   analysis/Med12.Rmd
+    Modified:   analysis/Notch1.Rmd
+    Modified:   analysis/SF3B1.Rmd
+    Modified:   analysis/TP53.Rmd
+    Modified:   analysis/de_analysis.Rmd
+    Modified:   analysis/del11q22.Rmd
+    Modified:   analysis/epistasis.Rmd
+    Modified:   analysis/general_eda.Rmd
+    Modified:   analysis/methylation_IP_vs_all.Rmd
+    Modified:   analysis/summary_de_genes.Rmd
+    Modified:   analysis/summary_variants.Rmd
     Modified:   analysis/trisomy12.Rmd
     Modified:   output/diff_genes/ATM_diffGenes.csv
     Modified:   output/diff_genes/BRAF_diffGenes.csv
+    Modified:   output/diff_genes/IGHV_diffGenes.csv
     Modified:   output/diff_genes/MED12_diffGenes.csv
     Modified:   output/diff_genes/NOTCH1_diffGenes.csv
     Modified:   output/diff_genes/SF3B1_diffGenes.csv
@@ -616,6 +659,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/almutlue/transcriptome_cll/026e8e9e03dd45569acc7d0c101a372048be3f60/docs/summary_variants.html" target="_blank">026e8e9</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-18
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -686,22 +746,33 @@ excluded_columns &lt;- c(&quot;HIPO.ID&quot;,&quot;PID&quot;, &quot;gender&quot;
 patMeta &lt;- as.tibble(patMeta) %&gt;% filter(Patient.ID %in% ddsCLL$PatID) %&gt;% dplyr::select(-one_of(excluded_columns))</code></pre>
 <pre><code>Warning: `as.tibble()` is deprecated, use `as_tibble()` (but mind the new semantics).
 This warning is displayed once per session.</code></pre>
-<pre class="r"><code>variants &lt;- c( &quot;trisomy12&quot;, &quot;del13q14&quot;, &quot;del8p12&quot;, &quot;gain8q24&quot;, &quot;del11q22.3&quot;, &quot;del17p13&quot;, &quot;BRAF&quot;, &quot;NOTCH1&quot;, &quot;SF3B1&quot;,&quot;TP53&quot;, &quot;ATM&quot;, &quot;MED12&quot;, &quot;IGHV&quot;)
+<pre class="r"><code>variants &lt;- patMeta %&gt;% dplyr::select(-Patient.ID) %&gt;% 
+  mutate_if(is.factor, as.character) %&gt;% 
+  mutate_if(is.character, as.numeric) %&gt;% 
+  dplyr::select(colnames(.)[colSums(.,na.rm = TRUE) &gt; 4]) %&gt;% 
+  colnames()
 
-pat_new &lt;- as.tibble(colData(ddsCLL)) %&gt;% select(variants)</code></pre>
+#variants &lt;- c( &quot;trisomy12&quot;, &quot;del13q14&quot;, &quot;del8p12&quot;, &quot;gain8q24&quot;, &quot;del11q22.3&quot;, &quot;del17p13&quot;, &quot;BRAF&quot;, &quot;NOTCH1&quot;, &quot;SF3B1&quot;,&quot;TP53&quot;, &quot;ATM&quot;, &quot;MED12&quot;, &quot;IGHV&quot;)
+var_add &lt;- variants[!variants %in% names(colData(ddsCLL))] 
+rownames(patMeta) &lt;-  patMeta$Patient.ID</code></pre>
+<pre><code>Warning: Setting row names on a tibble is deprecated.</code></pre>
+<pre class="r"><code>patMeta &lt;- patMeta[colData(ddsCLL)$PatID,]
+cd &lt;- cbind(colData(ddsCLL), patMeta[,var_add])
+colData(ddsCLL) &lt;- cd
+pat_new &lt;- as.tibble(colData(ddsCLL)) %&gt;% select(c(variants, &quot;IGHV&quot;))</code></pre>
 </div>
 <div id="number-of-recurrecnt-mutationspatient" class="section level2">
 <h2>Number of recurrecnt mutations/patient</h2>
 <pre class="r"><code>N_mut &lt;- patMeta %&gt;% dplyr::select(-Patient.ID) %&gt;% mutate_if(is.factor, as.character) %&gt;% mutate_if(is.character, as.numeric) %&gt;% mutate(mutations=rowSums(.,na.rm = TRUE))
 
 N_mut$IGHV &lt;- pat_new$IGHV
-N_mut$color &lt;- c(rep(&quot;blue&quot;, nrow(N_mut)))
+N_mut &lt;- N_mut %&gt;% filter(!is.na(IGHV))
 
 p &lt;- gghistogram(N_mut, x = &quot;mutations&quot;,
-   add = &quot;mean&quot;, bins = 12, fill = &quot;color&quot;,
+   add = &quot;mean&quot;, bins = 12, fill = &quot;IGHV&quot;,
   palette = &quot;jco&quot;)
 
-ggsave(file=paste0(figure_dir, &quot;/hist_mutations.svg&quot;), plot=p, width=4, height=3)
+#ggsave(file=paste0(figure_dir, &quot;/hist_mutations.svg&quot;), plot=p, width=4, height=3)
 p</code></pre>
 <p><img src="figure/summary_variants.Rmd/hist-1.png" width="384" style="display: block; margin: auto;" /></p>
 <p>
@@ -743,19 +814,19 @@ aluetge
 </div>
 <pre class="r"><code>saveRDS(p, file = paste0(output_dir, &quot;/figures/r_objects/summary_variant_patient.rds&quot;))
 mean(N_mut$mutations)</code></pre>
-<pre><code>[1] 2.983696</code></pre>
+<pre><code>[1] 3</code></pre>
 </div>
 <div id="variant-frequency" class="section level1">
 <h1>Variant frequency</h1>
 <pre class="r"><code>#group by IGHV status
-overview &lt;- pat_new %&gt;% mutate_at(vars(-IGHV), as.character) %&gt;% mutate_at(vars(-IGHV), as.numeric) %&gt;% dplyr::group_by(IGHV) %&gt;% dplyr::summarize_if(is.numeric, sum, na.rm =T) </code></pre>
-<pre><code>Warning: Factor `IGHV` contains implicit NA, consider using
-`forcats::fct_explicit_na`</code></pre>
-<pre class="r"><code>#Add total numbers 
+overview &lt;- pat_new %&gt;% filter(!is.na(IGHV)) %&gt;% mutate_at(vars(-IGHV), as.character) %&gt;% mutate_at(vars(-IGHV), as.numeric) %&gt;% dplyr::group_by(IGHV) %&gt;% dplyr::summarize_if(is.numeric, sum, na.rm =T) 
+
+#Add total numbers 
 Sum &lt;- pat_new %&gt;% dplyr::select(-IGHV) %&gt;% mutate_if(is.factor, as.character) %&gt;% mutate_if(is.character, as.numeric) %&gt;% summarize_if(is.numeric, sum, na.rm =T)
+order_desc &lt;- Sum[,order(as.numeric(Sum[1,]))] %&gt;% colnames() %&gt;% rev()
 
 #Add IGHV status
-IGHV_status &lt;- as_data_frame(pat_new$IGHV) %&gt;% dplyr::summarize(M = sum(value %in% &quot;M&quot;), U = sum(value %in% &quot;U&quot;), &quot;NA&quot; = sum(is.na(value)), Total = n())</code></pre>
+IGHV_status &lt;- as_data_frame(pat_new$IGHV) %&gt;% dplyr::summarize(M = sum(value %in% &quot;M&quot;), U = sum(value %in% &quot;U&quot;), Total = n() -1)</code></pre>
 <pre><code>Warning: `as_data_frame()` is deprecated, use `as_tibble()` (but mind the new semantics).
 This warning is displayed once per session.</code></pre>
 <pre class="r"><code>Sum$IGHV &lt;- &quot;Total&quot;
@@ -763,22 +834,26 @@ IGHV_status &lt;- t(IGHV_status)
 
 #Combine all
 sum_tab &lt;- rbind(overview,Sum)
+sum_tab &lt;- sum_tab[, c(&quot;IGHV&quot;,order_desc)]
 sum_tab &lt;- cbind(sum_tab, IGHV_status)
+
+
 
 sum_melted &lt;- melt(sum_tab)</code></pre>
 <pre><code>Using IGHV as id variables</code></pre>
 <pre class="r"><code>#plot
-p &lt;- ggplot(sum_melted, aes(x = variable, y = factor(IGHV, levels = c(&quot;Total&quot;, &quot;NA&quot;, &quot;M&quot;, &quot;U&quot;)))) +  
+p &lt;- ggplot(sum_melted, aes(x = variable, y = factor(IGHV, levels = c(&quot;Total&quot;, &quot;M&quot;, &quot;U&quot;)))) +  
       geom_tile(aes(fill = value)) + 
       geom_text(aes(label = round(value, 1)), size =8) + ylab(&quot;IGHV_status&quot;) +
-      scale_fill_gradient(low = &quot;white&quot;, high = &quot;#ED0000FF&quot;) + 
+      scale_fill_gradient(low = &quot;white&quot;, high = &quot;tomato2&quot;) + 
       theme(axis.title.x = element_text(face=&quot;bold&quot;, size=30), axis.text.x=element_text(size=25, angle = 90)) + 
       theme(axis.title.y = element_text(face=&quot;bold&quot;, size=25), axis.text.y= element_text(size=20))
 
 
+
 #pdf(file=paste0(figure_dir, &quot;/overview_mutations.pdf&quot;), width=15, height=5)
 p</code></pre>
-<p><img src="figure/summary_variants.Rmd/overview-1.png" width="1440" style="display: block; margin: auto;" /></p>
+<p><img src="figure/summary_variants.Rmd/overview-1.png" width="1824" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-overview-1">
 Past versions of overview-1.png
@@ -821,8 +896,10 @@ saveRDS(p, file = paste0(output_dir, &quot;/figures/r_objects/summary_var_freq_I
 </div>
 <div id="variant-co-occurence" class="section level1">
 <h1>Variant co-occurence</h1>
-<pre class="r"><code>#Chisquare p.adj matrix
+<pre class="r"><code>variants &lt;- c(variants, &quot;IGHV&quot;)[!variants %in% c(&quot;Chromothripsis&quot;, &quot;gain14q32&quot;)]
+#Chisquare p.adj matrix
 my_chisquare &lt;- function(variant_in){
+  print(variant_in)
   pat_new_sorted &lt;- pat_new %&gt;% set_rownames(ddsCLL$PatID)
   pat_new_sorted &lt;- pat_new_sorted[patMeta$Patient.ID,]
   patMeta$IGHV_mu &lt;- pat_new_sorted$IGHV
@@ -848,8 +925,32 @@ my_chisquare &lt;- function(variant_in){
   resultDat
 }
 
-resChi &lt;-lapply(variants, my_chisquare) %&gt;% do.call(cbind,.)
-resChiMat &lt;- as.matrix(resChi)
+resChi &lt;-lapply(variants, my_chisquare) %&gt;% do.call(cbind,.)</code></pre>
+<pre><code>[1] &quot;gain2p25.3&quot;
+[1] &quot;del8p12&quot;
+[1] &quot;gain8q24&quot;
+[1] &quot;del11q22.3&quot;
+[1] &quot;trisomy12&quot;
+[1] &quot;del13q14&quot;
+[1] &quot;del15q15.1&quot;
+[1] &quot;del17p13&quot;
+[1] &quot;BRAF&quot;
+[1] &quot;KRAS&quot;
+[1] &quot;NOTCH1&quot;
+[1] &quot;SF3B1&quot;
+[1] &quot;TP53&quot;
+[1] &quot;ACTN2&quot;
+[1] &quot;ATM&quot;
+[1] &quot;EGR2&quot;
+[1] &quot;KLHL6&quot;
+[1] &quot;MED12&quot;
+[1] &quot;MGA&quot;
+[1] &quot;NFKBIE&quot;
+[1] &quot;PCLO&quot;
+[1] &quot;XPO1&quot;
+[1] &quot;IGHV&quot;</code></pre>
+<pre class="r"><code>resChiMat &lt;- as.matrix(resChi)
+resChiMat &lt;- resChiMat[!rowSums(resChiMat) == 0, !colSums(resChiMat) == 0]
 
 col &lt;- colorRampPalette(rev(c(&quot;#BB4444&quot;, &quot;#EE9988&quot;, &quot;#FFFFFF&quot;, &quot;#77AADD&quot;, &quot;#4477AA&quot;)))(50)
 
@@ -931,19 +1032,19 @@ attached base packages:
 [8] methods   base     
 
 other attached packages:
- [1] gdtools_0.1.9               here_0.1                   
- [3] reshape2_1.4.3              ggpubr_0.2                 
- [5] magrittr_1.5                corrplot_0.84              
- [7] forcats_0.4.0               stringr_1.4.0              
- [9] purrr_0.3.2                 readr_1.3.1                
-[11] tidyr_0.8.3                 tibble_2.1.3               
-[13] tidyverse_1.2.1             ggplot2_3.1.1              
-[15] dplyr_0.8.1                 DESeq2_1.24.0              
-[17] SummarizedExperiment_1.14.0 DelayedArray_0.10.0        
-[19] BiocParallel_1.18.0         matrixStats_0.54.0         
-[21] Biobase_2.44.0              GenomicRanges_1.36.0       
-[23] GenomeInfoDb_1.20.0         IRanges_2.18.1             
-[25] S4Vectors_0.22.0            BiocGenerics_0.30.0        
+ [1] here_0.1                    reshape2_1.4.3             
+ [3] ggpubr_0.2                  magrittr_1.5               
+ [5] corrplot_0.84               forcats_0.4.0              
+ [7] stringr_1.4.0               purrr_0.3.2                
+ [9] readr_1.3.1                 tidyr_0.8.3                
+[11] tibble_2.1.3                tidyverse_1.2.1            
+[13] ggplot2_3.1.1               dplyr_0.8.1                
+[15] DESeq2_1.24.0               SummarizedExperiment_1.14.0
+[17] DelayedArray_0.10.0         BiocParallel_1.18.0        
+[19] matrixStats_0.54.0          Biobase_2.44.0             
+[21] GenomicRanges_1.36.0        GenomeInfoDb_1.20.0        
+[23] IRanges_2.18.1              S4Vectors_0.22.0           
+[25] BiocGenerics_0.30.0        
 
 loaded via a namespace (and not attached):
  [1] nlme_3.1-140           bitops_1.0-6           fs_1.3.1              
@@ -957,25 +1058,24 @@ loaded via a namespace (and not attached):
 [25] cli_1.1.0              rvest_0.3.4            htmlTable_1.13.1      
 [28] xml2_1.2.0             labeling_0.3           scales_1.0.0          
 [31] checkmate_1.9.3        genefilter_1.66.0      digest_0.6.19         
-[34] foreign_0.8-71         svglite_1.2.2          rmarkdown_1.13        
-[37] XVector_0.24.0         base64enc_0.1-3        pkgconfig_2.0.2       
-[40] htmltools_0.3.6        readxl_1.3.1           htmlwidgets_1.3       
-[43] rlang_0.3.4            rstudioapi_0.10        RSQLite_2.1.1         
-[46] generics_0.0.2         jsonlite_1.6           acepack_1.4.1         
-[49] RCurl_1.95-4.12        GenomeInfoDbData_1.2.1 Formula_1.2-3         
-[52] Matrix_1.2-17          Rcpp_1.0.1             munsell_0.5.0         
-[55] stringi_1.4.3          whisker_0.3-2          yaml_2.2.0            
-[58] zlibbioc_1.30.0        plyr_1.8.4             grid_3.6.0            
-[61] blob_1.1.1             crayon_1.3.4           lattice_0.20-38       
-[64] haven_2.1.0            splines_3.6.0          annotate_1.62.0       
-[67] hms_0.4.2              locfit_1.5-9.1         knitr_1.23            
-[70] pillar_1.4.1           geneplotter_1.62.0     XML_3.98-1.20         
-[73] glue_1.3.1             evaluate_0.14          latticeExtra_0.6-28   
-[76] modelr_0.1.4           data.table_1.12.2      cellranger_1.1.0      
-[79] gtable_0.3.0           assertthat_0.2.1       xfun_0.7              
-[82] xtable_1.8-4           broom_0.5.2            survival_2.44-1.1     
-[85] AnnotationDbi_1.46.0   memoise_1.1.0          workflowr_1.4.0       
-[88] cluster_2.1.0         </code></pre>
+[34] foreign_0.8-71         rmarkdown_1.13         XVector_0.24.0        
+[37] base64enc_0.1-3        pkgconfig_2.0.2        htmltools_0.3.6       
+[40] readxl_1.3.1           htmlwidgets_1.3        rlang_0.3.4           
+[43] rstudioapi_0.10        RSQLite_2.1.1          generics_0.0.2        
+[46] jsonlite_1.6           acepack_1.4.1          RCurl_1.95-4.12       
+[49] GenomeInfoDbData_1.2.1 Formula_1.2-3          Matrix_1.2-17         
+[52] Rcpp_1.0.1             munsell_0.5.0          stringi_1.4.3         
+[55] whisker_0.3-2          yaml_2.2.0             zlibbioc_1.30.0       
+[58] plyr_1.8.4             grid_3.6.0             blob_1.1.1            
+[61] crayon_1.3.4           lattice_0.20-38        haven_2.1.0           
+[64] splines_3.6.0          annotate_1.62.0        hms_0.4.2             
+[67] locfit_1.5-9.1         knitr_1.23             pillar_1.4.1          
+[70] geneplotter_1.62.0     XML_3.98-1.20          glue_1.3.1            
+[73] evaluate_0.14          latticeExtra_0.6-28    modelr_0.1.4          
+[76] data.table_1.12.2      cellranger_1.1.0       gtable_0.3.0          
+[79] assertthat_0.2.1       xfun_0.7               xtable_1.8-4          
+[82] broom_0.5.2            survival_2.44-1.1      AnnotationDbi_1.46.0  
+[85] memoise_1.1.0          workflowr_1.4.0        cluster_2.1.0         </code></pre>
 </div>
 </div>
 

@@ -210,18 +210,32 @@ Gene sets
 gsc <- loadGSC("/home/almut/Dokumente/masterarbeit/data/h.all.v6.0.symbols.gmt", type="gmt")
 #Kegg
 gsc_Kegg <- loadGSC("/home/almut/Dokumente/masterarbeit/data/c2.cp.kegg.v6.0.symbols.gmt", type="gmt")
+
+
+#get all de outputs
+load(paste0(output_dir,"/desRes_15112019.RData"))
+difftab <- function(condition){
+  dataTab <- data.frame(res_list[[condition]])
+  dataTab$ID <- rownames(dataTab)
+  #filter using pvalues
+  dataTab <- dataTab %>%
+    arrange(padj) %>%
+    mutate(Symbol = rowData(ddsCLL[ID,])$symbol)# %>%
+    #filter(abs(log2FoldChange) > 2)
+  dataTab <- dataTab[!duplicated(dataTab$Symbol),]
+  dataTab <- dataTab[!is.na(dataTab$Symbol),]
+  rownames(dataTab) <- dataTab$ID
+   dataTab
+}
+
+diff_res <- difftab(variant)
 ```
 
 Run piano
-```{r piano, fig.width=10, fig.height=7}
+```{r piano, fig.width=10, fig.height=6}
 
 gmtFile <- gsc_Kegg
-
-diff_res <- diff_all
-diff_res$chromosome <- rowData(RNAnorm)[rownames(diff_res),]$chromosome
 diff_res <- diff_res[-which(diff_res$Symbol %in% c("", NA)),]
-#Filter chromosome 12 - we are not interested in the dosage effect 
-diff_res <- diff_res[-which(diff_res$chromosome %in% c("12")),]
 
 geneNam <- diff_res$Symbol 
 pVal <- diff_res$padj
@@ -235,6 +249,10 @@ res <- runGSA(geneLevelStats = gsaTab,
                     signifMethod = "geneSampling",
                     nPerm = 50000,
                     gsSizeLim=c(1, Inf))
+
+saveRDS(res, file=paste0(output_dir,"/enrichment/", variant, "_gsea.rds"))
+res <- readRDS(paste0(output_dir,"/enrichment/", variant, "_gsea.rds"))
+  
 Res_up <- arrange(GSAsummaryTable(res), `p adj (dist.dir.up)`)            
 Res_dn <- arrange(GSAsummaryTable(res), `p adj (dist.dir.dn)`)
   
@@ -246,30 +264,65 @@ colnames(resPlot) <- c("pathway", "gene_number", "stat", "p.adj","genes_up" , "g
 colnames(resPlot_dn) <- c("pathway", "gene_number", "stat", "p.adj","genes_up" , "genes_dn")
 
 
-enrichPlot <- resPlot[c(1:12),] %>% mutate(log10Padj = -log10(p.adj)) 
+enrichPlot <- resPlot_dn[c(1:6),] %>% mutate(log10Padj = -log10(p.adj)) %>% arrange(-row_number())
+enrichPlot$pathway <- gsub("KEGG_", "",  enrichPlot$pathway)
+enrichPlot$pathway <- gsub("_", " ",  enrichPlot$pathway)
+enrichPlot$pathway <- tolower(enrichPlot$pathway)
 
 #plot
-p <- ggbarplot(enrichPlot, x = "pathway", y = "log10Padj",
-          fill = "gene_number",         
-          color = "white",            
-          palette =  "gsea",            
-          sort.val = "asc",         
+p <- ggbarplot(enrichPlot, x = "pathway", y = "gene_number",
+          fill = "p.adj",   
+          orientation = "vertical",
+          label = enrichPlot$pathway, lab.col = "white", lab.size = 4, lab.vjust = 0, lab.hjust = 1.01,
+          sort.val = "none",         
           sort.by.groups = FALSE,     
-          ylab = "-log10(padj)",
-          legend.title = "#diff.genes",
-          rotate = TRUE,
-          font.x = 12, font.y = 12, font.legend = 15, legend = "right",  
-          title = "Trisomy12 - Kegg",
+          xlab = "Pathway",
+          ylab = "gene number",
+          legend.title = "p.adj",
+          rotate = TRUE, font.x = 20, font.y = 20, font.legend = 20, legend = "right", 
+          title = "trisomy12 - Kegg down",
           ggtheme = theme_pubr()) + 
-  font("xy.text", size = 14) + 
-  font("title", size = 16, face = "bold")
+  font("x.text", size = 16) + 
+  font("y.text", size = 0) +
+  font("title", size = 20, face = "bold") + 
+  gradient_color(c("blue", "white", "red"))
   
 #ggsave(file=paste0(figure_dir,"/GSEA_", variant, "_Kegg.svg"), plot=p, width=14, height=7)
   p
+  
+saveRDS(p, file = paste0(output_dir, "/figures/r_objects/trisomy12/tri12_enrichment_dn.rds"))
 
-saveRDS(p, file = paste0(output_dir, "/figures/r_objects/trisomy12/tri12_enrichment.rds"))
 
+enrichPlot <- resPlot[c(1:6),] %>% mutate(log10Padj = -log10(p.adj)) %>% arrange(-row_number())
+enrichPlot$pathway <- gsub("KEGG_", "",  enrichPlot$pathway)
+enrichPlot$pathway <- gsub("_", " ",  enrichPlot$pathway)
+enrichPlot$pathway <- tolower(enrichPlot$pathway)
+
+#plot
+p <- ggbarplot(enrichPlot, x = "pathway", y = "gene_number",
+          fill = "p.adj",   
+          orientation = "vertical",
+          label = enrichPlot$pathway, lab.col = "white", lab.size = 4.5, lab.vjust = 0, lab.hjust = 1.01,
+          sort.val = "none",         
+          sort.by.groups = FALSE,     
+          xlab = "Pathway",
+          ylab = "gene number",
+          legend.title = "p.adj",
+          rotate = TRUE, font.x = 20, font.y = 20, font.legend = 20, legend = "right", 
+          title = "trisomy12 - Kegg up",
+          ggtheme = theme_pubr()) + 
+  font("x.text", size = 16) + 
+  font("y.text", size = 0) +
+  font("title", size = 20, face = "bold") + 
+  gradient_color(c("blue", "white", "red"))
+  
+#ggsave(file=paste0(figure_dir,"/GSEA_", variant, "_Kegg.svg"), plot=p, width=14, height=7)
+  p
+  
+saveRDS(p, file = paste0(output_dir, "/figures/r_objects/trisomy12/tri12_enrichment_up.rds"))
 ```
+
+`
 
 
 # Dosage effect

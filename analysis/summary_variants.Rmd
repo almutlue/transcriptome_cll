@@ -46,9 +46,19 @@ excluded_columns <- c("HIPO.ID","PID", "gender","project", "diagnosis", "date.of
 
 patMeta <- as.tibble(patMeta) %>% filter(Patient.ID %in% ddsCLL$PatID) %>% dplyr::select(-one_of(excluded_columns))
 
-variants <- c( "trisomy12", "del13q14", "del8p12", "gain8q24", "del11q22.3", "del17p13", "BRAF", "NOTCH1", "SF3B1","TP53", "ATM", "MED12", "IGHV")
+variants <- patMeta %>% dplyr::select(-Patient.ID) %>% 
+  mutate_if(is.factor, as.character) %>% 
+  mutate_if(is.character, as.numeric) %>% 
+  dplyr::select(colnames(.)[colSums(.,na.rm = TRUE) > 4]) %>% 
+  colnames()
 
-pat_new <- as.tibble(colData(ddsCLL)) %>% select(variants)
+#variants <- c( "trisomy12", "del13q14", "del8p12", "gain8q24", "del11q22.3", "del17p13", "BRAF", "NOTCH1", "SF3B1","TP53", "ATM", "MED12", "IGHV")
+var_add <- variants[!variants %in% names(colData(ddsCLL))] 
+rownames(patMeta) <-  patMeta$Patient.ID
+patMeta <- patMeta[colData(ddsCLL)$PatID,]
+cd <- cbind(colData(ddsCLL), patMeta[,var_add])
+colData(ddsCLL) <- cd
+pat_new <- as.tibble(colData(ddsCLL)) %>% select(c(variants, "IGHV"))
 
 ```
 
@@ -59,13 +69,13 @@ pat_new <- as.tibble(colData(ddsCLL)) %>% select(variants)
 N_mut <- patMeta %>% dplyr::select(-Patient.ID) %>% mutate_if(is.factor, as.character) %>% mutate_if(is.character, as.numeric) %>% mutate(mutations=rowSums(.,na.rm = TRUE))
 
 N_mut$IGHV <- pat_new$IGHV
-N_mut$color <- c(rep("blue", nrow(N_mut)))
+N_mut <- N_mut %>% filter(!is.na(IGHV))
 
 p <- gghistogram(N_mut, x = "mutations",
-   add = "mean", bins = 12, fill = "color",
+   add = "mean", bins = 12, fill = "IGHV",
   palette = "jco")
 
-ggsave(file=paste0(figure_dir, "/hist_mutations.svg"), plot=p, width=4, height=3)
+#ggsave(file=paste0(figure_dir, "/hist_mutations.svg"), plot=p, width=4, height=3)
 p
 
 saveRDS(p, file = paste0(output_dir, "/figures/r_objects/summary_variant_patient.rds"))
@@ -75,32 +85,37 @@ mean(N_mut$mutations)
 
 # Variant frequency
 
-```{r overview, fig.height=5, fig.width=15}
+```{r overview, fig.height=5, fig.width=19}
 
 #group by IGHV status
-overview <- pat_new %>% mutate_at(vars(-IGHV), as.character) %>% mutate_at(vars(-IGHV), as.numeric) %>% dplyr::group_by(IGHV) %>% dplyr::summarize_if(is.numeric, sum, na.rm =T) 
+overview <- pat_new %>% filter(!is.na(IGHV)) %>% mutate_at(vars(-IGHV), as.character) %>% mutate_at(vars(-IGHV), as.numeric) %>% dplyr::group_by(IGHV) %>% dplyr::summarize_if(is.numeric, sum, na.rm =T) 
 
 #Add total numbers 
 Sum <- pat_new %>% dplyr::select(-IGHV) %>% mutate_if(is.factor, as.character) %>% mutate_if(is.character, as.numeric) %>% summarize_if(is.numeric, sum, na.rm =T)
+order_desc <- Sum[,order(as.numeric(Sum[1,]))] %>% colnames() %>% rev()
 
 #Add IGHV status
-IGHV_status <- as_data_frame(pat_new$IGHV) %>% dplyr::summarize(M = sum(value %in% "M"), U = sum(value %in% "U"), "NA" = sum(is.na(value)), Total = n())
+IGHV_status <- as_data_frame(pat_new$IGHV) %>% dplyr::summarize(M = sum(value %in% "M"), U = sum(value %in% "U"), Total = n() -1)
 Sum$IGHV <- "Total"
 IGHV_status <- t(IGHV_status)
 
 #Combine all
 sum_tab <- rbind(overview,Sum)
+sum_tab <- sum_tab[, c("IGHV",order_desc)]
 sum_tab <- cbind(sum_tab, IGHV_status)
+
+
 
 sum_melted <- melt(sum_tab)
 
 #plot
-p <- ggplot(sum_melted, aes(x = variable, y = factor(IGHV, levels = c("Total", "NA", "M", "U")))) +  
+p <- ggplot(sum_melted, aes(x = variable, y = factor(IGHV, levels = c("Total", "M", "U")))) +  
       geom_tile(aes(fill = value)) + 
       geom_text(aes(label = round(value, 1)), size =8) + ylab("IGHV_status") +
-      scale_fill_gradient(low = "white", high = "#ED0000FF") + 
+      scale_fill_gradient(low = "white", high = "tomato2") + 
       theme(axis.title.x = element_text(face="bold", size=30), axis.text.x=element_text(size=25, angle = 90)) + 
       theme(axis.title.y = element_text(face="bold", size=25), axis.text.y= element_text(size=20))
+
 
 
 #pdf(file=paste0(figure_dir, "/overview_mutations.pdf"), width=15, height=5)
@@ -114,9 +129,10 @@ saveRDS(p, file = paste0(output_dir, "/figures/r_objects/summary_var_freq_IGHV.r
 # Variant co-occurence
 
 ```{r corMat chi, fig.height=10, fig.width= 10, warning = FALSE}
-
+variants <- c(variants, "IGHV")[!variants %in% c("Chromothripsis", "gain14q32")]
 #Chisquare p.adj matrix
 my_chisquare <- function(variant_in){
+  print(variant_in)
   pat_new_sorted <- pat_new %>% set_rownames(ddsCLL$PatID)
   pat_new_sorted <- pat_new_sorted[patMeta$Patient.ID,]
   patMeta$IGHV_mu <- pat_new_sorted$IGHV
@@ -144,6 +160,7 @@ my_chisquare <- function(variant_in){
 
 resChi <-lapply(variants, my_chisquare) %>% do.call(cbind,.)
 resChiMat <- as.matrix(resChi)
+resChiMat <- resChiMat[!rowSums(resChiMat) == 0, !colSums(resChiMat) == 0]
 
 col <- colorRampPalette(rev(c("#BB4444", "#EE9988", "#FFFFFF", "#77AADD", "#4477AA")))(50)
 

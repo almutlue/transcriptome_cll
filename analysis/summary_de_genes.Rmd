@@ -34,17 +34,35 @@ figure_dir <- here("output/figures")
 #dds data set. gene expression data + patmetadata
 load(paste0(data_dir, "/ddsrnaCLL_150218.RData"))
 
-variants <- c( "trisomy12", "del13q14", "del8p12", "gain8q24", "del11q22.3", "del17p13", "BRAF", "NOTCH1", "SF3B1","TP53", "ATM", "MED12","IGHV")
+#load meta data including genotyping info
+load(paste0(data_dir, "/patmeta_170324.RData"))
+excluded_columns <- c("HIPO.ID","PID", "gender","project", "diagnosis", "date.of.diagnosis", "treatment", "date.of.first.treatment", "IGHV.status","Methylation_Cluster")
 
+patMeta <- as.tibble(patMeta) %>% filter(Patient.ID %in% ddsCLL$PatID) %>% dplyr::select(-one_of(excluded_columns))
+
+variants <- patMeta %>% dplyr::select(-Patient.ID) %>% 
+  mutate_if(is.factor, as.character) %>% 
+  mutate_if(is.character, as.numeric) %>% 
+  dplyr::select(colnames(.)[colSums(.,na.rm = TRUE) > 4]) %>% 
+  colnames()
+
+var_add <- variants[!variants %in% names(colData(ddsCLL))] 
+rownames(patMeta) <-  patMeta$Patient.ID
+patMeta <- patMeta[colData(ddsCLL)$PatID,]
+cd <- cbind(colData(ddsCLL), patMeta[,var_add])
+colData(ddsCLL) <- cd
+
+#variants <- c( "trisomy12", "del13q14", "del8p12", "gain8q24", "del11q22.3", "del17p13", "BRAF", "NOTCH1", "SF3B1","TP53", "ATM", "MED12","IGHV")
+
+variants <- c(variants, "IGHV")
 ```
 
 Summarize de genes in a table
 ```{r summary table}
 #Function to summarize de genes
 variant_stats <- function(variant, chr){
-  
-  diff_genes <-read.csv(file=paste0(output_dir, "/diff_genes/", variant, "_diffGenes.csv"))
-  sig_genes <- as.tibble(diff_genes) %>% filter(padj < 0.01) 
+   diff_genes <-read.csv(file=paste0(output_dir, "/diff_genes/", variant, "_diffGenes.csv"))
+  sig_genes <- as.tibble(diff_genes) %>% filter(padj < 0.01 & abs(log2FoldChange) > 0) 
   up_genes <- sig_genes %>% filter(log2FoldChange > 0) %>% mutate(chrom = rowData(ddsCLL)$chromosome[which(rownames(ddsCLL) %in% X)])
   dn_genes <- sig_genes %>% filter(log2FoldChange < 0) %>% mutate(chrom = rowData(ddsCLL)$chromosome[which(rownames(ddsCLL) %in% X)])
   chr_up <- ifelse(!is.na(chr), length(which(up_genes$chrom %in% chr)), 0)
@@ -63,12 +81,13 @@ variant_stats <- function(variant, chr){
   }
 
 # Variant chromosomal location
-chromo <- c( "12", "13", "8", "8", "11", "17", NA, NA, NA, NA, NA, NA, NA)
+chromo <- c( "2", "8", "8", "11", "12", "13", "15", "17", NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA)
 input <- cbind(variants, chromo)
 
 summary <- mapply(variant_stats, variants, chromo)
-sum_dat <- data.frame(matrix(unlist(summary), nrow=13, byrow=T),stringsAsFactors=FALSE)
+sum_dat <- data.frame(matrix(unlist(summary), nrow=length(variants), byrow=T),stringsAsFactors=FALSE)
 colnames(sum_dat) <- c("variant", "n_genes", "up_genes", "dn_genes", "nr_up", "nr_dn", "nr_chrom", "nr_other")
+sum_dat <- sum_dat %>% filter(as.numeric(n_genes) > 100)
 sum_order <- as.tibble(sum_dat) %>% arrange(desc(-1*as.numeric(n_genes))) %>% dplyr::select(variant)
 
 #sum_dat_long <- melt(sum_dat[,c("variant","up_genes", "dn_genes")], id.vars = c("variant")) #, variable_name = c("up_genes", "dn_genes"))
@@ -87,8 +106,8 @@ sum_dat_long <- as.tibble(sum_dat_long) %>% arrange(desc(genes)) %>% mutate(grou
 
 ### Summary all variants
 ```{r barplot, fig.height= 5, fig.width=8}
-col_pal1 <- pal_igv(palette = c("default"), alpha = 1)(13)
-col_pal2 <- pal_igv(palette = c("default"), alpha = 0.4)(13)
+col_pal1 <- pal_igv(palette = c("default"), alpha = 1)(nrow(sum_dat))
+col_pal2 <- pal_igv(palette = c("default"), alpha = 0.4)(nrow(sum_dat))
 
 color <- c(col_pal1, col_pal2)
 color <- sort(color)
@@ -103,7 +122,7 @@ ggbarplot(sum_dat_long[order(match(sum_dat_long$variant, sum_order$variant)),], 
 
 
 ### IGHV and trisomy12
-```{r barplot ighv, fig.height= 2.1, fig.width=6}
+```{r barplot ighv, fig.height= 2.3, fig.width=6}
 
 sum_dat_long1 <- as.tibble(sum_dat_long) %>% filter(variant %in% c("trisomy12", "IGHV"))
 
@@ -120,13 +139,13 @@ saveRDS(p1, file = paste0(output_dir, "/figures/r_objects/summary_de_genes_IGHV_
 
 
 ### All other
-```{r barplot others, fig.height= 7.5, fig.width=6}
+```{r barplot others, fig.height= 5.5, fig.width=6}
 
-sum_dat_long2 <- as.tibble(sum_dat_long) %>% filter(!variant %in% c("trisomy12", "IGHV"))
+sum_dat_long2 <- as.tibble(sum_dat_long) %>% filter(!variant %in% c("trisomy12", "IGHV")) %>% filter
 
 #pdf(file=paste0(figure_dir, "/sum_diffGenes_noTsig.pdf"), width=6, height=7.5)
 p2 <- ggbarplot(sum_dat_long2[order(match(sum_dat_long2$variant, sum_order$variant)),], "variant", "genes",
-  fill = "dir_color", palette = color[c(5:26)],
+  fill = "dir_color", palette = color[c(5:50)],
   label = FALSE,  font.x =23 ,font.y = 23, font.tickslab = 18, x.text.angle = 0, legend = "none", rotate = T) 
 #dev.off()
 

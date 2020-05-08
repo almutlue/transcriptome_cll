@@ -1,0 +1,232 @@
+---
+title: "Adapter_contamination"
+author: "Almut Luetge"
+date: "October 16, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Batch effect caused by adapter sequences 
+
+
+
+```{r packages , warning=FALSE, message=FALSE}
+
+library(ggplot2)
+library(DESeq2)
+library(plyr)
+library(ggpubr)
+library(tidyverse)
+library(ggbeeswarm)
+library(RColorBrewer)
+library(here)
+
+```
+
+data
+```{r data read length}
+#Read in data
+data_dir <- here("data")
+output_dir <- here("output")
+figure_dir <- here("output/figures")
+
+batch1 <- read.table(paste0(data_dir,"/mapping/summaryBatch1.txt"), header = T)
+rownames(batch1) <- batch1[,"sample"]
+
+batch2 <- read.table(paste0(data_dir,"/mapping/summaryBatch2.txt"), header = T)
+rownames(batch2) <- batch2[,"sample"]
+
+batch0 <- read.table(paste0(data_dir,"/mapping/summaryBatch0.txt"), header = T)
+batch0$sample <- gsub("-T1-R1_[A-Z]*_L00\\d", "", batch0$sample)
+dup <- which(duplicated(batch0$sample))
+batch0 <- batch0[-dup,]
+rownames(batch0) <- batch0[,"sample"]
+
+
+#Add column containg batch info
+num1 <-rep(1, nrow(batch1))
+num2 <-rep(2, nrow(batch2))
+num0 <-rep(0, nrow(batch0))
+
+
+batch1[,"batch"] <- as.factor(num1)
+batch2[,"batch"] <- as.factor(num2)
+batch0[,"batch"] <- as.factor(num0)
+
+
+#Merge to one table
+mappingSum1 <- rbind(batch0, batch1, batch2)
+
+
+```
+
+
+```{r read in data adaptercontamination}
+adapter <- read.table(paste0(data_dir, "/mapping/summaryAdapterAll.txt"), header = T)
+rownames(adapter) <- adapter$sample
+adapter2 <- adapter[rownames(mappingSum1),]
+dim(mappingSum1)
+dim(adapter)
+mappingsum <- cbind(mappingSum1, adapter2[,c("numberAdapter", "numFastqFiles")])
+sum <- as.tibble(mappingsum) %>% select(readlength, numberAdapter, numFastqFiles) %>% mutate(adapter_rel = as.numeric(numberAdapter) * as.numeric(numFastqFiles))
+
+```
+
+#violin plots of adapter contamination
+```{r plots of mappingvariables, fig.height = 6, fig.width = 4}
+
+#Readlength
+ggplot(data = sum, aes(x = readlength, y = adapter_rel, color = readlength)) + 
+  geom_jitter(size = 2) + labs(x = "Length of reads", y="Number of adapter") + 
+  theme(axis.text.x = element_text(size = 10, angle = 90, vjust = 0.5), 
+        axis.text.y = element_text(size = 20), axis.title = element_text(size = 20), 
+        legend.key.size = unit(1.5, "cm"), legend.text = element_text(size = 10), 
+        legend.title = element_text(size = 20))
+
+
+#Readlength barplot
+readSum <- dplyr::select(sum,readlength, adapter_rel) %>% dplyr::group_by(readlength) #%>% dplyr::summarise(averageRead = mean(readlength))
+readSum$readlength <- gsub(252, 250, readSum$readlength)
+
+ggplot(data = readSum, aes(x = readlength, y = adapter_rel, color = readlength, fill = readlength)) + 
+  geom_beeswarm(size= 2) + 
+  labs(x = "Batch", y="Average mapped length") + 
+  theme(axis.text.x = element_text(size = 10, angle = 90, vjust = 0.5), 
+        axis.text.y = element_text(size = 10), axis.title = element_text(size = 20))
+
+
+ p <- ggboxplot(readSum,x = "readlength", y = "adapter_rel", color = "readlength", 
+                palette =c("#00AFBB", "#E7B800", "#FC4E07"), size = 1,
+                add = "jitter", shape = "readlength", ylab = "Number adapter", legend = "right",
+                font.legend = c(23, "plain", "black"), 
+                font.tickslab = c(23, "plain", "black"),
+                font.main = 25, font.submain = 28, font.caption = 28, font.x = 28, font.y= 28)
+
+p
+
+saveRDS(p, file = paste0(output_dir, "/figures/r_objects/adapter/batch_n_adapter.rds"))
+
+```
+
+
+PCA of trimmed and untrimmed dataset with readlength marked
+load data
+```{r dds datasets}
+# dds object with previous untrimmed data
+load(paste0(data_dir,"/mapping/2017-05-31_ddsrna.RData"))          
+colnames(dds) <- colData(dds)$HipoID
+
+#subset with CLL patients only
+cll_vector <- c("CLL", "atyp CLL", "Atyp. CLL","CLL/ET")
+ddsOld <- dds[,colData(dds)$diag %in% cll_vector]
+
+# Remove rows/genes with too few counts
+keep <-apply(counts(ddsOld), 1, function(x) any(x >= 10))
+ddsOld <- ddsOld[keep,]
+
+ddsOld$readlength <- gsub(252, 250, ddsOld$readlength)
+
+dim(ddsOld)
+
+# new trimmed dataset (see general eda)
+load(paste0(data_dir, "/ddsrnaCLL_150218.RData"))
+#load("/home/almut/Documents/CLL/data/ddsrnaCLL_trimmed_tsig_modIGHV.RData")   #trimmed dataset
+colnames(ddsCLL) <- colData(ddsCLL)$HipoID
+ddsCLL <- ddsCLL[,colnames(ddsOld)]
+dim(ddsCLL)
+
+colData(ddsCLL)$readlength <- colData(ddsOld)$readlength 
+
+```
+
+Normalize data
+```{r norm data}
+#Variance stabilization transformation of the old data
+ddsOld <- estimateSizeFactors(ddsOld)           
+RNAnorm <- varianceStabilizingTransformation(ddsOld, blind=T)
+
+#Variance stabilization transformation of the new data
+ddsCLL <- estimateSizeFactors(ddsCLL)           
+RNAnorm_new <- varianceStabilizingTransformation(ddsCLL, blind=T)
+
+```
+
+
+### PCA before adapter trimming
+```{r pca before adapter, fig.height=6, fig.width=6}
+#Plot PCA non trimmed data
+exprMat <- assay(RNAnorm)
+
+#top 5000 most variant genes
+sds <- rowSds(exprMat)
+exprMat <- exprMat[order(sds, decreasing = T)[1:500],]
+
+
+#Calculate PCA
+pcaRes <- prcomp(t(exprMat), scale =T)
+varExp <- (pcaRes$sdev^2 / sum(pcaRes$sdev^2)) * 100
+pcaTab <- data.frame(pcaRes$x[,c(1:10)])
+names(varExp) <- colnames(pcaRes$x)
+
+#add background information
+pcaTab <- cbind(pcaTab, data.frame(colData(RNAnorm)))
+
+#IGHV
+p_old <- ggscatter(pcaTab, x = "PC1", y = "PC2", color = "readlength", 
+               palette = c("#00AFBB", "#E7B800", "#FC4E07"), 
+               size = 2, ylab = sprintf("PC2 (%2.1f%%)",varExp[2]), 
+               xlab = sprintf("PC1 (%2.1f%%)",varExp[1]), 
+               legend = "right", main = "PCA before adapter trimming", 
+               font.legend = c(23, "plain", "black"), 
+               font.tickslab = c(23, "plain", "black"),
+               font.main = 25, font.submain = 28, font.caption = 28, font.x = 28, font.y= 28) + 
+  coord_fixed()
+
+p_old
+
+
+saveRDS(p_old, file = paste0(output_dir, "/figures/r_objects/adapter/pca_before_trimming.rds"))
+
+```
+
+
+### PCA after adapter trimming
+```{r pca after trimming,  fig.height=6, fig.width=6}
+#Plot PCA non trimmed data
+exprMat_new <- assay(RNAnorm_new)
+
+#top 5000 most variant genes
+sds <- rowSds(exprMat_new)
+exprMat_new <- exprMat_new[order(sds, decreasing = T)[1:500],]
+
+
+#Calculate PCA
+pcaRes <- prcomp(t(exprMat_new), scale =T)
+varExp <- (pcaRes$sdev^2 / sum(pcaRes$sdev^2)) * 100
+pcaTab <- data.frame(pcaRes$x[,c(1:10)])
+names(varExp) <- colnames(pcaRes$x)
+
+#add background information
+pcaTab <- cbind(pcaTab, data.frame(colData(RNAnorm_new)))
+
+#IGHV
+p_new <- ggscatter(pcaTab, x = "PC1", y = "PC2", color = "readlength", 
+               palette = c("#00AFBB", "#E7B800", "#FC4E07"), 
+               size = 2, ylab = sprintf("PC2 (%2.1f%%)",varExp[2]), 
+               xlab = sprintf("PC1 (%2.1f%%)",varExp[1]), 
+               legend = "right", main = "PCA after adapter trimming", 
+               font.legend = c(23, "plain", "black"), 
+               font.tickslab = c(23, "plain", "black"),
+               font.main = 25, font.submain = 28, font.caption = 28, font.x = 28, font.y= 28) + 
+  coord_fixed()
+
+p_new
+
+saveRDS(p_new, file = paste0(output_dir, "/figures/r_objects/adapter/pca_after_trimming.rds"))
+```
+
+
+

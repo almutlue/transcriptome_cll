@@ -233,7 +233,10 @@ gene_count <- function(gene_nam){
   p
 }
 
-geneList <- sub_names[1:30]
+geneList <- dataTab %>% filter(padj <= 0.01, abs(stat) > 6) %>% select(Symbol)  
+geneList <- geneList[1:30,"Symbol"]
+#geneList <- geneList[-which(geneList %in% "")]
+
 lapply(geneList, gene_count)
 gene_count("SOX11")
 

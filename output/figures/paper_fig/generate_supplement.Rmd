@@ -1,0 +1,165 @@
+---
+title: "Generate supplement figures"
+author: "almut"
+date: "18 November 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Generate Figures - Figure1
+
+```{r}
+suppressPackageStartupMessages({
+  library(DESeq2)
+  library(dplyr)
+  library(ggplot2)
+  library(tidyverse)
+  library(ComplexHeatmap)
+  library(ggpubr)
+  library(RColorBrewer)
+  library(circlize)
+  library(here)
+  library(cowplot)
+})
+```
+ 
+ 
+data objects 
+```{r objects}
+output_dir <- here("output/figures/paper_fig")
+fig_dir <- here("output/figures/r_objects")
+
+```
+
+### Figure IP group
+```{r IP group, fig.width=18, fig.height= 21}
+IP_hmap <-  readRDS(paste0(fig_dir,"/Methylation_IP/meth_ip_heatmap.rds"))
+IP_hmap <- grid.grabExpr(draw(IP_hmap))
+
+de1 <- readRDS(paste0(fig_dir, "/Methylation_IP/de_genes/LAMC3.rds"))
+de2 <- readRDS(paste0(fig_dir, "/Methylation_IP/de_genes/SOX11.rds"))
+de3 <- readRDS(paste0(fig_dir, "/Methylation_IP/de_genes/NREP.rds"))
+
+#Align subplots
+#p_sub <- plot_grid(NULL, ighv_ig, NULL, pathways, ncol = 1, rel_heights = c(1,10,1, 8), labels = c('B','', 'C',''), label_size = 45)
+#p_sub <- plot_grid(p_sub, NULL, rel_widths = c(10, 2))
+p_sub2 <- plot_grid(de1, de2, de3, ncol = 3, align = "v", axis = "b", labels = c('B', 'C', 'D'), label_size = 45)
+p_sub_3 <- plot_grid(NULL, IP_hmap, NULL, ncol = 3, rel_widths = c(1.5, 15, 1.5), labels = c("A", "", ""), label_size = 45)
+
+figure2 <- plot_grid(p_sub_3, NULL, p_sub2, ncol = 1, rel_heights = c(12, 1, 6))
+figure2
+ggsave(filename = paste0(output_dir, "/figure_IP_group.pdf"), plot = figure2)
+ggsave(filename = paste0(output_dir, "/figure_IP_group.svg"), plot = figure2)
+```
+
+
+### figure BRAF
+```{r fig BRAF, fig.width=18, fig.height= 20}
+
+variant_hmap <-  readRDS(paste0(fig_dir,"/BRAF/BRAF_heatmap.rds"))
+variant_hmap <- grid.grabExpr(draw(variant_hmap))
+pathways <- readRDS(paste0(fig_dir,"/BRAF/BRAF_enrichment_up.rds"))
+pathways_dn <- readRDS(paste0(fig_dir,"/BRAF/BRAF_enrichment_dn.rds"))
+
+de1 <- readRDS(paste0(fig_dir,"/BRAF/de_genes/PLIN5.rds"))
+de2 <- readRDS(paste0(fig_dir,"/BRAF/de_genes/PLXNC1.rds"))
+de3 <- readRDS(paste0(fig_dir,"/BRAF/de_genes/SERPINE2.rds"))
+
+#Align subplots
+
+p_sub <- plot_grid(NULL, pathways, NULL, pathways_dn, rel_heights = c(1.5, 10, 1.5, 10), ncol = 1,  labels = c("B", "", "C", ""), label_size = 45, align = "h")
+p_sub2 <- plot_grid(de1, de2, de3, ncol = 3, align = "v", axis = "b", labels = c('D', 'E', 'F'), label_size = 45)
+p_sub_3 <- plot_grid(NULL, variant_hmap, NULL, p_sub, rel_widths = c(0.1, 6, 0.1, 4), labels = c("A", "", "", ""), label_size = 45, ncol = 4)
+
+figure_var <- plot_grid(p_sub_3, NULL, p_sub2, ncol = 1, rel_heights = c(10, 0.5, 6))
+figure_var
+ggsave(filename = paste0(output_dir, "/figure_BRAF.pdf"), plot = figure_var)
+ggsave(filename = paste0(output_dir, "/figure_BRAF.svg"), plot = figure_var)
+
+```
+
+### figure SF3B1
+```{r fig SFB31, fig.width=18, fig.height= 20}
+
+variant_hmap <-  readRDS(paste0(fig_dir,"/SF3B1/SF3B1_heatmap.rds"))
+variant_hmap <- grid.grabExpr(draw(variant_hmap))
+pathways <- readRDS(paste0(fig_dir,"/SF3B1/SF3B1_enrichment_up.rds"))
+pathways_dn <- readRDS(paste0(fig_dir,"/SF3B1/SF3B1_enrichment_dn.rds"))
+
+de1 <- readRDS(paste0(fig_dir,"/SF3B1/de_genes/UQCC1.rds"))
+de2 <- readRDS(paste0(fig_dir,"/SF3B1/de_genes/ADAM11.rds"))
+de3 <- readRDS(paste0(fig_dir,"/SF3B1/de_genes/FSTL3.rds"))
+
+#Align subplots
+
+p_sub <- plot_grid(NULL, pathways, NULL, pathways_dn, rel_heights = c(1.5, 10, 1.5, 10), ncol = 1,  labels = c("B", "", "C", ""), label_size = 45, align = "h")
+p_sub2 <- plot_grid(de1, de2, de3, ncol = 3, align = "v", axis = "b", labels = c('D', 'E', 'F'), label_size = 45)
+p_sub_3 <- plot_grid(NULL, variant_hmap, NULL, p_sub, rel_widths = c(0.1, 6, 0.1, 4), labels = c("A", "", "", ""), label_size = 45, ncol = 4)
+
+figure_var <- plot_grid(p_sub_3, NULL, p_sub2, ncol = 1, rel_heights = c(10, 0.5, 6))
+figure_var
+
+ggsave(filename = paste0(output_dir, "/figure_SF3B1.pdf"), plot = figure_var)
+ggsave(filename = paste0(output_dir, "/figure_SF3B1.svg"), plot = figure_var)
+
+```
+
+
+### figure Del11q22
+```{r fig dell11q22, fig.width=18, fig.height= 20}
+
+variant_hmap <-  readRDS(paste0(fig_dir,"/del11q22/del11q22_heatmap.rds"))
+variant_hmap <- grid.grabExpr(draw(variant_hmap))
+pathways <- readRDS(paste0(fig_dir,"/del11q22/del11q22_enrichment_up.rds"))
+pathways_dn <- readRDS(paste0(fig_dir,"/del11q22/del11q22_enrichment_dn.rds"))
+
+de1 <- readRDS(paste0(fig_dir,"/del11q22/de_genes/ATM.rds"))
+de2 <- readRDS(paste0(fig_dir,"/del11q22/de_genes/TMPRSS5.rds"))
+de3 <- readRDS(paste0(fig_dir,"/del11q22/de_genes/USP28.rds"))
+
+#Align subplots
+
+p_sub <- plot_grid(NULL, pathways, NULL, pathways_dn, rel_heights = c(1.5, 10, 1.5, 10), ncol = 1,  labels = c("B", "", "C", ""), label_size = 45, align = "h")
+p_sub2 <- plot_grid(de1, de2, de3, ncol = 3, align = "v", axis = "b", labels = c('D', 'E', 'F'), label_size = 45)
+p_sub_3 <- plot_grid(NULL, variant_hmap, NULL, p_sub, rel_widths = c(0.1, 6, 0.1, 4), labels = c("A", "", "", ""), label_size = 45, ncol = 4)
+
+figure_var <- plot_grid(p_sub_3, NULL, p_sub2, ncol = 1, rel_heights = c(10, 0.5, 6))
+figure_var
+
+ggsave(filename = paste0(output_dir, "/figure_del11q22.pdf"), plot = figure_var)
+ggsave(filename = paste0(output_dir, "/figure_del11q22.svg"), plot = figure_var)
+
+```
+
+
+### figure TP53
+```{r fig TP53, fig.width=18, fig.height= 20}
+
+variant_hmap <-  readRDS(paste0(fig_dir,"/TP53/TP53_heatmap.rds"))
+variant_hmap <- grid.grabExpr(draw(variant_hmap))
+pathways <- readRDS(paste0(fig_dir,"/TP53/TP53_enrichment_up.rds"))
+pathways_dn <- readRDS(paste0(fig_dir,"/TP53/TP53_enrichment_dn.rds"))
+
+de1 <- readRDS(paste0(fig_dir,"/TP53/de_genes/MAP2K4.rds"))
+de2 <- readRDS(paste0(fig_dir,"/TP53/de_genes/CDK12.rds"))
+de3 <- readRDS(paste0(fig_dir,"/TP53/de_genes/GPS2.rds"))
+
+#Align subplots
+
+p_sub <- plot_grid(NULL, pathways, NULL, pathways_dn, rel_heights = c(1.5, 10, 1.5, 10), ncol = 1,  labels = c("B", "", "C", ""), label_size = 45, align = "h")
+p_sub2 <- plot_grid(de1, de2, de3, ncol = 3, align = "v", axis = "b", labels = c('D', 'E', 'F'), label_size = 45)
+p_sub_3 <- plot_grid(NULL, variant_hmap, NULL, p_sub, rel_widths = c(0.1, 6, 0.1, 4), labels = c("A", "", "", ""), label_size = 45, ncol = 4)
+
+figure_var <- plot_grid(p_sub_3, NULL, p_sub2, ncol = 1, rel_heights = c(10, 0.5, 6))
+figure_var
+
+ggsave(filename = paste0(output_dir, "/figure_TP53.pdf"), plot = figure_var)
+ggsave(filename = paste0(output_dir, "/figure_TP53.svg"), plot = figure_var)
+
+```
+
+
+

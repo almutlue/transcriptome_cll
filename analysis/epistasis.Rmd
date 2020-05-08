@@ -330,7 +330,7 @@ setWiseGSA <- function(clusternr){
           font.x = 20, font.y = 20, font.legend = 20, legend = "right", 
           title = paste0("GSEA in ", cluster[clusternr]),
           ggtheme = theme_pubr()
-          ) + font("xy.text", size = 22) + font("title", size = 20, face = "bold")
+          ) + font("xy.text", size = 15) + font("title", size = 20, face = "bold")
   
    #ggsave(file=paste0("/home/almut/Dokumente/masterarbeit/results/enrichment_epistasis/GSEA_in_", clusternr, ".pdf"), plot=p, width=16, height=7)
 #pdf(file= paste0("/home/almut/Dokumente/git/Transcriptome_CLL/paper/figures/GSEA_in_", clusternr, ".pdf"), width=40, height=35)

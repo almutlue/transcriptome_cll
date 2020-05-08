@@ -34,6 +34,10 @@ library(gridExtra)
 library(ggpubr)
 library(RColorBrewer)
 library(here)
+library(clusterProfiler)
+library(msigdbr)
+library(org.Hs.eg.db)
+library(enrichplot)
 
 ```
 
@@ -153,17 +157,14 @@ saveRDS(p1, file = paste0(output_dir, "/figures/r_objects/ighv/ighv_heatmap.rds"
 #function to create stripchart plots for specific genes
 gene_count <- function(gene_nam){
   geneEnsID <- rownames(ddsCLL)[which(rowData(ddsCLL)$symbol %in% gene_nam)]
-  geneNum <- assay(RNAnorm)[geneEnsID,]
-  mutPat <- as.data.frame(colData(ddsCLL)[, c(variant)])
-  colnames(mutPat) <- c("genotype")
-  geneDat <- cbind(mutPat, geneNum)
-  colnames(geneDat) <- c("genotype", "counts")
-  
-  p <- ggstripchart(geneDat, x = "genotype", y = "counts",
-          color = "genotype",
-          size = 3,
+  gc <- plotCounts(ddsCLL, gene = geneEnsID, intgroup = variant, returnData=TRUE)
+  p <- ggstripchart(gc, x = variant, y = "count",
+          color = variant,
+          size = 2.5,
           palette = "jco",
-          add = "mean_sd",
+          add = "boxplot",
+          add.params = list(size = 1.2),
+          yscale = "log10",
           title = paste(gene_nam),
           font.x = 20, font.y = 20, font.legend = 20, 
           ylab = "normalized counts") + font("xy.text", size = 20) + font("title", size = 20, face = "bold")
@@ -175,7 +176,7 @@ gene_count <- function(gene_nam){
 diff <- diff_all[which(abs(diff_all$stat) > 10),]
 geneList <- as.character(diff$Symbol)
 geneList <- geneList[-which(geneList %in% "")]
-geneList <- c(geneList, "CD38", "LPL", "ZAP70", "SEPT10", "ADAM29", "PEG10")
+geneList <- c(geneList, "CD38", "LPL", "ZAP70", "SEPT10", "ADAM29", "PEG10", "EGR3", "NFAT5", "BCAT1")
 
 lapply(geneList, gene_count)
 
@@ -188,18 +189,118 @@ lapply(geneList, gene_count)
 Gene sets
 ```{r gene sets}
 #load gene set collection
-gsc_Kegg <- loadGSC(paste0(data_dir, "/c2.cp.kegg.v6.0.symbols.gmt"), type="gmt")
+#Hallmark
+gsc <- loadGSC("/home/almut/Dokumente/masterarbeit/data/h.all.v6.0.symbols.gmt", type="gmt")
+#Kegg
+gsc_Kegg <- loadGSC("/home/almut/Dokumente/masterarbeit/data/c2.cp.kegg.v6.0.symbols.gmt", type="gmt")
+
+
+#get all de outputs
+load(paste0(output_dir,"/desRes_15112019.RData"))
+difftab <- function(condition){
+  dataTab <- data.frame(res_list[[condition]])
+  dataTab$ID <- rownames(dataTab)
+  #filter using pvalues
+  dataTab <- dataTab %>%
+    arrange(padj) %>%
+    mutate(Symbol = rowData(ddsCLL[ID,])$symbol)# %>%
+    #filter(abs(log2FoldChange) > 2)
+  dataTab <- dataTab[!duplicated(dataTab$Symbol),]
+  dataTab <- dataTab[!is.na(dataTab$Symbol),]
+  rownames(dataTab) <- dataTab$ID
+   dataTab
+}
+
+diff_res <- difftab(variant)
+
+#clusterProfiler
+diff_res <- diff_res[-which(diff_res$Symbol %in% c("", NA)),]
+gene_list <- diff_res$stat %>% set_names(diff_res$Symbol)
+gene_list <- sort(gene_list, decreasing = TRUE)
+gene_lfc <- diff_res$log2FoldChange %>% set_names(diff_res$Symbol)
+gene_lfc <- sort(gene_lfc, decreasing = TRUE)
+de_gene <- diff_res %>% filter(padj < 0.01) 
+de_gene <- de_gene$Symbol
+
+de_ens <- diff_res %>% filter(padj < 0.01)
+de_ens <- de_ens$ID
+#Get Gene IDs
+gene_id <- bitr(de_ens, fromType = "ENSEMBL",
+        toType = c("ENTREZID", "SYMBOL"),
+        OrgDb = org.Hs.eg.db)
+
+gene_list_id <- bitr(diff_res$ID, fromType = "ENSEMBL",
+        toType = c("ENTREZID", "SYMBOL"),
+        OrgDb = org.Hs.eg.db)
+names(gene_list_id) <- c("ID", "ENTREZID", "Symbol")
+diff_id <- left_join(gene_list_id, diff_res)
+gene_list_id <- diff_id$stat %>% set_names(diff_id$ENTREZID)
+gene_list_id <- sort(gene_list_id, decreasing = TRUE)
+
+#convert gsc
+m_t2g <- msigdbr(species = "Homo sapiens", category = "H") %>% 
+  dplyr::select(gs_name, human_gene_symbol)
+
+#Hallmark
+em2 <- GSEA(gene_list, TERM2GENE = m_t2g, pvalueCutoff = 0.1)
+em <- enricher(de_gene, TERM2GENE = m_t2g)
+
+#Kegg
+kk <- enrichKEGG(gene_id$ENTREZID,
+                 organism     = 'hsa',
+                 pvalueCutoff = 0.1)
+
+kk2 <- gseKEGG(geneList     = gene_list_id,
+               organism     = 'hsa',
+               nPerm        = 1000,
+               minGSSize    = 100,
+               pvalueCutoff = 0.1,
+               verbose      = FALSE)
+
+kk2x <- setReadable(kk2, 'org.Hs.eg.db', 'ENTREZID')
 ```
 
+Visualize ClusterProfiler results
+```{r clusterProfiler}
+barplot(kk, showCategory=5)
+barplot(em, showCategory=5)
+
+dotplot(em2, showCategory=10) + ggtitle("GSEA for IGHV")
+dotplot(em, showCategory=10) + ggtitle("Enrichment for IGHV")
+
+dotplot(kk2, showCategory=10) + ggtitle("GSEA for IGHV")
+dotplot(kk, showCategory=10) + ggtitle("Enrichment for IGHV")
+
+ridgeplot(em2)
+ridgeplot(kk2)
+
+gseaplot2(em2, geneSetID = 3, title = em2$Description[3])
+gseaplot2(kk2, geneSetID = 2, title = kk2$Description[2])
+
+```
+
+
+
+network plot
+```{r network, fig.width=10, fig.height=10}
+#Networks
+cnetplot(em2, categorySize="pvalue", foldChange=gene_lfc)
+cnetplot(kk2x, categorySize="pvalue", foldChange=gene_lfc)
+```
+
+heatplot
+```{r heatplot, fig.width=20, fig.height=5}
+heatplot(em2, foldChange=gene_lfc, showCategory = 3)
+heatplot(kk2x, foldChange=gene_lfc, showCategory = 3)
+```
+
+
+
 Run piano
-```{r piano, fig.width=9, fig.height=6}
+```{r piano, fig.height=6, fig.width=8}
 
 gmtFile <- gsc_Kegg
-
-diff_res <- diff_all
-diff_res$chromosome <- rowData(RNAnorm)[rownames(diff_res),]$chromosome
 diff_res <- diff_res[-which(diff_res$Symbol %in% c("", NA)),]
-
 
 geneNam <- diff_res$Symbol 
 pVal <- diff_res$padj
@@ -213,6 +314,10 @@ res <- runGSA(geneLevelStats = gsaTab,
                     signifMethod = "geneSampling",
                     nPerm = 50000,
                     gsSizeLim=c(1, Inf))
+
+saveRDS(res, file=paste0(output_dir,"/enrichment/", variant, "_gsea.rds"))
+res <- readRDS(paste0(output_dir,"/enrichment/", variant, "_gsea.rds"))
+  
 Res_up <- arrange(GSAsummaryTable(res), `p adj (dist.dir.up)`)            
 Res_dn <- arrange(GSAsummaryTable(res), `p adj (dist.dir.dn)`)
   
@@ -224,30 +329,135 @@ colnames(resPlot) <- c("pathway", "gene_number", "stat", "p.adj","genes_up" , "g
 colnames(resPlot_dn) <- c("pathway", "gene_number", "stat", "p.adj","genes_up" , "genes_dn")
 
 
-enrichPlot <- resPlot_dn[c(1:5),] %>% mutate(log10Padj = -log10(p.adj)) 
+enrichPlot <- resPlot_dn[c(1:6),] %>% mutate(log10Padj = -log10(p.adj)) %>% arrange(-row_number())
+enrichPlot$pathway <- gsub("KEGG_", "",  enrichPlot$pathway)
+enrichPlot$pathway <- gsub("_", " ",  enrichPlot$pathway)
+enrichPlot$pathway <- tolower(enrichPlot$pathway)
+enrichPlot$pathway <- gsub("glycosaminoglycan biosynthesis heparan sulfate", "g. biosyn. heparan sulfate",  enrichPlot$pathway)
 
 #plot
-p <- ggbarplot(enrichPlot, x = "pathway", y = "log10Padj",
-          fill = "gene_number",         
-          color = "white",            
-          palette =  "gsea",            
-          sort.val = "asc",         
+p <- ggbarplot(enrichPlot, x = "pathway", y = "gene_number",
+          fill = "p.adj",   
+          orientation = "vertical",
+          label = enrichPlot$pathway, lab.col = "white", lab.size = 4, lab.vjust = 0, lab.hjust = 1.01,
+          sort.val = "none",         
           sort.by.groups = FALSE,     
-          ylab = "-log10(padj)",
-          legend.title = "#diff.genes",
-          rotate = TRUE,
-          font.x = 12, font.y = 12, font.legend = 15, legend = "right", 
-          title = "IGHV - Kegg",
+          xlab = "Pathway",
+          ylab = "gene number",
+          legend.title = "p.adj",
+          rotate = TRUE, font.x = 20, font.y = 20, font.legend = 20, legend = "right", 
+          title = "IGHV - Kegg down",
           ggtheme = theme_pubr()) + 
-  font("xy.text", size = 14) + 
-  font("title", size = 15, face = "bold")
+  font("x.text", size = 16) + 
+  font("y.text", size = 0) +
+  font("title", size = 20, face = "bold") + 
+  gradient_color(c("blue", "white", "red"))
   
 #ggsave(file=paste0(figure_dir,"/GSEA_", variant, "_Kegg.svg"), plot=p, width=14, height=7)
   p
+  
+saveRDS(p, file = paste0(output_dir, "/figures/r_objects/ighv/ighv_enrichment_dn.rds"))
 
-saveRDS(p, file = paste0(output_dir, "/figures/r_objects/ighv/ighv_enrichment.rds"))
+
+enrichPlot <- resPlot[c(1:6),] %>% mutate(log10Padj = -log10(p.adj)) %>% arrange(-row_number())
+enrichPlot$pathway <- gsub("KEGG_", "",  enrichPlot$pathway)
+enrichPlot$pathway <- gsub("_", " ",  enrichPlot$pathway)
+enrichPlot$pathway <- tolower(enrichPlot$pathway)
+
+#plot
+p <- ggbarplot(enrichPlot, x = "pathway", y = "gene_number",
+          fill = "p.adj",   
+          orientation = "vertical",
+          label = enrichPlot$pathway, lab.col = "white", lab.size = 4, lab.vjust = 0, lab.hjust = 1.01,
+          sort.val = "none",         
+          sort.by.groups = FALSE,     
+          xlab = "Pathway",
+          ylab = "gene number",
+          legend.title = "p.adj",
+          rotate = TRUE, font.x = 20, font.y = 20, font.legend = 20, legend = "right", 
+          title = "IGHV - Kegg up",
+          ggtheme = theme_pubr()) + 
+  font("x.text", size = 16) + 
+  font("y.text", size = 0) +
+  font("title", size = 20, face = "bold") + 
+  gradient_color(c("blue", "white", "red"))
+  
+#ggsave(file=paste0(figure_dir,"/GSEA_", variant, "_Kegg.svg"), plot=p, width=14, height=7)
+  p
+  
+saveRDS(p, file = paste0(output_dir, "/figures/r_objects/ighv/ighv_enrichment_up.rds"))
+```
+
+# Expression of specific pathways 
+
+```{r pathway heatmap, fig.height= 18, fig.width= 14.22}
+
+plot_pw <- function(pw_genes, pathway_name){
+  #filter for pw genes in variant
+  exprMat <- assay(RNAnorm)
+  rownames(exprMat) <- rowData(RNAnorm)$symbol
+  pw_complete <- pw_genes[pw_genes %in% rownames(exprMat)]
+  message(paste(length(pw_complete), " genes from ", length(pw_genes), " found."))
+  exprVariant <- exprMat[pw_complete,]
+  colnames(exprVariant) <- colData(ddsCLL)$PatID
+  exprVariant.new <- log2(exprVariant)
+  exprVariant.new <- t(scale(t(exprVariant.new)))
+  exprVariant.new[exprVariant.new > 4] <- 4
+  exprVariant.new[exprVariant.new < -4] <- -4
+  
+  
+  #colors
+  colors = colorRamp2(c(-4,-1,0,1,4), c("#2166ac","#4393c3", "#f7f7f7", "#d6604d","#b2182b"))
+  annocol <- get_palette("jco", 10)
+  annocolor <- list(IGHV = c("M" = annocol[1], "U" = annocol[2]))
+  rowcolors <-colorRampPalette(brewer.pal(5, "Set1"))(5)
+  rowcolors[6] <- "white"
+
+
+  feature <- as.data.frame(colData(ddsCLL)[,c(variant)])
+  colnames(feature) <- c(variant)  
+  rownames(feature) <- colnames(RNAnorm)
+
+  ha_col <- HeatmapAnnotation(df = feature, col = annocolor, 
+                              annotation_height = unit(c(rep(1.9, 1)), "cm"), 
+                              annotation_legend_param = list(title_gp = gpar(fontsize = 17), 
+                                                             labels_gp = gpar(fontsize = 15),  
+                                                             grid_height = unit(0.7, "cm"), 
+                                                             grid_width = unit(0.3, "cm")))
+
+
+  h1 <- Heatmap(exprVariant.new, 
+              cluster_columns = T,                    
+              #col = colors,
+              column_title = pathway_name,  
+              column_title_gp = gpar(fontsize = 20, fontface = "bold"), 
+              heatmap_legend_param = list(title = "expr", 
+                                          title_gp = gpar(fontsize = 20), 
+                                          grid_height = unit(0.7, "cm"), 
+                                          grid_width = unit(0.3, "cm"), 
+                                          gap = unit(2, "cm"), 
+                                          labels_gp = gpar(fontsize = 15)), 
+              column_dend_height = unit(1, "cm"),
+              show_row_dend = FALSE, 
+              show_column_names = FALSE , 
+              row_title_gp = gpar(fontsize = 0),
+              show_row_names = TRUE, 
+              row_names_gp = gpar(fontsize = 8),
+              top_annotation = ha_col)
+
+  p1 <- draw(h1) 
+  saveRDS(p1, file = paste0(output_dir, "/figures/r_objects/ighv/ighv_", pathway_name, ".rds"))
+  p1
+}
+
+p1 <- plot_pw(pw_genes = gsc$gsc[["HALLMARK_TNFA_SIGNALING_VIA_NFKB"]], pathway_name = "HALLMARK_TNFA_SIGNALING_VIA_NFKB")
+p2 <- plot_pw(pw_genes = gsc_Kegg$gsc[["KEGG_B_CELL_RECEPTOR_SIGNALING_PATHWAY"]], pathway_name = "KEGG_B_CELL_RECEPTOR_SIGNALING_PATHWAY")
+p3 <- plot_pw(pw_genes = gsc$gsc[["HALLMARK_MTORC1_SIGNALING"]], pathway_name = "HALLMARK_MTORC1_SIGNALING")
 
 ```
+
+
+
 
 ## IG gene status
 

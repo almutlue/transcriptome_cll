@@ -252,4 +252,156 @@ saveRDS(list("IGHV" = p, "trisomy12" = p1, "Methylation" = p2, "Methylation_red_
 
 ```
 
+# Hierachical clustering: Tree
+
+```{r hier clustering, fig.width=8, fig.height=4}
+library(dendextend)
+library(corrplot)
+# Compute hierarchical clustering
+exprMat <- assay(RNAnorm)
+
+#top 5000 most variant genes
+sds <- rowSds(exprMat)
+exprMat <- exprMat[order(sds, decreasing = T)[1:500],]
+
+sampleDists <- dist(t(exprMat)) 
+sampleDistMat <- as.matrix(sampleDists)
+rownames(sampleDistMat) <- colData(RNAnorm)$PatID
+
+
+res.hc <- sampleDists %>% hclust(method = "ward.D2")
+res.hc$labels <- ""    
+
+##visualize with dendextend
+mycols <-c( "#969696", "#525252", "#969696" , "#000000")
+dend <-  as.dendrogram(res.hc) %>%
+   set("branches_lwd", 2) %>% # Branches line width
+   set("branches_k_color", mycols, k = 4)
+
+
+#colormatrix
+colMat <- matrix(nrow = ncol(RNAnorm), ncol = 3)
+colMat[,1] <- ifelse(colData(RNAnorm)$IGHV == "M", annocol[1], annocol[2])
+colMat[,2] <- ifelse(colData(RNAnorm)$trisomy12 == "1", annocol[8], annocol[4])
+colMat[,3] <- ifelse(colData(RNAnorm)$Methylation == "HP", annocol[7], ifelse(colData(RNAnorm)$Methylation == "IP", annocol[5], annocol[6]))
+colMat[which(is.na(colMat[,3])),3] <- "grey"
+
+colnames(colMat) <- c("IGHV", "trisomy12", "Methylation")
+
+
+plot(dend)
+colored_bars(colMat, dend, rowLabels = c("IGHV", "trisomy12", "Methylation"), y_scale = 60, y_shift = 10, cex.rowLabels = 1)
+
+
+## Check method's correspondence
+# Create multiple dendrograms by chaining
+dend1 <- sampleDists %>% hclust("complete") %>% as.dendrogram
+dend2 <- sampleDists %>% hclust("ward.D2") %>% as.dendrogram
+dend3 <- sampleDists %>% hclust("average") %>% as.dendrogram
+dend4 <- sampleDists %>% hclust("centroid") %>% as.dendrogram
+# Compute correlation matrix
+dend_list <- dendlist("Complete" = dend1, "Ward.D2" = dend2,
+                      "Average" = dend3, "Centroid" = dend4)
+cors <- cor.dendlist(dend_list)
+# Print correlation matrix
+round(cors, 2)
+
+corrplot(cors, "pie", "lower")
+```
+
+# C1C2 group signature
+```{r c1c2 signature}
+#get 1000 most variable genes
+exprMat <- assay(RNAnorm)
+sds <- rowSds(exprMat)
+var500 <- rownames(exprMat[order(sds, decreasing = T)[1:500],])
+var1000 <- rownames(exprMat[order(sds, decreasing = T)[1:1000],])
+var5000 <- rownames(exprMat[order(sds, decreasing = T)[1:5000],])
+var10000 <- rownames(exprMat[order(sds, decreasing = T)[1:10000],])
+
+#Diff expressed gene list from Feirrera
+c1c2_genes <- read.csv(paste0(data_dir, "/c1c2/Supplemental_File2_diffExpGenesC1C2_FC2.csv"), sep = ",",row.names = 1,header = TRUE)
+exprMat_c <- assay(RNAnorm)
+exprMat_c <- exprMat_c[which(rownames(RNAnorm) %in% rownames(c1c2_genes)),]
+dim(exprMat_c)
+
+#overlap var1000 and c1c2 genes
+overlap_c1c2 <- list("top500" = var500,
+                      "top1000" = var1000,
+                      "top5000" = var5000,
+                      "top10000" = var10000,
+                      "all" = rownames(RNAnorm),
+                      "c1c2" = rownames(c1c2_genes))
+
+upset_mat <- list_to_matrix(overlap_c1c2 )
+m = make_comb_mat(overlap_c1c2 )
+comb_size(m)
+set_name(m)
+UpSet(m)
+
+
+
+```
+
+```{r c1c2 expr, fig.height= 15, fig.width= 14.22}
+#Plot expr mat
+colnames(exprMat) <- colData(ddsCLL)$PatID
+exprMat.new <- log2(exprMat_c)
+exprMat.new <- t(scale(t(exprMat.new)))
+exprMat.new[exprMat.new > 4] <- 4
+exprMat.new[exprMat.new < -4] <- -4
+
+# Annotations
+#Top annotations
+ha_top = HeatmapAnnotation(df = data.frame(colData(RNAnorm)[, c("IGHV", "trisomy12", "Methylation")]), 
+                           col = annocolor, annotation_width = unit(c(rep(4, 3)), "cm"), 
+                           show_legend = FALSE, 
+                           simple_anno_size = unit(0.9, "cm"),
+                           annotation_name_gp = gpar(fontsize = 20),
+                           annotation_legend_param = list(title_gp = gpar(fontsize = 70), 
+                                                          labels_gp = gpar(fontsize = 55),  
+                                                          grid_height = unit(3, "cm"), 
+                                                          grid_width = unit(1.5, "cm"), 
+                                                          gap = unit(2, "cm")))
+
+# Annotration legend
+anno_legend_list = lapply(ha_top@anno_list[c("IGHV", "trisomy12", "Methylation")], function(anno){
+  color_mapping_legend(anno@color_mapping, plot = FALSE,
+                       title_gp = gpar(fontsize = 20, fontface = "bold"),
+                       grid_height = unit(0.7, "cm"),
+                       grid_width = unit(0.3, "cm"),
+                       labels_gp = gpar(fontsize = 15))
+  })
+
+h1 <- Heatmap(exprMat.new ,                                                     
+              km = 2,
+              gap = unit(0.5, "cm"),
+              clustering_distance_columns = "euclidean",
+              clustering_method_columns = "ward.D2",
+              clustering_distance_rows = "pearson",
+              clustering_method_rows = "ward.D2",                    
+              col = colors,
+              column_title_gp = gpar(fontsize = 60, fontface = "bold"), 
+              column_dend_height = unit(2.5, "cm"),
+              show_row_dend = FALSE, 
+              show_column_names = FALSE , 
+              show_row_names = FALSE, 
+              row_names_gp = gpar(fontsize = 45),
+              show_heatmap_legend = FALSE,
+              top_annotation = ha_top)
+
+heatmap_legend = color_mapping_legend(h1@matrix_color_mapping, plot = FALSE, 
+                                      title = "Expr", title_gp = gpar(fontsize = 20, fontface = "bold"),
+                                      grid_height = unit(0.7, "cm"),
+                                      grid_width = unit(0.3, "cm"),
+                                      labels_gp = gpar(fontsize = 15))
+
+
+# arrange annotations 
+pd = packLegend(anno_legend_list[[1]], anno_legend_list[[2]], anno_legend_list[[3]], heatmap_legend, max_height = unit(20, "cm"), 
+    column_gap = unit(0.5, "cm"))
+
+draw(h1, heatmap_legend_list = pd)
+
+```
 

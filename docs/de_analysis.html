@@ -427,7 +427,7 @@ div.section {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -436,7 +436,7 @@ div.section {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -445,10 +445,10 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-11-17
+<strong>Last updated:</strong> 2020-05-02
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>transcriptome_cll/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -464,12 +464,12 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
@@ -536,10 +536,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree935865196c2b55c1e3125a5c2f602aeb6e2a1bb4targetblank9358651a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/almutlue/transcriptome_cll/tree/935865196c2b55c1e3125a5c2f602aeb6e2a1bb4" target="_blank">9358651</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltreeddc94b1a8c1df62f33f5cb3068a3d9c07449cb50targetblankddc94b1a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/almutlue/transcriptome_cll/tree/ddc94b1a8c1df62f33f5cb3068a3d9c07449cb50" target="_blank">ddc94b1</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree935865196c2b55c1e3125a5c2f602aeb6e2a1bb4targetblank9358651a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltreeddc94b1a8c1df62f33f5cb3068a3d9c07449cb50targetblankddc94b1a" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -548,22 +548,68 @@ Great! You are using Git for version control. Tracking code development and conn
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+    Ignored:    analysis/figure/
 
 Untracked files:
+    Untracked:  analysis/mapping_adapter.Rmd
+    Untracked:  analysis/methylation_IP_vs_HPLP.Rmd
     Untracked:  data/2018-03-05_IGHV.RData
+    Untracked:  data/c1c2/
+    Untracked:  data/mapping/
     Untracked:  data/patmeta_170324.RData
     Untracked:  output/IGHV1_69.svg
+    Untracked:  output/cluster1000exprgenes.pdf
+    Untracked:  output/cluster500exprgenes.pdf
     Untracked:  output/desRes_15112019.RData
+    Untracked:  output/diff_genes/ACTN2_diffGenes.csv
+    Untracked:  output/diff_genes/Chromothripsis_diffGenes.csv
+    Untracked:  output/diff_genes/EGR2_diffGenes.csv
+    Untracked:  output/diff_genes/KLHL6_diffGenes.csv
+    Untracked:  output/diff_genes/KRAS_diffGenes.csv
+    Untracked:  output/diff_genes/MGA_diffGenes.csv
+    Untracked:  output/diff_genes/NFKBIE_diffGenes.csv
+    Untracked:  output/diff_genes/PCLO_diffGenes.csv
+    Untracked:  output/diff_genes/XPO1_diffGenes.csv
+    Untracked:  output/diff_genes/del15q15.1_diffGenes.csv
+    Untracked:  output/diff_genes/gain14q32_diffGenes.csv
+    Untracked:  output/diff_genes/gain2p25.3_diffGenes.csv
+    Untracked:  output/diff_genes/meth_IP_vs_HP_diffGenes.csv
+    Untracked:  output/diff_genes/meth_IP_vs_LP_diffGenes.csv
+    Untracked:  output/diff_meth_IP_vs_HP_LP.rds
+    Untracked:  output/enrichment/
+    Untracked:  output/figure_IP_group.pdf
+    Untracked:  output/figure_IP_group.svg
     Untracked:  output/figures/hist_mutations.svg
     Untracked:  output/figures/overview_mutations.pdf
+    Untracked:  output/figures/paper_fig/
+    Untracked:  output/figures/pca_readlengthOld.pdf
+    Untracked:  output/figures/r_objects/
     Untracked:  output/figures/sum_diffGenes_0.05_2.pdf
     Untracked:  output/figures/sum_diffGenes_noTsig.pdf
     Untracked:  output/figures/sum_diffGenes_noTsig_IGHVTri12.pdf
 
 Unstaged changes:
-    Modified:   analysis/index.Rmd
+    Modified:   analysis/ATM.Rmd
+    Modified:   analysis/BRAF.Rmd
+    Modified:   analysis/Del13q14.Rmd
+    Modified:   analysis/Del17p13.Rmd
+    Modified:   analysis/Del8p12.Rmd
+    Modified:   analysis/Gain8q24.Rmd
+    Modified:   analysis/IGHV.Rmd
+    Modified:   analysis/Med12.Rmd
+    Modified:   analysis/Notch1.Rmd
+    Modified:   analysis/SF3B1.Rmd
+    Modified:   analysis/TP53.Rmd
+    Modified:   analysis/de_analysis.Rmd
+    Modified:   analysis/del11q22.Rmd
+    Modified:   analysis/epistasis.Rmd
+    Modified:   analysis/general_eda.Rmd
+    Modified:   analysis/methylation_IP_vs_all.Rmd
+    Modified:   analysis/summary_variants.Rmd
+    Modified:   analysis/trisomy12.Rmd
     Modified:   output/diff_genes/ATM_diffGenes.csv
     Modified:   output/diff_genes/BRAF_diffGenes.csv
+    Modified:   output/diff_genes/IGHV_diffGenes.csv
     Modified:   output/diff_genes/MED12_diffGenes.csv
     Modified:   output/diff_genes/NOTCH1_diffGenes.csv
     Modified:   output/diff_genes/SF3B1_diffGenes.csv
@@ -574,6 +620,7 @@ Unstaged changes:
     Modified:   output/diff_genes/del8p12_diffGenes.csv
     Modified:   output/diff_genes/gain8q24_diffGenes.csv
     Modified:   output/diff_genes/trisomy12_diffGenes.csv
+    Modified:   output/figures/pca_Meth_top150.svg
 
 </code></pre>
 <p>
@@ -612,6 +659,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/almutlue/transcriptome_cll/a253c3ca68616f1b10b9f53f2ffd42e2404cd5c9/docs/de_analysis.html" target="_blank">a253c3c</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-17
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -681,7 +745,8 @@ library(tidyverse)
 library(gridExtra)
 library(ComplexHeatmap)
 library(matrixStats)
-library(here)</code></pre>
+library(here)
+library(reshape2)</code></pre>
 <p>load data</p>
 <pre class="r"><code>data_dir &lt;- here(&quot;data&quot;)
 output_dir &lt;- here(&quot;output&quot;)
@@ -691,12 +756,30 @@ figure_dir &lt;- here(&quot;output/figures&quot;)
 load(paste0(data_dir, &quot;/ddsrnaCLL_150218.RData&quot;))
 
 #load meta data including genotyping info
-load(paste0(data_dir, &quot;/patmeta_170324.RData&quot;))</code></pre>
+load(paste0(data_dir, &quot;/patmeta_170324.RData&quot;))
+excluded_columns &lt;- c(&quot;HIPO.ID&quot;,&quot;PID&quot;, &quot;gender&quot;,&quot;project&quot;, &quot;diagnosis&quot;, &quot;date.of.diagnosis&quot;, &quot;treatment&quot;, &quot;date.of.first.treatment&quot;, &quot;IGHV.status&quot;,&quot;Methylation_Cluster&quot;)
+
+patMeta &lt;- as.tibble(patMeta) %&gt;% filter(Patient.ID %in% ddsCLL$PatID) %&gt;% dplyr::select(-one_of(excluded_columns))</code></pre>
+<pre><code>Warning: `as.tibble()` is deprecated, use `as_tibble()` (but mind the new semantics).
+This warning is displayed once per session.</code></pre>
+<pre class="r"><code>variants &lt;- patMeta %&gt;% dplyr::select(-Patient.ID) %&gt;% 
+  mutate_if(is.factor, as.character) %&gt;% 
+  mutate_if(is.character, as.numeric) %&gt;% 
+  dplyr::select(colnames(.)[colSums(.,na.rm = TRUE) &gt; 4]) %&gt;% 
+  colnames()
+
+var_add &lt;- variants[!variants %in% names(colData(ddsCLL))] 
+rownames(patMeta) &lt;-  patMeta$Patient.ID</code></pre>
+<pre><code>Warning: Setting row names on a tibble is deprecated.</code></pre>
+<pre class="r"><code>patMeta &lt;- patMeta[colData(ddsCLL)$PatID,]
+cd &lt;- cbind(colData(ddsCLL), patMeta[,var_add])
+colData(ddsCLL) &lt;- cd</code></pre>
 <pre class="r"><code>###Deseq
 ddsCLL &lt;- estimateSizeFactors(ddsCLL)
 
 #write a function to perform deseq for different genetic conditions 
 diff &lt;- function(cond){
+  gc()
   ddsCLL_new &lt;- ddsCLL[,!is.na(colData(ddsCLL)[,cond])]
   ddsCLL_new &lt;- ddsCLL_new[,!is.na(colData(ddsCLL_new)[,&quot;IGHV&quot;])]
   #ddsCLL_new &lt;- ddsCLL_new[,!is.na(colData(ddsCLL_new)[,&quot;trisomy12&quot;])]
@@ -707,10 +790,10 @@ diff &lt;- function(cond){
   resOrdered &lt;- res[order(res$pvalue),]
 }
 
-gene_conditions &lt;- c(&quot;del13q14&quot;, &quot;del8p12&quot;, &quot;gain8q24&quot;, &quot;del11q22.3&quot;, &quot;del17p13&quot;, &quot;BRAF&quot;, &quot;NOTCH1&quot;, &quot;SF3B1&quot;, &quot;TP53&quot;, &quot;ATM&quot;, &quot;MED12&quot;, &quot;trisomy12&quot;)
+#gene_conditions &lt;- c(&quot;del13q14&quot;, &quot;del8p12&quot;, &quot;gain8q24&quot;, &quot;del11q22.3&quot;, &quot;del17p13&quot;, &quot;BRAF&quot;, &quot;NOTCH1&quot;, &quot;SF3B1&quot;, &quot;TP53&quot;, &quot;ATM&quot;, &quot;MED12&quot;, &quot;trisomy12&quot;)
 
-#res_list &lt;- lapply(gene_conditions, diff)
-#names(res_list) &lt;- gene_conditions
+#res_list &lt;- lapply(variants, diff)
+#names(res_list) &lt;- variants
 
 diff_notri12 &lt;- function(cond){
   ddsCLL_new &lt;- ddsCLL[,!is.na(colData(ddsCLL)[,cond])]
@@ -745,7 +828,7 @@ difftab &lt;- function(condition){
   dataTab
 }
 
-cond &lt;- gene_conditions
+cond &lt;- c(variants, &quot;IGHV&quot;)
 
 #Only run when you want to write result tables! Change path according to test! 
 sigRes &lt;- lapply(cond, difftab)
@@ -1215,6 +1298,7 @@ aluetge
 </table>
 </div>
 </div>
+<p><img src="figure/de_analysis.Rmd/ma-plots-13.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/ma-plots-14.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/ma-plots-15.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/ma-plots-16.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/ma-plots-17.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/ma-plots-18.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/ma-plots-19.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/ma-plots-20.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/ma-plots-21.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/ma-plots-22.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/ma-plots-23.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/ma-plots-24.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/ma-plots-25.png" width="672" style="display: block; margin: auto;" /></p>
 <pre><code>[[1]]
 NULL
 
@@ -1249,6 +1333,45 @@ NULL
 NULL
 
 [[12]]
+NULL
+
+[[13]]
+NULL
+
+[[14]]
+NULL
+
+[[15]]
+NULL
+
+[[16]]
+NULL
+
+[[17]]
+NULL
+
+[[18]]
+NULL
+
+[[19]]
+NULL
+
+[[20]]
+NULL
+
+[[21]]
+NULL
+
+[[22]]
+NULL
+
+[[23]]
+NULL
+
+[[24]]
+NULL
+
+[[25]]
 NULL</code></pre>
 </div>
 <div id="histogramm-of-pvalues" class="section level3">
@@ -1716,6 +1839,7 @@ aluetge
 </table>
 </div>
 </div>
+<p><img src="figure/de_analysis.Rmd/hist-13.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/hist-14.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/hist-15.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/hist-16.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/hist-17.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/hist-18.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/hist-19.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/hist-20.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/hist-21.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/hist-22.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/hist-23.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/hist-24.png" width="672" style="display: block; margin: auto;" /><img src="figure/de_analysis.Rmd/hist-25.png" width="672" style="display: block; margin: auto;" /></p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1745,18 +1869,19 @@ attached base packages:
  [8] datasets  methods   base     
 
 other attached packages:
- [1] here_0.1                    ComplexHeatmap_2.0.0       
- [3] gridExtra_2.3               forcats_0.4.0              
- [5] stringr_1.4.0               purrr_0.3.2                
- [7] readr_1.3.1                 tidyr_0.8.3                
- [9] tibble_2.1.3                ggplot2_3.1.1              
-[11] tidyverse_1.2.1             magrittr_1.5               
-[13] dplyr_0.8.1                 DESeq2_1.24.0              
-[15] SummarizedExperiment_1.14.0 DelayedArray_0.10.0        
-[17] BiocParallel_1.18.0         matrixStats_0.54.0         
-[19] Biobase_2.44.0              GenomicRanges_1.36.0       
-[21] GenomeInfoDb_1.20.0         IRanges_2.18.1             
-[23] S4Vectors_0.22.0            BiocGenerics_0.30.0        
+ [1] reshape2_1.4.3              here_0.1                   
+ [3] ComplexHeatmap_2.0.0        gridExtra_2.3              
+ [5] forcats_0.4.0               stringr_1.4.0              
+ [7] purrr_0.3.2                 readr_1.3.1                
+ [9] tidyr_0.8.3                 tibble_2.1.3               
+[11] ggplot2_3.1.1               tidyverse_1.2.1            
+[13] magrittr_1.5                dplyr_0.8.1                
+[15] DESeq2_1.24.0               SummarizedExperiment_1.14.0
+[17] DelayedArray_0.10.0         BiocParallel_1.18.0        
+[19] matrixStats_0.54.0          Biobase_2.44.0             
+[21] GenomicRanges_1.36.0        GenomeInfoDb_1.20.0        
+[23] IRanges_2.18.1              S4Vectors_0.22.0           
+[25] BiocGenerics_0.30.0        
 
 loaded via a namespace (and not attached):
  [1] nlme_3.1-140           bitops_1.0-6           fs_1.3.1              

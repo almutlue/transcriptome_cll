@@ -23,6 +23,7 @@ library(gridExtra)
 library(ComplexHeatmap)
 library(matrixStats)
 library(here)
+library(reshape2)
 ```
 
 
@@ -37,7 +38,21 @@ load(paste0(data_dir, "/ddsrnaCLL_150218.RData"))
 
 #load meta data including genotyping info
 load(paste0(data_dir, "/patmeta_170324.RData"))
+excluded_columns <- c("HIPO.ID","PID", "gender","project", "diagnosis", "date.of.diagnosis", "treatment", "date.of.first.treatment", "IGHV.status","Methylation_Cluster")
 
+patMeta <- as.tibble(patMeta) %>% filter(Patient.ID %in% ddsCLL$PatID) %>% dplyr::select(-one_of(excluded_columns))
+
+variants <- patMeta %>% dplyr::select(-Patient.ID) %>% 
+  mutate_if(is.factor, as.character) %>% 
+  mutate_if(is.character, as.numeric) %>% 
+  dplyr::select(colnames(.)[colSums(.,na.rm = TRUE) > 4]) %>% 
+  colnames()
+
+var_add <- variants[!variants %in% names(colData(ddsCLL))] 
+rownames(patMeta) <-  patMeta$Patient.ID
+patMeta <- patMeta[colData(ddsCLL)$PatID,]
+cd <- cbind(colData(ddsCLL), patMeta[,var_add])
+colData(ddsCLL) <- cd
 
 ```
 
@@ -48,6 +63,7 @@ ddsCLL <- estimateSizeFactors(ddsCLL)
 
 #write a function to perform deseq for different genetic conditions 
 diff <- function(cond){
+  gc()
   ddsCLL_new <- ddsCLL[,!is.na(colData(ddsCLL)[,cond])]
   ddsCLL_new <- ddsCLL_new[,!is.na(colData(ddsCLL_new)[,"IGHV"])]
   #ddsCLL_new <- ddsCLL_new[,!is.na(colData(ddsCLL_new)[,"trisomy12"])]
@@ -58,10 +74,10 @@ diff <- function(cond){
   resOrdered <- res[order(res$pvalue),]
 }
 
-gene_conditions <- c("del13q14", "del8p12", "gain8q24", "del11q22.3", "del17p13", "BRAF", "NOTCH1", "SF3B1", "TP53", "ATM", "MED12", "trisomy12")
+#gene_conditions <- c("del13q14", "del8p12", "gain8q24", "del11q22.3", "del17p13", "BRAF", "NOTCH1", "SF3B1", "TP53", "ATM", "MED12", "trisomy12")
 
-#res_list <- lapply(gene_conditions, diff)
-#names(res_list) <- gene_conditions
+#res_list <- lapply(variants, diff)
+#names(res_list) <- variants
 
 diff_notri12 <- function(cond){
   ddsCLL_new <- ddsCLL[,!is.na(colData(ddsCLL)[,cond])]
@@ -100,7 +116,7 @@ difftab <- function(condition){
   dataTab
 }
 
-cond <- gene_conditions
+cond <- c(variants, "IGHV")
 
 #Only run when you want to write result tables! Change path according to test! 
 sigRes <- lapply(cond, difftab)

@@ -1,0 +1,180 @@
+---
+title: "Generate figures"
+author: "almut"
+date: "18 November 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Generate Figures - Figure1
+
+```{r}
+suppressPackageStartupMessages({
+  library(DESeq2)
+  library(dplyr)
+  library(ggplot2)
+  library(tidyverse)
+  library(ComplexHeatmap)
+  library(ggpubr)
+  library(RColorBrewer)
+  library(circlize)
+  library(here)
+  library(cowplot)
+})
+```
+ 
+ 
+data objects 
+```{r objects}
+output_dir <- here("output/figures/paper_fig")
+fig_dir <- here("output/figures/r_objects")
+
+general_hmap <-  readRDS(paste0(fig_dir,"/heatmap_top500genes.rds"))
+general_hmap <- grid.grabExpr(draw(general_hmap))
+de_gene_sub <- readRDS(paste0(fig_dir,"/summary_de_genes_IGHV_tri12.rds"))
+de_gene_all <- readRDS(paste0(fig_dir,"/summary_de_genes_all.rds"))
+
+pca_IGHV <- readRDS(paste0(fig_dir,"/pca_top500genes.rds"))[["IGHV"]]
+pca_tri12 <- readRDS(paste0(fig_dir,"/pca_top500genes.rds"))[["trisomy12"]]
+pca_meth <- readRDS(paste0(fig_dir,"/pca_top500genes.rds"))[["Methylation"]]
+
+
+
+```
+### Arrange plots in to figure
+
+```{r arrange plots, fig.width=18, fig.height= 20}
+#Align subplots
+p_sub <- plot_grid(NULL, de_gene_sub, de_gene_all, ncol = 1, rel_heights = c(2, 4, 11), align = "v")
+p_sub <- plot_grid(p_sub, NULL, rel_widths = c(10, 2))
+p_sub2 <- plot_grid(pca_IGHV, pca_meth, ncol = 2, align = "v", axis = "b", labels = c('C', 'D'), label_size = 45)
+p_sub_3 <- plot_grid(general_hmap, p_sub, rel_widths = c(4, 3), labels = c('A', 'B'), label_size = 45)
+
+figure1 <- plot_grid(p_sub_3, p_sub2, ncol = 1, rel_heights = c(2,2))
+figure1
+ggsave(filename = paste0(output_dir, "/figure1.pdf"), plot = figure1)
+ggsave(filename = paste0(output_dir, "/figure1.svg"), plot = figure1)
+
+```
+
+### figure2
+```{r fig2 objects}
+
+ighv_hmap <-  readRDS(paste0(fig_dir,"/ighv/ighv_heatmap.rds"))
+ighv_hmap <- grid.grabExpr(draw(ighv_hmap))
+pathways <- readRDS(paste0(fig_dir,"/ighv/ighv_enrichment.rds"))
+ighv_ig <- readRDS(paste0(fig_dir,"/ighv/ighv_gene_status.rds"))
+
+de1 <- readRDS(paste0(fig_dir,"/ighv/de_genes/BCAT1.rds"))
+de2 <- readRDS(paste0(fig_dir,"/ighv/de_genes/EGR3.rds"))
+de3 <- readRDS(paste0(fig_dir,"/ighv/de_genes/ZAP70.rds"))
+
+
+```
+
+
+```{r fig2 plot, fig.width=20, fig.height= 24}
+#Align subplots
+p_sub <- plot_grid(NULL, ighv_ig, NULL, pathways, ncol = 1, rel_heights = c(1,10,1, 8), labels = c('B','', 'C',''), label_size = 45)
+#p_sub <- plot_grid(p_sub, NULL, rel_widths = c(10, 2))
+p_sub2 <- plot_grid(de1, de2, de3, ncol = 3, align = "v", axis = "b", labels = c('D', 'E', 'F'), label_size = 45)
+p_sub_3 <- plot_grid(ighv_hmap, p_sub, rel_widths = c(5, 4), labels = c("A", ""), label_size = 45)
+
+figure2 <- plot_grid(p_sub_3, NULL, p_sub2, ncol = 1, rel_heights = c(11, 0.5, 6))
+figure2
+ggsave(filename = paste0(output_dir, "/figure_IGHV.pdf"), plot = figure2)
+ggsave(filename = paste0(output_dir, "/figure_IGHV.svg"), plot = figure2)
+
+
+```
+
+
+### figure 3
+```{r fig3 objects}
+
+tri12_hmap <-  readRDS(paste0(fig_dir,"/trisomy12/tri12_heatmap.rds"))
+tri12_hmap <- grid.grabExpr(draw(tri12_hmap))
+pathways <- readRDS(paste0(fig_dir,"/trisomy12/tri12_enrichment_up.rds"))
+dosage <- readRDS(paste0(fig_dir,"/trisomy12/tri12_dosage.rds"))
+
+de1 <- readRDS(paste0(fig_dir,"/trisomy12/de_genes/SOCS3.rds"))
+de2 <- readRDS(paste0(fig_dir,"/trisomy12/de_genes/DIRAS1.rds"))
+de3 <- readRDS(paste0(fig_dir,"/trisomy12/de_genes/CHFR.rds"))
+
+
+```
+
+
+```{r fig3 plot, fig.width=20, fig.height= 22}
+#Align subplots
+p_sub <- plot_grid(NULL, dosage, NULL, pathways, ncol = 1, rel_heights = c(1,10,1, 8), labels = c('B','', 'C',''), label_size = 45)
+#p_sub <- plot_grid(p_sub, NULL, rel_widths = c(10, 2))
+p_sub2 <- plot_grid(de1, de2, de3, ncol = 3, align = "v", axis = "b", labels = c('D', 'E', 'F'), label_size = 45)
+p_sub_3 <- plot_grid(tri12_hmap, p_sub, rel_widths = c(5, 4), labels = c("A", ""), label_size = 45, ncol = 2)
+
+figure3 <- plot_grid(p_sub_3, NULL, p_sub2, ncol = 1, rel_heights = c(10, 1, 6))
+figure3
+ggsave(filename = paste0(output_dir, "/figure_tri12.pdf"), plot = figure3)
+ggsave(filename = paste0(output_dir, "/figure_tri12.svg"), plot = figure3)
+```
+ 
+ 
+ ### figure 4
+```{r fig4 objects}
+
+epi_hmap <-  readRDS(paste0(fig_dir,"/epistasis/epistasis_heatmap.rds"))
+epi_hmap <- grid.grabExpr(draw(epi_hmap))
+types <- readRDS(paste0(fig_dir,"/epistasis/epistasis_scheme.rds"))
+types <- grid.grabExpr(draw(types))
+
+de1 <- readRDS(paste0(fig_dir,"/epistasis/de_genes/TIMELESS.rds"))
+de2 <- readRDS(paste0(fig_dir,"/epistasis/de_genes/EPHB6.rds"))
+de3 <- readRDS(paste0(fig_dir,"/epistasis/de_genes/BCL2A1.rds"))
+
+
+```
+
+
+```{r fig4 plot, fig.width=20, fig.height= 22}
+#Align subplots
+p_sub2 <- plot_grid(de1, de2, de3, ncol = 1, align = "v", axis = "b", labels = c('C', 'D', 'E'), label_size = 45)
+p_sub3 <- plot_grid(p_sub2, NULL, ncol = 2, rel_widths = c(10, 3))
+p_sub <- plot_grid(NULL, types, NULL, p_sub3, ncol = 1, rel_heights = c(0.5, 6, 0.5, 12), labels = c('B','', '',''), label_size = 45)
+
+
+figure4 <- plot_grid(epi_hmap, NULL, p_sub, ncol = 3, rel_widths = c(12, 0.1, 8), labels = c("A", "", ""), label_size = 45)
+figure4
+ggsave(filename = paste0(output_dir, "/figure_epi.pdf"), plot = figure4)
+ggsave(filename = paste0(output_dir, "/figure_epi.svg"), plot = figure4)
+```
+ 
+ 
+### figure 5
+supplement figure adapter trimming
+```{r fig5 objects}
+
+adatper_cont <-  readRDS(paste0(fig_dir,"/adapter/batch_n_adapter.rds"))
+pca_old <- readRDS(paste0(fig_dir,"/adapter/pca_before_trimming.rds"))
+pca_new <- readRDS(paste0(fig_dir,"/adapter/pca_after_trimming.rds"))
+
+
+```
+
+
+```{r fig5 plot, fig.width=20, fig.height= 17}
+#Align subplots
+p_sub <- plot_grid(NULL, adatper_cont, NULL, align = "h", rel_widths = c(1,3,1), ncol = 3)
+p_sub2 <- plot_grid(NULL, p_sub, NULL, pca_old, NULL, pca_new, ncol = 1, align = "v", 
+                    axis = "b", labels = c('', 'A', '', 'B', '', 'C'), 
+                    rel_heights = c(0.05, 1, 0.1, 1, 0.1, 1), label_size = 45)
+figure5 <- plot_grid(NULL, p_sub2, NULL, ncol = 3, rel_widths = c(0.5, 10, 0.5))
+figure5
+
+ggsave(filename = paste0(output_dir, "/figure_adapter.pdf"), plot = figure5)
+ggsave(filename = paste0(output_dir, "/figure_adapter.svg"), plot = figure5)
+```
+ 
+ 
