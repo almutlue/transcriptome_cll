@@ -66,18 +66,18 @@ diff <- function(cond){
   gc()
   ddsCLL_new <- ddsCLL[,!is.na(colData(ddsCLL)[,cond])]
   ddsCLL_new <- ddsCLL_new[,!is.na(colData(ddsCLL_new)[,"IGHV"])]
-  #ddsCLL_new <- ddsCLL_new[,!is.na(colData(ddsCLL_new)[,"trisomy12"])]
+  ddsCLL_new <- ddsCLL_new[,!is.na(colData(ddsCLL_new)[,"trisomy12"])]
   colData(ddsCLL_new)[,"IGHV"] <-droplevels(colData(ddsCLL_new)[,"IGHV"])
-  design(ddsCLL_new) <- as.formula(paste("~ IGHV + ", paste(cond)))
+  design(ddsCLL_new) <- as.formula(paste("~ IGHV + trisomy12 + ", paste(cond)))
   rnaRaw <- DESeq(ddsCLL_new, betaPrior = FALSE)
   res <- results(rnaRaw)
   resOrdered <- res[order(res$pvalue),]
 }
 
 #gene_conditions <- c("del13q14", "del8p12", "gain8q24", "del11q22.3", "del17p13", "BRAF", "NOTCH1", "SF3B1", "TP53", "ATM", "MED12", "trisomy12")
-
-#res_list <- lapply(variants, diff)
-#names(res_list) <- variants
+variants_not12 <- variants[!variants %in% "trisomy12"]
+#res_list <- lapply(variants_not12, diff)
+#names(res_list) <- variants_not12
 
 diff_notri12 <- function(cond){
   ddsCLL_new <- ddsCLL[,!is.na(colData(ddsCLL)[,cond])]
@@ -90,16 +90,26 @@ diff_notri12 <- function(cond){
 
 #res_list[["IGHV"]] <- diff_notri12("IGHV")
 
+diff_noighv <- function(cond){
+  ddsCLL_new <- ddsCLL[,!is.na(colData(ddsCLL)[,cond])]
+  ddsCLL_new <- ddsCLL_new[,!is.na(colData(ddsCLL_new)[,"IGHV"])]
+  design(ddsCLL_new) <- as.formula(paste("~ IGHV + ", paste(cond)))
+  rnaRaw <- DESeq(ddsCLL_new, betaPrior = FALSE)
+  res <- results(rnaRaw)
+  resOrdered <- res[order(res$pvalue),]
+}
 
-#save(res_list, file=paste0(output_dir,"/desRes_15112019.RData"))
+#res_list[["trisomy12"]] <- diff_noighv("trisomy12")
 
-load(paste0(output_dir,"/desRes_15112019.RData"))
+#save(res_list, file=paste0(output_dir,"/desRes_250720.RData"))
+
+load(paste0(output_dir,"/desRes_250720.RData"))
 ```
 
 Diff genes
 ```{r create csv of diff genes}
 
-pCut <- 0.01
+pCut <- 0.1
 
 difftab <- function(condition){
   dataTab <- data.frame(res_list[[condition]])

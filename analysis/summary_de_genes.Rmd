@@ -40,7 +40,7 @@ excluded_columns <- c("HIPO.ID","PID", "gender","project", "diagnosis", "date.of
 
 patMeta <- as.tibble(patMeta) %>% filter(Patient.ID %in% ddsCLL$PatID) %>% dplyr::select(-one_of(excluded_columns))
 
-variants <- patMeta %>% dplyr::select(-Patient.ID) %>% 
+variants <- patMeta %>% dplyr::select(-Patient.ID) %>% dplyr::select(-Chromothripsis) %>% 
   mutate_if(is.factor, as.character) %>% 
   mutate_if(is.character, as.numeric) %>% 
   dplyr::select(colnames(.)[colSums(.,na.rm = TRUE) > 4]) %>% 
@@ -81,13 +81,14 @@ variant_stats <- function(variant, chr){
   }
 
 # Variant chromosomal location
-chromo <- c( "2", "8", "8", "11", "12", "13", "15", "17", NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA)
+chromo <- c( "2", "8", "8", "11", "12", "13", "15", "17", NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA)
 input <- cbind(variants, chromo)
+input
 
 summary <- mapply(variant_stats, variants, chromo)
 sum_dat <- data.frame(matrix(unlist(summary), nrow=length(variants), byrow=T),stringsAsFactors=FALSE)
 colnames(sum_dat) <- c("variant", "n_genes", "up_genes", "dn_genes", "nr_up", "nr_dn", "nr_chrom", "nr_other")
-sum_dat <- sum_dat %>% filter(as.numeric(n_genes) > 100)
+sum_dat <- sum_dat %>% filter(as.numeric(n_genes) >= 100)
 sum_order <- as.tibble(sum_dat) %>% arrange(desc(-1*as.numeric(n_genes))) %>% dplyr::select(variant)
 
 #sum_dat_long <- melt(sum_dat[,c("variant","up_genes", "dn_genes")], id.vars = c("variant")) #, variable_name = c("up_genes", "dn_genes"))

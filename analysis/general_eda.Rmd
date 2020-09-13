@@ -133,8 +133,7 @@ h1 <- Heatmap(exprMat.new ,
               show_row_names = FALSE, 
               row_names_gp = gpar(fontsize = 45),
               show_heatmap_legend = FALSE,
-              top_annotation = ha_top, 
-              right_annotation = ha_genes)
+              top_annotation = ha_top)
 
 heatmap_legend = color_mapping_legend(h1@matrix_color_mapping, plot = FALSE, 
                                       title = "Expr", title_gp = gpar(fontsize = 20, fontface = "bold"),
@@ -148,7 +147,7 @@ pd = packLegend(anno_legend_list[[1]], anno_legend_list[[2]], anno_legend_list[[
     column_gap = unit(0.5, "cm"))
 
 pdf(file=paste0(output_dir, "/cluster500exprgenes.pdf"), width=20, height=20)
-draw(h1 + ha_genes, heatmap_legend_list = pd)
+draw(h1, heatmap_legend_list = pd)
 dev.off()
 
 p1 <- draw(h1, heatmap_legend_list = pd)
@@ -182,7 +181,7 @@ pcaTab <- cbind(pcaTab, data.frame(colData(RNAnorm)[-na_ids, ]))
 #IGHV
 p <- ggscatter(pcaTab, x = "PC1", y = "PC2", color = "IGHV", palette = "jco", size = 3,
   ylab = sprintf("PC2 (%2.1f%%)",varExp[2]), xlab = sprintf("PC1 (%2.1f%%)",varExp[1]), 
-  legend = "right", main = "PCA IGHV status", 
+  legend = "right", main = "PCA coloured by IGHV status", 
   font.legend = c(23, "plain", "black"), 
   font.tickslab = c(23, "plain", "black"), 
   font.main = 25, font.submain = 28, font.caption = 28, font.x = 28, font.y= 28) + 
@@ -193,7 +192,7 @@ p
 #Tri12
 p1 <- ggscatter(pcaTab, x = "PC1", y = "PC2", color = "trisomy12", size = 3,
   ylab = sprintf("PC2 (%2.1f%%)",varExp[2]), xlab = sprintf("PC1 (%2.1f%%)",varExp[1]), 
-  legend = "right", main = "PCA trisomy12", 
+  legend = "right", main = "PCA coloured by trisomy12", 
   font.legend = c(23, "plain", "black"), 
   font.tickslab = c(23, "plain", "black"), 
   font.main = 25, font.submain = 28, font.caption = 28, font.x = 28, font.y= 28) + 
@@ -206,7 +205,7 @@ p1
 #Methylation
 p2 <- ggscatter(pcaTab, x = "PC1", y = "PC2", color = "Methylation", size = 3,
   ylab = sprintf("PC2 (%2.1f%%)",varExp[2]), xlab = sprintf("PC1 (%2.1f%%)",varExp[1]), 
-  legend = "right", main = "PCA Methylation - top 500 genes", 
+  legend = "right", main = "PCA coloured by Methylation", 
   font.legend = c(23, "plain", "black"), 
   font.tickslab = c(23, "plain", "black"), 
   font.main = 25, font.submain = 28, font.caption = 28, font.x = 28, font.y= 28) + 
@@ -339,8 +338,27 @@ comb_size(m)
 set_name(m)
 UpSet(m)
 
+#percentage category 
+cat_vec <- rep("none", length(rownames(c1c2_genes)))
+cat_vec[which(rownames(c1c2_genes) %in% var10000)] <- "top10000"
+cat_vec[which(rownames(c1c2_genes) %in% var5000)] <- "top5000"
+cat_vec[which(rownames(c1c2_genes) %in% var1000)] <- "top1000"
+cat_vec[which(rownames(c1c2_genes) %in% var500)] <- "top500"
+overlap_per <- data.frame("genes" = rownames(c1c2_genes),
+                          "category" = cat_vec) 
 
+overlap_per <- overlap_per %>% group_by(category) %>% summarize("overlap" = n())
+overlap_per$category <- factor(overlap_per$category, levels = c("none", "top10000", "top5000", "top1000", "top500"))
 
+p_c1c2 <- ggbarplot(overlap_per, "category", "overlap", 
+                    fill = "category", 
+                    palette = "uchicago", 
+                    label = TRUE, 
+                    lab.pos = "in", 
+                    lab.col = "white",
+                    title = "Overlap c1/c2 genes and top variable genes")
+
+p_c1c2
 ```
 
 ```{r c1c2 expr, fig.height= 15, fig.width= 14.22}
@@ -403,5 +421,45 @@ pd = packLegend(anno_legend_list[[1]], anno_legend_list[[2]], anno_legend_list[[
 
 draw(h1, heatmap_legend_list = pd)
 
+```
+
+# Plot mean and sd of c1/c2 group
+```{r mean sd c1c2 group}
+mean_c <- rowMeans(exprMat_c)
+mean_all <- rowMeans(exprMat)
+mean_top <- rowMeans(exprMat[var5000,])
+
+sd_c <- rowSds(exprMat_c)
+sd_all <- rowSds(exprMat)
+sd_top <- rowSds(exprMat[var5000,])
+
+cat_vec <- rep("none", length(rownames(exprMat)))
+cat_vec[which(rownames(exprMat) %in% var10000)] <- "top10000"
+cat_vec[which(rownames(exprMat) %in% var5000)] <- "top5000"
+cat_vec[which(rownames(exprMat) %in% var1000)] <- "top1000"
+cat_vec[which(rownames(exprMat) %in% var500)] <- "top500"
+cat_vec[which(rownames(exprMat) %in% rownames(c1c2_genes))] <- "c1c2"
+            
+
+tab_all_cat <- data.frame("mean_count" = mean_all,
+                          "sd_count" = sd_all,
+                          "gene_category" = cat_vec)
+  
+  
+p1 <- gghistogram(tab_all_cat, x = "mean_count",
+   add = "mean", bins = 12, fill = "gene_category",
+  palette = "uchicago")
+p1
+
+
+p2 <- gghistogram(tab_all_cat, x = "sd_count",
+   add = "mean", bins = 12, fill = "gene_category",
+  palette = "uchicago",
+  title = "Standard deviation c1c2 genes compared to top variable genes")
+p2
+
+
+saveRDS(list("mean" = p1, "sd" = p2, "category" = p_c1c2), 
+        file = paste0(output_dir, "/figures/r_objects/mean_sd_by_c1c2.rds"))
 ```
 

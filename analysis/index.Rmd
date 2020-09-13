@@ -38,4 +38,5 @@ editor_options:
 ## Epistasis
 
   + [epistatsis_tri12_ighv](epistasis.html)
+  + [epistatsis_tri12_ighv](methylation_epistasis.html)
 

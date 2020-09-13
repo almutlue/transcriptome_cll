@@ -427,7 +427,7 @@ div.section {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -436,7 +436,7 @@ div.section {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -445,10 +445,10 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-11-19
+<strong>Last updated:</strong> 2020-09-13
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>transcriptome_cll/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -464,12 +464,12 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
@@ -536,10 +536,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltreea132f77a820392f3dc7f05ad566a74156974309etargetblanka132f77a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/almutlue/transcriptome_cll/tree/a132f77a820392f3dc7f05ad566a74156974309e" target="_blank">a132f77</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree8abaeff7705b302f61136a6c043ee9c689497431targetblank8abaeffa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/almutlue/transcriptome_cll/tree/8abaeff7705b302f61136a6c043ee9c689497431" target="_blank">8abaeff</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltreea132f77a820392f3dc7f05ad566a74156974309etargetblanka132f77a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree8abaeff7705b302f61136a6c043ee9c689497431targetblank8abaeffa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -548,40 +548,491 @@ Great! You are using Git for version control. Tracking code development and conn
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+    Ignored:    output/figures/r_objects/BRAF/enrichment/
 
 Untracked files:
-    Untracked:  data/2018-03-05_IGHV.RData
-    Untracked:  data/patmeta_170324.RData
-    Untracked:  output/IGHV1_69.svg
-    Untracked:  output/cluster1000exprgenes.pdf
-    Untracked:  output/cluster500exprgenes.pdf
-    Untracked:  output/desRes_15112019.RData
-    Untracked:  output/figures/hist_mutations.svg
-    Untracked:  output/figures/overview_mutations.pdf
-    Untracked:  output/figures/paper_fig/
-    Untracked:  output/figures/r_objects/
-    Untracked:  output/figures/sum_diffGenes_0.05_2.pdf
-    Untracked:  output/figures/sum_diffGenes_noTsig.pdf
-    Untracked:  output/figures/sum_diffGenes_noTsig_IGHVTri12.pdf
+    Untracked:  analysis/methylation_epistasis.Rmd
+    Untracked:  docs/figure/methylation_epistasis.Rmd/
+    Untracked:  output/desRes_250720.RData
+    Untracked:  output/diff_meth_IP_vs_HP_LP.rds
+    Untracked:  output/figures/paper_fig/figure1/
+    Untracked:  output/figures/paper_fig/figure_IGHV/
+    Untracked:  output/figures/paper_fig/figure_c1c2.pdf
+    Untracked:  output/figures/paper_fig/figure_c1c2.svg
+    Untracked:  output/figures/paper_fig/figure_c1c2/
+    Untracked:  output/figures/paper_fig/figure_epi/
+    Untracked:  output/figures/paper_fig/figure_epi_meth.pdf
+    Untracked:  output/figures/paper_fig/figure_epi_meth.svg
+    Untracked:  output/figures/paper_fig/figure_variants_mut_load.pdf
+    Untracked:  output/figures/paper_fig/figure_variants_mut_load.svg
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/AACSP1.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/ADAMTS7.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/ADGRB2.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/AKAP12.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/ANGPT2.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/ANKRD62.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/ARHGAP22.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/ASAP3.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/BCL7A.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/BDKRB2.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/BTBD16.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/C10orf10.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/C10orf35.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/C14orf132.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/C1orf106.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/CACHD1.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/CACNB2.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/CAMP.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/CECR2.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/CHL1.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/CHMP4C.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/CHST3.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/CLEC2B.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/CLEC9A.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/CMPK2.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/CNPY1.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/CNR1.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/COBLL1.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/COL1A2.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/CORO2B.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/CPNE8.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/CPXM1.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/CRY1.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/CSGALNACT1.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/CSMD1.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/DGKH.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/DPP4.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/DPY19L2.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/DPYD-AS1.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/DUOXA2.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/EBF1.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/EFNA2.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/EGLN3.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/FAIM2.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/FAM20C.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/FBXO27.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/FGFR1.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/FIRRE.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/FKBP10.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/FRMD4B.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/FRMPD1.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/FXYD6.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/GGT2.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/GGT3P.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/GLDN.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/GPR34.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/GPSM1.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/GTSF1L.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/HAR1B.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/HNRNPA1P57.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/HTRA3.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/IFI44L.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/IFNA14.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/IFNA21.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/IFNB1.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/IFNW1.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/IFNWP9.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/IGHV2-5.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/IGHV3-15.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/IGHV3-48.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/IGHV3-7.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/IGHV4-34.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/IGKV1-16.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/IGKV1-8.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/IGKV2-24.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/IGKV3-11.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/IGKV3D-15.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/IGKV4-1.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/IGLC7.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/IGLV2-14.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/IGLV3-9.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/INA.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/INSR.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/IQSEC3.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/JUP.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/KALRN.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/KANK2.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/KCNJ2-AS1.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/KCNJ2.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/KCNK9.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/KIAA0895.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/KLK4.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/KRT19P2.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/L3MBTL4.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/LDOC1.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/LINC00930.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/LINC00982.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/LINC01033.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/LINC01866.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/LINC02170.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/LPL.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/LRMDA.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/LRP5.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/LYPD6B.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/MAPK4.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/MAST4.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/MCRIP2P1.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/MOCOS.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/MRO.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/MTMR11.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/MYL12BP2.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/MYL9.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/MYLK-AS2.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/MYLK.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/MYO3A.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/NAP1L2.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/NCAPGP1.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/NEURL1B.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/NGEF.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/NPTX1.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/NUGGC.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/OSBPL5.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/OVCH1-AS1.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/P4HA2.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/PCDHGC3.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/PDLIM3.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/PLD1.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/PLEK2.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/PLEKHG4B.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/PPP2R2C.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/PRAMENP.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/PRR18.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/PTGFRN.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/PTH2R.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/PTPRB.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/PXDNL.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/RASAL1.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/RASSF6.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/RNA5SP460.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/RPS20P22.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/SCAMP5.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/SCHIP1.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/SH3BP4.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/SH3RF1.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/SLC12A1.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/SLC16A9.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/SLC39A12.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/SLC4A10.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/SLC4A8.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/SMIM10.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/SNORA70F.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/SORT1.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/SPTA1.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/TAS1R1.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/TERT.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/TFAP2A-AS1.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/TFEC.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/TGFB2-AS1.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/THAP10.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/THRB.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/TMEM200A.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/TP63.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/TRPM4.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/TSPAN13.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/UNC13B.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/VSIG2.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/WNK2.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/WNK3.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/WNT11.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/WNT5A.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/WNT5B.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/WSCD2.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/ZAR1.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/ZNF112.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/ZNF334.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/ZNF663P.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/ZNF667-AS1.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/ZNF667.rds
+    Untracked:  output/figures/r_objects/Methylation_IP/de_genes/ZNF804A.rds
+    Untracked:  output/figures/r_objects/epi_meth/
+    Untracked:  output/figures/r_objects/epistasis/de_genes/ABLIM2.rds
+    Untracked:  output/figures/r_objects/epistasis/de_genes/CAMK2N1.rds
+    Untracked:  output/figures/r_objects/epistasis/de_genes/CRIM1.rds
+    Untracked:  output/figures/r_objects/epistasis/de_genes/E2F2.rds
+    Untracked:  output/figures/r_objects/epistasis/de_genes/ENPP3.rds
+    Untracked:  output/figures/r_objects/epistasis/de_genes/EPHB1.rds
+    Untracked:  output/figures/r_objects/epistasis/de_genes/FAM212A.rds
+    Untracked:  output/figures/r_objects/epistasis/de_genes/FGD6.rds
+    Untracked:  output/figures/r_objects/epistasis/de_genes/FGF2.rds
+    Untracked:  output/figures/r_objects/epistasis/de_genes/GP5.rds
+    Untracked:  output/figures/r_objects/epistasis/de_genes/JAG1.rds
+    Untracked:  output/figures/r_objects/epistasis/de_genes/RAI14.rds
+    Untracked:  output/figures/r_objects/epistasis/de_genes/SLC4A8.rds
+    Untracked:  output/figures/r_objects/epistasis/de_genes/SYBU.rds
+    Untracked:  output/figures/r_objects/epistasis/de_genes/TCTN1.rds
+    Untracked:  output/figures/r_objects/epistasis/de_genes/TMPRSS11E.rds
+    Untracked:  output/figures/r_objects/epistasis/enrich_dot2.rds
+    Untracked:  output/figures/r_objects/epistasis/enrich_dot_buffering.rds
+    Untracked:  output/figures/r_objects/epistasis/enrich_dot_hm.rds
+    Untracked:  output/figures/r_objects/epistasis/enrich_dot_inversion.rds
+    Untracked:  output/figures/r_objects/epistasis/enrich_dot_supression.rds
+    Untracked:  output/figures/r_objects/epistasis/enrich_dot_synergy.rds
+    Untracked:  output/figures/r_objects/epistasis/enrich_net_hm.rds
+    Untracked:  output/figures/r_objects/epistasis/enrich_net_kegg.rds
+    Untracked:  output/figures/r_objects/epistasis/epi_methylation_heatmap.rds
+    Untracked:  output/figures/r_objects/epistasis/epistasis_scheme_lolli.rds
+    Untracked:  output/figures/r_objects/ighv/enrich_dot2.rds
+    Untracked:  output/figures/r_objects/ighv/enrich_dot_hm.rds
+    Untracked:  output/figures/r_objects/ighv/enrich_net_hm.rds
+    Untracked:  output/figures/r_objects/ighv/enrich_net_kegg.rds
+    Untracked:  output/figures/r_objects/mean_sd_by_c1c2.rds
+    Untracked:  output/figures/r_objects/trisomy12/de_genes/HRAS.rds
+    Untracked:  output/figures/r_objects/trisomy12/de_genes/NT5E.rds
+    Untracked:  output/figures/r_objects/trisomy12/de_genes/PTPN6.rds
+    Untracked:  output/figures/r_objects/trisomy12/de_genes/VAV1.rds
+    Untracked:  output/figures/r_objects/trisomy12/enrich_dot2.rds
+    Untracked:  output/figures/r_objects/trisomy12/enrich_dot_hm.rds
+    Untracked:  output/figures/r_objects/trisomy12/enrich_net_hm.rds
+    Untracked:  output/figures/r_objects/trisomy12/enrich_net_kegg.rds
+    Untracked:  output/res_ICGC_epistatsis_ighv_tri12.rds
 
 Unstaged changes:
     Modified:   analysis/IGHV.Rmd
-    Modified:   analysis/Notch1.Rmd
-    Modified:   analysis/TP53.Rmd
+    Modified:   analysis/de_analysis.Rmd
+    Modified:   analysis/epistasis.Rmd
+    Modified:   analysis/general_eda.Rmd
+    Modified:   analysis/index.Rmd
+    Modified:   analysis/methylation_IP_vs_HPLP.Rmd
+    Modified:   analysis/summary_de_genes.Rmd
+    Modified:   analysis/summary_variants.Rmd
     Modified:   analysis/trisomy12.Rmd
+    Modified:   output/cluster500exprgenes.pdf
+    Modified:   output/diff_genes/ACTN2_diffGenes.csv
     Modified:   output/diff_genes/ATM_diffGenes.csv
     Modified:   output/diff_genes/BRAF_diffGenes.csv
+    Modified:   output/diff_genes/Chromothripsis_diffGenes.csv
+    Modified:   output/diff_genes/EGR2_diffGenes.csv
+    Modified:   output/diff_genes/IGHV_diffGenes.csv
+    Modified:   output/diff_genes/KLHL6_diffGenes.csv
+    Modified:   output/diff_genes/KRAS_diffGenes.csv
     Modified:   output/diff_genes/MED12_diffGenes.csv
+    Modified:   output/diff_genes/MGA_diffGenes.csv
+    Modified:   output/diff_genes/NFKBIE_diffGenes.csv
     Modified:   output/diff_genes/NOTCH1_diffGenes.csv
+    Modified:   output/diff_genes/PCLO_diffGenes.csv
     Modified:   output/diff_genes/SF3B1_diffGenes.csv
     Modified:   output/diff_genes/TP53_diffGenes.csv
+    Modified:   output/diff_genes/XPO1_diffGenes.csv
     Modified:   output/diff_genes/del11q22.3_diffGenes.csv
     Modified:   output/diff_genes/del13q14_diffGenes.csv
+    Modified:   output/diff_genes/del15q15.1_diffGenes.csv
     Modified:   output/diff_genes/del17p13_diffGenes.csv
     Modified:   output/diff_genes/del8p12_diffGenes.csv
+    Modified:   output/diff_genes/gain14q32_diffGenes.csv
+    Modified:   output/diff_genes/gain2p25.3_diffGenes.csv
     Modified:   output/diff_genes/gain8q24_diffGenes.csv
+    Modified:   output/diff_genes/meth_IP_vs_HP_diffGenes.csv
     Modified:   output/diff_genes/trisomy12_diffGenes.csv
-    Modified:   output/figures/pca_Meth_top150.svg
+    Modified:   output/figures/paper_fig/figure1.pdf
+    Modified:   output/figures/paper_fig/figure1.svg
+    Modified:   output/figures/paper_fig/figure_IGHV.pdf
+    Modified:   output/figures/paper_fig/figure_IGHV.svg
+    Modified:   output/figures/paper_fig/figure_IP_group.pdf
+    Modified:   output/figures/paper_fig/figure_IP_group.svg
+    Modified:   output/figures/paper_fig/figure_epi.pdf
+    Modified:   output/figures/paper_fig/figure_epi.svg
+    Modified:   output/figures/paper_fig/figure_tri12.pdf
+    Modified:   output/figures/paper_fig/figure_tri12.svg
+    Modified:   output/figures/paper_fig/generate_figures.Rmd
+    Modified:   output/figures/r_objects/BRAF/de_genes/ABCC6P1.rds
+    Modified:   output/figures/r_objects/BRAF/de_genes/ARHGEF37.rds
+    Modified:   output/figures/r_objects/BRAF/de_genes/BIRC5.rds
+    Modified:   output/figures/r_objects/BRAF/de_genes/BNIP3P41.rds
+    Modified:   output/figures/r_objects/BRAF/de_genes/CA1.rds
+    Modified:   output/figures/r_objects/BRAF/de_genes/DHRS9.rds
+    Modified:   output/figures/r_objects/BRAF/de_genes/DSP.rds
+    Modified:   output/figures/r_objects/BRAF/de_genes/FAM184A.rds
+    Modified:   output/figures/r_objects/BRAF/de_genes/FAM96AP2.rds
+    Modified:   output/figures/r_objects/BRAF/de_genes/FLT4.rds
+    Modified:   output/figures/r_objects/BRAF/de_genes/HCAR1.rds
+    Modified:   output/figures/r_objects/BRAF/de_genes/HJURP.rds
+    Modified:   output/figures/r_objects/BRAF/de_genes/IGHV3-11.rds
+    Modified:   output/figures/r_objects/BRAF/de_genes/IGHV3-23.rds
+    Modified:   output/figures/r_objects/BRAF/de_genes/IQCB2P.rds
+    Modified:   output/figures/r_objects/BRAF/de_genes/IQGAP3.rds
+    Modified:   output/figures/r_objects/BRAF/de_genes/KIF14.rds
+    Modified:   output/figures/r_objects/BRAF/de_genes/KIF18B.rds
+    Modified:   output/figures/r_objects/BRAF/de_genes/LINC00658.rds
+    Modified:   output/figures/r_objects/BRAF/de_genes/LINC01203.rds
+    Modified:   output/figures/r_objects/BRAF/de_genes/LINC01358.rds
+    Modified:   output/figures/r_objects/BRAF/de_genes/MELK.rds
+    Modified:   output/figures/r_objects/BRAF/de_genes/NRP2.rds
+    Modified:   output/figures/r_objects/BRAF/de_genes/OR2B6.rds
+    Modified:   output/figures/r_objects/BRAF/de_genes/PKMYT1.rds
+    Modified:   output/figures/r_objects/BRAF/de_genes/PLIN5.rds
+    Modified:   output/figures/r_objects/BRAF/de_genes/PPP1R14C.rds
+    Modified:   output/figures/r_objects/BRAF/de_genes/PPP1R3C.rds
+    Modified:   output/figures/r_objects/BRAF/de_genes/PTPRB.rds
+    Modified:   output/figures/r_objects/BRAF/de_genes/RGPD2.rds
+    Modified:   output/figures/r_objects/BRAF/de_genes/RNF157.rds
+    Modified:   output/figures/r_objects/BRAF/de_genes/RPSAP69.rds
+    Modified:   output/figures/r_objects/BRAF/de_genes/SAMD12.rds
+    Modified:   output/figures/r_objects/BRAF/de_genes/SEPT3.rds
+    Modified:   output/figures/r_objects/BRAF/de_genes/SERPINE2.rds
+    Modified:   output/figures/r_objects/BRAF/de_genes/SH3RF1.rds
+    Modified:   output/figures/r_objects/BRAF/de_genes/SLC38A11.rds
+    Modified:   output/figures/r_objects/BRAF/de_genes/SPRY4.rds
+    Modified:   output/figures/r_objects/BRAF/de_genes/TAGLN3.rds
+    Modified:   output/figures/r_objects/BRAF/de_genes/TFEC.rds
+    Modified:   output/figures/r_objects/BRAF/de_genes/TMEM151B.rds
+    Modified:   output/figures/r_objects/BRAF/de_genes/TMPRSS3.rds
+    Modified:   output/figures/r_objects/BRAF/de_genes/ZFHX4.rds
+    Modified:   output/figures/r_objects/BRAF/de_genes/ZNF503-AS1.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/ARHGAP32.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/BARX2.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/CDYLP1.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/CLDN1.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/DAZL.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/ELFN2.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/ENPP3.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/FAM41C.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/FST.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/GRIK3.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/ICOS.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/IGHA2.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/IGHV1-69.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/IGHV3-21.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/IGKV1-12.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/IGKV1-39.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/IGKV1OR-2.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/IGKV3-15.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/IGLC6.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/IGLV2-11.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/IGLV3-21.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/LAMC3.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/LINC01203.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/LINC01250.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/MECOM.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/MIR4538.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/MRGPRX4.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/MYB.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/NETO1.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/NREP.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/NRIP1.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/PHLPP1.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/PON1.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/PPP1R9A.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/PRDM16.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/RNASE1.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/RSPO1.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/SEPT10.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/SGMS2.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/SLC25A27.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/SNCAIP.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/SOWAHC.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/SOX11.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/STARD4-AS1.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/T.rds
+    Modified:   output/figures/r_objects/Methylation_IP/de_genes/TGFB2.rds
+    Modified:   output/figures/r_objects/Methylation_IP/meth_ip_heatmap.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/BCL2A1.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/CHAD.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/EBF1.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/EBF4.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/EML6.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/EPHB6.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/GEN1.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/LEF1.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/PPP1R14A.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/TIMELESS.rds
+    Modified:   output/figures/r_objects/epistasis/epistasis_heatmap.rds
+    Modified:   output/figures/r_objects/epistasis/epistasis_scheme.rds
+    Modified:   output/figures/r_objects/heatmap_top500genes.rds
+    Modified:   output/figures/r_objects/ighv/de_genes/ADAM29.rds
+    Modified:   output/figures/r_objects/ighv/de_genes/ADAMTS7.rds
+    Modified:   output/figures/r_objects/ighv/de_genes/ATOX1.rds
+    Modified:   output/figures/r_objects/ighv/de_genes/BCAT1.rds
+    Modified:   output/figures/r_objects/ighv/de_genes/C1orf106.rds
+    Modified:   output/figures/r_objects/ighv/de_genes/CD38.rds
+    Modified:   output/figures/r_objects/ighv/de_genes/CDHR1.rds
+    Modified:   output/figures/r_objects/ighv/de_genes/CLEC9A.rds
+    Modified:   output/figures/r_objects/ighv/de_genes/CPNE8.rds
+    Modified:   output/figures/r_objects/ighv/de_genes/DGKH.rds
+    Modified:   output/figures/r_objects/ighv/de_genes/DNAH14.rds
+    Modified:   output/figures/r_objects/ighv/de_genes/DPY19L2.rds
+    Modified:   output/figures/r_objects/ighv/de_genes/EGR3.rds
+    Modified:   output/figures/r_objects/ighv/de_genes/FARP1.rds
+    Modified:   output/figures/r_objects/ighv/de_genes/FGFR1.rds
+    Modified:   output/figures/r_objects/ighv/de_genes/FRMD4B.rds
+    Modified:   output/figures/r_objects/ighv/de_genes/GFI1.rds
+    Modified:   output/figures/r_objects/ighv/de_genes/IGLC6.rds
+    Modified:   output/figures/r_objects/ighv/de_genes/IGLV3-19.rds
+    Modified:   output/figures/r_objects/ighv/de_genes/KANK2.rds
+    Modified:   output/figures/r_objects/ighv/de_genes/KCNK9.rds
+    Modified:   output/figures/r_objects/ighv/de_genes/LDOC1.rds
+    Modified:   output/figures/r_objects/ighv/de_genes/LPL.rds
+    Modified:   output/figures/r_objects/ighv/de_genes/MAPK4.rds
+    Modified:   output/figures/r_objects/ighv/de_genes/MSI2.rds
+    Modified:   output/figures/r_objects/ighv/de_genes/MYL12BP2.rds
+    Modified:   output/figures/r_objects/ighv/de_genes/MYLK.rds
+    Modified:   output/figures/r_objects/ighv/de_genes/NETO1.rds
+    Modified:   output/figures/r_objects/ighv/de_genes/NFAT5.rds
+    Modified:   output/figures/r_objects/ighv/de_genes/NPTX1.rds
+    Modified:   output/figures/r_objects/ighv/de_genes/NUGGC.rds
+    Modified:   output/figures/r_objects/ighv/de_genes/PEG10.rds
+    Modified:   output/figures/r_objects/ighv/de_genes/PLD1.rds
+    Modified:   output/figures/r_objects/ighv/de_genes/PLEKHG4B.rds
+    Modified:   output/figures/r_objects/ighv/de_genes/PRR18.rds
+    Modified:   output/figures/r_objects/ighv/de_genes/SEPT10.rds
+    Modified:   output/figures/r_objects/ighv/de_genes/SLC12A1.rds
+    Modified:   output/figures/r_objects/ighv/de_genes/SLC16A9.rds
+    Modified:   output/figures/r_objects/ighv/de_genes/SOWAHC.rds
+    Modified:   output/figures/r_objects/ighv/de_genes/VSIG10.rds
+    Modified:   output/figures/r_objects/ighv/de_genes/WSB2.rds
+    Modified:   output/figures/r_objects/ighv/de_genes/ZAP70.rds
+    Modified:   output/figures/r_objects/ighv/de_genes/ZNF334.rds
+    Modified:   output/figures/r_objects/ighv/ighv_enrichment_dn.rds
+    Modified:   output/figures/r_objects/ighv/ighv_gene_status.rds
+    Modified:   output/figures/r_objects/ighv/ighv_heatmap.rds
+    Modified:   output/figures/r_objects/pca_top500genes.rds
+    Modified:   output/figures/r_objects/summary_de_genes_all.rds
+    Modified:   output/figures/r_objects/summary_var_freq_IGHV.rds
+    Modified:   output/figures/r_objects/summary_variant_patient.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/ABLIM2.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/ACAP3.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/ADD2.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/CABLES1.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/CACNA1D.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/CHDH.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/CHFR.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/CORO2B.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/CTLA4.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/DIRAS1.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/EML6.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/EPHB1.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/FAHD2B.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/FAM212A.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/GPR146.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/IGHV2-5.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/IGKV1-17.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/IGLV3-21.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/IGLV6-57.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/IQSEC1.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/KCND3.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/KLF3-AS1.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/LARGE1.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/LIX1.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/LRRC66.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/MERTK.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/MIR4489.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/MOXD1.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/PCBD1.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/PCSK7.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/PODXL.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/PPP1R14A.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/RASGRF1.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/RHBDF2.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/RWDD2A.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/SLC16A10.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/SNX22.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/SOCS3.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/SPPL2B.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/SYN3.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/SYNPO.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/TBC1D16.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/TBC1D29.rds
+    Modified:   output/figures/r_objects/trisomy12/de_genes/UACA.rds
+    Modified:   output/figures/r_objects/trisomy12/tri12_dosage.rds
 
 </code></pre>
 <p>
@@ -620,6 +1071,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/almutlue/transcriptome_cll/712d2e92f0600e7f359092f190d279dbbf8b1a55/docs/general_eda.html" target="_blank">712d2e9</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -783,8 +1251,7 @@ ha_genes &lt;- rowAnnotation(link = row_anno_link(at = geneIDs,
               show_row_names = FALSE, 
               row_names_gp = gpar(fontsize = 45),
               show_heatmap_legend = FALSE,
-              top_annotation = ha_top, 
-              right_annotation = ha_genes)
+              top_annotation = ha_top)
 
 heatmap_legend = color_mapping_legend(h1@matrix_color_mapping, plot = FALSE, 
                                       title = &quot;Expr&quot;, title_gp = gpar(fontsize = 20, fontface = &quot;bold&quot;),
@@ -798,7 +1265,7 @@ pd = packLegend(anno_legend_list[[1]], anno_legend_list[[2]], anno_legend_list[[
     column_gap = unit(0.5, &quot;cm&quot;))
 
 pdf(file=paste0(output_dir, &quot;/cluster500exprgenes.pdf&quot;), width=20, height=20)
-draw(h1 + ha_genes, heatmap_legend_list = pd)
+draw(h1, heatmap_legend_list = pd)
 dev.off()</code></pre>
 <pre><code>png 
   2 </code></pre>
@@ -826,6 +1293,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/712d2e92f0600e7f359092f190d279dbbf8b1a55/docs/figure/general_eda.Rmd/expr heatmap-1.png" target="_blank">712d2e9</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/6a79d5c782891ff438edd6ff076c923a121a93bf/docs/figure/general_eda.Rmd/expr heatmap-1.png" target="_blank">6a79d5c</a>
@@ -867,7 +1345,7 @@ pcaTab &lt;- cbind(pcaTab, data.frame(colData(RNAnorm)[-na_ids, ]))
 #IGHV
 p &lt;- ggscatter(pcaTab, x = &quot;PC1&quot;, y = &quot;PC2&quot;, color = &quot;IGHV&quot;, palette = &quot;jco&quot;, size = 3,
   ylab = sprintf(&quot;PC2 (%2.1f%%)&quot;,varExp[2]), xlab = sprintf(&quot;PC1 (%2.1f%%)&quot;,varExp[1]), 
-  legend = &quot;right&quot;, main = &quot;PCA IGHV status&quot;, 
+  legend = &quot;right&quot;, main = &quot;PCA coloured by IGHV status&quot;, 
   font.legend = c(23, &quot;plain&quot;, &quot;black&quot;), 
   font.tickslab = c(23, &quot;plain&quot;, &quot;black&quot;), 
   font.main = 25, font.submain = 28, font.caption = 28, font.x = 28, font.y= 28) + 
@@ -915,7 +1393,7 @@ aluetge
 <pre class="r"><code>#Tri12
 p1 &lt;- ggscatter(pcaTab, x = &quot;PC1&quot;, y = &quot;PC2&quot;, color = &quot;trisomy12&quot;, size = 3,
   ylab = sprintf(&quot;PC2 (%2.1f%%)&quot;,varExp[2]), xlab = sprintf(&quot;PC1 (%2.1f%%)&quot;,varExp[1]), 
-  legend = &quot;right&quot;, main = &quot;PCA trisomy12&quot;, 
+  legend = &quot;right&quot;, main = &quot;PCA coloured by trisomy12&quot;, 
   font.legend = c(23, &quot;plain&quot;, &quot;black&quot;), 
   font.tickslab = c(23, &quot;plain&quot;, &quot;black&quot;), 
   font.main = 25, font.submain = 28, font.caption = 28, font.x = 28, font.y= 28) + 
@@ -964,7 +1442,7 @@ aluetge
 <pre class="r"><code>#Methylation
 p2 &lt;- ggscatter(pcaTab, x = &quot;PC1&quot;, y = &quot;PC2&quot;, color = &quot;Methylation&quot;, size = 3,
   ylab = sprintf(&quot;PC2 (%2.1f%%)&quot;,varExp[2]), xlab = sprintf(&quot;PC1 (%2.1f%%)&quot;,varExp[1]), 
-  legend = &quot;right&quot;, main = &quot;PCA Methylation - top 500 genes&quot;, 
+  legend = &quot;right&quot;, main = &quot;PCA coloured by Methylation&quot;, 
   font.legend = c(23, &quot;plain&quot;, &quot;black&quot;), 
   font.tickslab = c(23, &quot;plain&quot;, &quot;black&quot;), 
   font.main = 25, font.submain = 28, font.caption = 28, font.x = 28, font.y= 28) + 
@@ -1080,6 +1558,241 @@ aluetge
 </div>
 <pre class="r"><code>saveRDS(list(&quot;IGHV&quot; = p, &quot;trisomy12&quot; = p1, &quot;Methylation&quot; = p2, &quot;Methylation_red_genes&quot; = p3), 
         file = paste0(output_dir, &quot;/figures/r_objects/pca_top500genes.rds&quot;))</code></pre>
+</div>
+<div id="hierachical-clustering-tree" class="section level1">
+<h1>Hierachical clustering: Tree</h1>
+<pre class="r"><code>library(dendextend)</code></pre>
+<pre><code>
+---------------------
+Welcome to dendextend version 1.13.4
+Type citation(&#39;dendextend&#39;) for how to cite the package.
+
+Type browseVignettes(package = &#39;dendextend&#39;) for the package vignette.
+The github page is: https://github.com/talgalili/dendextend/
+
+Suggestions and bug-reports can be submitted at: https://github.com/talgalili/dendextend/issues
+Or contact: &lt;tal.galili@gmail.com&gt;
+
+    To suppress this message use:  suppressPackageStartupMessages(library(dendextend))
+---------------------</code></pre>
+<pre><code>
+Attaching package: &#39;dendextend&#39;</code></pre>
+<pre><code>The following object is masked from &#39;package:ggpubr&#39;:
+
+    rotate</code></pre>
+<pre><code>The following object is masked from &#39;package:stats&#39;:
+
+    cutree</code></pre>
+<pre class="r"><code>library(corrplot)</code></pre>
+<pre><code>corrplot 0.84 loaded</code></pre>
+<pre class="r"><code># Compute hierarchical clustering
+exprMat &lt;- assay(RNAnorm)
+
+#top 5000 most variant genes
+sds &lt;- rowSds(exprMat)
+exprMat &lt;- exprMat[order(sds, decreasing = T)[1:500],]
+
+sampleDists &lt;- dist(t(exprMat)) 
+sampleDistMat &lt;- as.matrix(sampleDists)
+rownames(sampleDistMat) &lt;- colData(RNAnorm)$PatID
+
+
+res.hc &lt;- sampleDists %&gt;% hclust(method = &quot;ward.D2&quot;)
+res.hc$labels &lt;- &quot;&quot;    
+
+##visualize with dendextend
+mycols &lt;-c( &quot;#969696&quot;, &quot;#525252&quot;, &quot;#969696&quot; , &quot;#000000&quot;)
+dend &lt;-  as.dendrogram(res.hc) %&gt;%
+   set(&quot;branches_lwd&quot;, 2) %&gt;% # Branches line width
+   set(&quot;branches_k_color&quot;, mycols, k = 4)
+
+
+#colormatrix
+colMat &lt;- matrix(nrow = ncol(RNAnorm), ncol = 3)
+colMat[,1] &lt;- ifelse(colData(RNAnorm)$IGHV == &quot;M&quot;, annocol[1], annocol[2])
+colMat[,2] &lt;- ifelse(colData(RNAnorm)$trisomy12 == &quot;1&quot;, annocol[8], annocol[4])
+colMat[,3] &lt;- ifelse(colData(RNAnorm)$Methylation == &quot;HP&quot;, annocol[7], ifelse(colData(RNAnorm)$Methylation == &quot;IP&quot;, annocol[5], annocol[6]))
+colMat[which(is.na(colMat[,3])),3] &lt;- &quot;grey&quot;
+
+colnames(colMat) &lt;- c(&quot;IGHV&quot;, &quot;trisomy12&quot;, &quot;Methylation&quot;)
+
+
+plot(dend)
+colored_bars(colMat, dend, rowLabels = c(&quot;IGHV&quot;, &quot;trisomy12&quot;, &quot;Methylation&quot;), y_scale = 60, y_shift = 10, cex.rowLabels = 1)</code></pre>
+<p><img src="figure/general_eda.Rmd/hier%20clustering-1.png" width="768" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>## Check method&#39;s correspondence
+# Create multiple dendrograms by chaining
+dend1 &lt;- sampleDists %&gt;% hclust(&quot;complete&quot;) %&gt;% as.dendrogram
+dend2 &lt;- sampleDists %&gt;% hclust(&quot;ward.D2&quot;) %&gt;% as.dendrogram
+dend3 &lt;- sampleDists %&gt;% hclust(&quot;average&quot;) %&gt;% as.dendrogram
+dend4 &lt;- sampleDists %&gt;% hclust(&quot;centroid&quot;) %&gt;% as.dendrogram
+# Compute correlation matrix
+dend_list &lt;- dendlist(&quot;Complete&quot; = dend1, &quot;Ward.D2&quot; = dend2,
+                      &quot;Average&quot; = dend3, &quot;Centroid&quot; = dend4)
+cors &lt;- cor.dendlist(dend_list)
+# Print correlation matrix
+round(cors, 2)</code></pre>
+<pre><code>         Complete Ward.D2 Average Centroid
+Complete     1.00    0.71    0.80     0.25
+Ward.D2      0.71    1.00    0.83     0.24
+Average      0.80    0.83    1.00     0.41
+Centroid     0.25    0.24    0.41     1.00</code></pre>
+<pre class="r"><code>corrplot(cors, &quot;pie&quot;, &quot;lower&quot;)</code></pre>
+<p><img src="figure/general_eda.Rmd/hier%20clustering-2.png" width="768" style="display: block; margin: auto;" /></p>
+</div>
+<div id="c1c2-group-signature" class="section level1">
+<h1>C1C2 group signature</h1>
+<pre class="r"><code>#get 1000 most variable genes
+exprMat &lt;- assay(RNAnorm)
+sds &lt;- rowSds(exprMat)
+var500 &lt;- rownames(exprMat[order(sds, decreasing = T)[1:500],])
+var1000 &lt;- rownames(exprMat[order(sds, decreasing = T)[1:1000],])
+var5000 &lt;- rownames(exprMat[order(sds, decreasing = T)[1:5000],])
+var10000 &lt;- rownames(exprMat[order(sds, decreasing = T)[1:10000],])
+
+#Diff expressed gene list from Feirrera
+c1c2_genes &lt;- read.csv(paste0(data_dir, &quot;/c1c2/Supplemental_File2_diffExpGenesC1C2_FC2.csv&quot;), sep = &quot;,&quot;,row.names = 1,header = TRUE)
+exprMat_c &lt;- assay(RNAnorm)
+exprMat_c &lt;- exprMat_c[which(rownames(RNAnorm) %in% rownames(c1c2_genes)),]
+dim(exprMat_c)</code></pre>
+<pre><code>[1] 602 184</code></pre>
+<pre class="r"><code>#overlap var1000 and c1c2 genes
+overlap_c1c2 &lt;- list(&quot;top500&quot; = var500,
+                      &quot;top1000&quot; = var1000,
+                      &quot;top5000&quot; = var5000,
+                      &quot;top10000&quot; = var10000,
+                      &quot;all&quot; = rownames(RNAnorm),
+                      &quot;c1c2&quot; = rownames(c1c2_genes))
+
+upset_mat &lt;- list_to_matrix(overlap_c1c2 )
+m = make_comb_mat(overlap_c1c2 )
+comb_size(m)</code></pre>
+<pre><code>000010 000001 000110 000011 001110 000111 011110 001111 111110 011111 
+ 20111     40   4837    194   3805    163    476    195    474     24 
+111111 
+    26 </code></pre>
+<pre class="r"><code>set_name(m)</code></pre>
+<pre><code>[1] &quot;top500&quot;   &quot;top1000&quot;  &quot;top5000&quot;  &quot;top10000&quot; &quot;all&quot;      &quot;c1c2&quot;    </code></pre>
+<pre class="r"><code>UpSet(m)</code></pre>
+<p><img src="figure/general_eda.Rmd/c1c2%20signature-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#percentage category 
+cat_vec &lt;- rep(&quot;none&quot;, length(rownames(c1c2_genes)))
+cat_vec[which(rownames(c1c2_genes) %in% var10000)] &lt;- &quot;top10000&quot;
+cat_vec[which(rownames(c1c2_genes) %in% var5000)] &lt;- &quot;top5000&quot;
+cat_vec[which(rownames(c1c2_genes) %in% var1000)] &lt;- &quot;top1000&quot;
+cat_vec[which(rownames(c1c2_genes) %in% var500)] &lt;- &quot;top500&quot;
+overlap_per &lt;- data.frame(&quot;genes&quot; = rownames(c1c2_genes),
+                          &quot;category&quot; = cat_vec) 
+
+overlap_per &lt;- overlap_per %&gt;% group_by(category) %&gt;% summarize(&quot;overlap&quot; = n())
+overlap_per$category &lt;- factor(overlap_per$category, levels = c(&quot;none&quot;, &quot;top10000&quot;, &quot;top5000&quot;, &quot;top1000&quot;, &quot;top500&quot;))
+
+p_c1c2 &lt;- ggbarplot(overlap_per, &quot;category&quot;, &quot;overlap&quot;, 
+                    fill = &quot;category&quot;, 
+                    palette = &quot;uchicago&quot;, 
+                    label = TRUE, 
+                    lab.pos = &quot;in&quot;, 
+                    lab.col = &quot;white&quot;,
+                    title = &quot;Overlap c1/c2 genes and top variable genes&quot;)
+
+p_c1c2</code></pre>
+<p><img src="figure/general_eda.Rmd/c1c2%20signature-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>#Plot expr mat
+colnames(exprMat) &lt;- colData(ddsCLL)$PatID
+exprMat.new &lt;- log2(exprMat_c)
+exprMat.new &lt;- t(scale(t(exprMat.new)))
+exprMat.new[exprMat.new &gt; 4] &lt;- 4
+exprMat.new[exprMat.new &lt; -4] &lt;- -4
+
+# Annotations
+#Top annotations
+ha_top = HeatmapAnnotation(df = data.frame(colData(RNAnorm)[, c(&quot;IGHV&quot;, &quot;trisomy12&quot;, &quot;Methylation&quot;)]), 
+                           col = annocolor, annotation_width = unit(c(rep(4, 3)), &quot;cm&quot;), 
+                           show_legend = FALSE, 
+                           simple_anno_size = unit(0.9, &quot;cm&quot;),
+                           annotation_name_gp = gpar(fontsize = 20),
+                           annotation_legend_param = list(title_gp = gpar(fontsize = 70), 
+                                                          labels_gp = gpar(fontsize = 55),  
+                                                          grid_height = unit(3, &quot;cm&quot;), 
+                                                          grid_width = unit(1.5, &quot;cm&quot;), 
+                                                          gap = unit(2, &quot;cm&quot;)))
+
+# Annotration legend
+anno_legend_list = lapply(ha_top@anno_list[c(&quot;IGHV&quot;, &quot;trisomy12&quot;, &quot;Methylation&quot;)], function(anno){
+  color_mapping_legend(anno@color_mapping, plot = FALSE,
+                       title_gp = gpar(fontsize = 20, fontface = &quot;bold&quot;),
+                       grid_height = unit(0.7, &quot;cm&quot;),
+                       grid_width = unit(0.3, &quot;cm&quot;),
+                       labels_gp = gpar(fontsize = 15))
+  })
+
+h1 &lt;- Heatmap(exprMat.new ,                                                     
+              km = 2,
+              gap = unit(0.5, &quot;cm&quot;),
+              clustering_distance_columns = &quot;euclidean&quot;,
+              clustering_method_columns = &quot;ward.D2&quot;,
+              clustering_distance_rows = &quot;pearson&quot;,
+              clustering_method_rows = &quot;ward.D2&quot;,                    
+              col = colors,
+              column_title_gp = gpar(fontsize = 60, fontface = &quot;bold&quot;), 
+              column_dend_height = unit(2.5, &quot;cm&quot;),
+              show_row_dend = FALSE, 
+              show_column_names = FALSE , 
+              show_row_names = FALSE, 
+              row_names_gp = gpar(fontsize = 45),
+              show_heatmap_legend = FALSE,
+              top_annotation = ha_top)
+
+heatmap_legend = color_mapping_legend(h1@matrix_color_mapping, plot = FALSE, 
+                                      title = &quot;Expr&quot;, title_gp = gpar(fontsize = 20, fontface = &quot;bold&quot;),
+                                      grid_height = unit(0.7, &quot;cm&quot;),
+                                      grid_width = unit(0.3, &quot;cm&quot;),
+                                      labels_gp = gpar(fontsize = 15))
+
+
+# arrange annotations 
+pd = packLegend(anno_legend_list[[1]], anno_legend_list[[2]], anno_legend_list[[3]], heatmap_legend, max_height = unit(20, &quot;cm&quot;), 
+    column_gap = unit(0.5, &quot;cm&quot;))
+
+draw(h1, heatmap_legend_list = pd)</code></pre>
+<p><img src="figure/general_eda.Rmd/c1c2%20expr-1.png" width="1365.12" style="display: block; margin: auto;" /></p>
+</div>
+<div id="plot-mean-and-sd-of-c1c2-group" class="section level1">
+<h1>Plot mean and sd of c1/c2 group</h1>
+<pre class="r"><code>mean_c &lt;- rowMeans(exprMat_c)
+mean_all &lt;- rowMeans(exprMat)
+mean_top &lt;- rowMeans(exprMat[var5000,])
+
+sd_c &lt;- rowSds(exprMat_c)
+sd_all &lt;- rowSds(exprMat)
+sd_top &lt;- rowSds(exprMat[var5000,])
+
+cat_vec &lt;- rep(&quot;none&quot;, length(rownames(exprMat)))
+cat_vec[which(rownames(exprMat) %in% var10000)] &lt;- &quot;top10000&quot;
+cat_vec[which(rownames(exprMat) %in% var5000)] &lt;- &quot;top5000&quot;
+cat_vec[which(rownames(exprMat) %in% var1000)] &lt;- &quot;top1000&quot;
+cat_vec[which(rownames(exprMat) %in% var500)] &lt;- &quot;top500&quot;
+cat_vec[which(rownames(exprMat) %in% rownames(c1c2_genes))] &lt;- &quot;c1c2&quot;
+            
+
+tab_all_cat &lt;- data.frame(&quot;mean_count&quot; = mean_all,
+                          &quot;sd_count&quot; = sd_all,
+                          &quot;gene_category&quot; = cat_vec)
+  
+  
+p1 &lt;- gghistogram(tab_all_cat, x = &quot;mean_count&quot;,
+   add = &quot;mean&quot;, bins = 12, fill = &quot;gene_category&quot;,
+  palette = &quot;uchicago&quot;)
+p1</code></pre>
+<p><img src="figure/general_eda.Rmd/mean%20sd%20c1c2%20group-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>p2 &lt;- gghistogram(tab_all_cat, x = &quot;sd_count&quot;,
+   add = &quot;mean&quot;, bins = 12, fill = &quot;gene_category&quot;,
+  palette = &quot;uchicago&quot;,
+  title = &quot;Standard deviation c1c2 genes compared to top variable genes&quot;)
+p2</code></pre>
+<p><img src="figure/general_eda.Rmd/mean%20sd%20c1c2%20group-2.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>saveRDS(list(&quot;mean&quot; = p1, &quot;sd&quot; = p2, &quot;category&quot; = p_c1c2), 
+        file = paste0(output_dir, &quot;/figures/r_objects/mean_sd_by_c1c2.rds&quot;))</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -1109,19 +1822,20 @@ attached base packages:
  [8] datasets  methods   base     
 
 other attached packages:
- [1] here_0.1                    circlize_0.4.6             
- [3] RColorBrewer_1.1-2          ggpubr_0.2                 
- [5] magrittr_1.5                ComplexHeatmap_2.0.0       
- [7] forcats_0.4.0               stringr_1.4.0              
- [9] purrr_0.3.2                 readr_1.3.1                
-[11] tidyr_0.8.3                 tibble_2.1.3               
-[13] tidyverse_1.2.1             ggplot2_3.1.1              
-[15] dplyr_0.8.1                 DESeq2_1.24.0              
-[17] SummarizedExperiment_1.14.0 DelayedArray_0.10.0        
-[19] BiocParallel_1.18.0         matrixStats_0.54.0         
-[21] Biobase_2.44.0              GenomicRanges_1.36.0       
-[23] GenomeInfoDb_1.20.0         IRanges_2.18.1             
-[25] S4Vectors_0.22.0            BiocGenerics_0.30.0        
+ [1] corrplot_0.84               dendextend_1.13.4          
+ [3] here_0.1                    circlize_0.4.6             
+ [5] RColorBrewer_1.1-2          ggpubr_0.2                 
+ [7] magrittr_1.5                ComplexHeatmap_2.0.0       
+ [9] forcats_0.4.0               stringr_1.4.0              
+[11] purrr_0.3.2                 readr_1.3.1                
+[13] tidyr_0.8.3                 tibble_2.1.3               
+[15] tidyverse_1.2.1             ggplot2_3.1.1              
+[17] dplyr_0.8.1                 DESeq2_1.24.0              
+[19] SummarizedExperiment_1.14.0 DelayedArray_0.10.0        
+[21] BiocParallel_1.18.0         matrixStats_0.54.0         
+[23] Biobase_2.44.0              GenomicRanges_1.36.0       
+[25] GenomeInfoDb_1.20.0         IRanges_2.18.1             
+[27] S4Vectors_0.22.0            BiocGenerics_0.30.0        
 
 loaded via a namespace (and not attached):
  [1] colorspace_1.4-1       rjson_0.2.20           rprojroot_1.3-2       
@@ -1151,10 +1865,10 @@ loaded via a namespace (and not attached):
 [73] haven_2.1.0            whisker_0.3-2          foreign_0.8-71        
 [76] withr_2.1.2            survival_2.44-1.1      RCurl_1.95-4.12       
 [79] nnet_7.3-12            modelr_0.1.4           crayon_1.3.4          
-[82] rmarkdown_1.13         GetoptLong_0.1.7       locfit_1.5-9.1        
-[85] readxl_1.3.1           data.table_1.12.2      blob_1.1.1            
-[88] git2r_0.25.2           digest_0.6.19          xtable_1.8-4          
-[91] munsell_0.5.0         </code></pre>
+[82] rmarkdown_1.13         viridis_0.5.1          GetoptLong_0.1.7      
+[85] locfit_1.5-9.1         readxl_1.3.1           data.table_1.12.2     
+[88] blob_1.1.1             git2r_0.25.2           digest_0.6.19         
+[91] xtable_1.8-4           munsell_0.5.0          viridisLite_0.3.0     </code></pre>
 </div>
 </div>
 

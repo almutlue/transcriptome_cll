@@ -33,7 +33,10 @@ library(gridExtra)
 library(ggpubr)
 library(RColorBrewer)
 library(here)
-
+library(clusterProfiler)
+library(msigdbr)
+library(org.Hs.eg.db)
+library(enrichplot)
 ```
 
 
@@ -173,27 +176,24 @@ saveRDS(p1, file = paste0(output_dir, "/figures/r_objects/trisomy12/tri12_heatma
 #function to create stripchart plots for specific genes
 gene_count <- function(gene_nam){
   geneEnsID <- rownames(ddsCLL)[which(rowData(ddsCLL)$symbol %in% gene_nam)]
-  geneNum <- assay(RNAnorm)[geneEnsID,]
-  mutPat <- as.data.frame(colData(ddsCLL)[, c(variant)])
-  colnames(mutPat) <- c("genotype")
-  geneDat <- cbind(mutPat, geneNum)
-  colnames(geneDat) <- c("genotype", "counts")
-  
-  p <- ggstripchart(geneDat, x = "genotype", y = "counts",
-          color = "genotype",
-          size = 3,
-          palette = "jco",
-          add = "mean_sd",
+  gc <- plotCounts(ddsCLL, gene = geneEnsID, intgroup = variant, returnData=TRUE)
+  p <- ggboxplot(gc, x = variant, y = "count",
+          color = variant,
+          size = 1.2,
+          palette = c(annocol[4],annocol[8]),
+          outlier.shape = NA, 
+          add = "jitter",
+          add.params = list(size = 2.5),
+          yscale = "log10",
           title = paste(gene_nam),
           font.x = 20, font.y = 20, font.legend = 20, 
           ylab = "normalized counts") + font("xy.text", size = 20) + font("title", size = 20, face = "bold")
-  #ggsave(file=paste0(figure_dir, "/tri12/genetic_interaction_", gene_nam, ".svg"), plot=p, width=6, height=5)
   saveRDS(p, file = paste0(output_dir, "/figures/r_objects/trisomy12/de_genes/", gene_nam, ".rds"))
   p
 }
 
 diff <- diff_all[which(abs(diff_all$stat) > 9 & !rowData(RNAnorm[rownames(diff_all),])$chromosome %in% "12"),]
-geneList <- c(as.character(diff$Symbol), "CTLA4", "CHFR", "SOCS3", "MERTK")
+geneList <- c(as.character(diff$Symbol), "CTLA4", "CHFR", "SOCS3", "MERTK", "HRAS", "VAV1", "PTPN6", "NT5E")
 
 lapply(geneList, gene_count)
 
@@ -201,7 +201,9 @@ lapply(geneList, gene_count)
 ```
 
 
-# Gene set enrichment analysis
+## Gene set enrichment analysis
+
+## Gene set enrichment analysis
 
 Gene sets
 ```{r gene sets}
@@ -213,7 +215,7 @@ gsc_Kegg <- loadGSC("/home/almut/Dokumente/masterarbeit/data/c2.cp.kegg.v6.0.sym
 
 
 #get all de outputs
-load(paste0(output_dir,"/desRes_15112019.RData"))
+load(paste0(output_dir,"/desRes_250720.RData"))
 difftab <- function(condition){
   dataTab <- data.frame(res_list[[condition]])
   dataTab$ID <- rownames(dataTab)
@@ -229,105 +231,121 @@ difftab <- function(condition){
 }
 
 diff_res <- difftab(variant)
-```
 
-Run piano
-```{r piano, fig.width=10, fig.height=6}
-
-gmtFile <- gsc_Kegg
+#clusterProfiler
 diff_res <- diff_res[-which(diff_res$Symbol %in% c("", NA)),]
+gene_list <- diff_res$stat %>% set_names(diff_res$Symbol)
+gene_list <- sort(gene_list, decreasing = TRUE)
+gene_lfc <- diff_res$log2FoldChange %>% set_names(diff_res$Symbol)
+gene_lfc <- sort(gene_lfc, decreasing = TRUE)
+de_gene <- diff_res %>% filter(padj < 0.01) 
+de_gene <- de_gene$Symbol
 
-geneNam <- diff_res$Symbol 
-pVal <- diff_res$padj
-logFold <- diff_res$log2FoldChange
-stat <- diff_res$stat
-gsTab <- data.frame(gene = geneNam, stat = stat, logFold = logFold)
-gsaTab <- data.frame(row.names = gsTab$gene, stat = gsTab$stat)
-res <- runGSA(geneLevelStats = gsaTab,
-                    geneSetStat = "gsea",
-                    adjMethod = "fdr", gsc=gmtFile,
-                    signifMethod = "geneSampling",
-                    nPerm = 50000,
-                    gsSizeLim=c(1, Inf))
+de_ens <- diff_res %>% filter(padj < 0.01)
+de_ens <- de_ens$ID
+#Get Gene IDs
+gene_id <- bitr(de_ens, fromType = "ENSEMBL",
+        toType = c("ENTREZID", "SYMBOL"),
+        OrgDb = org.Hs.eg.db)
 
-saveRDS(res, file=paste0(output_dir,"/enrichment/", variant, "_gsea.rds"))
-res <- readRDS(paste0(output_dir,"/enrichment/", variant, "_gsea.rds"))
-  
-Res_up <- arrange(GSAsummaryTable(res), `p adj (dist.dir.up)`)            
-Res_dn <- arrange(GSAsummaryTable(res), `p adj (dist.dir.dn)`)
-  
+gene_list_id <- bitr(diff_res$ID, fromType = "ENSEMBL",
+        toType = c("ENTREZID", "SYMBOL"),
+        OrgDb = org.Hs.eg.db)
+names(gene_list_id) <- c("ID", "ENTREZID", "Symbol")
+diff_id <- left_join(gene_list_id, diff_res)
+gene_list_id <- diff_id$stat %>% set_names(diff_id$ENTREZID)
+gene_list_id <- sort(gene_list_id, decreasing = TRUE)
+gene_lfc_id <- diff_id$log2FoldChange %>% set_names(diff_id$ENTREZID)
+gene_lfc_id <- sort(gene_lfc_id, decreasing = TRUE)
 
-#Plot
-resPlot <- Res_up[, c(1:3,5,8,9)]
-resPlot_dn <- Res_dn[, c(1:3,7,8,9)]
-colnames(resPlot) <- c("pathway", "gene_number", "stat", "p.adj","genes_up" , "genes_dn")
-colnames(resPlot_dn) <- c("pathway", "gene_number", "stat", "p.adj","genes_up" , "genes_dn")
+#convert gsc
+m_t2g <- msigdbr(species = "Homo sapiens", category = "H") %>% 
+  dplyr::select(gs_name, human_gene_symbol)
 
+#Hallmark
+em2 <- GSEA(gene_list, TERM2GENE = m_t2g, pvalueCutoff = 0.1)
+em <- enricher(de_gene, TERM2GENE = m_t2g)
 
-enrichPlot <- resPlot_dn[c(1:6),] %>% mutate(log10Padj = -log10(p.adj)) %>% arrange(-row_number())
-enrichPlot$pathway <- gsub("KEGG_", "",  enrichPlot$pathway)
-enrichPlot$pathway <- gsub("_", " ",  enrichPlot$pathway)
-enrichPlot$pathway <- tolower(enrichPlot$pathway)
+#Kegg
+kk <- enrichKEGG(gene_id$ENTREZID,
+                 organism     = 'hsa',
+                 pvalueCutoff = 0.1)
 
-#plot
-p <- ggbarplot(enrichPlot, x = "pathway", y = "gene_number",
-          fill = "p.adj",   
-          orientation = "vertical",
-          label = enrichPlot$pathway, lab.col = "white", lab.size = 4, lab.vjust = 0, lab.hjust = 1.01,
-          sort.val = "none",         
-          sort.by.groups = FALSE,     
-          xlab = "Pathway",
-          ylab = "gene number",
-          legend.title = "p.adj",
-          rotate = TRUE, font.x = 20, font.y = 20, font.legend = 20, legend = "right", 
-          title = "trisomy12 - Kegg down",
-          ggtheme = theme_pubr()) + 
-  font("x.text", size = 16) + 
-  font("y.text", size = 0) +
-  font("title", size = 20, face = "bold") + 
-  gradient_color(c("blue", "white", "red"))
-  
-#ggsave(file=paste0(figure_dir,"/GSEA_", variant, "_Kegg.svg"), plot=p, width=14, height=7)
-  p
-  
-saveRDS(p, file = paste0(output_dir, "/figures/r_objects/trisomy12/tri12_enrichment_dn.rds"))
+kk2 <- gseKEGG(geneList     = gene_list_id,
+               organism     = 'hsa',
+               nPerm        = 1000,
+               minGSSize    = 50,
+               pvalueCutoff = 0.1,
+               verbose      = FALSE)
 
+kk2x <- setReadable(kk2, 'org.Hs.eg.db', 'ENTREZID')
+```
+Visualize ClusterProfiler results
+```{r clusterProfiler}
+barplot(kk, showCategory=5)
+barplot(em, showCategory=5)
 
-enrichPlot <- resPlot[c(1:6),] %>% mutate(log10Padj = -log10(p.adj)) %>% arrange(-row_number())
-enrichPlot$pathway <- gsub("KEGG_", "",  enrichPlot$pathway)
-enrichPlot$pathway <- gsub("_", " ",  enrichPlot$pathway)
-enrichPlot$pathway <- tolower(enrichPlot$pathway)
+dot1 <- dotplot(em2, showCategory=10) + ggtitle("GSEA for trisomy12") +
+  theme_pubr() +
+  theme(legend.position="right") + 
+  theme(plot.title = element_text(face = "bold")) 
+dot1
+dotplot(em, showCategory=10) + ggtitle("Enrichment for trisomy12")
 
-#plot
-p <- ggbarplot(enrichPlot, x = "pathway", y = "gene_number",
-          fill = "p.adj",   
-          orientation = "vertical",
-          label = enrichPlot$pathway, lab.col = "white", lab.size = 4.5, lab.vjust = 0, lab.hjust = 1.01,
-          sort.val = "none",         
-          sort.by.groups = FALSE,     
-          xlab = "Pathway",
-          ylab = "gene number",
-          legend.title = "p.adj",
-          rotate = TRUE, font.x = 20, font.y = 20, font.legend = 20, legend = "right", 
-          title = "trisomy12 - Kegg up",
-          ggtheme = theme_pubr()) + 
-  font("x.text", size = 16) + 
-  font("y.text", size = 0) +
-  font("title", size = 20, face = "bold") + 
-  gradient_color(c("blue", "white", "red"))
-  
-#ggsave(file=paste0(figure_dir,"/GSEA_", variant, "_Kegg.svg"), plot=p, width=14, height=7)
-  p
-  
-saveRDS(p, file = paste0(output_dir, "/figures/r_objects/trisomy12/tri12_enrichment_up.rds"))
+dotplot(kk2, showCategory=10) + ggtitle("GSEA for trisomy12")
+dot2 <- dotplot(kk, showCategory=10) + ggtitle("Enrichment for trisomy12") +
+  theme_pubr() +
+  theme(legend.position="right") +
+  theme(plot.title = element_text(face = "bold"))
+dot2
+
+ridgeplot(em2)
+ridgeplot(kk2)
+
+gseaplot2(em2, geneSetID = 3, title = em2$Description[1])
+gseaplot2(kk2, geneSetID = 2, title = kk2$Description[1])
+
+saveRDS(dot1, file = paste0(output_dir, "/figures/r_objects/trisomy12/enrich_dot_hm.rds"))
+saveRDS(dot2, file = paste0(output_dir, "/figures/r_objects/trisomy12/enrich_dot2.rds"))
 ```
 
-`
+```{r network, fig.width=10, fig.height=10}
+# Networks Hallmark
+ em2_sub <- em2
+ em2_sub@result <- em2@result[which(em2@result$Description %in% c("HALLMARK_INTERFERON_GAMMA_RESPONSE",
+                                                                    "HALLMARK_TNFA_SIGNALING_VIA_NFKB",
+                                                                    "HALLMARK_PI3K_AKT_MTOR_SIGNALING")),]
+p_net <- cnetplot(em2_sub, categorySize="pvalue", foldChange=gene_lfc) + 
+  scale_colour_gradientn(colors = c("#581845", "#900C3F", "#C70039", "#FF5733", "#FFC300", "#DAF7A6")) + 
+  guides(size = FALSE) + 
+  labs(color = "logFC")
+
+p_net  
+
+# Networks KEGG
+ kk2_sub <- kk2x
+ kk2_sub@result <- kk2x@result[which(kk2x@result$Description %in% c("MAPK signaling pathway",
+                                                                    "mTOR signaling pathway",
+                                                                    "Chemokine signaling pathway")),]
+
+pnet_kegg <- cnetplot(kk2_sub, categorySize="pvalue", foldChange=gene_lfc) + 
+  scale_color_gradient(low="blue", high="red") +
+  guides(size = FALSE) + 
+  labs(color = "logFC")
+
+pnet_kegg
+
+saveRDS(pnet_kegg, file = paste0(output_dir, "/figures/r_objects/trisomy12/enrich_net_kegg.rds"))
+saveRDS(p_net, file = paste0(output_dir, "/figures/r_objects/trisomy12/enrich_net_hm.rds"))
+
+```
+
+
 
 
 # Dosage effect
 
-```{r stripchart, fig.width=8, fig.height=5}
+```{r stripchart, fig.width=4, fig.height=6}
 
 tri12Groups <- diff_all  %>%  mutate(group = ifelse(stat > 0, "up", "down"))
 rownames(tri12Groups) <- rownames(diff_all )
@@ -337,25 +355,31 @@ palette <- pal_igv(palette = c("default"), alpha = 1)(24)
 palette <- c(palette[c(5:24)], palette[c(1:4)])
 
 #chrom dist
-tri12_chrom <- as.tibble(tri12Groups) %>% mutate(Chromo=rowData(RNAnorm[as.character(ID),])$chromosome) %>% group_by(Chromo, group) %>% summarise(total = n()) %>% mutate(Chromosome= ifelse(Chromo == 12, "12", "other"))
+tri12_chrom <- as.tibble(tri12Groups) %>% mutate(Chromosome=rowData(RNAnorm[as.character(ID),])$chromosome) %>% 
+  group_by(Chromosome, group) %>% summarise(DE_genes = n()) %>% 
+  mutate(Chromosome_bin= ifelse(Chromosome == 12, "12", "other")) %>% 
+  filter(!Chromosome %in% c("MT", "X")) 
+
+tri12_order <- as.tibble(tri12Groups) %>% 
+  mutate(Chromosome=rowData(RNAnorm[as.character(ID),])$chromosome) %>% 
+  group_by(Chromosome) %>% 
+  summarise(DE_genes = n()) %>% 
+  filter(!Chromosome %in% c("MT", "X")) %>% 
+  arrange(as.numeric(Chromosome))
+
+tri12_chrom$DE_genes[tri12_chrom$group %in% "down"] <- tri12_chrom$DE_genes[tri12_chrom$group %in% "down"] * -1
 
 #plot
-p <- ggstripchart(tri12_chrom, x = "group", y = "total",
-          color = "Chromosome",
-          palette = c("#5B8FA8FF", "#FFB547FF"),          
-          title = "Chromosomal distribution",
-          ylab = "# upregulated genes",
-          size = 6,
-          jitter = 0.3,
-          legend= "right",
-          font.legend = c(18, "plain", "black"),
-          font.main = 25,
-          font.x =23,
-          font.y = 23,
-          font.tickslab=18
-)
+p <- ggbarplot(tri12_chrom[order(match(tri12_chrom$Chromosome, tri12_order$Chromosome)),], "Chromosome", "DE_genes",
+  fill = "group", 
+  palette = c("#5B8FA8FF", "#FFB547FF"),
+  font.x =23 ,
+  font.y = 23, 
+  font.tickslab = 18,
+  rotate = T) 
+
 p
- 
+#sum_dat_long2[order(match(sum_dat_long2$variant, sum_order$variant)),]
 #save plot 
 #ggsave(file=paste0(figure_dir, "/chromosom_dist_tri12.svg", plot=p, width=8, height=5)  
   

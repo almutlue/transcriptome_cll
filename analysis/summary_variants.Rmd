@@ -46,7 +46,7 @@ excluded_columns <- c("HIPO.ID","PID", "gender","project", "diagnosis", "date.of
 
 patMeta <- as.tibble(patMeta) %>% filter(Patient.ID %in% ddsCLL$PatID) %>% dplyr::select(-one_of(excluded_columns))
 
-variants <- patMeta %>% dplyr::select(-Patient.ID) %>% 
+variants <- patMeta %>% dplyr::select(-Patient.ID) %>% dplyr::select(-Chromothripsis) %>% 
   mutate_if(is.factor, as.character) %>% 
   mutate_if(is.character, as.numeric) %>% 
   dplyr::select(colnames(.)[colSums(.,na.rm = TRUE) > 4]) %>% 
@@ -76,8 +76,11 @@ p <- gghistogram(N_mut, x = "mutations",
   palette = "jco")
 
 #ggsave(file=paste0(figure_dir, "/hist_mutations.svg"), plot=p, width=4, height=3)
-p
+p <- p + theme(axis.title.x = element_text(face="bold", size=25), axis.text.x=element_text(size=20), 
+               axis.title.y = element_text(face="bold", size=25), axis.text.y= element_text(size=20),
+               legend.title = element_text(size=25), legend.text=element_text(size=20)) 
 
+p
 saveRDS(p, file = paste0(output_dir, "/figures/r_objects/summary_variant_patient.rds"))
 mean(N_mut$mutations)
 ```
@@ -128,8 +131,8 @@ saveRDS(p, file = paste0(output_dir, "/figures/r_objects/summary_var_freq_IGHV.r
 
 # Variant co-occurence
 
-```{r corMat chi, fig.height=10, fig.width= 10, warning = FALSE}
-variants <- c(variants, "IGHV")[!variants %in% c("Chromothripsis", "gain14q32")]
+```{r corMat chi, fig.height=11, fig.width= 10, warning = FALSE}
+variants <- c(variants, "IGHV")[!variants %in% c("gain14q32")]
 #Chisquare p.adj matrix
 my_chisquare <- function(variant_in){
   print(variant_in)
@@ -170,7 +173,7 @@ corrplot(resChiMat, is.corr = FALSE, method="color", col = col,
          addCoef.col = "black",                       # Add coefficient of correlation
          tl.col = "black", tl.srt = 90,               # Text label color and rotation
          tl.cex=1.4,
-         cl.lim = c(-6, 12),
+         cl.lim = c(-5, 8),
          cl.cex = 1.0,
          diag = FALSE,
          title = "-log10(p.adjust) * cor_direction")

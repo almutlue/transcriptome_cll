@@ -23,6 +23,10 @@ library(RColorBrewer)
 library(circlize)
 library(here)
 library(piano)
+library(clusterProfiler)
+library(msigdbr)
+library(org.Hs.eg.db)
+library(enrichplot)
 ```
 
 # Data preprocessing
@@ -102,8 +106,8 @@ ddsCLL <- estimateSizeFactors(ddsCLL)
 ddsCLL <- ddsCLL[,!is.na(ddsCLL$Methylation)]
 ddsCLL$Methylation <- relevel(ddsCLL$Methylation, ref = "IP")
 design(ddsCLL) <- as.formula(paste("~ Methylation"))
-#rnaRaw <- DESeq(ddsCLL, betaPrior = FALSE)
-#saveRDS(rnaRaw, file= paste0(output_dir,"/diff_meth_IP_vs_HP_LP.rds"))
+rnaRaw <- DESeq(ddsCLL, betaPrior = FALSE)
+saveRDS(rnaRaw, file= paste0(output_dir,"/diff_meth_IP_vs_HP_LP.rds"))
 rnaRaw <- readRDS(paste0(output_dir,"/diff_meth_IP_vs_HP_LP.rds"))
 
 res_hp <- results(rnaRaw, name="Methylation_HP_vs_IP")
@@ -141,13 +145,23 @@ write.csv(tab_lp, file=paste0(output_dir, "/diff_genes/meth_IP_vs_LP_diffGenes.c
 
 
 #Get differentially expressed genes
-genes_hp <- tab_hp %>% filter(padj <= 0.01, abs(stat) > 5)  
-genes_lp <- tab_lp %>% filter(padj <= 0.01, abs(stat) > 5)  
-genes_lp_hp <- tab_lp_hp %>% filter(padj <= 0.01, abs(stat) > 2) 
+genes_hp <- tab_hp %>% filter(padj <= 0.01, abs(stat) > 5)
+genes_hp_sig <- tab_hp %>% filter(padj <= 0.05)
+genes_lp <- tab_lp %>% filter(padj <= 0.01, abs(stat) > 5)
+genes_lp_sig <- tab_lp %>% filter(padj <= 0.05)
+genes_lp_hp <- tab_lp_hp %>% filter(padj <= 0.01) 
+dim(genes_hp_sig)
+dim(genes_lp_sig)
+
 
 #Exclude genes differentially expressed between hp and lp
+both <- c(genes_hp_sig$ID, genes_lp_sig$ID) 
+genes_diff_sig <- both[!both %in% genes_lp_hp$ID]
+length(genes_diff_sig)
+
 both <- c(genes_hp$ID, genes_lp$ID) 
 genes_diff <- both[!both %in% genes_lp_hp$ID]
+length(genes_diff)
 
 genes_hp <- genes_hp[genes_hp$ID %in% genes_diff, ]
 genes_lp <- genes_lp[genes_lp$ID %in% genes_diff, ]
@@ -269,7 +283,57 @@ lapply(geneList, gene_count)
 
 ```
 
-# Gene set enrichment
+
+## Gene set enrichment analysis
+
+Gene sets
+```{r gene sets}
+#load gene set collection
+#Hallmark
+gsc <- loadGSC("/home/almut/Dokumente/masterarbeit/data/h.all.v6.0.symbols.gmt", type="gmt")
+#Kegg
+gsc_Kegg <- loadGSC("/home/almut/Dokumente/masterarbeit/data/c2.cp.kegg.v6.0.symbols.gmt", type="gmt")
+
+
+#clusterProfiler
+
+#Get Gene IDs
+gene_id <- bitr(genes_diff_sig, fromType = "ENSEMBL",
+        toType = c("ENTREZID", "SYMBOL"),
+        OrgDb = org.Hs.eg.db)
+
+names(gene_id) <- c("ID", "ENTREZID", "Symbol")
+
+
+#convert gsc
+m_t2g <- msigdbr(species = "Homo sapiens", category = "H") %>% 
+  dplyr::select(gs_name, human_gene_symbol)
+
+#Hallmark
+em <- enricher(gene_id$Symbol, TERM2GENE = m_t2g)
+
+#Kegg
+kk <- enrichKEGG(gene_id$ENTREZID,
+                 organism     = 'hsa',
+                 pvalueCutoff = 0.1)
+
+
+barplot(kk, showCategory=5)
+barplot(em, showCategory=5)
+
+dotplot(em, showCategory=10) + ggtitle("Enrichment for IP group")
+
+dot2 <- dotplot(kk, showCategory=10) + ggtitle("Enrichment for trisomy12") +
+  theme_pubr() +
+  theme(legend.position="right") +
+  theme(plot.title = element_text(face = "bold"))
+dot2
+
+
+
+```
+
+
 ```{r gsea, eval=FALSE, fig.height=7, fig.width=16, include=FALSE}
 
 variant <- "IP"
