@@ -1,0 +1,133 @@
+---
+title: "gene_expression_top1000"
+author: "almut"
+date: "1 Mai 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## overview on expression of top 1000 most differentially expressed genes
+
+
+libraries
+```{r load libraries}
+library(tidyverse)
+library(ggplot2)
+library(DESeq2)
+library(ggpubr)
+library(ComplexHeatmap)
+library(VennDiagram)
+library(RColorBrewer)
+library(circlize)
+library(piano)
+```
+
+
+load data
+```{r datasets}
+#gene expression
+#load("/home/almut/Documents/CLL/data/2017-08-16_ddsrna_trimmed.RData")
+
+#gene expression
+load("/home/almut/Dokumente/git/Transcriptome_CLL/dataset/ddsrnaCLL_150218.RData")
+
+#exclude NAs
+ddsCLL <- ddsCLL[,!is.na(colData(ddsCLL)[,"IGHV"])]
+ddsCLL <- ddsCLL[,!is.na(colData(ddsCLL)[,"trisomy12"])]
+
+```
+
+normalize data
+```{r norm data}
+
+#Variance stabilization transformation of the raw data
+ddsCLL <- estimateSizeFactors(ddsCLL)
+RNAnorm <- varianceStabilizingTransformation(ddsCLL, blind=T)
+
+
+```
+
+
+1.) Cluster based on sample to sample dist including annotation of variants
+
+```{r expr heatmap, fig.height= 25, fig.width= 20}
+exprMat <- assay(RNAnorm)
+
+# filter NOT located on chromosome 12 or an IG gene
+filtered <- as_tibble(rowData(ddsCLL)) %>% mutate(geneID = rownames(ddsCLL)) %>% filter(!grepl("IGH",symbol)) %>% filter(!grepl("IGK",symbol)) %>% filter(!grepl("IGL",symbol)) #filter(chromosome != "12") %>%   
+
+exprMat <- exprMat[filtered$geneID,]
+
+
+#top 5000 most variant genes
+sds <- rowSds(exprMat)
+exprMat <- exprMat[order(sds, decreasing = T)[1:300],]
+colnames(exprMat) <- colData(ddsCLL)$PatID
+exprMat.new <- log2(exprMat)
+exprMat.new <- t(scale(t(exprMat.new)))
+exprMat.new[exprMat.new > 4] <- 4
+exprMat.new[exprMat.new < -4] <- -4
+rownames(exprMat.new) <- rowData(RNAnorm[rownames(exprMat),])$symbol
+
+
+
+
+
+#colors
+colors = colorRamp2(c(-4,-1.5,0,1.5,4), c("#2166ac","#4393c3", "#f7f7f7", "#d6604d","#b2182b"))
+annocol <- get_palette("jco", 10)
+annocolor <- list(IGHV = c("M" = annocol[1], "U" = annocol[2]) , trisomy12 = c( "1" = annocol[8], "0" = annocol[4]), TP53= c( "1" = annocol[5], "0" = annocol[6]), del13q14 = c( "1" = annocol[7], "0" = annocol[8]), BRAF = c( "1" = annocol[9], "0" = annocol[10]), Methylation = c("IP" = annocol[5], "LP" = annocol[6], "HP" =  annocol[7]))
+
+
+
+ha_top = HeatmapAnnotation(df = data.frame(colData(RNAnorm)[, c("IGHV", "trisomy12", "Methylation")]), col = annocolor, annotation_width = unit(c(rep(5, 3)), "cm"), show_legend = FALSE, annotation_legend_param = list(title_gp = gpar(fontsize = 70), labels_gp = gpar(fontsize = 55),  grid_height = unit(3, "cm"), grid_width = unit(1.5, "cm"), gap = unit(2, "cm")))
+anno_legend_list = lapply(ha_top@anno_list[c("IGHV", "trisomy12", "Methylation")], function(anno) color_mapping_legend(anno@color_mapping, plot = FALSE,title_gp = gpar(fontsize = 45, fontface = "bold"),
+    grid_height = unit(1.5, "cm"),
+    grid_width = unit(0.5, "cm"),
+    labels_gp = gpar(fontsize = 35)))
+
+
+h1 <- Heatmap(exprMat.new ,                                                     #Cluster param
+              km = 3,
+              gap = unit(0.5, "cm"),
+              #cluster_columns = F,
+              clustering_distance_columns = "euclidean",
+              clustering_method_columns = "ward.D2",
+              clustering_distance_rows = "pearson",
+              clustering_method_rows = "ward.D2",
+              column_title = "Gene expression",                      #Graphic parameter
+              col = colors,
+              column_title_gp = gpar(fontsize = 60, fontface = "bold"), 
+              column_dend_height = unit(2.5, "cm"),
+              show_row_dend = FALSE, 
+              show_column_names = FALSE , 
+              show_row_names = FALSE, 
+              row_names_gp = gpar(fontsize = 45),
+              top_annotation = ha_top)
+
+heatmap_legend = color_mapping_legend(h1@matrix_color_mapping, plot = FALSE, title = "Expr",
+    title_gp = gpar(fontsize = 45, fontface = "bold"),
+    grid_height = unit(1.5, "cm"),
+    grid_width = unit(0.5, "cm"),
+    labels_gp = gpar(fontsize = 35))
+
+#Annotate known genes from litertaure
+marker_genes <- c("ADAM29", "ATM", "CLLU1", "DMD", "GLO1", "HCSL1", "KIAA0977", "LPL", "MGC9913", "PCDH9", "PEG10", "SEPT10", "TCF7", "TCL1", "TP53", "VIM", "ZAP70", "CD38")
+geneIDs <- which(rownames(exprMat.new) %in% marker_genes)
+labels <- rownames(exprMat.new)[geneIDs]
+ha_genes <- rowAnnotation(link = row_anno_link(at = geneIDs, labels = labels, labels_gp = gpar(fontsize = 35)), width = unit(3, "cm"))
+
+
+
+pdf(file="/home/almut/Dokumente/git/Transcriptome_CLL/paper/figures/cluster300exprgenes.pdf", width=20, height=20)
+#draw(ha_row + h1)
+draw(h1 + ha_genes, heatmap_legend_list = c(list(heatmap_legend), anno_legend_list))
+dev.off()
+
+draw(h1 + ha_genes, heatmap_legend_list = c(list(heatmap_legend), anno_legend_list))
+#int_num <- row_order(h1)[[2]]
+#rownames(exprMat.new)[int_num]
+```

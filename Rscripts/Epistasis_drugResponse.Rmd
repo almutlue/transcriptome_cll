@@ -1,0 +1,229 @@
+---
+title: "Epistatic interaction between IGHV and trisomy12 on phenotype level"
+author: "Junyan Lu"
+date: "9/6/2018"
+output:
+  BiocStyle::html_document:
+    toc: false
+---
+
+# Load libraries
+
+```{r, message=FALSE, warning=FALSE}
+library(BloodCancerMultiOmics2017)
+library(Biobase)
+library(limma)
+library(pheatmap)
+library(gridExtra)
+library(cowplot)
+library(tidyverse)
+```
+
+# Prepare datasets
+
+```{r}
+data("lpdAll","mutCOM")
+
+#only use CLL samples
+lpdCLL <- lpdAll[, pData(lpdAll)$Diagnosis == "CLL"]
+
+#get drug response data
+viabCLL <- lpdCLL[fData(lpdAll)$type == "viab", ]
+
+#get genomic information
+geneTab <- exprs(lpdCLL[fData(lpdCLL)$type %in% c("gen","IGHV"),])
+
+#change the row name of IGHV
+rownames(geneTab)[rownames(geneTab) == "IGHV Uppsala U/M"] <- "IGHV"
+
+#get IGHV and trisomy12 status
+geneTab <- geneTab[c("IGHV","trisomy12"), ,drop=FALSE]
+
+#filtering of drug response data
+viabCLL <- viabCLL[fData(viabCLL)$subtype == "1:5",]
+sds <- genefilter::rowSds(exprs(viabCLL))
+viabCLL <- viabCLL[sds >= genefilter::shorth(sds),]
+
+```
+
+Identify drugs that are affected by IGHV-trisomy12 epistasis
+```{r}
+x <- tibble(patID = colnames(geneTab), IGHV =factor(geneTab["IGHV",]),
+                trisomy12 = factor(geneTab["trisomy12",])) %>%
+  filter(!is.na(IGHV), !is.na(trisomy12))
+
+y <- log2(exprs(viabCLL)[,x$patID])
+
+fit <- eBayes(lmFit(y, design = model.matrix( ~ IGHV * trisomy12, data = x))) 
+fitRes <- tibble(DrugID = rownames(fit$p.value),
+                 p = fit$p.value[, "IGHV1:trisomy121"]) %>%
+  mutate(p.adj = p.adjust(p, method = "BH")) %>% arrange(p) %>%
+  mutate(drugName = fData(viabCLL[DrugID,])$name)
+```
+
+Plot the viabilities after drug treatment in gene combination groups
+```{r, fig.width=8, fig.height=8}
+fscr <- filter(fitRes, p.adj < 0.1)
+
+colorVal <- c(none="#1874CD", IGHV = "#EEB422", trisomy12 = "#858585", both = "#CD5555")
+plotList <- lapply(seq(nrow(fscr)), function(i) {
+  
+  mutnames <- c("none", "IGHV", "trisomy12", "both")
+    
+  plotTab <- tibble(viab = exprs(viabCLL)[fscr[i,]$DrugID,],
+                    geneA = geneTab["IGHV",],
+                    geneB = geneTab["trisomy12",]) %>%
+    filter(!is.na(geneA) & !is.na(geneB)) %>%
+    mutate(mut = factor(mutnames[1 + geneA + 2 * geneB], levels = mutnames))
+  
+  ggplot(plotTab, aes(x=mut, y=viab)) + geom_boxplot(outlier.shape = NA, fill = NA, color = "blue", width =0.3) + 
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust =0.5)) +
+    geom_point(alpha=0.8, aes(col = mut)) + ggtitle(fscr[i,]$drugName) + ylab("viability") + xlab("Mutation") +
+    theme_bw() + theme(plot.title = element_text(hjust=0.5, size = 20),
+                       plot.margin = margin(0.5,0.5,0.5,0.5,"cm"),
+                       legend.position = "none") +
+    scale_color_manual(values = colorVal)
+})
+b <- grid.arrange(grobs = plotList, ncol =2)
+```
+
+Plot heatmap of significant interactions
+```{r, fig.width=4, fig.height=8}
+mutnames <- c("none", "IGHV", "trisomy12", "both")
+colAnno <- x %>% mutate(IGHV = as.integer(as.character(IGHV)),
+                        trisomy12 = as.integer(as.character(trisomy12))) %>%
+  mutate(group = factor(mutnames[1 + IGHV + 2 * trisomy12], levels = mutnames)) %>%
+  arrange(group) %>%
+  select(-IGHV, -trisomy12) %>% data.frame() %>% column_to_rownames("patID")
+
+annoColor <- list(group = colorVal)
+plotMat <- y[fscr$DrugID, rownames(colAnno)]
+rownames(plotMat) <- fscr$drugName
+plotMat <- t(scale(t(plotMat), center = TRUE, scale = TRUE))
+#censoring for better visualization
+plotMat[plotMat > 4] <- 4
+plotMat[plotMat < -4] <- -4
+
+p <- pheatmap(t(plotMat), cluster_rows = FALSE, annotation_row = colAnno, scale = "none", show_rownames = FALSE, annotation_colors = annoColor, silent = TRUE)$gtable
+  
+```
+
+Organized the plots
+```{r drugEpistasis, fig.width=12, fig.height=8, fig.path="./", dev=c("png", "pdf")}
+plot_grid(p,b, rel_widths = c(0.4,0.6), ncol = 2, labels=c('A', 'B'), label_size = 15)
+
+```
+
+
+# Does the epistasis affect the clinical outcome?
+```{r}
+data("patmeta")
+library(survival)
+library(survminer)
+survT <- patmeta %>% rownames_to_column("patID") %>% 
+  select(patID, T5, T6, treatedAfter, died, IC50beforeTreatment) %>%
+  mutate(group = colAnno[match(patID, rownames(colAnno)),]) %>%
+  filter(!is.na(group))
+```
+
+function for cox regression
+```{r}
+com <- function(response, time, endpoint, scale =FALSE) {  
+  
+  if (scale) {
+    #calculate z-score
+    response <- (response - mean(response, na.rm = TRUE))/sd(response, na.rm=TRUE)
+  }
+  surv <- coxph(Surv(time, endpoint) ~ response) 
+  
+  
+  tibble(p = summary(surv)[[7]][,5], 
+         HR = summary(surv)[[7]][,2], 
+         lower = summary(surv)[[8]][,3], 
+         higher = summary(surv)[[8]][,4])
+}
+```
+
+Function for KM plot
+```{r}
+km <- function(response, time, endpoint, titlePlot = "KM plot", pval = NULL, stat = "maxstat", conf.int=TRUE) { 
+  #function for km plot
+  survS <- data.frame(time = time,
+                      endpoint = endpoint)
+  
+  if (stat == "maxstat") {
+    ms <- maxstat.test(Surv(time, endpoint)  ~ response, 
+                               data = survS,
+                               smethod = "LogRank",
+                               minprop = 0.2, 
+                               maxprop = 0.8, 
+                               alpha = NULL)
+    
+    survS$group <- factor(ifelse(response >= ms$estimate, "high", "low"))
+    
+  } else if (stat == "median") {
+    med <- median(response, na.rm = TRUE)
+    survS$group <- factor(ifelse(response >= med, "high", "low"))
+  } else if (stat == "binary") {
+    survS$group <- factor(response)
+  }
+  
+  if (is.null(pval)) pval = TRUE
+  p <- ggsurvplot(survfit(Surv(time, endpoint) ~ group, data = survS), 
+                              data = survS, pval = TRUE,  conf.int = conf.int,
+
+                              ylab = "Fraction", xlab = "Time (years)", title = titlePlot,
+                  ggtheme = theme_bw() + theme(plot.title = element_text(hjust =0.5)))$plot
+  
+  p
+}
+```
+
+TTT
+```{r, fig.height=6, fig.width=5}
+km(survT$group, survT$T5, survT$treatedAfter, "Time to treatment", stat = "binary")
+```
+
+OS
+```{r, fig.height=6, fig.width=5}
+km(survT$group, survT$T6, survT$died, "Overall survival", stat = "binary")
+```
+
+
+
+
+## Compare each group separately
+
+TTT
+```{r, fig.width=8, fig.height=16}
+pList.ttt <- list()
+n=0
+for( i in seq(1,3)) {
+  for (j in seq(i+1,4))  {
+    n <- n + 1
+    groupA = levels(survT$group)[i]
+    groupB = levels(survT$group)[j]
+    survT.sub <- filter(survT, group %in% c(groupA, groupB))
+    pList.ttt[[n]] <- km(survT.sub$group, survT.sub$T5, survT.sub$treatedAfter, 
+       sprintf("Time to treatment (%s VS %s)", groupA, groupB), stat= "binary")
+  }
+}
+grid.arrange(grobs = pList.ttt, ncol =2 )
+```
+
+OS
+```{r, fig.width=8, fig.height=16}
+pList.os <- list()
+n=0
+for( i in seq(1,3)) {
+  for (j in seq(i+1,4))  {
+    n <- n + 1
+    groupA = levels(survT$group)[i]
+    groupB = levels(survT$group)[j]
+    survT.sub <- filter(survT, group %in% c(groupA, groupB))
+    pList.os[[n]] <- km(survT.sub$group, survT.sub$T6, survT.sub$died, 
+       sprintf("Overall survival (%s VS %s)", groupA, groupB), stat= "binary")
+  }
+}
+grid.arrange(grobs = pList.os, ncol =2 )
+```

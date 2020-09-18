@@ -1,0 +1,209 @@
+---
+title: "Methylation_pattern_sys"
+author: "Almut Luetge"
+date: "November 11, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Aim investigate coherence between gene expression and methylation groups.
+methylation groups have been clustering on PC1 filtering for the most variant genes:
+
+libraries
+```{r load libraries, warning=F, message=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(DESeq2)
+library(ggpubr)
+library(ComplexHeatmap)
+#library(VennDiagram)
+library(RColorBrewer)
+library(circlize)
+```
+
+#data
+```{r load data}
+#dds data set. gene expression data + patmetadata
+load("/home/almut/Dokumente/git/Transcriptome_CLL/dataset/ddsrnaCLL_150218.RData")
+
+```
+
+#RNAnorm
+```{r RNAnorm}
+#expression data
+ddsCLL <- estimateSizeFactors(ddsCLL)
+RNAnorm <- varianceStabilizingTransformation(ddsCLL, blind = T)
+
+```
+
+#PCA
+```{r pca, fig.height=6, fig.width=6}
+#Plot PCA
+exprMat <- assay(RNAnorm)
+
+#top 5000 most variant genes
+sds <- rowSds(exprMat)
+exprMat <- exprMat[order(sds, decreasing = T)[1:150],]
+
+
+#Calculate PCA
+pcaRes <- prcomp(t(exprMat), scale =T)
+varExp <- (pcaRes$sdev^2 / sum(pcaRes$sdev^2)) * 100
+pcaTab <- data.frame(pcaRes$x[,c(1:10)])
+names(varExp) <- colnames(pcaRes$x)
+
+#add background information
+pcaTab <- cbind(pcaTab, data.frame(colData(RNAnorm)))
+
+
+#plot PCA and color samples based on annotations
+
+  
+p <- ggscatter(pcaTab, x = "PC1", y = "PC2", color = "Methylation", palette = c("#00AFBB", "#E7B800", "#FC4E07"),
+  ylab = sprintf("PC2 (%2.1f%%)",varExp[2]), xlab = sprintf("PC1 (%2.1f%%)",varExp[1]), legend = "right", main = "PCA Methylation groups") + coord_fixed()
+
+#p <- ggscatter(pcaTab, x = "PC3", y = "PC4", color = "trisomy12", palette = "jco",
+#  ylab = sprintf("PC4 (%2.1f%%)",varExp[4]), xlab = sprintf("PC3 (%2.1f%%)",varExp[3]), legend = "right", main = "Trisomy12") + #coord_fixed()
+
+ 
+p  
+ 
+#ggsave(file="~/git/figures_thesis/pca_Meth_top150.svg", plot=p, width=5, height=5)
+#ggsave(file="~/git/figures_thesis/pca_readlengthOld.svg", plot=p, width=5, height=5)
+
+```
+
+#complex heatmap
+```{r complex heatmap del13, fig.width= 30, fig.height=45}
+#chose genes with high loadings on PC1 and PC2
+
+#identify genes that have highest loadings on PC1 (component with the batch effect)
+loadingsPc1 <- data.frame(pcaRes$rotation[,1])
+loadingsPc1$gene <- rownames(loadingsPc1)
+OrderedLoadings <- loadingsPc1[order(abs(loadingsPc1[,1]), decreasing = T),]
+
+#top 100 genes that are associated with the batch
+top100 <- OrderedLoadings$gene[c(1:100)]
+
+#top100 <- rownames(RNAnorm)[which(rowData(RNAnorm)$symbol %in% int_genes)]
+exprMat_PC1 <- exprMat[top100,]
+
+
+#scale gene expression
+colnames(exprMat_PC1) <- colData(ddsCLL)$PatID
+exprMat.new <- log2(exprMat_PC1)
+exprMat.new <- t(scale(t(exprMat.new)))
+exprMat.new[exprMat.new > 4] <- 4
+exprMat.new[exprMat.new < -4] <- -4
+
+
+#Rowdata
+#chromosome distribution
+chrom <- as.data.frame(rowData(RNAnorm[rownames(exprMat_PC1),])$chromosome)
+rownames(chrom) <- rownames(exprMat_PC1) 
+colnames(chrom ) <- "chromosome"
+
+
+#colors
+colors <- colorRampPalette(rev( brewer.pal(10,"RdBu")) )(20)
+annocol <- colorRampPalette( brewer.pal(11,"Paired") )(11)
+annocolor <- list(Methylation = c("LP" = "#00AFBB", "IP" = "#E7B800", "HP" = "#FC4E07")) #, drugGroup = c("MEK" = "#c9a600", "mTOR" = "#de0066", "BTK" = "#ff9730", "none" = "#0076fa"))
+
+chromcol <- list(chromosome = c("1" ="#00d3b4", "2" ="#f443b9", "3" = "#6cde56", "4" = "#932db4", "5" ="#dcc608", "6"= "#0a54d9", "7" = "#fea114", "8"= "#0098ec","12" ="#fd4b43","10" = "#01e09f", "11" = "#ff6aab", "9" = "#a8d37e", "13" = "#a59eff","14" = "#be6f00", "15" = "#03d1f5", "16" = "#a02008", "17" = "#89c8ff", "18" = "#7a7600", "19" ="#005b8f", "20" = "#ffad61","21" = "#80386c", "22" = "#e3c27d", "X" ="#843e29", "MT" = "#ff938b"))
+
+
+ha_chrom = rowAnnotation(df = chrom, col = chromcol, annotation_width = unit(1.3, "cm"), annotation_legend_param = list(ncol = 2, title_gp = gpar(fontsize = 30), labels_gp = gpar(fontsize = 25),  grid_height = unit(1, "cm"), grid_width = unit(1, "cm"), gap = unit(1,"cm")))
+
+feature <- as.data.frame(colData(ddsCLL)[,c("Methylation")]) #,"drugGroup")])
+colnames(feature) <- c("Methylation") #, "drugGroup")
+
+#gene symbol as rownames
+
+rownames(exprMat.new) <- rowData(RNAnorm[rownames(exprMat_PC1),])$symbol  #[top100,])$symbol
+
+
+ha_col <- HeatmapAnnotation(feature, col = annocolor, annotation_height = unit(c(rep(1.3, 1)), "cm"), annotation_legend_param = list(title_gp = gpar(fontsize = 40), labels_gp = gpar(fontsize = 35),  grid_height = unit(1.9, "cm"), grid_width = unit(1.9, "cm")))
+
+
+h1 <- Heatmap(exprMat.new ,                                                     #Cluster param
+              km = 2,
+              clustering_distance_columns = "euclidean",
+              clustering_method_columns = "ward.D2",
+              clustering_distance_rows = "pearson",
+              clustering_method_rows = "ward.D2",
+              column_title ="Gene signature methylation groups ",                      #Graphic parameter
+              col = colors,
+              column_title_gp = gpar(fontsize = 50, fontface = "bold"), 
+              heatmap_legend_param = list(title = "expr", 
+                                          title_gp = gpar(fontsize = 40), 
+                                          grid_height = unit(1.9, "cm"), 
+                                          grid_width = unit(1.9, "cm"), 
+                                          gap = unit(2, "cm"), 
+                                          labels_gp = gpar(fontsize = 35)), 
+              column_dend_height = unit(3.5, "cm"),
+              show_row_dend = FALSE, 
+              show_column_names = FALSE , 
+              show_row_names = FALSE, 
+              row_names_gp = gpar(fontsize = 21),
+              top_annotation = ha_col)
+
+
+
+int_genes <- c("EGR1", "AID", "AP-1", "NFATC4", "E2A", "SPI1", "PU.1","TCL1A", "JUN", "FOS", "EBF1", "RUNX3")
+intr_genes <- rowData(RNAnorm[top100[c(1:60)],])$symbol
+
+#Annotate known genes from litertaure
+subset <- as.data.frame(rowData(RNAnorm[top100,]))
+subset1 <- subset[which(subset$symbol %in% int_genes),]
+subset2 <- subset[which(subset$symbol %in% intr_genes),]
+subset <- rbind(subset1, subset2)
+
+sub_names <- unique(subset$symbol)
+sub_names <- sub_names[-which(sub_names %in% "")]
+geneIDs <- which(rownames(exprMat.new) %in% sub_names)
+labels <- rownames(exprMat.new)[geneIDs]
+ha_genes <- rowAnnotation(link = row_anno_link(at = geneIDs, labels = labels, labels_gp = gpar(fontsize = 35)), width = unit(9, "cm"))
+
+
+#svg(filename=paste0("~/git/figures_thesis/gene_expr/gene_expr_Methylationgroups_top150.svg"), width=30, height=35)
+#pdf(file=paste0("~/git/figures_thesis/gene_expr/gene_expr_Methylationgroups_top150.pdf"), width=30, height=45)
+draw( h1 + ha_genes)
+#dev.off()
+
+
+
+
+```
+EBF -- sen in Oakes et al?!
+
+#gene counts for specific genes
+```{r single gene counts}
+#function to create stripchart plots for specific genes
+gene_count <- function(gene_nam){
+  geneEnsID <- rownames(ddsCLL)[which(rowData(ddsCLL)$symbol %in% gene_nam)]
+  geneNum <- counts(ddsCLL)[geneEnsID,]
+  mutPat <- as.data.frame(colData(ddsCLL)[, c("Methylation")])
+  colnames(mutPat) <- c("genotype")
+  geneDat <- cbind(mutPat, geneNum)
+  colnames(geneDat) <- c("genotype", "counts")
+  
+  p <- ggstripchart(geneDat, x = "genotype", y = "counts",
+          color = "genotype",
+          palette = "jco",
+          add = "mean_sd",
+          title = paste(gene_nam),
+          ylab = "normalized counts")
+ # ggsave(file=paste0("/home/almut/Dokumente/masterarbeit/workinprogress/genetic_interaction_", gene_nam, ".svg"), plot=p, width=6, height=5)
+  p
+}
+
+geneList <- c("EBF1", "NFATC4", "CRY1", "WNT9A", "EGR1", "SPI1","TCL1A", "JUN", "FOS", "RUNX3", "PTK2", "HIF1A", "HGF", "CXCL2", "IL1B", "PAX5", "IL4", "TCF7", "TCF3", "RUNX1", "FOXO1")#, "SAGE1", "DENND3", "ADGRG7", "UACA")#, "TRAK2", "EML6","SYBU", "SLC30A4", "RAB27B", "MAP2K6", "MAPK13", "PLIN4", "TRAK2", "BCRP3", "PAX9", "EBF4", "IRAK4", "TWF1", "TMEM117", "TRAF6", "TLR4", "TLR9", "BRG1")
+
+lapply(geneList, gene_count)
+
+
+```
+

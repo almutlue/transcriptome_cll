@@ -1,0 +1,50 @@
+---
+title: "Summary the data source for mutations"
+author: "Junyan Lu"
+date: "17/06/2020"
+output: html_document
+---
+
+```{r}
+library(DESeq2)
+library(tidyverse)
+```
+
+```{r}
+load("../data/ddsrnaCLL_150218.RData")
+load("../data/patmeta_170324.RData")
+```
+
+```{r}
+dim(ddsCLL)
+```
+
+
+```{r}
+patSub <- filter(patMeta, Patient.ID %in% ddsCLL$PatID)
+dim(ddsCLL)
+```
+
+```{r}
+load("~/CLLproject_jlu/packages/BloodCancerMultiOmics2017/data/mutCOM.RData")
+load("~/CLLproject_jlu/var/encPatientID_160218.RData")
+rownames(mutCOM) <- encPatientID[match(rownames(mutCOM),encPatientID$PatientID2),]$PatientID
+```
+
+```{r}
+patSub$Patient.ID %in% rownames(mutCOM)
+newPat <- patSub$Patient.ID[!patSub$Patient.ID %in% rownames(mutCOM)]
+```
+
+WGS table
+```{r}
+wgsPat <- unique(read_csv("~/CLLproject_jlu/ShinyApps/tumorbank/tables/WGS_SNV_report_190318.csv")$patientID)
+table(newPat %in% wgsPat)
+```
+
+AmpliSeq
+```{r}
+ampliPat <- unique(read_csv("~/CLLproject_jlu/ShinyApps/tumorbank/tables/ampliSeq_report_190318.csv")$patientID)
+table(newPat %in% ampliPat)
+```
+No patients

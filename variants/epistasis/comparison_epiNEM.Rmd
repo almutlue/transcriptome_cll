@@ -1,0 +1,85 @@
+---
+title: "epiStat"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## EpiStat 
+
+EpiStat inferred "directions" of genetic ineteraction by a boolean interaction network. Use their method and compare with our results with analysis of variance ANOVA to ntroduce directions in epistatic gene interactions.
+
+load packages
+```{r}
+library(dplyr)
+library(epiNEM)
+```
+
+load data 
+```{r gene expression data}
+load("/home/almut/Dokumente/git/Transcriptome_CLL/dataset/ddsrnaCLL_trimmed_tsig_modIGHV.RData")
+dim(ddsCLL)
+
+```
+
+
+1.) Calculate M values as described in Sameith et al. (https://bmcbiol.biomedcentral.com/articles/10.1186/s12915-015-0222-5).
+This is a different way to define epistasis
+```{r M values}
+epi <-  as_tibble(colData(ddsCLL)) %>% mutate(epi=ifelse(trisomy12 == 1, ifelse(IGHV %in% "U", "tri12", "both"), ifelse(IGHV %in% "U", "none", "IGHV")))
+colData(ddsCLL)$epi <- as.factor(epi$epi)
+
+ddsCLL <- estimateSizeFactors(ddsCLL)
+
+
+#write a function to perform deseq for different genetic conditions 
+ddsCLL_new <- ddsCLL[,!is.na(colData(ddsCLL)[,"epi"])]
+
+design(ddsCLL_new) <- as.formula(paste("~ epi"))
+rnaRaw <- DESeq(ddsCLL_new, betaPrior = FALSE)
+resTri12 <- results(rnaRaw, contrast=c("epi", "tri12", "none"))
+resBoth <- results(rnaRaw, contrast=c("epi", "both", "none"))
+resIGHV <- results(rnaRaw, contrast=c("epi", "IGHV", "none"))
+
+sig <- 0.01
+cutoff <- log2(1.5)
+
+#epi = |Mxy -(Mx +My)| > threshold
+Mxy <- resBoth$log2FoldChange
+Mx <- resTri12$log2FoldChange
+My <- resIGHV$log2FoldChange
+
+MxySig <- rownames(subset(resBoth, padj < 0.01))
+MxSig <- rownames(subset(resTri12, padj < 0.01))
+MySig <- rownames(subset(resIGHV, padj < 0.01))
+
+sigGenes <- unique(c(MxySig, MxSig, MySig))
+
+epiGen <- abs(Mxy - (Mx + My))
+epiGenes <- cbind(rownames(resBoth),as.vector(epiGen))
+colnames(epiGenes) <- c("geneID", "epsilon")
+sigEpi <- as_tibble(epiGenes) %>% filter(epsilon > cutoff & geneID %in% sigGenes)
+
+```
+
+#create input table for epiNem
+```{r}
+epiN <-  matrix(0, nrow(sigEpi), 4)
+rownames(epiN) <- sigEpi$geneID
+colnames(epiN) <- c("none", "tri12", "IGHV", "tri12.IGHV")
+epiN <- as.data.frame(epiN)
+epiN$tri12 <- ifelse(rownames(epiN) %in% MxSig, 1, 0)
+epiN$tri12.IGHV <- ifelse(rownames(epiN) %in% MxySig, 1, 0)
+epiN$IGHV <- ifelse(rownames(epiN) %in% MySig, 1, 0)
+epiN <- as.matrix(epiN)
+epiN_vars <- epiN[,c(2,3,4)]
+
+resEpi <- epiNEM(epiN, method = "exhaustive")
+plot(resEpi, global = FALSE)
+resScreen <-epiScreen(epiN_vars)
+plot(resScreen)
+```
+
+

@@ -1,0 +1,187 @@
+---
+title: "Inner_module_analysis"
+author: "Almut Luetge"
+date: "August 25, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+24.08.2017
+#Aim: Examine gene expression within modules --> Geneoverlap gave an idea on which module is connected to which clinical trait
+Further check these observations to substract a set of relevant genes
+
+
+```{r libraries}
+library(tidyverse)
+library(DESeq2)
+library(VennDiagram)
+library(dplyr)
+library(magrittr)
+library(gridExtra)
+library(pheatmap)
+library(matrixStats)
+library(piano)
+library(limma)
+library(ggvis)
+library(pheatmap)
+library(RColorBrewer)
+library(ggdendro)
+library(corrplot)
+library(stats)
+```
+
+
+
+##Load data
+```{r load data}
+#RNA dataset
+load("/home/almut/Documents/CLL/data/2017-08-16_ddsrna_trimmed.RData")
+
+#patMeta data
+load("/home/almut/Documents/CLL/data/patmetaGroups_170324.RData") 
+
+#Genemodules
+load("/home/almut/Documents/CLL/data/geneModules_WGCNA25082017_ProteinCoding.RData")
+
+```
+
+
+##Perform analytical test weather variables are independent
+
+
+
+```{r prepare datasets}
+##Prepare datasets
+
+#generate Matrix with interesting features
+patMat <- patMeta[which(patMeta$Patient.ID %in% colData(dds)$PatID),]
+genomDat <- apply(patMat[,c(12:98)], 2, function(x) as.numeric(as.character(x)))
+intGenom <- genomDat[, which(colSums(genomDat, na.rm=T) > 10)]
+
+patMat <-patMat[, c("Patient.ID", "gender","diagnosis", "treatment", "IGHV.status","Methylation_Cluster", colnames(intGenom), "c1c2", "drugGroup")]
+patMat <- lapply(patMat, function(x) as.factor(x))
+patMat <- as.data.frame(patMat)
+rownames(patMat) <- patMat$Patient.ID
+patMat <- patMat[colData(dds)$PatID,]
+colData(dds) <- cbind(colData(dds), patMat)
+patMat <- cbind(patMat, colData(dds)[,c("RNAprep", "batch")])
+
+
+
+#subset with CLL patients only
+cll_vector <- c("CLL", "atyp CLL", "Atyp. CLL","CLL/ET")
+ddsCLL <- dds[,colData(dds)$diag %in% cll_vector]
+
+#number genes and samples
+dim(dds)
+dim(ddsCLL)
+
+# Remove rows/genes with too few counts
+keep <-apply(counts(ddsCLL), 1, function(x) any(x >= 10))
+ddsCLL <- ddsCLL[keep,]
+
+
+###Generate expression matrix for ecah module
+#Variance stabilization transformation of the raw data
+ddsCLL <- estimateSizeFactors(ddsCLL)
+RNAnorm <- varianceStabilizingTransformation(ddsCLL, blind=T)
+exprCLL <- assay(RNAnorm)
+colnames(exprCLL) <- colData(RNAnorm)$PatID
+
+#function to extract module relevant genes
+modGenes <- function(colour){
+  moduleTab <- as_data_frame(moduleGene[,colour])
+  exprs <- exprCLL[moduleTab$ensembl_gene_id,]
+}
+
+
+```
+
+##Gene expression of single modules show clustering of certain traits(see WGCNA.Rmd)
+```{r module gene exprssion, fig.height=80, fig.width=30}
+
+#function to draw heatmap
+
+modGene_exp <- function(colour){
+  moduleTab <- as_data_frame(moduleGene[,colour])
+  pheatmap(exprCLL.new[moduleTab$ensembl_gene_id,], treeheight_row = 0, scale = "row", 
+         labels_row = moduleTab$hgnc_symbol,
+         clustering_method = "ward.D2", main = paste0("gene expression in module", colour), annotation_col = colAnno)
+}
+
+#scale and censor
+exprCLL.new <- log2(t(exprCLL))
+exprCLL.new <- t(scale(exprCLL.new))
+exprCLL.new[exprCLL.new > 4] <- 4
+exprCLL.new[exprCLL.new < -4] <- -4
+
+colAnno <- as.data.frame(colData(RNAnorm)[, c("PatID","batch","IGVH","trisomy12","RNAprep","del13q14", "del11q22.3", "c1c2", "SF3B1", "drugGroup")])
+#colAnno$PatID <- paste0(colAnno$PatID, "_", colAnno$c1c2)
+rownames(colAnno) <- colAnno$PatID
+colAnno <- colAnno[,-1]
+#colAnno <- colAnno[colData(RNAnorm)$PatID,]
+colAnno$RNAprep <- as.factor(colAnno$RNAprep)
+colAnno <- colAnno[colnames(exprCLL),]
+
+
+
+heatMap <- sapply("blue", modGene_exp)
+modGene_exp("black")
+
+
+
+```
+
+#Check gene expression within module and related feature as tsne
+
+```{r module tsne, fig.height=80, fig.width=25}
+#function to plot tsne
+
+myTsne <- function(colour){
+  moduleTab <- modGenes(colour)
+  #Calculate t-sne (t-distributed Stochastic Neighbor Embedding)
+  distGene <- dist(t(moduleTab))
+  tsneRes <- Rtsne(distGene, perplexity = 50, theta = 0, max_iter = 5000, is_distance = T, dims =2)
+  tsneRes <-tsneRes$Y
+  rownames(tsneRes) <- labels(distGene)
+  colnames(tsneRes) <- c("x", "y")
+  tsneRes <- data.frame(tsneRes)
+  
+  featureList <- c("IGHV.status","trisomy12", "del13q14", "RNAprep", "batch", "del11q22.3", "del17p13", "TP53", "c1c2", "drugGroup")
+  
+  pList <- lapply(featureList, function(feature) {
+    tsneRes[, feature] <-patMat[rownames(tsneRes), feature]
+  #plot using ggplot2
+  ggplot(tsneRes, aes_string(x = "x", y = "y", color = feature)) + geom_point(size = 5) + theme_classic() + theme(panel.border = element_rect(color = 'black', size = 1, linetype = 'solid', fill = NA), axis.ticks = element_line(color = "black", size = 1), text = element_text(size = 20)) + xlab("") + ylab("")
+ })
+  
+  grid.arrange(grobs = pList, ncol =2)
+}
+
+myTsne("green")
+
+
+
+```
+
+
+
+
+
+
+##Parametric tests
+#Kruskal-Wallis?
+
+```{r KW-test}
+##Package stats
+
+
+```
+
+
+
+
+

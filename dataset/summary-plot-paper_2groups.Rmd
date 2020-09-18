@@ -1,0 +1,133 @@
+---
+title: "Diff_genes_summary_plot"
+author: "almut"
+date: "6 Mai 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+##Aim: Generate a summary plot giving an overview on the number of differntially expressed genes / number upreagulated / number downregulated genes and chromosomal distribution for CNVs.
+
+
+libraries
+```{r load libraries , warning=F, message=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(DESeq2)
+library(ggpubr)
+library(ComplexHeatmap)
+library(piano)
+library(ggsci)
+library(RColorBrewer)
+library(circlize)
+library(reshape2)
+library(ggsci)
+```
+
+data
+```{r data set}
+#dds data set. gene expression data + patmetadata
+load("/home/almut/Dokumente/git/Transcriptome_CLL/dataset/ddsrnaCLL_150218.RData")
+
+variants <- c( "trisomy12", "del13q14", "del8p12", "gain8q24", "del11q22.3", "del17p13", "BRAF", "NOTCH1", "SF3B1","TP53", "ATM", "MED12","IGHV")
+
+```
+
+Summarize all information in a table
+```{r summary table}
+variant_stats <- function(variant, chr){
+  name <- variant
+  diff_genes <-read.csv(file=paste0("/home/almut/Dokumente/masterarbeit/results/noFilter/", variant, "_diffGenes.csv"))
+  sig_genes <- as.tibble(diff_genes) %>% filter(padj < 0.01) #, abs(log2FoldChange) >= 2)
+  up_genes <- sig_genes %>% filter(log2FoldChange > 0) %>% mutate(chrom = rowData(ddsCLL)$chromosome[which(rownames(ddsCLL) %in% X)])
+  dn_genes <- sig_genes %>% filter(log2FoldChange < 0) %>% mutate(chrom = rowData(ddsCLL)$chromosome[which(rownames(ddsCLL) %in% X)])
+  chr_up <- ifelse(!is.na(chr), length(which(up_genes$chrom %in% chr)), 0)
+  chr_dn <- ifelse(!is.na(chr), length(which(dn_genes$chrom %in% chr)), 0)
+  summary <- tibble(
+    variant = name,
+    n_genes = nrow(sig_genes),
+    up_genes = nrow(up_genes),
+    dn_genes = nrow(dn_genes),
+    nr_up = chr_up,
+    nr_dn = chr_dn,
+    nr_chrom = chr_dn + chr_up,
+    nr_other = n_genes - chr_dn - chr_up
+  )
+  }
+
+chromo <- c( "12", "13", "8", "8", "11", "17", NA, NA, NA, NA, NA, NA, NA)
+input <- cbind(variants, chromo)
+
+summary <- mapply(variant_stats, variants, chromo)
+sum_dat <- data.frame(matrix(unlist(summary), nrow=13, byrow=T),stringsAsFactors=FALSE)
+colnames(sum_dat) <- c("variant", "n_genes", "up_genes", "dn_genes", "nr_up", "nr_dn", "nr_chrom", "nr_other")
+sum_order <- as.tibble(sum_dat) %>% arrange(desc(-1*as.numeric(n_genes))) %>% dplyr::select(variant)
+
+#sum_dat_long <- melt(sum_dat[,c("variant","up_genes", "dn_genes")], id.vars = c("variant")) #, variable_name = c("up_genes", "dn_genes"))
+
+sum_dat_long <- melt(sum_dat[,c("variant","nr_other", "nr_chrom")], id.vars = c("variant")) #, variable_name = c("up_genes", "dn_genes"))
+
+colnames(sum_dat_long) <- c("variant", "location", "genes")
+sum_dat_long$dir_color <-paste0(sum_dat_long$variant, "_", sum_dat_long$location)
+
+sum_dat_long$genes <- as.numeric(as.character(sum_dat_long$genes))
+sum_dat_long <- as.tibble(sum_dat_long) %>% arrange(desc(genes)) %>% mutate(group=ifelse(variant %in% c("trisomy12", "IGHV"), 1, 2))
+
+```
+
+
+create a barplot
+```{r barplot, fig.height= 5, fig.width=8}
+col_pal1 <- pal_igv(palette = c("default"), alpha = 1)(13)
+col_pal2 <- pal_igv(palette = c("default"), alpha = 0.4)(13)
+
+color <- c(col_pal1, col_pal2)
+color <- sort(color)
+
+#pdf(file="/home/almut/Dokumente/git/Transcriptome_CLL/paper/figures/sum_diffGenes_0.05_2.pdf", width=8, height=5)
+ggbarplot(sum_dat_long[order(match(sum_dat_long$variant, sum_order$variant)),], "variant", "genes",
+  fill = "dir_color", palette = color,
+  label = FALSE,  font.x =23 ,font.y = 23, font.tickslab = 18, x.text.angle = 90, legend = "none") #, position = position_dodge())
+#dev.off()
+
+```
+
+
+create 2 barplots for each group
+```{r barplot ighv, fig.height= 2.1, fig.width=5}
+
+sum_dat_long1 <- as.tibble(sum_dat_long) %>% filter(variant %in% c("trisomy12", "IGHV"))
+
+pdf(file="/home/almut/Dokumente/git/Transcriptome_CLL/paper/figures/sum_diffGenes_chrom_001_IGHVTri12.pdf", width=5, height=2.3)
+ggbarplot(sum_dat_long1[order(match(sum_dat_long1$variant, sum_order$variant)),], "variant", "genes",
+  fill = "dir_color", palette = color[c(1:4)],
+  label = FALSE,  font.x =23 ,font.y = 23, font.tickslab = 18, x.text.angle = 0, legend = "none", rotate = T) #, position = position_dodge())
+dev.off()
+
+
+```
+
+```{r barplot others, fig.height= 7.5, fig.width=5}
+
+sum_dat_long2 <- as.tibble(sum_dat_long) %>% filter(!variant %in% c("trisomy12", "IGHV"))
+
+pdf(file="/home/almut/Dokumente/git/Transcriptome_CLL/paper/figures/sum_diffGenes_chrom_001.pdf", width=5, height=7.5)
+ggbarplot(sum_dat_long2[order(match(sum_dat_long2$variant, sum_order$variant)),], "variant", "genes",
+  fill = "dir_color", palette = color[c(5:26)],
+  label = FALSE,  font.x =23 ,font.y = 23, font.tickslab = 18, x.text.angle = 0, legend = "none", rotate = T) #, position = position_dodge())
+dev.off()
+
+
+```
+
+#Create table
+```{r table}
+#pdf(file="/home/almut/Dokumente/git/Transcriptome_CLL/paper/figures/sum_diffGenes_table.pdf", width=5, height=7.5)
+#sum_dat
+#dev.off()
+
+```
+

@@ -1,0 +1,335 @@
+---
+title: "Interaction_IGHV-U"
+author: "Almut Luetge"
+date: "September 20, 2017"
+output: html_document
+---
+
+---
+title: "Interaction score - IGHVsep"
+author: "Almut Luetge"
+date: "September 20, 2017"
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+20.09.2017
+# Aim: Generate a gene interaction network on phenotypes (in our case variants) as described by Fischer, Sandmann et al..
+Junyan established a similar approach for drug response data - this can be used to implement interaction networks based on transcriptome data. 
+
+Gene interaction networks can be used to:
+ - assign genes to functional modules
+ - unravel mechanisms behind tumor epistasis as between 
+    - TP53 and del17p13 patients
+    - IGHV-U and del11p23
+    - IGHV-U and del13q14
+    - trisomy12 and ??
+
+Analyse IGHV M/U samples seperately    
+    
+
+
+# Load packages and dataset
+
+Load packages
+```{r, message=FALSE, warning=FALSE}
+library(Biobase)
+library(ggplot2)
+library(genefilter)
+library(limma)
+library(qgraph)
+library(gridExtra)
+library(reshape2)
+library(dplyr)
+library(svglite)
+
+#global theme for ggplot2
+theme_set(theme_bw()+theme(axis.title = element_text(size=20), 
+                axis.text = element_text(size =15),
+                plot.title = element_text(size=25, color="red",
+                                          hjust = 0.5)))
+```
+
+Load datasets
+```{r, message=FALSE, warning=FALSE}
+
+#dds dataset
+load("/home/almut/Documents/CLL/data/ddsrnaCLL_trimmed_variants.RData")    #dds dataset with all relevant variants, filtered for CLL patients 
+
+#DeseqRes: Objects are generated using Deseq and the gene_signatures script. First object contains diff_genes for all variants with IGHVmeth, trisomy12, Tsig and c1c2 as covariable for deseq. Second object contains diff genes for variants with IGHVmeth, Tsig and c1c2 as covariable. Last objects'only considers c1c2 and Tsig as covariable
+
+load("/home/almut/Documents/CLL/data/desRes_MF4_7IGHV_06092017.RData")
+diffAll <- res_list
+
+load("/home/almut/Documents/CLL/data/desRes_MF3_7IGHV_06092017.RData")
+diffTri12 <- res_list
+
+
+
+#Combine diff genes to one object. Use diffgenes with all cofactors for all variants except trisomy12 and IGHV. For them use the respective object:
+diffGenes <- c(diffAll, trisomy12 = diffTri12$trisomy12)
+
+
+
+```
+ 
+ 
+Filter for diff expressed genes
+```{r diierentail expressed genes}
+pCut <- 0.05
+
+difftab <- function(condition){
+  dataTab <- data.frame(diffGenes[[condition]])
+  dataTab$ID <- rownames(dataTab)
+  #filter using pvalues
+  dataTab <- filter(dataTab, padj <= pCut) %>%
+    arrange(padj) %>%
+    mutate(Symbol = rowData(ddsCLL[ID,])$symbol) #%>%
+    #filter(log2FoldChange > 0)
+  dataTab <- dataTab[!duplicated(dataTab$Symbol),]
+  dataTab <- dataTab[!is.na(dataTab$Symbol),]
+  #dataTab <- data.frame(row.names = dataTab$Symbol, stat = dataTab$stat)
+  rownames(dataTab) <- dataTab$ID
+  dataTab
+}
+
+cond <- c("del13q14", "del8p12", "gain8q24", "del11q22.3", "del17p13", "BRAF", "NOTCH1", "SF3B1", "TP53", "ATM", "MED12", "trisomy12")
+
+#Only run when you want to write result tables! Change path according to test! 
+sigRes <- lapply(cond, difftab)
+names(sigRes) <- cond
+```
+
+###M-CLL Patients only
+ 
+Define testgroups 
+```{r subgroups}
+#table with variants 
+varTab <- colData(ddsCLL)[, c("IGHVmeth", "del13q14", "trisomy12", "del8p12", "gain8q24", "del11q22.3", "del17p13", "BRAF", "NOTCH1", "SF3B1", "TP53", "ATM", "MED12")]
+rownames(varTab) <- colData(ddsCLL)$PatID
+varTab$PatID <- rownames(varTab)
+varTab[,c(2:13)] <- lapply(varTab[,c(2:13)], function(x) as.numeric(as.character(x)))
+
+#select IGHV M/U patients only
+selPat <- filter(data.frame(varTab), IGHVmeth %in% "U") %>% select(-IGHVmeth) %>% filter(rowSums(is.na(.))!= (ncol(.) -1)) %>% select(PatID)
+varTab <- varTab[selPat$PatID,]
+varTab$IGHVmeth <- NULL
+varTab$PatID <- NULL
+
+varTab <- t(as.matrix(varTab))
+
+
+
+#normalize dds dataset
+ddsCLL <- ddsCLL[,colData(ddsCLL)$PatID %in% selPat$PatID]
+ddsCLL <- estimateSizeFactors(ddsCLL)
+RNAnorm <- varianceStabilizingTransformation(ddsCLL, blind=T)
+colnames(RNAnorm) <- colData(RNAnorm)$PatID 
+
+
+```
+
+
+Enumerate var pairs
+```{r}
+varTest <- list()
+n=1
+for (i in seq(nrow(varTab)-1)) {
+  for (j in seq(i+1,nrow(varTab))) {
+    varA <- varTab[i,]
+    varB <- varTab[j,]
+    mutnames <- c("none", "A", "B", "both")
+    mut <- factor(mutnames[1 + varA + 2 * varB], levels = mutnames)
+    varTest <- c(varTest, list(c(rownames(varTab)[i], rownames(varTab)[j])))
+  }
+}
+
+#filter for one variant you are interested in:
+#varTest <- lapply(varTest, function(pair){ 
+#  if(length(which(pair %in% "trisomy12" > 0)))
+#    return(pair)
+#})
+
+#varTest <- varTest[lapply(varTest,length)>0]
+
+```
+
+
+Identify significant genes and drugs
+```{r}
+scr <- lapply(varTest, function(varPair) {
+  x <- tibble(varA = factor(varTab[varPair[1], ]),
+              varB  = factor(varTab[varPair[2], ]))
+  noNA <- !is.na(x$varA) & !is.na(x$varB)
+  x <- x[noNA,]
+   intGenes1 <-rownames(sigRes[[varPair[1]]])
+  intGenes2 <- rownames(sigRes[[varPair[2]]])
+  intGenes <- c(intGenes1,intGenes2)
+  intGenes <- unique(intGenes)
+  y <- assay(RNAnorm)[intGenes, noNA]
+  fit <- eBayes(lmFit(y, design = model.matrix( ~ varA * varB, data = x))) 
+  tibble(geneID = rownames(fit$p.value), 
+         p      = fit$p.value[, "varA1:varB1"],
+         varA = varPair[1],
+         varB = varPair[2])
+}) %>% bind_rows %>% mutate(pBH = p.adjust(p, method = "BH")) %>% arrange(p)
+
+
+scr$geneName <- rowData(RNAnorm[scr$geneID,])$symbol
+```
+
+
+Plot the viabilities after drug treatment in gene combination groups
+```{r, fig.width=15, fig.height=150}
+fscr <- filter(scr, pBH <= 0.01)
+plotList <- lapply(seq(nrow(fscr)), function(i) {
+  
+  mutnames <- c("none", fscr[i,]$varA, fscr[i,]$varB, "both")
+    
+  plotTab <- tibble(geneExpression = assay(RNAnorm)[fscr[i,]$geneID,],
+                    varA = varTab[fscr[i,]$varA,],
+                    varB = varTab[fscr[i,]$varB,]) %>%
+    filter(!is.na(varA) & !is.na(varB)) %>%
+    mutate(mut = factor(mutnames[1 + varA + 2 * varB], levels = mutnames))
+  
+  ggplot(plotTab, aes(x=mut, y=geneExpression)) + geom_boxplot(outlier.shape = NA, fill = NA, color = "blue", width =0.3) + 
+    theme(axis.text.x = element_text(angle = 90, hjust=1, vjust=0.5)) +
+    geom_point(alpha=0.4) + ggtitle(fscr[i,]$geneName) + ylab("norm genecounts") + xlab("Variant")
+})
+
+
+g <- arrangeGrob(grobs= plotList, ncol = 3)
+ggsave(file = "/home/almut/Documents/CLL/results/interaction/genesIGHV-U.svg", plot = g, width = 15, height = 200, limitsize = F)
+
+grid.arrange(grobs = plotList, ncol =3)
+```
+
+
+
+
+#### Plot interaction network
+
+Filtering interactions using raw-p value
+```{r}
+fscr <- filter(scr, p <= 0.05)
+nrow(fscr)
+```
+
+Draw network using qgraph package
+```{r, fig.width=12, fig.height=12}
+tabAll <- tibble(varA = fscr$varA, varB = fscr$varB, p = -log10(fscr$p)) %>% 
+  group_by(varA, varB) %>% summarise(n=length(varA)) %>% arrange(desc(n))
+qgraph(tabAll, directed = FALSE, vsize = 7, layout = "spring", label.cex =1, shape="circle", label.scale = TRUE, label.color = "red")
+```
+
+#### Identify direction of interaction
+
+Calculate vector for each gene-gene pair
+```{r}
+#function to calcualte the vector for a gene-gene pair
+calcVec <- function(varPair, geneName, exprMat, varTab) {
+  varA <- varPair[1]
+  varB <- varPair[2]
+  exprTab <- tibble(patID = colnames(exprMat),
+                  expr = exprMat[geneName,],
+                  varA = varTab[varA,],
+                  varB = varTab[varB,]) %>%
+  filter(!is.na(varA) & !is.na(varB)) %>%
+  mutate(mut = factor(mutnames[1 + (as.integer(varA)) + 2 * (as.integer(varB)) ], levels = mutnames))
+  avgNone <- mean(exprTab[exprTab$mut == "none",]$expr)
+  avgA <- mean(exprTab[exprTab$mut == "A",]$expr)
+  avgB <- mean(exprTab[exprTab$mut == "B",]$expr)
+  avgBoth <- mean(exprTab[exprTab$mut == "both",]$expr)
+  return(c(avgA - avgNone, avgB-avgNone, avgBoth-avgNone))
+}
+
+exprMat <- assay(RNAnorm)
+
+
+vecTab <- lapply(seq(nrow(scr)), function(i) {
+  varA <- scr[i,]$varA
+  varB <- scr[i,]$varB
+  geneName <- scr[i,]$geneID
+  calcVec(c(varA, varB), geneName, exprMat, varTab)
+}) %>% do.call(rbind,.)
+colnames(vecTab) <- c("onlyA","onlyB","both")
+vecTab <- cbind(scr, vecTab)
+
+save(vecTab, file="/home/almut/Documents/CLL/data/interaction_IGHV-U_200917.RData")
+
+```
+
+Calculate pi-score
+```{r}
+vecPi <- group_by(vecTab, varA, varB) %>% 
+  do(data.frame(onlyA = .$onlyA, onlyB = .$onlyB, pi = .$both - (.$onlyA + .$onlyB), p= .$p))
+```
+
+Calculate coefficient and variance explained
+```{r}
+#function to calculate fractional variance explained for each gene pair
+varExp <- function(onlyA, onlyB, pi) {
+  #fit a linear model
+  model <- lm(pi ~ onlyA + onlyB )
+  
+  #anova
+  aovRes <- anova(model)
+  
+  #calculate fractional variance explained
+  data.frame(frA = aovRes[1,2]/sum(aovRes[,2]),
+             frB = aovRes[2,2]/sum(aovRes[,2]),
+             coefA = model$coefficients[2],
+             coefB = model$coefficients[3])
+}
+varVec <- group_by(vecPi, varA, varB) %>% filter(complete.cases(onlyA, onlyB, pi)) %>% do(varExp(.$onlyA, .$onlyB, .$pi))
+```
+
+Significant correlations
+```{r}
+fscr <- filter(scr, p <=0.05)
+comTab <- left_join(fscr, varVec, by = c("varA","varB"))
+```
+
+
+Plot correlations between pi-score and gene pairs
+```{r, fig.width=16, fig.height=108}
+pairTab <- filter(fscr, !duplicated(paste0(varA,varB))) %>% arrange(p)
+pList <- lapply(seq(nrow(pairTab)), function(i) {
+  nameA <- pairTab[i,]$varA
+  nameB <- pairTab[i,]$varB
+  dataTab <- filter(vecPi, varA == nameA, varB == nameB)
+  dataTab$p <- NULL
+  dataTab$varA <- NULL
+  dataTab$varB <- NULL
+  colnames(dataTab) <- c(nameA,nameB,"pi")
+  plotTab <-  melt(dataTab, id.vars = "pi")
+  ggplot(plotTab, aes(x= value, y=pi)) + geom_point(aes(color = variable)) + geom_smooth(method = "lm") + 
+           facet_wrap( ~ variable, scale = "free") + ggtitle(sprintf("%s - %s", nameA, nameB)) + theme(legend.position = "none") + 
+    geom_abline(slope = 1, intercept = 0, linetype = "dotted") + geom_abline(slope = -1, intercept = 0, linetype = "dotted") +
+    ylab("Pi score") + xlab("Gene expression")
+})
+
+gg <- arrangeGrob(grobs= pList, ncol = 2)
+ggsave(file = "/home/almut/Documents/CLL/results/interaction/piScoreIGHV-U.svg",plot = gg, width = 16, height = 108, limitsize = F)
+
+
+grid.arrange(grobs=pList,ncol=2)
+```
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

@@ -1,0 +1,211 @@
+---
+title: "Trisomy12_analysis"
+author: "almut"
+date: "19 Juli 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Trisomy12
+
+Aim: Detailed analysis of differentially expressed genes in trisomy12
+1. Filter differentially expressed genes to narrow them down to a reasonable number
+2. Visualize results (What are the tophits?)
+3. What is the chromosomal distribution of resukts? Dosage effect?
+
+libraries
+```{r load libraries}
+library(tidyverse)
+library(ggplot2)
+library(DESeq2)
+library(ggpubr)
+library(ComplexHeatmap)
+library(piano)
+library(ggsci)
+library(RColorBrewer)
+library(circlize)
+```
+
+#data
+```{r load and filter data}
+#dds data set. gene expression data + patmetadata
+load("/home/almut/Dokumente/git/Transcriptome_CLL/dataset/ddsrnaCLL_150218.RData")
+
+#filter for parients without NA in trisomy12 
+ddsCLL <- ddsCLL[, !is.na(colData(ddsCLL)["IGHV"]) & !is.na(colData(ddsCLL)["trisomy12"])]
+
+#differentially expressed genes in trisomy12 - only IGHV groups confounding factor
+tri12 <- read.csv(file="/home/almut/Dokumente/masterarbeit/results/noTsig/trisomy12_diffGenes.csv")
+
+#filter results by padj., basemean and log2foldchange
+rownames(tri12) <- tri12$X
+tri12<- tri12[which(tri12$padj < 0.01 ),-1]
+tri12_all <- tri12      #use all significant differentially expressed genes to analyse dosage effect
+#tri12<- tri12[which(abs(tri12$log2FoldChange) > 2 & tri12$baseMean > 500),]
+
+
+#Filter genes on chromosome12 and IG genes (many of them are diff expressed, but they vary a lot naturally and are not in focus of our analysis)
+chrom12 <- as_tibble(rowData(ddsCLL[rownames(tri12),])) %>%  mutate(geneID = rownames(tri12)) %>% filter(chromosome != "12") %>% filter(!grepl("IG",symbol)) 
+tri12 <- tri12[chrom12$geneID,]
+
+#Order sample by trisomy12
+mutStatus <- data.frame(colData(ddsCLL)) %>% arrange(trisomy12)
+colnames(ddsCLL) <-colData(ddsCLL)$PatID
+ddsCLL <- ddsCLL[, mutStatus$PatID]
+
+
+```
+
+#Prepare plotting
+```{r tri12 gene expression}
+##expression data
+ddsCLL <- estimateSizeFactors(ddsCLL)
+RNAnorm <- varianceStabilizingTransformation(ddsCLL, blind = T)
+
+
+#filter for sign. genes in Trisomy12 
+exprMat <- assay(RNAnorm)
+exprTri12 <- exprMat[rownames(tri12),]
+colnames(exprTri12) <- colData(ddsCLL)$PatID
+
+#scaledata
+exprTri12.new <- log2(exprTri12)
+exprTri12.new <- t(scale(t(exprTri12.new)))
+exprTri12.new[exprTri12.new > 4] <- 4
+exprTri12.new[exprTri12.new < -4] <- -4
+rownames(exprTri12.new) <- rowData(RNAnorm[rownames(tri12),])$symbol
+
+##metadata
+#chromosome distribution
+chrom <- as.data.frame(rowData(RNAnorm[rownames(tri12),])$chromosome)
+rownames(chrom) <- rownames(tri12) 
+colnames(chrom ) <- "chromosome"
+
+#select for chromosome12
+chrom$chromosome <- ifelse(chrom$chromosome == 12, 12, "other")
+
+```
+
+
+#Plot heatmap using complex heatmaps to show expression signature
+```{r complex heatmap, fig.width= 22, fig.height=25}
+
+#colors
+#gene expression
+colors = colorRamp2(c(-4,-2,0,2,4), c("#2166ac","#4393c3", "#f7f7f7", "#d6604d","#b2182b"))
+
+#legend annotations
+annocol <- get_palette("jco", 10)
+annocolor <- list(trisomy12 = c("0" = annocol[4], "1" = annocol[8]))
+
+#chromosome distribution
+chromcolor <- pal_jama("default")(7)
+chromcol <- list(chromosome = c("12" = chromcolor[1], "other" = chromcolor[5]))
+
+##heatmap + heatmap objects
+#chromosome column
+ha_chrom = rowAnnotation(df = chrom, col = chromcol, annotation_width = unit(1.9, "cm"), annotation_legend_param = list(ncol = 1, title_gp = gpar(fontsize = 50), labels_gp = gpar(fontsize = 40),  grid_height = unit(1.9, "cm"), grid_width = unit(1.9, "cm"), gap = unit(1.3,"cm")))
+
+#column annotation
+feature <- as.data.frame(colData(ddsCLL)[,c("trisomy12")])
+colnames(feature) <- c("trisomy12")
+
+ha_col <- HeatmapAnnotation(feature, col = annocolor, annotation_height = unit(c(rep(1.9, 1)), "cm"), annotation_legend_param = list(title_gp = gpar(fontsize = 50), labels_gp = gpar(fontsize = 45),  grid_height = unit(1.9, "cm"), grid_width = unit(1.9, "cm")))
+
+
+#Gene expression heatmap 
+h1 <- Heatmap(exprTri12.new ,                                                     #Cluster param
+              km = 2,
+              gap = unit(0.5, "cm"),
+              cluster_columns = F,
+              clustering_distance_rows = "pearson",
+              clustering_method_rows = "ward.D2",
+              column_title = "Gene signature: Trisomy12",                      #Graphic parameter
+              col = colors,
+              column_title_gp = gpar(fontsize = 60, fontface = "bold"), 
+              heatmap_legend_param = list(title = "expr", 
+                                          title_gp = gpar(fontsize = 50), 
+                                          grid_height = unit(1.9, "cm"), 
+                                          grid_width = unit(1.9, "cm"), 
+                                          gap = unit(2, "cm"), 
+                                          labels_gp = gpar(fontsize = 45)), 
+              column_dend_height = unit(2.5, "cm"),
+              show_row_dend = FALSE, 
+              show_column_names = FALSE , 
+              show_row_names = TRUE, 
+              row_names_gp = gpar(fontsize = 40),
+              top_annotation = ha_col)
+
+#save plot
+#pdf(file="/home/almut/Dokumente/git/Transcriptome_CLL/paper/figures/gene_exprTrisomy12_noTsig.pdf", width=22, height=25)
+draw(h1 + ha_chrom)
+#dev.off()
+
+```
+
+
+#How does the distribution of specific genes look like?
+Plot single gene counts 
+```{r single gene counts}
+#function to create stripchart plots for specific genes
+gene_count <- function(gene_nam){
+  geneEnsID <- rownames(ddsCLL)[which(rowData(ddsCLL)$symbol %in% gene_nam)]
+  geneNum <- counts(ddsCLL)[geneEnsID,]
+  mutPat <- as.data.frame(colData(ddsCLL)[, c("trisomy12")])
+  colnames(mutPat) <- c("genotype")
+  geneDat <- cbind(mutPat, geneNum)
+  colnames(geneDat) <- c("genotype", "counts")
+  
+  p <- ggstripchart(geneDat, x = "genotype", y = "counts",
+          color = "genotype",
+          palette = "jco",
+          add = "mean_sd",
+          title = paste(gene_nam),
+          ylab = "normalized counts")
+ # ggsave(file=paste0("/home/almut/Dokumente/masterarbeit/workinprogress/genetic_interaction_", gene_nam, ".svg"), plot=p, width=6, height=5)
+  p
+}
+
+geneList <- c("CHFR", "LIX1", "GIT2", "CORO2B", "ADD2", "SAGE1", "DENND3", "ADGRG7", "UACA", "TEAD1", "IRAK4")
+
+lapply(geneList, gene_count)
+
+
+```
+
+#Dosage effect
+Plot chromosomal distribution of diff genes 
+```{r chrom_dist, fig.width=8, fig.height=5}
+#Group by up odr down regulation
+tri12Groups <- tri12_all %>%  mutate(group = ifelse(stat > 0, "up", "down"))
+rownames(tri12Groups) <- rownames(tri12_all)
+
+#Group by chromosomes and distinguish between chromosome12 and other chromosomes
+tri12_chrom <- as.tibble(tri12Groups) %>% mutate(Chromo=rowData(RNAnorm[as.character(ID),])$chromosome) %>% group_by(Chromo, group) %>% summarise(total = n()) %>% mutate(Chromosome= ifelse(Chromo == 12, "12", "other"))
+
+p <- ggstripchart(tri12_chrom, x = "group", y = "total",
+          color = "Chromosome",
+          palette = c("#5B8FA8FF", "#FFB547FF"), #"#800000FF"
+          #add = "mean_sd",
+          title = "Chromosomal distribution",
+          ylab = "# upregulated genes",
+          size = 6,
+          jitter = 0.3,
+          legend= "right",
+          font.legend = c(18, "plain", "black"),
+          font.main = 25,
+          font.x =23,
+          font.y = 23,
+          font.tickslab=18
+)
+p
+
+#save plot  
+#ggsave(file="/home/almut/Dokumente/git/Transcriptome_CLL/paper/figures/chromosom_dist_trisomy12_plain.svg", plot=p, width=8, height=5)  
+  
+
+
+```

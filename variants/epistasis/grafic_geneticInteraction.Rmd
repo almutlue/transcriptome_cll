@@ -1,0 +1,44 @@
+---
+title: "GeneticInteraction_explanation"
+author: "Almut Luetge"
+date: "December 1, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Aim:Create a diagram/graphic to explain genetic interaction on transcriptome level
+
+load packages
+```{r packages}
+library(ggpubr)
+library(ggplot2)
+
+
+```
+
+generate data
+```{r data}
+genotype <- c( rep("wildtype",63), rep("variantA",41), rep("variantB",48), rep("both",32)) 
+counts <- c(rnorm(63, mean=30, sd=9), rnorm(41, mean=34, sd=9), rnorm(48, mean=11, sd=6), rnorm(32, mean=31, sd=7))
+
+data <- cbind(genotype, counts)
+data <- tibble(genotype=genotype, counts=counts)
+
+```
+
+grafik
+```{r plot, fig.height=5, fig.width=6}
+p <- ggstripchart(data, x = "genotype", y = "counts",
+          color = "genotype",
+          palette = "jco",
+          add = "mean_sd")
+p
+
+ggsave(file="~/git/figures_thesis/genetic_interaction_concept.svg", plot=p, width=6, height=5)
+
+
+```
+

@@ -1,0 +1,130 @@
+
+
+\usepackage{graphicx}
+\usepackage[usenames]{color}
+
+\usepackage[english]{babel}  
+\usepackage[automark]{scrlayer-scrpage}
+\usepackage{setspace}
+
+\usepackage{float}
+\usepackage{subcaption}  %%% newer version that can be used instead of subfigure
+\usepackage[section]{placeins}
+
+\usepackage{geometry}
+\usepackage{url}
+
+
+\usepackage{texshade} % MSA prints
+\usepackage[]{amsmath} % Amsmath - Mathematik Basispaket
+\usepackage{amssymb}
+
+
+\usepackage{multirow}
+\usepackage{array}
+
+
+%%%%%%%%%% bibliography %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[authoryear, sort, square]{natbib}
+\bibliographystyle{plainnat}
+%\usepackage[%
+%	square,	% for square brackets;
+%	comma,	% to use commas as separaters;
+%	numbers,	% for numerical citations;
+%	sort,		% orders multiple citations into the sequence in which they appear in the list of references;
+%	sort&compress,    % as sort but in addition multiple numerical citations
+%]{natbib}
+
+%spaces between single entries
+%\setlength{\bibsep}{3pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%\usepackage{subfig} % Layout wird weiter unten festgelegt !
+%\usepackage{subfigure} % Layout wird weiter unten festgelegt !
+% Aussehen der Captions fuer subfigures (subfig-Paket)
+\usepackage[english,intoc]{nomencl}
+%\usepackage{url} % Setzen von URLs. In Verbindung mit hyperref sind diese auch aktive Links.
+\usepackage{ae} %erkennt umlaute
+% sz
+%\usepackage[latin1]{inputenc} 
+\usepackage[utf8]{inputenc}
+
+%\usepackage{caption}
+\usepackage[font={sf,bf,small},textfont=md,textfont=md]{caption} 
+
+% Aussehen der Captions
+\captionsetup{
+   margin = 5pt,
+   font={sf,bf,small},
+   textfont = {md,small},
+   format = default, %singlespace% oder 'hang'
+   indention = 0em,  % Einruecken der Beschriftung
+   %labelsep = colon, %period, space, quad, newline
+   %justification = RaggedRight, % justified, centering
+   singlelinecheck = true, % false (true=bei einer Zeile immer zentrieren)
+   position = bottom %top
+}
+%%% Bugfix Workaround
+\DeclareCaptionOption{parskip}[]{}
+\DeclareCaptionOption{parindent}[]{}
+%\DeclareCaptionLabelFormat{andtable}{#1~#2 \& \tablename~\thetable}
+
+% Aussehen der Captions fuer subfigures (subfig-Paket)
+%\captionsetup[subfloat]{%
+%   margin = 10pt,
+%   font = {small,rm},
+%   labelfont = {small,bf},
+%   format = default, % oder 'hang'
+%   indention = 0em,  % Einruecken der Beschriftung
+%   labelsep = space, %period, space, quad, newline
+%   justification = RaggedRight, % justified, centering
+%   singlelinecheck = true, % false (true=bei einer Zeile immer zentrieren)
+%   position = bottom, %top
+%   labelformat = parens % simple, empty % Wie die Bezeichnung gesetzt wird
+% }
+%\setlength{\tabcolsep}{4pt} %distance between columns
+%\renewcommand{\arraystretch}{0.75} %distance between rows in tables
+
+\usepackage{setspace}
+
+
+%\renewcommand{\baselinestretch}{1.5}%line spacing
+%more figures allowed per page
+\renewcommand\floatpagefraction{1}
+\renewcommand\topfraction{1}
+\renewcommand\bottomfraction{1}
+\renewcommand\textfraction{0}   
+\setcounter{totalnumber}{50}
+\setcounter{topnumber}{50}
+\setcounter{bottomnumber}{50}
+
+%index
+\usepackage{makeidx}
+\makeindex
+
+
+\newcommand{\nom}[2]{#1 \ \dotfill \ #2 \\}
+
+%\usepackage{fancyhdr}
+%\pagestyle{fancy}
+
+%%%%%%%%%%%%%%%%% Page layout %%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%\addtolength{\textheight}{3cm}
+%\voffset-0.5cm
+%\hoffset-1cm
+%\addtolength{\textwidth}{2cm}
+
+
+\geometry{a4paper, top=25mm, left=25mm, right=25mm, bottom=25mm,
+	headsep=10mm, footskip=12mm}
+
+
+%%%%%%%%%%%%%%%% Figure Path %%%%%%%%%%%%%%%%%%%%%%
+
+%\usepackage{standalone}
+%\standaloneconfig{mode=buildnew}
+\graphicspath{{./figures/}}
+
+\setlength{\parindent}{0pt} 

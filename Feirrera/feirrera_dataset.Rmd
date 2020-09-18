@@ -1,0 +1,478 @@
+---
+title: "FeirreraGroups"
+author: "Almut Luetge"
+date: "August 21, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+21.08.2017
+##Compare C1/C2 groups from Feirrera paper to our findings
+
+#1.) Do we find the same cluster in our data when we use the differentially expressed genes
+#2.) Investigate cluster: Do they have a connection to other features or variants?
+
+
+
+```{r libraries, warnings = F, message=F}
+library(tidyverse)
+library(DESeq2)
+library(VennDiagram)
+library(dplyr)
+library(magrittr)
+library(gridExtra)
+library(pheatmap)
+library(matrixStats)
+library(piano)
+library(limma)
+library(ggvis)
+library(pheatmap)
+library(RColorBrewer)
+library(ggdendro)
+library(corrplot)
+library(polycor)
+library(gridExtra)
+library(factoextra)
+library(reshape)
+```
+
+1. load data
+
+```{r data }
+#RNA dataset
+#load("/home/almut/Documents/CLL/data/2017-08-16_ddsrna_trimmed.RData")
+#gene expression
+load("/home/almut/Documents/CLL/data/ddsrna_20170908.RData")
+#subset with CLL patients only
+cll_vector <- c("CLL", "atyp CLL", "Atyp. CLL","CLL/ET")
+dds <- dds[,colData(dds)$diag %in% cll_vector]
+
+
+#Diff expressed gene list from Feirrera
+fileName <- paste("/home/almut/Documents/CLL/data/FeirreraPaper/Supplemental_File2_diffExpGenesC1C2_FC2.csv")
+c1c2_genes <- read.csv(fileName,sep = ",",row.names = 1,header = TRUE)
+
+#patmeta data
+load("/home/almut/Documents/CLL/data/patmetaGroups_170324.RData") 
+
+#sample preparation data
+fileName <- paste("/home/almut/Documents/CLL/data/qyr_patient_sample.txt")
+
+
+
+#annotate methylation cluster
+methCluster <- patMeta[which(patMeta$Patient.ID %in% colData(dds)$PatID), c("Methylation_Cluster", "Patient.ID")]
+rownames(methCluster) <- methCluster$Patient.ID
+colData(dds)$methClust <- methCluster$Methylation_Cluster[match(colData(dds)$PatID,rownames(methCluster))] 
+
+
+```
+
+2. Hierachical clustering of dds dataset using the c1c2 genes 
+
+```{r Preprocessing}
+
+#remove Y-chromosome
+dds <- dds[!rowData(dds)$chromosome %in% c("Y"),]
+
+#subset with CLL patients only
+ddsC1C2 <- dds[which(rownames(dds) %in% rownames(c1c2_genes)),]
+
+
+#number genes and samples
+dim(dds)
+ngenes <-nrow(ddsC1C2)
+nsamples <-ncol(ddsC1C2)
+
+# Remove rows/genes with too few counts
+keep <-apply(counts(ddsC1C2), 1, function(x) any(x >= 10))
+ddsC1C2 <- ddsC1C2[keep,]
+dim(ddsC1C2)
+
+
+#Variance stabilization transformation of the raw data
+ddsC1C2 <- estimateSizeFactors(ddsC1C2)
+RNAnorm <- varianceStabilizingTransformation(ddsC1C2, blind=T)
+
+
+```
+
+
+```{r s-to-s-distances, fig.width=40, fig.height=40, cache=TRUE}
+sampleDists <- dist(t(assay(RNAnorm)))
+sampleDistMat <- as.matrix(sampleDists)
+rownames(sampleDistMat) <- paste0(colData(RNAnorm)$PatID, "_", colData(RNAnorm)$IGVH, "_", colData(RNAnorm)$batch)
+
+sampleDistDat <- t(assay(RNAnorm))
+rownames(sampleDistDat) <- colData(RNAnorm)$PatID
+
+
+colnames(sampleDistMat) <- NULL
+
+#Plot haetmap
+colors <- colorRampPalette( rev(brewer.pal(20,"RdBu")) )(255)
+pheatmap(sampleDistMat, clustering_distance_rows = sampleDists, clustering_distance_cols = sampleDists, col = colors, clustering_method = "ward.D2", fontsize = 25)
+
+
+```
+
+```{r hclust, fig.width = 40, fig.heigth = 90}
+#Are the data clusterable --> number of cluster?
+my_data <- scale(sampleDistMat)
+library("factoextra")
+res.nbclust <- fviz_nbclust(my_data, kmeans, method = "gap_stat")
+plot(res.nbclust)
+
+#3 cluster? Feirrera et all propose 2 cluster!
+
+
+
+```
+
+```{r cluster plot}
+#hclust object
+c1c2_cluster <- hclust(dist(sampleDistDat), method = "ward.D2", members = NULL)
+
+
+dendr    <- dendro_data(c1c2_cluster, type="rectangle") # convert for ggplot
+clust    <- cutree(c1c2_cluster,k=2)                    # find 2 clusters
+clust.df <- data.frame(label=names(clust), cluster=factor(clust))
+
+
+
+# dendr[["labels"]] has the labels, merge with clust.df based on label column
+dendr[["labels"]] <- merge(dendr[["labels"]], clust.df, by="label")
+
+
+#add colData 
+anno <- colData(ddsC1C2)[,c("PatID", "IGVH","trisomy12", "methClust", "batch", "RNAprep")]
+rownames(anno) <- anno$PatID
+colAnno <- anno[clust.df$label,]
+clust.df <- cbind(clust.df, colAnno)
+
+
+# plot the dendrogram; note use of color=cluster in geom_text(...)
+p1 <- ggplot() + geom_segment(data=segment(dendr), aes(x=x, y=y, xend=xend, yend=yend)) + 
+  geom_text(data=label(dendr), aes(x, y, label=label, hjust=0, colour = cluster), 
+         size=8,  show.legend = FALSE) + 
+        #ggtitle("Clustering by c1c2-genes") +
+        theme(axis.line.y=element_blank(),
+        axis.ticks.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.text.x=element_blank(),
+        axis.title = element_blank(),
+        panel.background=element_blank(),        #rect(fill="white"),
+        panel.grid=element_blank(),
+        plot.title = element_text(size = 80),
+        plot.margin = margin(0,0,0,0, unit = "pt")) 
+        
+###CONTINUE!!
+label_sort <- sort_df(label(dendr), vars = "x")
+
+
+clust <- data.frame(clust.df[,c(1,2,4:8)])
+clust[,c(2:7)]<- lapply(clust[,c(2:7)], function(x) as.factor(x))
+clust_melted <- melt(clust, id.vars = "label")
+
+colors_anno <- colorRampPalette( rev(brewer.pal(20,"Set1")) )(10)
+   ## c("red","blue","yellow","orange","grey","cadetblue2","hotpink2","springgreen1", "salmon", "slateblue2"))                 
+
+p2 <- ggplot(data=clust_melted, aes(y=variable, x=factor(clust_melted$label, levels = label_sort$label))) + geom_raster(aes(fill=value)) +  scale_fill_manual(values = c("lightcoral","mediumpurple1", "steelblue2", "orange", "palegreen2","gold2", "#7F6E85", "#48A462", "deepskyblue1", "#E41A1C")) + theme(axis.title.x = element_blank(), axis.text.x= element_blank()) + theme(axis.title.y = element_text(face="bold", size=20), axis.text.y= element_text(size=10))
+
+gp1<-ggplotGrob(p1)
+gp2<-ggplotGrob(p2)  
+
+maxWidth = grid::unit.pmax(gp1$widths[4:5], gp2$widths[4:5])
+gp1$widths[4:5] <- as.list(maxWidth)
+gp2$widths[4:5] <- as.list(maxWidth)
+
+grid.arrange(gp1, gp2, ncol=1,heights=c(5/6,1/6))
+
+
+##Add group information to patients
+colData(dds)$c1c2 <- clust.df$cluster[match(colData(dds)$PatID,rownames(clust.df))] 
+colData(RNAnorm)$c1c2 <- clust.df$cluster[match(colData(RNAnorm)$PatID,rownames(clust.df))] 
+
+
+
+#Add c1c2 cluster information to patmeta data --> only neccessary if changes occur -overwrites it
+#patMeta$c1c2 <- clust.df$cluster[match(patMeta$Patient.ID, rownames(clust.df))]
+
+#save(patMeta, file = "/home/almut/Documents/CLL/data/patmetaGroups_170324.RData")
+```
+
+
+
+##PCA c1c2 genes only
+```{r pca , fig.height=22, fig.width=16}
+#Plot PCA based on c1c2genes only
+exprMat <- assay(RNAnorm)
+
+#top 5000 most variant genes
+#sds <- rowSds(exprMat)
+#exprMat <- exprMat[order(sds, decreasing = T)[1:5000],]
+
+
+#Calculate PCA
+pcaRes <- prcomp(t(exprMat), scale. = FALSE, center = TRUE)
+varExp <- (pcaRes$sdev^2 / sum(pcaRes$sdev^2)) * 100
+pcaTab <- data.frame(pcaRes$x[,c(1:10)])
+names(varExp) <- colnames(pcaRes$x)
+
+#add background information
+pcaTab <- cbind(pcaTab, data.frame(colData(RNAnorm)))
+pcaTab$batch <- as.factor(pcaTab$batch)
+
+#plot PCA and color samples based on annotations
+featureList <- c("batch","IGVH","trisomy12","methClust","RNAprep", "del13q14")
+
+pList <- lapply(featureList, function(feature) {
+  ggplot(pcaTab, aes_string(x="PC1",y="PC2", color = feature)) + geom_point(size = 3) + theme_bw() + 
+    xlab(sprintf("PC1 (%2.1f%%)",varExp[1])) + ylab(sprintf("PC2 (%2.1f%%)",varExp[2])) + 
+    ggtitle(feature) + theme(plot.title = element_text(hjust = 0.5, color="red", size = 20)) +
+    theme(axis.title.x = element_text(face="bold", size=20), axis.text.x=element_text(size=16)) + theme(axis.title.y = element_text(face="bold", size=20), axis.text.y= element_text(size=16)) #+
+    #theme(legend.box.margin = margin(6, 6, 6, 6), legend.text = element_text(size = 15), legend.title = element_text(face = "bold", size = 10)) 
+ })
+
+grid.arrange(grobs = pList, ncol =2)
+
+```
+
+
+##Gene expression of c1c2 genes
+```{r, hierachical clustering, fig.width=18, fig.height=70}
+colAnno <- pcaTab[,c("batch","IGVH","trisomy12","Gender","RNAprep", "del13q14")]
+
+#scale and censor
+exprMat.new <- log2(exprMat)
+exprMat.new <- t(scale(t(exprMat.new)))
+exprMat.new[exprMat.new > 4] <- 4
+exprMat.new[exprMat.new < -4] <- -4
+
+pheatmap(exprMat.new, treeheight_row = 0, scale = "row", annotation_col = colAnno, 
+         labels_row = paste0(rowData(RNAnorm[rownames(exprMat.new),])$symbol),
+         clustering_method = "ward.D2", fontsize = 20, fontsize_row = 15)
+```
+There seem to be an cluster specific pattern in c1c2 genes as defined by feirrera..
+
+
+
+#Can you find c1c2 cluster in dds with all genes
+```{r hierachical clustering}
+#subset with CLL patients only
+cll_vector <- c("CLL", "atyp CLL", "Atyp. CLL","CLL/ET")
+ddsCLL <- dds[,colData(dds)$diag %in% cll_vector]
+
+
+#number genes and samples
+dim(dds)
+dim(ddsCLL)
+ngenes <-nrow(ddsCLL)
+nsamples <-ncol(ddsCLL)
+
+# Remove rows/genes with too few counts
+keep <-apply(counts(ddsCLL), 1, function(x) any(x >= 10))
+ddsCLL <- ddsCLL[keep,]
+
+#Variance stabilization transformation of the raw data
+ddsCLL <- estimateSizeFactors(ddsCLL)
+RNAnorm <- varianceStabilizingTransformation(ddsCLL, blind=T)
+```
+
+
+```{r s-to-s-distances, fig.width=20, fig.height=20, cache=TRUE}
+sampleDists <- dist(t(assay(RNAnorm)))
+sampleDistMat <- as.matrix(sampleDists)
+rownames(sampleDistMat) <- paste0(colData(RNAnorm)$PatID, "_", colData(RNAnorm)$IGVH, "_", colData(RNAnorm)$c1c3)
+
+sampleDistDat <- t(assay(RNAnorm))
+rownames(sampleDistDat) <- paste0(colData(RNAnorm)$PatID, "_", colData(RNAnorm)$c1c2)
+
+
+colnames(sampleDistMat) <- NULL
+
+#Plot heatmap
+colors <- colorRampPalette( rev(brewer.pal(9,"RdBu")) )(255)
+pheatmap(sampleDistMat, clustering_distance_rows = sampleDists, clustering_distance_cols = sampleDists, col = colors, clustering_method = "ward.D2")
+
+
+```
+
+```{r clustering all genes, fig.width=30, fig.height= 20}
+#hclust object
+c1c2_cluster <- hclust(dist(sampleDistDat), method = "ward.D2", members = NULL)
+
+## S3 method for class 'hclust'
+plot(c1c2_cluster, labels = rownames(sampleDistMat), hang = 0.1, check = TRUE,
+     axes = TRUE, frame.plot = FALSE, ann = TRUE,
+     main = "Cluster by groups from Feirrera et al.",
+     sub = NULL, xlab = "CLL_patients", ylab = "Height")
+
+
+dendr    <- dendro_data(c1c2_cluster, type="rectangle") # convert for ggplot
+clust    <- cutree(c1c2_cluster,k=2)                    # find 2 clusters
+clust.df <- data.frame(label=names(clust), cluster=factor(clust))
+
+# dendr[["labels"]] has the labels, merge with clust.df based on label column
+dendr[["labels"]] <- merge(dendr[["labels"]], clust.df, by="label")
+
+# plot the dendrogram; note use of color=cluster in geom_text(...)
+ggplot() + geom_segment(data=segment(dendr), aes(x=x, y=y, xend=xend, yend=yend)) + 
+  geom_text(data=label(dendr), aes(x, y, label=label, hjust=0, color=cluster), 
+           size=10) +
+        coord_flip() + scale_y_reverse(expand=c(0.2, 0)) + 
+        theme(axis.line.y=element_blank(),
+        axis.ticks.y=element_blank(),
+        axis.text.y=element_blank(),
+        axis.title.y=element_blank(),
+        panel.background=element_rect(fill="white"),
+        panel.grid=element_blank())
+
+
+## S3 method for class 'hclust'
+plot(c1c2_cluster, labels = rownames(sampleDistDat), hang = 0.1, check = TRUE,
+     axes = TRUE, frame.plot = FALSE, ann = TRUE,
+     main = "Cluster by groups from Feirrera et al.",
+     sub = NULL, xlab = "CLL_patients", ylab = "Height")
+```
+
+
+
+
+##PCA with c1c2 cluster
+```{r pca all genes, fig.height=22, fig.width=16}
+#Plot PCA
+exprMat <- assay(RNAnorm)
+
+#top 5000 most variant genes
+#sds <- rowSds(exprMat)
+#exprMat <- exprMat[order(sds, decreasing = T)[29000:29200],]
+
+
+#Calculate PCA
+pcaRes <- prcomp(t(exprMat), scale. =F, center = T)
+varExp <- (pcaRes$sdev^2 / sum(pcaRes$sdev^2)) * 100
+pcaTab <- data.frame(pcaRes$x[,c(1:10)])
+names(varExp) <- colnames(pcaRes$x)
+
+#add background information
+pcaTab <- cbind(pcaTab, data.frame(colData(RNAnorm)))
+pcaTab$batch <- as.factor(pcaTab$batch)
+
+#plot PCA and color samples based on annotations
+featureList <- c("IGVH","trisomy12","RNAprep", "c1c2", "batch", "Tsig")
+
+pList <- lapply(featureList, function(feature) {
+  ggplot(pcaTab, aes_string(x="PC1",y="PC2", color = feature)) + geom_point(size = 3) + theme_bw() + 
+    xlab(sprintf("PC1 (%2.1f%%)",varExp[1])) + ylab(sprintf("PC2 (%2.1f%%)",varExp[2])) + 
+    ggtitle(feature) + theme(plot.title = element_text(hjust = 0.5, color="red", size = 20)) +
+    theme(axis.title.x = element_text(face="bold", size=20), axis.text.x=element_text(size=16)) + theme(axis.title.y = element_text(face="bold", size=20), axis.text.y= element_text(size=16)) #+
+    #theme(legend.box.margin = margin(6, 6, 6, 6), legend.text = element_text(size = 15), legend.title = element_text(face = "bold", size = 10)) 
+ })
+
+grid.arrange(grobs = pList, ncol =2)
+
+```
+Cluster seperate sample on first prinicipal component, IGHV status on PC2. Interestingly this pattern comes persistent when we use all genes for clustering/PCA, but c1c2 cluster are less predominant in the more variant genes (top 5000 most variant) 
+
+
+
+##Correlation of c1c2 groups and genomic feature as found in patMeta 
+
+```{r Corrplots, fig.width =15, fig.height = 15}
+#generate Matrix with interesting features
+patMat <- patMeta[which(patMeta$Patient.ID %in% colData(ddsCLL)$PatID),]
+genomDat <- apply(patMat[,c(12:98)], 2, function(x) as.numeric(as.character(x)))
+intGenom <- genomDat[, which(colSums(genomDat, na.rm=T) > 15)]
+
+#patMat <-patMat[, c("gender","diagnosis", "treatment", "IGHV.status","Methylation_Cluster", colnames(intGenom), "c1c2", "drugGroup")]
+patMat <-patMat[, c("IGHV.status","Methylation_Cluster", colnames(intGenom), "c1c2", "drugGroup")]
+patMat <- lapply(patMat, function(x) as.factor(x))
+
+patMat <- as.data.frame(patMat)
+
+#Generate matrix with correlation coefficients
+corMat <- hetcor(patMat, use = "pairwise.complete.obs")
+
+
+corrplot.mixed(corMat$correlations, number.cex= 1.7, tl.cex=2, tl.pos = "lt", cl.cex=2, diag = "n")
+
+
+```
+Test for significance:
+
+```{r significant correlation, fig.height= 12, fig.width= 12}
+cor.mtest <- function(mat, conf.level = 0.95){
+  mat <- as.matrix(mat)
+    n <- ncol(mat)
+    p.mat <- lowCI.mat <- uppCI.mat <- matrix(NA, n, n)
+    diag(p.mat) <- 0
+    diag(lowCI.mat) <- diag(uppCI.mat) <- 1
+    for(i in 1:(n-1)){
+        for(j in (i+1):n){
+            tmp <- cor.test(mat[,i], mat[,j], conf.level = conf.level)
+            p.mat[i,j] <- p.mat[j,i] <- tmp$p.value
+            lowCI.mat[i,j] <- lowCI.mat[j,i] <- tmp$conf.int[1]
+            uppCI.mat[i,j] <- uppCI.mat[j,i] <- tmp$conf.int[2]
+        }
+    }
+    return(list(p.mat, lowCI.mat, uppCI.mat))
+}
+
+res1 <- cor.mtest(corMat$correlations,0.95)
+res2 <- cor.mtest(corMat$correlations,0.99)
+
+corrplot.mixed(corMat$correlations, p.mat = res1[[1]], sig.level=0.1, insig = "blank", number.cex= 1.7, tl.cex=2, tl.pos = "lt", cl.cex=2, diag = "n")
+
+
+```
+Anticorrelation with trisomy12 and correlation with Notch.
+
+
+##check genomic location of c1 c2 genes
+```{r chromosome locations}
+## Caution do not load earlier as it mask function select
+library(biomaRt)
+library(genefilter)
+library(geneplotter)
+library(pheatmap)
+library(RColorBrewer)
+library(stats)
+
+ensembl <- useMart("ensembl",dataset = "hsapiens_gene_ensembl")
+anno <- getBM(values = rownames(c1c2_genes),mart = ensembl, attributes = c("ensembl_gene_id","chromosome_name","entrezgene","gene_biotype"),filters = "ensembl_gene_id")
+anno <- anno[!duplicated(anno$ensembl_gene_id),]
+rownames(anno) <- anno[,1]
+geneAnno <- anno[rownames(c1c2_genes),]
+geneAnno$ensembl_gene_id <- NULL
+
+
+c1c2_genes$chromosome <- geneAnno$chromosome_name
+
+
+```
+
+#Plot chromosome distributions
+Is there any connection to genes on chromosome 12 (more or less expressed?)
+```{r plot chromosome dist}
+chromTable <- as.data.frame(c1c2_genes$chromosome)
+colnames(chromTable) <-"chromosome" 
+chrom <- chromTable %>% group_by(chromosome) %>% summarise(total = n())
+
+chrom$label <- paste0(chrom$chromosome, "(", chrom$total, ")")
+
+pie(chrom$total, col=colorRampPalette(brewer.pal(11,'Spectral'))(25), border="white", labels=chrom$label, main = "Location of dif. expressed genes between c1 and c2")
+
+
+
+
+```
+No pattern, most genes are on chromosome 1 - not interesting..
+
+
+
+
+

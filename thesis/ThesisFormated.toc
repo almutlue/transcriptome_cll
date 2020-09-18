@@ -1,0 +1,77 @@
+\select@language {english}
+\contentsline {section}{\numberline {1}Introduction}{1}
+\contentsline {subsection}{\numberline {1.1}Aim of the study}{1}
+\contentsline {subsection}{\numberline {1.2}Chronic lymphatic leukemia}{1}
+\contentsline {subsubsection}{\numberline {1.2.1}Common genetic variants}{1}
+\contentsline {paragraph}{\nonumberline IGHV status}{2}
+\contentsline {paragraph}{\nonumberline Trisomy12}{2}
+\contentsline {paragraph}{\nonumberline Del13q14}{2}
+\contentsline {paragraph}{\nonumberline TP53 and Del17p13}{2}
+\contentsline {paragraph}{\nonumberline Del11q22 and ATM}{3}
+\contentsline {paragraph}{\nonumberline Notch1}{3}
+\contentsline {paragraph}{\nonumberline SF3B1}{3}
+\contentsline {paragraph}{\nonumberline Del8p12 and Gain8q24}{3}
+\contentsline {paragraph}{\nonumberline BRAF}{3}
+\contentsline {paragraph}{\nonumberline MED12}{4}
+\contentsline {paragraph}{\nonumberline Methylation status}{4}
+\contentsline {subsection}{\numberline {1.3}The primary blood cancer cell encyclopedia}{4}
+\contentsline {subsection}{\numberline {1.4}Transcriptome analysis}{5}
+\contentsline {subsubsection}{\numberline {1.4.1}Preprocessing}{5}
+\contentsline {subsubsection}{\numberline {1.4.2}Alignment}{5}
+\contentsline {subsubsection}{\numberline {1.4.3}Exploratory Data Analysis and Quality control}{6}
+\contentsline {paragraph}{\nonumberline Variance stabilizing transformation}{6}
+\contentsline {subsubsection}{\numberline {1.4.4}Differential gene expression}{6}
+\contentsline {subsubsection}{\numberline {1.4.5}Enrichment analysis}{7}
+\contentsline {subsubsection}{\numberline {1.4.6}Genetic interaction}{7}
+\contentsline {subsection}{\numberline {1.5}Gene expression in CLL}{8}
+\contentsline {section}{\numberline {2}Material and Methods}{10}
+\contentsline {subsection}{\numberline {2.1}Data}{10}
+\contentsline {subsubsection}{\numberline {2.1.1}RNA-sequencing}{10}
+\contentsline {subsection}{\numberline {2.2}Data processing}{10}
+\contentsline {subsubsection}{\numberline {2.2.1}Raw data}{10}
+\contentsline {subsubsection}{\numberline {2.2.2}Alignment}{10}
+\contentsline {subsubsection}{\numberline {2.2.3}Statistical analysis}{11}
+\contentsline {subsubsection}{\numberline {2.2.4}Accounting for T-cell contamination}{11}
+\contentsline {subsection}{\numberline {2.3}Systematic gene Expression Profiling}{11}
+\contentsline {subsubsection}{\numberline {2.3.1}Differential Expression Analysis}{11}
+\contentsline {subsubsection}{\numberline {2.3.2}Gene Set Enrichment analysis}{11}
+\contentsline {subsubsection}{\numberline {2.3.3}Multivariate model}{12}
+\contentsline {subsubsection}{\numberline {2.3.4}Tumor epistasis model}{12}
+\contentsline {section}{\numberline {3}Results}{13}
+\contentsline {subsection}{\numberline {3.1}Transcriptome data in the Primary blood Cancer Cell encyclopedia (PACE)}{13}
+\contentsline {subsubsection}{\numberline {3.1.1}Occurence of genetic variants}{13}
+\contentsline {subsubsection}{\numberline {3.1.2}IGHV status and Trisomy12 form distinct gene expression cluster}{14}
+\contentsline {subsubsection}{\numberline {3.1.3}RNA preparation method, IGHV status and Trisomy12 explain major parts of gene expression variance}{15}
+\contentsline {subsubsection}{\numberline {3.1.4}Confounding factors}{19}
+\contentsline {subsubsection}{\numberline {3.1.5}Batch effects by adapter contamination}{19}
+\contentsline {subsubsection}{\numberline {3.1.6}T-cell contamination}{20}
+\contentsline {subsection}{\numberline {3.2}Systematic gene Expression Profiling}{22}
+\contentsline {subsubsection}{\numberline {3.2.1}IGHV}{22}
+\contentsline {subsubsection}{\numberline {3.2.2}Trisomy12}{24}
+\contentsline {subsubsection}{\numberline {3.2.3}TP53 and Del17p53}{27}
+\contentsline {subsubsection}{\numberline {3.2.4}Del11q22.3 and ATM}{30}
+\contentsline {subsubsection}{\numberline {3.2.5}Del13q14}{32}
+\contentsline {subsubsection}{\numberline {3.2.6}Del8p12 and Gain8q24}{32}
+\contentsline {subsubsection}{\numberline {3.2.7}SF3B1}{33}
+\contentsline {subsubsection}{\numberline {3.2.8}BRAF}{35}
+\contentsline {subsubsection}{\numberline {3.2.9}MED12}{37}
+\contentsline {subsubsection}{\numberline {3.2.10}Notch1}{37}
+\contentsline {subsection}{\numberline {3.3}Multivariate model}{37}
+\contentsline {subsection}{\numberline {3.4}Methylation profiles in gene expression}{40}
+\contentsline {subsection}{\numberline {3.5}Tumor epistasis in IGHV and Trisomy12}{42}
+\contentsline {section}{\numberline {4}Discussion}{44}
+\contentsline {subsection}{\numberline {4.1}Gene expression signatures in CLL}{44}
+\contentsline {subsubsection}{\numberline {4.1.1}B cell receptor signaling is up regulated in IGHV-unmutated samples}{44}
+\contentsline {subsection}{\numberline {4.2}Trisomy12 samples show increased expression of integrins driving lymphnode homing}{45}
+\contentsline {subsection}{\numberline {4.3}Down regulation of TP53 is associated with Wnt-signaling}{45}
+\contentsline {subsection}{\numberline {4.4}Del11q22 samples cluster by IGHV status}{46}
+\contentsline {subsection}{\numberline {4.5}Interferon signaling and the chaperone UQCC complex are transcriptional regulated in SF3B1 mutated CLLs}{46}
+\contentsline {subsection}{\numberline {4.6}Cell cycle progression in G2 phase as a potentially altered pathway in BRAF mutated CLLs}{46}
+\contentsline {subsection}{\numberline {4.7}Genome de-methylation defines subgroups of CLL with distinct gene expression pattern}{47}
+\contentsline {subsection}{\numberline {4.8}Tumor epistasis in Trisomy12 and IGHV results in distinct expression pattern in line with drug response phenotypes}{47}
+\contentsline {subsection}{\numberline {4.9}A multivariate model controls for confounding by other variants and gives insight into gene regulation with another resolution.}{48}
+\contentsline {subsection}{\numberline {4.10}Biases and limitations}{48}
+\contentsline {section}{\numberline {5}Conclusion}{50}
+\contentsline {section}{\numberline {6}Supplements}{52}
+\contentsline {subsection}{\numberline {6.1}Gene expression in genetic variants}{52}
+\contentsline {subsection}{\numberline {6.2}Enrichment analysis}{55}

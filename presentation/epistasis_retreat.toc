@@ -1,0 +1,8 @@
+\beamer@endinputifotherversion {3.36pt}
+\select@language {english}
+\beamer@sectionintoc {1}{Introduction}{2}{0}{1}
+\beamer@sectionintoc {2}{Results}{4}{0}{2}
+\beamer@sectionintoc {3}{Gene expression signatures}{5}{0}{3}
+\beamer@sectionintoc {4}{Conclusion}{15}{0}{4}
+\beamer@sectionintoc {5}{Appendix}{18}{1}{5}
+\beamer@sectionintoc {6}{models}{21}{1}{6}

@@ -1,0 +1,204 @@
+---
+title: "ddsAndFeirrera"
+author: "Almut Luetge"
+date: "August 30, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Aim: Does the cluster signature remain when combing the datasets?
+Test weather the c1c2-cluster identified in our dataset on the basis of genes published in feirrera are the same cluster as described by firrera et al. 
+
+Combine datasets and cluster/PCA:
+
+```{r libraries, warnings = F}
+library(tidyverse)
+library(DESeq2)
+library(VennDiagram)
+library(dplyr)
+library(magrittr)
+library(gridExtra)
+library(pheatmap)
+library(matrixStats)
+library(piano)
+library(limma)
+library(ggvis)
+library(pheatmap)
+library(RColorBrewer)
+library(ggdendro)
+library(corrplot)
+library(polycor)
+```
+
+1. load data
+
+```{r data }
+#RNA dataset
+load("/home/almut/Documents/CLL/data/2017-08-16_ddsrna_trimmed.RData")
+#subset with CLL patients only
+cll_vector <- c("CLL", "atyp CLL", "Atyp. CLL","CLL/ET")
+dds <- dds[,colData(dds)$diag %in% cll_vector]
+
+#patmeta data (including c1c2 status)
+load("/home/almut/Documents/CLL/data/patmetaGroups_170324.RData") 
+c1c2_group <- patMeta[which(patMeta$Patient.ID %in% colData(dds)$PatID), c("c1c2", "Patient.ID")]
+rownames(c1c2_group) <- c1c2_group$Patient.ID
+colData(dds)$c1c2 <- c1c2_group$c1c2[match(colData(dds)$PatID,rownames(c1c2_group))] 
+
+
+
+load("/home/almut/Documents/CLL/data/FeirreraPaper/feirreraCLL.RData")
+
+```
+
+#metadata table:
+```{r prepare new metaTab table}
+metFeirrera <- colData(feirreraCLL)[, c("FeirreraID", "c1c2")]
+colnames(metFeirrera) <- c("PatID", "c1c2")
+metFeirrera$PatID <- as.character(metFeirrera$PatID)
+metFeirrera$dataset <- c(rep("feirrera",nrow(metFeirrera)))
+metFeirrera$dataset <- as.factor(metFeirrera$dataset)
+
+metdds <- colData(dds)[, c("PatID", "c1c2")]
+metdds$dataset <- c(rep("dds",nrow(metdds)))
+metdds$dataset <- as.factor(metdds$dataset)
+
+metaTab <- rbind(metdds,metFeirrera)
+```
+
+#Counttable
+```{r counts}
+commonGenes <-(intersect(rownames(counts(dds)), rownames(counts(feirreraCLL))))
+
+countTabdds <- counts(dds)[commonGenes,]
+countTabFeirrera <- counts(feirreraCLL)[commonGenes,]
+
+countTable <- cbind(countTabdds,countTabFeirrera)
+
+# to later build dds-dataset (function will break otherwise)
+rownames(metaTab) <- seq(nrow(metaTab))
+colnames(countTable) <- seq(ncol(countTable))
+
+
+```
+
+
+```{r Gene annotation,  message=FALSE, warning=FALSE}
+#Get annotations for genes (using biomaRt)
+## Caution do not load earlier as it mask function select
+library(biomaRt)
+library(genefilter)
+library(geneplotter)
+library(pheatmap)
+library(RColorBrewer)
+library(stats)
+
+ensembl <- useMart("ensembl",dataset = "hsapiens_gene_ensembl")
+anno <- getBM(values = rownames(countTable),mart = ensembl, attributes = c("ensembl_gene_id","hgnc_symbol","description","chromosome_name","entrezgene","gene_biotype"),filters = "ensembl_gene_id")
+anno <- anno[!duplicated(anno$ensembl_gene_id),]
+rownames(anno) <- anno[,1]
+geneAnno <- anno[rownames(countTable),]
+geneAnno$ensembl_gene_id <- NULL
+
+
+```
+
+
+4.) Create Deseq dataset
+
+```{r deseq}
+#Generate a new DESeq object
+stopifnot(ncol(countTable) == nrow(metaTab))
+ddsBoth <- DESeqDataSetFromMatrix(countData = countTable,colData = metaTab, design = ~1)
+
+mcols(ddsBoth)$symbol <- geneAnno$hgnc_symbol
+mcols(ddsBoth)$description <- geneAnno$description
+mcols(ddsBoth)$chromosome <- geneAnno$chromosome_name
+mcols(ddsBoth)$entrezgene <- geneAnno$entrezgene
+mcols(ddsBoth)$biotype <- geneAnno$gene_biotype
+
+#save the object
+#save(ddsBoth,file="/home/almut/Documents/CLL/data/FeirreraPaper/CombinedDatasets.RData")
+
+```
+
+###Perform sample normalization and clustering
+```{r vst normalization}
+# Remove rows/genes with too few counts
+keep <-apply(counts(ddsBoth), 1, function(x) any(x >= 10))
+ddsBoth <- ddsBoth[keep,]
+
+#Variance stabilization transformation of the raw data
+ddsBoth <- estimateSizeFactors(ddsBoth)
+RNAnorm <- varianceStabilizingTransformation(ddsBoth, blind=T)
+
+```
+
+
+Hierachical Clustering
+
+Exploratory analysis of the RNAseq data
+Sample distances
+
+
+```{r s-to-s-distances, fig.width=20, fig.height=20, cache=TRUE}
+sampleDists <- dist(t(assay(RNAnorm)))
+sampleDistMat <- as.matrix(sampleDists)
+rownames(sampleDistMat) <- paste0(colData(RNAnorm)$PatID, "_", colData(RNAnorm)$c1c2)
+
+colnames(sampleDistMat) <- NULL
+
+#Plot haetmap
+colors <- colorRampPalette( rev(brewer.pal(9,"Blues")) )(255)
+pheatmap(sampleDistMat, clustering_distance_rows = sampleDists, clustering_distance_cols = sampleDists, col = colors, clustering_method = "ward.D2")
+
+
+```
+
+
+
+```{r pca, fig.height=20, fig.width=20}
+#Plot PCA
+exprMat <- assay(RNAnorm)
+
+#top 5000 most variant genes
+#sds <- rowSds(exprMat)
+#exprMat <- exprMat[order(sds, decreasing = T)[1:5000],]
+
+
+#Calculate PCA
+pcaRes <- prcomp(t(exprMat), scale =T)
+varExp <- (pcaRes$sdev^2 / sum(pcaRes$sdev^2)) * 100
+pcaTab <- data.frame(pcaRes$x[,c(1:10)])
+names(varExp) <- colnames(pcaRes$x)
+
+#add background information
+pcaTab <- cbind(pcaTab, data.frame(colData(RNAnorm)))
+
+
+featureList <- c("c1c2")
+
+
+pList <- lapply(featureList, function(feature) {
+  ggplot(pcaTab, aes_string(x="PC1",y="PC2", color = feature, shape ="dataset")) + geom_point(size = 5) + theme_bw() + 
+    xlab(sprintf("PC1 (%2.1f%%)",varExp[1])) + ylab(sprintf("PC2 (%2.1f%%)",varExp[2])) + 
+    ggtitle("Combined dataset with Feirrera et al. CLL data") + theme(plot.title = element_text(hjust = 0.5, color="red", size = 30)) +
+    theme(axis.title.x = element_text(face="bold", size=40), axis.text.x=element_text(size=30)) + theme(axis.title.y = element_text(face="bold", size=40), axis.text.y= element_text(size=30)) +
+    theme(legend.box.margin = margin(10, 10, 10, 10), legend.text = element_text(size = 30), legend.title = element_text(face = "bold", size = 30))  
+ })
+
+grid.arrange(grobs = pList, ncol =1)
+
+```
+
+
+
+
+
+
+
+
+

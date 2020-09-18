@@ -1,0 +1,127 @@
+---
+title: "Epistatic interaction between IGHV and trisomy12 on phenotype level"
+author: "Junyan Lu"
+date: "9/7/2020"
+output: html_document
+---
+
+# Load libraries
+
+```{r, message=FALSE, warning=FALSE}
+library(BloodCancerMultiOmics2017)
+library(Biobase)
+library(limma)
+library(pheatmap)
+library(ggbeeswarm)
+library(gridExtra)
+library(cowplot)
+library(ggpubr)
+library(tidyverse)
+```
+
+# Prepare datasets
+
+```{r}
+data("lpdAll","mutCOM")
+
+#only use CLL samples
+lpdCLL <- lpdAll[, pData(lpdAll)$Diagnosis == "CLL"]
+
+#get drug response data
+viabCLL <- lpdCLL[fData(lpdAll)$type == "viab", ]
+
+#get genomic information
+geneTab <- exprs(lpdCLL[fData(lpdCLL)$type %in% c("gen","IGHV"),])
+
+#change the row name of IGHV
+rownames(geneTab)[rownames(geneTab) == "IGHV Uppsala U/M"] <- "IGHV"
+
+#get IGHV and trisomy12 status
+geneTab <- geneTab[c("IGHV","trisomy12"), ,drop=FALSE]
+
+#filtering of drug response data
+viabCLL <- viabCLL[fData(viabCLL)$subtype == "1:5",]
+sds <- genefilter::rowSds(exprs(viabCLL))
+viabCLL <- viabCLL[sds >= genefilter::shorth(sds),]
+
+```
+
+Identify drugs that are affected by IGHV-trisomy12 epistasis
+```{r}
+x <- tibble(patID = colnames(geneTab), IGHV =factor(geneTab["IGHV",]),
+                trisomy12 = factor(geneTab["trisomy12",])) %>%
+  dplyr::filter(!is.na(IGHV), !is.na(trisomy12))
+
+y <- log2(exprs(viabCLL)[,x$patID])
+
+fit <- eBayes(lmFit(y, design = model.matrix( ~ IGHV * trisomy12, data = x))) 
+fitRes <- tibble(DrugID = rownames(fit$p.value),
+                 p = fit$p.value[, "IGHV1:trisomy121"]) %>%
+  mutate(p.adj = p.adjust(p, method = "BH")) %>% arrange(p) %>%
+  mutate(drugName = fData(viabCLL[DrugID,])$name)
+```
+
+Plot the viabilities after drug treatment in gene combination groups
+```{r, fig.width=8, fig.height=8}
+fscr <-dplyr::filter(fitRes, p.adj < 0.1)
+
+annocol <- get_palette("uchicago", 9)
+annocolor <- list(Variant = c(annocol[3], annocol[5], annocol[7], annocol[9]))
+names(annocolor$Variant) <- c("none", "IGHV-M", "trisomy12", "both")
+colorVal <- annocolor$Variant
+#annocol <- get_palette("jco", 10)
+#colorVal <- c(none=annocol[1], IGHV =  annocol[2], trisomy12 =  annocol[3], both =  annocol[4])
+plotList <- lapply(seq(nrow(fscr)), function(i) {
+  
+  mutnames <- c("none", "IGHV-M", "trisomy12", "both")
+    
+  plotTab <- tibble(viab = exprs(viabCLL)[fscr[i,]$DrugID,],
+                    geneA = geneTab["IGHV",],
+                    geneB = geneTab["trisomy12",]) %>%
+    dplyr::filter(!is.na(geneA) & !is.na(geneB)) %>%
+    mutate(mut = factor(mutnames[1 + geneA + 2 * geneB], levels = mutnames))
+  
+  ggplot(plotTab, aes(x=mut, y=viab)) + 
+    geom_boxplot(aes(col = mut),outlier.shape = NA, fill = NA, width =0.5) + 
+    theme(axis.text.x = element_text(angle = 90, hjust = 1, vjust =0.5)) +
+    ggbeeswarm::geom_beeswarm(alpha=0.8, aes(col = mut)) + ggtitle(fscr[i,]$drugName) + ylab("viability") + xlab("Mutation") +
+    theme_bw() + theme(axis.text = element_text(size=15),
+                                 axis.title = element_text(size=16),
+                                 axis.line =element_line(size=0.8),
+                                 panel.border = element_blank(),
+                                 axis.ticks = element_line(size=1.5),
+                                 plot.title = element_text(size = 16, hjust =0.5, face="bold"),
+                                 panel.grid.major = element_blank(),
+                                 panel.grid.minor = element_blank(),legend.position = "none") +
+
+    scale_color_manual(values = colorVal)
+})
+b <- grid.arrange(grobs = plotList, ncol =2)
+```
+
+Plot heatmap of significant interactions
+```{r, fig.width=4, fig.height=8}
+mutnames <- c("none", "IGHV-M", "trisomy12", "both")
+colAnno <- x %>% mutate(IGHV = as.integer(as.character(IGHV)),
+                        trisomy12 = as.integer(as.character(trisomy12))) %>%
+  mutate(group = factor(mutnames[1 + IGHV + 2 * trisomy12], levels = mutnames)) %>%
+  arrange(group) %>%
+  select(-IGHV, -trisomy12) %>% data.frame() %>% column_to_rownames("patID")
+
+annoColor <- list(group = colorVal)
+plotMat <- y[fscr$DrugID, rownames(colAnno)]
+rownames(plotMat) <- fscr$drugName
+plotMat <- t(scale(t(plotMat), center = TRUE, scale = TRUE))
+#censoring for better visualization
+plotMat[plotMat > 4] <- 4
+plotMat[plotMat < -4] <- -4
+color <- colorRampPalette(c("#2166ac","white","#b2182b"))(100)
+p <- pheatmap(t(plotMat), cluster_rows = FALSE, annotation_row = colAnno,  color = color,
+              scale = "none", show_rownames = FALSE, annotation_colors = annoColor, silent = TRUE)$gtable
+```
+
+Organized the plots
+```{r drugEpistasis, fig.width=12, fig.height=8, fig.path="./", dev=c("png", "pdf")}
+plot_grid(p,b, rel_widths = c(0.4,0.6), ncol = 2, labels=c('A', 'B'), label_size = 15)
+
+```

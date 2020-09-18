@@ -1,0 +1,394 @@
+---
+title: "TP53anddel17p53"
+author: "Almut Luetge"
+date: "November 6, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Aim: Define a TP53 and del17p13 expression signature
+
+
+libraries
+```{r load libraries}
+library(tidyverse)
+library(ggplot2)
+library(DESeq2)
+library(ggpubr)
+library(ComplexHeatmap)
+library(VennDiagram)
+library(ggsci)
+
+```
+
+#data
+```{r load data}
+#dds data set. gene expression data + patmetadata
+load("/home/almut/Dokumente/git/Transcriptome_CLL/dataset/ddsrnaCLL_150218.RData")
+#filter for parients without NA in trisomy12 
+ddsCLL <- ddsCLL[, !is.na(colData(ddsCLL)["del17p13"]) & !is.na(colData(ddsCLL)["TP53"])]
+
+#differentially expressed genes between del17p13 groups with Tsig as confounding factor
+del17 <- read.csv(file="/home/almut/Dokumente/masterarbeit/results/noFilter/del17p13_diffGenes.csv")
+rownames(del17) <- del17$X
+#del17<- del17[,-1]
+del17<- del17[which(del17$padj < 0.1),]
+del17<- del17[which(abs(del17$log2FoldChange) > 1 & del17$baseMean > 200),-1]
+
+exclud1 <- as_tibble(rowData(ddsCLL[rownames(del17),])) %>%  mutate(geneID = rownames(del17)) %>% filter(!grepl("IG",symbol))
+del17 <- del17[exclud1$geneID,]
+
+#Add diff pathway information
+#-pathways <- read.csv(file="/home/almut/Documents/CLL/results/deseq/all_IGHV_Tsig_tri12/del17p13_diffPathways_GSEAHallmark.csv")
+#pathways <- pathways[,-1] 
+#pathways <- pathways %>% mutate(group = ifelse(stat > 0, "up", "down")) %>% filter(ifelse(group %in% "up", p_up < 0.1, p_dn < 0.1))
+
+
+#differentially expressed genes between TP53 groups with Tsig as confounding factor
+TP53 <- read.csv(file="/home/almut/Dokumente/masterarbeit/results/noFilter/TP53_diffGenes.csv")
+rownames(TP53) <- TP53$X
+#TP53<- TP53[,-1]
+TP53<- TP53[which(TP53$padj < 0.1),]
+TP53<- TP53[which(abs(TP53$log2FoldChange) > 1 & TP53$baseMean > 200),-1]
+
+#int_genes <- del17[which(del17$padj < 0.01 & abs(del17$log2FoldChange) > 4),]
+#NOT IGHV genes
+exclud <- as_tibble(rowData(ddsCLL[rownames(TP53),])) %>%  mutate(geneID = rownames(TP53)) %>% filter(!grepl("IG",symbol))
+TP53 <- TP53[exclud$geneID,]
+
+
+#Add diff pathway information
+#pathways53 <- read.csv(file="/home/almut/Documents/CLL/results/deseq/all_IGHV_Tsig_tri12/TP53_diffPathways_GSEAHallmark.csv")
+#pathways53 <- pathways53[,-1] 
+#pathways53 <- pathways53 %>% mutate(group = ifelse(stat > 0, "up", "down")) %>% filter(ifelse(group %in% "up", p_up < 0.1, p_dn < 0.1))
+mutStatus <- data.frame(colData(ddsCLL)) %>% arrange(TP53)
+colnames(ddsCLL) <-colData(ddsCLL)$PatID
+ddsCLL <- ddsCLL[, mutStatus$PatID]
+
+
+```
+
+
+#How many of the del17p13 and TP53 patients are homozygote for TP53 deficiency?
+```{r sequenzier daten}
+#read in table with sequencing data 
+seqTP53 <- read.csv( file = "/home/almut/Dokumente/masterarbeit/data/SampleIDInfoRNA_sequencing.csv")
+rownames(seqTP53) <- seqTP53[,1]
+seqTP53 <- seqTP53[, c("TP53_mut","TP53_CDS", "TP53_AA", "TP53_.", "TP53_coverage")]
+
+#filter for patients without del17p13. Do they have more than one mutation on TP53
+noDel <- as.tibble(colData(ddsCLL)) %>% dplyr::filter(TP53 == 1 & del17p13 == 0) %>% dplyr::select(PatID)
+seqTP53 <- seqTP53[noDel$PatID,]
+
+
+```
+
+
+
+
+
+Add all relevant information into one matrix
+```{r del17 gene expression}
+#expression data
+ddsCLL <- estimateSizeFactors(ddsCLL)
+#RNAnorm <- varianceStabilizingTransformation(ddsCLL, blind = T)
+
+filtered_genes <- unique(c(rownames(del17), rownames(TP53)))
+#filter for sign. genes in del17
+exprMat <- assay(RNAnorm)
+exprdel17 <- exprMat[filtered_genes,]
+colnames(exprdel17) <- colData(ddsCLL)$PatID
+exprdel17.new <- log2(exprdel17)
+exprdel17.new <- t(scale(t(exprdel17.new)))
+exprdel17.new[exprdel17.new > 4] <- 4
+exprdel17.new[exprdel17.new < -4] <- -4
+rownames(exprdel17.new) <- rowData(RNAnorm[filtered_genes,])$symbol
+
+
+#Rowdata
+#chromosome distribution
+chrom <- as.data.frame(rowData(RNAnorm[filtered_genes,])$chromosome)
+rownames(chrom) <- rownames(exprdel17.new) 
+colnames(chrom ) <- "chromosome"
+
+#select for chromosome 17
+chrom$chromosome <- ifelse(chrom$chromosome == 17, 17, "other")
+
+
+#pathway Annotation
+#topGO <- sort.int(abs(pathways$stat), index.return = T, decreasing = T)$ix[1:5]
+#topPath <- pathways[topGO,]
+
+
+#Annotate Genes in this pathways
+#gsc <- loadGSC("/home/almut/Documents/CLL/data/h.all.v6.0.symbols.gmt", type="gmt")
+#gsc_Kegg <- loadGSC("/home/almut/Documents/CLL/data/c2.cp.kegg.v6.0.symbols.gmt", type="gmt")
+#tft <- loadGSC("/home/almut/Documents/CLL/data/c3.tft.v6.0.symbols.gmt", type="gmt")
+#c5 <- loadGSC("/home/almut/Documents/CLL/data/c5.all.v6.0.symbols.gmt", type="gmt")
+#c6 <- loadGSC("/home/almut/Documents/CLL/data/c6.all.v6.0.symbols.gmt", type="gmt")
+#c7 <- loadGSC("/home/almut/Documents/CLL/data/c7.all.v6.0.symbols.gmt", type="gmt")
+#cgp <- loadGSC("/home/almut/Documents/CLL/data/c2.cgp.v6.0.symbols.gmt", type="gmt")
+#topGsc <- gsc$gsc[as.character(topPath$pathway)]
+
+#topPathGenes <- lapply(topGsc, function(x){
+#  genes <- ifelse(del17$Symbol %in% unlist(x), 1 , 0)
+#})  %>% do.call(cbind,.)
+
+
+#topPathGenes <- apply(topPathGenes, 2, function(x) as.factor(as.character(x)))
+#rownames(topPathGenes) <- del17$Symbol
+
+```
+
+
+#Plot heatmap using complex heatmaps to show expression signature
+```{r complex heatmap del17, fig.width= 20, fig.height=20}
+
+#colors
+colors = colorRamp2(c(-4,-2,0,2,4), c("#2166ac","#4393c3", "#f7f7f7", "#d6604d","#b2182b"))
+annocol <- colorRampPalette( brewer.pal(11,"Paired") )(11)
+annocol <- get_palette("npg", 10)
+annocolor <- list(del17p13 = c("0" = annocol[1], "1" = annocol[2]), TP53 = c("1" = annocol[3], "0" = annocol[4])) 
+#rowcolors <-colorRampPalette(brewer.pal(5, "Set1"))(5)
+#rowcolors[6] <- "white"
+#chromcol <- list(chromosome = c("1" ="#00d3b4", "2" ="#f443b9", "3" = "#6cde56", "4" = "#932db4", "5" ="#dcc608", "6"= "#0a54d9", "7" = "#fea114", "8"= "#0098ec","17" ="#fd4b43","10" = "#01e09f", "11" = "#ff6aab", "9" = "#a8d37e", "13" = "#a59eff","14" = "#be6f00", "15" = "#03d1f5", "16" = "#a02008", "12" = "#89c8ff", "18" = "#7a7600", "19" ="#005b8f", "20" = "#ffad61","21" = "#80386c", "22" = "#e3c27d", "X" ="#843e29", "MT" = "#ff938b"))
+
+chromcol <- list(chromosome = c("17" =annocol[5], "other" = annocol[6])) 
+
+               
+#annoRowcolor <- list()
+#  for(i in c(1:length(topGO)))(
+#  annoRowcolor[[i]] = c("0"= rowcolors[6], "1" = rowcolors[i]) 
+#  )
+  
+#names(annoRowcolor) <- topPath$pathway
+
+
+ 
+#ha_row = rowAnnotation(df = topPathGenes, col = annoRowcolor, annotation_width = unit(c(rep(1, 5)), "cm"), annotation_legend_param = list(title_gp = gpar(fontsize = 25), labels_gp = gpar(fontsize = 18),  grid_height = unit(1, "cm"), grid_width = unit(1, "cm"), gap = unit(3, "cm")))
+
+
+ha_chrom = rowAnnotation(df = chrom, col = chromcol, annotation_width = unit(1.3, "cm"), annotation_legend_param = list(ncol = 1, title_gp = gpar(fontsize = 40), labels_gp = gpar(fontsize = 35),  grid_height = unit(1.4, "cm"), grid_width = unit(1.4, "cm"), gap = unit(2,"cm")))
+
+feature <- as.data.frame(colData(ddsCLL)[,c("del17p13", "TP53")])
+colnames(feature) <- c("del17p13", "TP53")
+
+ha_col <- HeatmapAnnotation(feature, col = annocolor, annotation_height = unit(c(rep(1.3, 2)), "cm"), annotation_legend_param = list(title_gp = gpar(fontsize = 40), labels_gp = gpar(fontsize = 35),  grid_height = unit(1.4, "cm"), grid_width = unit(1.4, "cm")))
+
+
+h1 <- Heatmap(exprdel17.new ,                                                     #Cluster param
+              km = 2,
+               gap = unit(0.5, "cm"),
+              cluster_columns = F,
+              #clustering_distance_columns = "euclidean",
+              #clustering_method_columns = "ward.D2",
+              clustering_distance_rows = "pearson",
+              clustering_method_rows = "ward.D2",
+              column_title = "Gene signature: del17p13",                      #Graphic parameter
+              col = colors,
+              column_title_gp = gpar(fontsize = 50, fontface = "bold"), 
+              heatmap_legend_param = list(title = "expr", 
+                                          title_gp = gpar(fontsize = 40), 
+                                          grid_height = unit(1.4, "cm"), 
+                                          grid_width = unit(1.4, "cm"), 
+                                          gap = unit(2.5, "cm"), 
+                                          labels_gp = gpar(fontsize = 35)), 
+              column_dend_height = unit(2.5, "cm"),
+              show_row_dend = FALSE, 
+              show_column_names = FALSE , 
+              show_row_names = TRUE, 
+              top_annotation = ha_col)
+
+#Annotate known genes from litertaure
+#subset <- as.data.frame(rowData(RNAnorm[rownames(del17),]))
+#subset1 <- subset[which(subset$symbol %in% c("TP53", "LEF1")),]
+#subset2 <- subset[which(subset$symbol %in% int_genes$Symbol),]
+#subset <- subset1
+#subset <- rbind(subset1, subset2)
+#rownames(subset) <- subset$symbol
+#geneIDs <- which(rownames(exprdel17.new) %in% rownames(subset))
+#labels <- rownames(exprdel17.new)[geneIDs]
+#ha_genes <- rowAnnotation(link = row_anno_link(at = geneIDs, labels = labels, labels_gp = gpar(fontsize = 27)), width = unit(9, "cm"))
+
+
+
+
+
+#svg(filename="~/git/figures_thesis/gene_expr/gene_exprDel17p13_gsea_Kegg.svg", width=30, height=45)
+#pdf(file="~/git/figures_thesis/gene_expr/gene_exprDel17p13_gsea_Kegg.pdf", width=30, height=40)
+
+draw( h1+ ha_chrom ) #+ ha_genes) #+ ha_row 
+#dev.off()
+
+
+
+
+```
+
+#Plot chromosome distributions
+Is there any connection to genes on chromosome 12 (more or less expressed?)
+```{r plot chromosome dist, fig.width= 9, fig.height=9}
+
+del17Groups <- del17 %>%  mutate(group = ifelse(stat > 0, "up", "down"))
+rownames(del17Groups) <- rownames(del17)
+
+
+chromDist <- lapply(c("up", "down"), function(group){
+  geneID <- rownames(del17Groups)[which(del17Groups$group %in% group)]
+  chromo <- as.data.frame(rowData(RNAnorm[geneID,])$chromosome)
+  rownames(chromo) <- geneID 
+  colnames(chromo ) <- "chromosome"
+  
+  
+  chrom <- chromo %>% dplyr::select(chromosome) %>% group_by(chromosome) %>% summarise(total = n()) %>% mutate(chromosome1 = gsub("MT", nrow(chrom), chromosome)) %>%  mutate(chromosome1 =gsub("X", (nrow(chrom) - 1), chromosome1)) %>% arrange(as.numeric(chromosome1))
+
+  chrom$label <- paste0(chrom$chromosome, "(", chrom$total, ")")
+  
+  svg(filename=paste0("~/git/figures_thesis/del17/chromosom_dist_", group, ".svg"), width=9, height=9)
+  pie(chrom$total, col=colorRampPalette(brewer.pal(11,'Spectral'))(25), border="white", labels=chrom$label, main = paste0("Chromosomal gene distribution in del17p13: ", group))
+  dev.off()
+})
+
+```
+
+
+#Venn diagramm
+plot a venn diagramm with differentially expressed genes overlapping between del17p13 and TP53
+```{r venn diagramm, fig.width= 8.5, fig.height= 8}
+#create a venn diagramm read data set
+del17 <- read.csv(file="/home/almut/Documents/CLL/results/deseq/all_IGHV_Tsig_tri12/del17p13_diffGenes.csv")
+rownames(del17) <- del17$X
+del17<- del17[,-1]
+
+venntab <- unique(c(as.vector(del17$Symbol), as.vector(TP53$Symbol)))
+vennTab_new <- as.data.frame(venntab) %>% mutate(del17p13 = ifelse(as.character(venntab) %in% del17$Symbol, 1, 0)) %>% mutate(TP53 = ifelse(as.character(venntab) %in% TP53$Symbol, 1, 0))
+
+TP53_only <- vennTab_new %>% filter(del17p13 == 0 & TP53 == 1) %>% select(venntab)
+del17_only <- vennTab_new %>% filter(del17p13 == 1 & TP53 == 0) %>% select(venntab)
+
+
+vennTab_new <- vennTab_new[,-1]
+rownames(vennTab_new) <- venntab
+del17_area <- vennTab_new %>% filter(del17p13 == 1)
+TP53_area <- vennTab_new %>% filter(TP53 == 1)
+Both_area <- vennTab_new %>% filter(del17p13 == 1 & TP53 == 1)
+
+#vennList <- list("del17p13" = as.vector(del17$Symbol), "TP53" = as.vector(TP53$Symbol))
+#venn <- venn.diagram(vennList, filename = NULL)
+
+venn_pair <- draw.pairwise.venn(nrow(del17_area), nrow(TP53_area), nrow(Both_area), c("del17p13", "TP53"), fill = c("#00AFBB", "#E7B800"), cex = rep(2, 3), cat.cex = rep(2, 2),  ind = TRUE, )
+
+#svg(filename="~/git/figures_thesis/del17/vennDel17TP53.svg", width=8.5, height=8)
+grid.draw(venn_pair)
+#dev.off()
+grid.newpage()
+
+```
+
+
+Add all relevant information into one matrix
+```{r tp53 gene expression}
+#TP53 <- TP53[which(TP53$Symbol %in% TP53_only$venntab),]
+
+#filter for sign. genes in TP53
+exprMat <- assay(RNAnorm)
+exprTP53 <- exprMat[rownames(TP53),]
+colnames(exprTP53) <- colData(ddsCLL)$PatID
+exprTP53.new <- log2(exprTP53)
+exprTP53.new <- t(scale(t(exprTP53.new)))
+exprTP53.new[exprTP53.new > 4] <- 4
+exprTP53.new[exprTP53.new < -4] <- -4
+
+
+#Rowdata
+#chromosome distribution
+chrom <- as.data.frame(rowData(RNAnorm[rownames(TP53),])$chromosome)
+rownames(chrom) <- rownames(TP53) 
+colnames(chrom ) <- "chromosome"
+
+#pathway Annotation
+topGO <- sort.int(abs(pathways53$stat), index.return = T, decreasing = T)$ix[1:5]
+topPath <- pathways53[topGO,]
+
+topGsc <- gsc$gsc[as.character(topPath$pathway)]
+
+topPathGenes <- lapply(topGsc, function(x){
+  genes <- ifelse(TP53$Symbol %in% unlist(x), 1 , 0)
+})  %>% do.call(cbind,.)
+
+rownames(topPathGenes) <- TP53$Symbol
+
+topPathGenes <- apply(topPathGenes, 2, function(x) as.factor(as.character(x)))
+
+```
+
+
+#Plot heatmap using complex heatmaps to show expression signature
+```{r complex heatmap, fig.width= 30, fig.height=45}
+
+#colors
+colors <- colorRampPalette(rev( brewer.pal(10,"RdBu")) )(20)
+annocol <- colorRampPalette( brewer.pal(11,"Paired") )(11)
+annocolor <- list(del17p13 = c("0" = annocol[2], "1" = annocol[6]), TP53 = c("1" = annocol[11], "0" = annocol[5])) 
+rowcolors <-colorRampPalette(brewer.pal(5, "Set1"))(5)
+rowcolors[6] <- "white"
+chromcol <- list(chromosome = c("1" ="#00d3b4", "2" ="#f443b9", "3" = "#6cde56", "4" = "#932db4", "5" ="#dcc608", "6"= "#0a54d9", "7" = "#fea114", "8"= "#0098ec","12" ="#fd4b43","10" = "#01e09f", "11" = "#ff6aab", "9" = "#a8d37e", "13" = "#a59eff","14" = "#be6f00", "15" = "#03d1f5", "16" = "#a02008", "17" = "#89c8ff", "18" = "#7a7600", "19" ="#005b8f", "20" = "#ffad61","21" = "#80386c", "22" = "#e3c27d", "X" ="#843e29", "MT" = "#ff938b"))
+
+                
+annoRowcolor <- list()
+  for(i in c(1:length(topGO)))(
+  annoRowcolor[[i]] = c("0"= rowcolors[6], "1" = rowcolors[i]) 
+  )
+  
+names(annoRowcolor) <- topPath$pathway
+
+
+
+ha_row = rowAnnotation(df = topPathGenes, col = annoRowcolor, annotation_width = unit(c(rep(1, 5)), "cm"), annotation_legend_param = list(title_gp = gpar(fontsize = 20), labels_gp = gpar(fontsize = 15),  grid_height = unit(1, "cm"), grid_width = unit(1, "cm"), gap = unit(3, "cm")))
+
+
+ha_chrom = rowAnnotation(df = chrom, col = chromcol, annotation_width = unit(1.3, "cm"), annotation_legend_param = list(ncol = 2, title_gp = gpar(fontsize = 30), labels_gp = gpar(fontsize = 25),  grid_height = unit(1, "cm"), grid_width = unit(1, "cm"), gap = unit(1,"cm")))
+
+feature <- as.data.frame(colData(ddsCLL)[,c("del17p13", "TP53")])
+colnames(feature) <- c("del17p13", "TP53")
+
+ha_col <- HeatmapAnnotation(feature, col = annocolor, annotation_height = unit(c(rep(1.3, 2)), "cm"), annotation_legend_param = list(title_gp = gpar(fontsize = 30), labels_gp = gpar(fontsize = 25),  grid_height = unit(1, "cm"), grid_width = unit(1, "cm")))
+
+
+h1 <- Heatmap(exprTP53.new ,                                                     #Cluster param
+              km = 2,
+              clustering_distance_columns = "euclidean",
+              clustering_method_columns = "ward.D2",
+              clustering_distance_rows = "pearson",
+              clustering_method_rows = "ward.D2",
+              column_title = "Gene signature: TP53",                      #Graphic parameter
+              col = colors,
+              column_title_gp = gpar(fontsize = 40, fontface = "bold"), 
+              heatmap_legend_param = list(title = "Gene expression", 
+                                          title_gp = gpar(fontsize = 30), 
+                                          grid_height = unit(1, "cm"), 
+                                          grid_width = unit(1, "cm"), 
+                                          gap = unit(2, "cm"), 
+                                          labels_gp = gpar(fontsize = 25)), 
+              column_dend_height = unit(2.5, "cm"),
+              show_row_dend = FALSE, 
+              show_column_names = FALSE , 
+              show_row_names = FALSE, 
+              top_annotation = ha_col)
+
+
+#svg(filename="~/git/figures_thesis/gene_expr/gene_exprTP53_gsea_Hallmark.svg", width=30, height=45)
+
+draw( h1+ ha_chrom + ha_row )
+#dev.off()
+
+
+
+
+```
+
+
+

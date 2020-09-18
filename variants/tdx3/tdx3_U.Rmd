@@ -1,0 +1,302 @@
+---
+title: "Gene_signatures"
+author: "Almut Luetge"
+date: "September 6, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+##Differentially expressed genes in ddx3x
+
+###1. Differential expression analysis
+load packages
+```{r packages, warning=FALSE, message=FALSE}
+library(DESeq2)
+library(tidyverse)
+library(gridExtra)
+library(pheatmap)
+library(matrixStats)
+library(limma)
+library(reshape2)
+library(genefilter)
+library(Biobase)
+library(SummarizedExperiment)
+library(ggplot2)
+library(gtable)
+library(grid)
+library(circlize)
+library(ComplexHeatmap)
+#library(polycor)
+library(gridExtra)
+library(ggpubr)
+library(Rtsne)
+library(RColorBrewer)
+
+```
+
+
+load data
+```{r datasets}
+#count data
+load("/home/almut/Dokumente/git/Transcriptome_CLL/dataset/ddsrnaCLL_150218.RData")
+
+
+#metaData
+load("/home/almut/Dokumente/masterarbeit/data/patmeta_180122.RData")
+     #patmetaGroups_170324.RData")
+
+ddx <- read.csv("/home/almut/Dokumente/masterarbeit/data/DDX3X mutant patients.csv")
+
+#add DDX3X
+colData(ddsCLL)$DDX3X <- ifelse(colData(ddsCLL)$PatID %in% ddx$Patient.ID, 1,0)
+colData(ddsCLL)$PatID[which(colData(ddsCLL)$DDX3X == 1)]
+
+```
+
+
+#Do differential expression analysis
+
+```{r deseq}
+###Deseq
+ddsCLL <- estimateSizeFactors(ddsCLL)
+ddsCLL <- ddsCLL[,which(colData(ddsCLL)[,"IGHV"] == "U")]
+
+#write a function to perform deseq for different genetic conditions 
+diff <- function(cond){
+  ddsCLL_new <- ddsCLL[,!is.na(colData(ddsCLL)[,cond])]
+  #ddsCLL_new <- ddsCLL_new[,!is.na(colData(ddsCLL_new)[,"IGHV"])]
+  #ddsCLL_new <- ddsCLL_new[,!is.na(colData(ddsCLL_new)[,"trisomy12"])]
+  #ddsCLL_new <- ddsCLL_new[,!is.na(colData(ddsCLL_new)[,"Tsig"])]
+  #colData(ddsCLL_new)[,"IGHV"] <-droplevels(colData(ddsCLL_new)[,"IGHV"])
+  design(ddsCLL_new) <- as.formula(paste("~ ", paste(cond)))
+  rnaRaw <- DESeq(ddsCLL_new, betaPrior = FALSE)
+  res <- results(rnaRaw)
+  resOrdered <- res[order(res$pvalue),]
+  #resSig <- subset(resOrdered, padj < 0.01)
+  #rownames(resSig)
+}
+
+gene_conditions <- "DDX3X"
+  #"trisomy12"
+  #c("del13q14", "del8p12", "gain8q24", "del11q22.3", "del17p13", "BRAF", "NOTCH1", "SF3B1", "TP53", "ATM", "MED12")
+#"IGHV", "trisomy12"
+
+
+##Takes a lot of time - load data instead
+res_list <- lapply(gene_conditions, diff)
+
+names(res_list) <- gene_conditions
+save(res_list, file="/home/almut/Dokumente/masterarbeit/data/desResIGHV_DDX3X_U_02122018.RData")
+
+```
+
+
+```{r DE}
+DEres <- res_list
+names(DEres) <- gene_conditions
+```
+
+How can we visualize the results to find interesting ones? 
+Questions to adress:
+How many genes are diff expressed?
+
+```{r create csv of diff genes}
+
+pCut <- 0.1
+
+difftab <- function(condition){
+  dataTab <- data.frame(DEres[[condition]])
+  dataTab$ID <- rownames(dataTab)
+  #filter using pvalues
+  dataTab <- filter(dataTab, padj <= pCut) %>%
+    arrange(padj) %>%
+    mutate(Symbol = rowData(ddsCLL[ID,])$symbol)# %>%
+    #filter(abs(log2FoldChange) > 2)
+  dataTab <- dataTab[!duplicated(dataTab$Symbol),]
+  dataTab <- dataTab[!is.na(dataTab$Symbol),]
+  #dataTab <- data.frame(row.names = dataTab$Symbol, stat = dataTab$stat)
+  rownames(dataTab) <- dataTab$ID
+  write.csv(dataTab, file=paste0("/home/almut/Dokumente/masterarbeit/results/noTsig/", condition, "_U_diffGenes.csv"))
+  dataTab
+}
+
+cond <- gene_conditions
+
+#Only run when you want to write result tables! Change path according to test! 
+sigRes <- lapply(cond, difftab)
+names(sigRes) <- cond
+
+ddx3 <- sigRes[[cond]]$Symbol
+ddx3_ID <- sigRes[[cond]]$ID
+```
+
+#MA-plots
+```{r ma-plots}
+#Check Ma plots
+
+myMaPlot <-function(condition){
+  DESeq2::plotMA(DEres[[condition]], ylim=c(-5,5), main= paste(condition))
+}
+
+lapply(cond, myMaPlot)
+
+```
+
+
+
+#Histogramm of pvalues
+
+```{r hist}
+
+myHist <- function(condition){
+  #pdf(paste0(plotdir,"pvalues/", condition, ".pdf"), height = 20, width = 20)
+  res <- DEres[[condition]]
+  hist(res$pvalue, breaks=100, col="skyblue", border="slateblue", main=paste0("Histogramm of pvalues:", condition))
+  #dev.off()
+}
+
+lapply(cond, myHist)
+
+```
+
+#Volcano plot
+```{r volcano plots, fig.height=5, fig.width=5}
+myVolc <-function(condition){
+  #pdf(paste0(plotdir,"volcano/", condition, ".pdf"), height = 20, width = 20)
+  res<- data.frame(DEres[[condition]])
+  plotTab <- mutate(res, group = ifelse(pvalue <= 0.01, ifelse(log2FoldChange  >1,"up","down"), "Not significant"))
+  
+  ggplot(data=plotTab,aes(x=log2FoldChange,y=-log10(pvalue),col=group)) + geom_point(size=2) + 
+  geom_hline(yintercept = -log10(0.01), linetype="dotted")+ theme_bw() + 
+  scale_color_manual(values =  c("Not significant" = "grey80", "up" = "pink", "down" = "lightblue")) + 
+  #geom_text_repel(data = subset(pRes.no13q, p <= 0.01), aes(label=name),size=4,col="red",force=20) + 
+  ylab("-log10(P value)") + xlab("log2(Fold change)") + ggtitle(condition) 
+  #dev.off()
+}
+  
+  
+ volc <- lapply(cond, myVolc)
+grid.arrange(grobs = volc, ncol=1)
+```
+
+
+
+
+##Data overview using tsne
+```{r tsne, fig.height=30, fig.width=30}
+#top5000 most variant genes
+#filter for sign. genes in ddx3x
+ddsCLL <- estimateSizeFactors(ddsCLL)
+RNAnorm <- varianceStabilizingTransformation(ddsCLL, blind=T)
+exprMat <- assay(RNAnorm)
+
+
+
+sds <- rowSds(exprMat)
+exprCLL <- t(exprMat[order(sds, decreasing = T),])
+rownames(exprCLL) <-ddsCLL$PatID
+
+#Calculate t-sne (t-distributed Stochastic Neighbor Embedding)
+distSamp <- dist(exprCLL[,c(1:5000)])
+tsneRes <- Rtsne(distSamp, perplexity = 10, theta = 0, max_iter = 2000, is_distance = T, dims =2)
+tsneRes <-tsneRes$Y
+rownames(tsneRes) <- labels(distSamp)
+colnames(tsneRes) <- c("x", "y")
+tsneRes <- data.frame(tsneRes)
+
+
+
+tsne_feat <- sapply(c(cond,"Methylation", "IGHV", "trisomy12"), function(condition){
+  tsneRes[,condition] <-colData(ddsCLL)[which(colData(ddsCLL)$PatID %in% rownames(tsneRes)), condition]
+})
+
+
+tsne_feat <- as.data.frame(tsne_feat)
+tsneRes <- cbind(tsneRes, tsne_feat)
+
+#plot using ggplot2
+plist <- lapply(c(cond, "Methylation", "IGHV", "trisomy12"), function(feature){
+  ggplot(tsneRes, aes_string(x = "x", y = "y", color = feature)) + geom_point(size = 7) + theme_classic() + theme(panel.border = element_rect(color = 'black', size = 1, linetype = 'solid', fill = NA), axis.ticks = element_line(color = "black", size = 1), text = element_text(size = 20)) + xlab("") + ylab("") + ggtitle(feature) + theme(plot.title = element_text(hjust = 0.5, color="red", size = 40)) +
+  theme(legend.box.margin = margin(6, 6, 6, 6), legend.text = element_text(size = 30), legend.title = element_text(face = "bold", size = 40))
+})
+
+
+grid.arrange(grobs = plist, ncol =2)
+
+
+
+
+
+```
+
+#Plot heatmap using complex heatmaps to show expression signature
+```{r complex heatmap, fig.width= 22, fig.height=25}
+
+#filter for sign. genes in ddx3x
+ddsCLL <- estimateSizeFactors(ddsCLL)
+RNAnorm <- varianceStabilizingTransformation(ddsCLL, blind=T)
+exprMat <- assay(RNAnorm)
+exprDdx <- exprMat[ddx3_ID,]
+colnames(exprDdx) <- colData(ddsCLL)$PatID
+exprDdx.new <- log2(exprDdx)
+exprDdx.new <- t(scale(t(exprDdx.new)))
+exprDdx.new[exprDdx.new > 4] <- 4
+exprDdx.new[exprDdx.new < -4] <- -4
+rownames(exprDdx.new) <- rowData(RNAnorm[rownames(exprDdx.new),])$symbol
+ddPat <- colData(ddsCLL)$PatID[which(colData(ddsCLL)$DDX3X == 1)]
+order_Pat <- colnames(exprDdx.new)[-which(colnames(exprDdx.new) %in% ddPat)]
+exprDdx.new <- exprDdx.new[,c(order_Pat, ddPat)]
+
+
+#colors
+#colors <- colorRampPalette(rev( brewer.pal(20,"RdBu")) )(20)
+colors = colorRamp2(c(-4,-2,0,2,4), c("#2166ac","#4393c3", "#f7f7f7", "#d6604d","#b2182b"))
+annocol <- colorRampPalette( brewer.pal(11,"Paired") )(11)
+annocol <- get_palette("jco", 10)
+annocolor <- list(DDX3X = c("0" = annocol[4], "1" = annocol[8])) 
+
+
+
+feature <- as.data.frame(colData(ddsCLL)[,c("DDX3X")]) 
+rownames(feature) <- colData(ddsCLL)$PatID
+feature <- as.data.frame(feature[colnames(exprDdx.new),])
+colnames(feature) <- c("DDX3X")
+
+ha_col <- HeatmapAnnotation(feature, col = annocolor, annotation_height = unit(c(rep(1.9, 1)), "cm"), annotation_legend_param = list(title_gp = gpar(fontsize = 50), labels_gp = gpar(fontsize = 45),  grid_height = unit(1.9, "cm"), grid_width = unit(1.9, "cm")))
+
+
+h1 <- Heatmap(exprDdx.new ,                                                     #Cluster param
+              km = 2,
+              gap = unit(0.5, "cm"),
+              cluster_columns = F,
+              #clustering_distance_columns = "euclidean",
+              #clustering_method_columns = "ward.D2",
+              clustering_distance_rows = "pearson",
+              clustering_method_rows = "ward.D2",
+              column_title = "Gene signature: DDX3X",                      #Graphic parameter
+              col = colors,
+              column_title_gp = gpar(fontsize = 60, fontface = "bold"), 
+              heatmap_legend_param = list(title = "expr", 
+                                          title_gp = gpar(fontsize = 50), 
+                                          grid_height = unit(1.9, "cm"), 
+                                          grid_width = unit(1.9, "cm"), 
+                                          gap = unit(2, "cm"), 
+                                          labels_gp = gpar(fontsize = 45)), 
+              column_dend_height = unit(2.5, "cm"),
+              show_row_dend = FALSE, 
+              show_column_names = FALSE , 
+              show_row_names = TRUE, 
+              row_names_gp = gpar(fontsize = 40),
+              top_annotation = ha_col)
+
+#svg(filename="~/git/figures_thesis/gene_expr/gene_exprTrisomy12_gsea_Hallmark.svg", width=30, height=45)
+#pdf(file="/home/almut/Dokumente/git/Transcriptome_CLL/paper/figures/gene_exprTrisomy12_noTsig.pdf", width=22, height=25)
+
+draw(h1) #  + ha_genes) #+ ha_row ha_chrom +
+#dev.off()
+
+```
+

@@ -1,0 +1,44 @@
+
+%%%%%%%%%%%%%%%%%%%%%%%% Material and Methods %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Material and Methods}
+
+\subsection{Data}
+All data used in this study are part of the Primary Blood Cancer Cell Encyclopedia (PACE) \citep{Dietrich}. Transcriptome data were analyzed starting from unprocessed raw RNA-seq reads. Other data used in this study are patient metadata, classification of methylation groups, drug response groups, FISH data and WGS sequencing data on gene mutations and CNVs. They were received as processed data as available in PACE. The CLL cohort is the largest subgroup within PACE. Genotype data reveal 89 different single gene mutations and CNVs in CLL patients. This study includes genetic variants with a prevalence of more than 3.5\% to ensure statistical power.
+
+\subsubsection{RNA-sequencing}
+Trancriptome data of PACE have been generated over a period of 4 years. RNA isolation and library preparation were performed standardized as described in \citet{Dietrich}. In short, total RNA was isolated from patient blood samples using the RNA RNeasy mini kit (Qiagen). For quantification a Qubit 2.0 Fluorometer was used and RNA integrity was evaluated by an Agilent 2100 Bioanalyzer. Thereby samples with a RNA integrity number (RIN) $< 8$ were excluded from the study. Library preparation was performed according to the Illumina TruSeq RNA sample preparation v2 protocol. 
+Samples were paired-end sequenced at the DKFZ Genomics and Proteomics Core Facility. 2-3 samples were multiplexed per lane on Illumina HiSeq 2000, Illumina HiSeq3000/4000 or Illumina HiSeqX machines. Platform changes were due to technological development during the period of sequencing and came with changes in read length (101 base pairs (bp), 125 bp and 150 bp) and read number.  
+
+\subsection{Data processing}
+
+\subsubsection{Raw data}
+Raw RNA-seq reads were demultiplexed and quality control was performed using FastQC version 0.11.5 \citep{Andrews}. Internal trimming of STAR version 2.5.2a \citep{Dobin2015} was used to remove adapters before mapping \citep{Dobin2015}.
+
+\subsubsection{Alignment}
+Mapping was performed using STAR version 2.5.2a \citep{Dobin2015} against the Ensembl human reference genome release 75 (Homo sapiens GRCh37.75) \citep{Flicek2014}. STAR was run in default mode with internal adapter trimming using the $clip3pAdapterSeq$ option. Mapped reads were summarized into counts using Htseq-count version 0.9.0 \citep{Anders2010} with default parameters and $union$ mode. So only fragments unambiguously overlapping with one gene were summarized \citep{Anders2010}.       
+
+\subsubsection{Statistical analysis}
+All statistical analyses were performed using R version 3.4. PCAs were generated with the R function $prcomp$. For hierarchical clustering complexHeatmaps package \citep{Gu2016} with euclidean distance as calculated by the R $dist$ function was used. Genes were filtered by variance. Only the 5000 most variant genes were included. Co-occurrence of genetic variants was determined by chi-squared test using $chisq.test$ function of R stats package \citep{RCoreTeam2017}. Associations between principal components and occurrence of genetic variants were determined by student’s t-test using $t.test$ function of R stats package \citep{RCoreTeam2017}. In order to apply multiple testing adjustment considering co-occurrence pattern independent hypothesis weighting (IHW) was used \citep{Ignatiadis2016}. Overall variance of occurrence of genetic variants was applied as covariate. Due to the limited number of tests, IHW resulted in one bin with uniform weights and was reduced to Benjamini Hochberg with false discovery rate (FDR) < 0.1 \citep{Benjamini}.
+
+\subsubsection{Accounting for T-cell contamination}
+In order to avoid technical bias, sample contamination with T cells was determined and integrated as co-variable into the gene model for differential expression analysis. The T cell signature was inferred as continuous variable reflecting the amount of contamination. As T cell signature marker genes CD4, CD8A, CD8B, CD3B, CD3G, CD2, CD3E were used. To get a gradient of this signature PCA based on marker gene expression was performed. Rotated data by PC1 loadings were used to display the amount of T cell contamination.  
+
+\subsection{Systematic gene Expression Profiling}
+
+\subsubsection{Differential Expression Analysis}
+Differentially expressed genes between samples from different genetic variants were analyzed using DESeq2 version 1.16.1 \citep{Love2014}. Confounding factors identified by EDA were defined in the DESeq2 design matrix and so used as covariate for the GLMs. To account for multiple testing the method of Benjamini and Hochberg, with FDR = 0.1~\citep{Benjamini} was applied.   
+
+\subsubsection{Gene Set Enrichment analysis}
+Gene set enrichment was performed using the Bioconductor R package piano version 1.18.0 \citep{Varemo}. Enrichment was tested by GSEA using gene level statistics from DESeq2. Gene sets were downloaded from MSigDB using the Hallmark and Kegg gene set collections version 4.0 \citep{Liberzon2015, Kanehisa2017}. Significance of gene sets was determined based on a background distribution of sampled genes with 1000 permutations. P values were corrected for multiple testing using the method of Benjamini and Hochberg, with FDR = 0.1~\citep{Benjamini}.
+
+
+\subsubsection{Multivariate model}
+To account for co-occurring variants and their influence on gene expression pattern we compared two models, a multivariate model including all variants and a reduced model without the variant of interest. Using the Likelihood ratio test as test statistic in the $DESeq$ function Bioconductor R package DESeq2 version 1.16.1 we tested for differences in gene expression related to the variant of interest controlling for all other variants \citep{Love2014}. We performed multiple testing correction according to Benjamini and Hochberg, with FDR = 0.1~\citep{Benjamini} and filtered for significant results with $\text{p}_\text{adj} < 0.01$.
+
+\subsubsection{Tumor epistasis model}
+Gene interaction was modeled by an epistasis model describing observed gene expression by a linear combination of the expression in the two interacting variants.
+The empirical Bayes estimates and adjusted p values for the probability to observe the gene expression of the PACE data with this epistasis model was calculated by the $eBayes$ function of the R/Bioconductor package limma \citep{Ritchie2015}. A directionality score for each gene was calculated as described in \citet{Fischer2015}. For genes with a significant p value in the epistasis model the observed expression was modeled depending on a linear combination of the present genetic variants. If the fraction of the variance explained by one variant was above a threshold  determined by the 90\% quantile of all samples and the fraction of the other variant below a threshold determined by the 10\% quantile, the direction of interaction was considered as from the first variant to the second. In order to calculate the fractions of variance one way analysis of variance (ANOVA) was applied using the $anova$ function from the R core package stats \citep{RCoreTeam2017}.
+
+
+

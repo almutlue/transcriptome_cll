@@ -1,0 +1,66 @@
+---
+title: "pca_significant genes"
+author: "almut"
+date: "16 Juni 2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Which of the differentially expressed genes really show a distinct expression signature?
+#PCA as suggest by Wolfgang
+
+
+libraries
+```{r load libraries}
+library(tidyverse)
+library(ggplot2)
+library(DESeq2)
+library(ggpubr)
+library(ggsci)
+library(RColorBrewer)
+
+```
+
+data
+```{r data }
+#dds data set. gene expression data + patmetadata
+load("/home/almut/Dokumente/git/Transcriptome_CLL/dataset/ddsrnaCLL_150218.RData")
+
+#expression data
+ddsCLL <- estimateSizeFactors(ddsCLL)
+RNAnorm <- varianceStabilizingTransformation(ddsCLL, blind = T)
+
+#filter for sign. genes in Trisomy12 
+exprMat <- assay(RNAnorm)
+
+
+cond <-c("IGHV", "trisomy12", "del13q14", "del8p12", "gain8q24", "del11q22.3", "del17p13", "BRAF", "NOTCH1", "SF3B1", "TP53", "ATM", "MED12")
+
+```
+
+A) For each variant choose the top diff expressed genes and compute the difference between the mean of cases/non cases
+
+```{r differences in mean}
+mean_vector <- function(variant){
+    diff_genes <- read.csv(file=paste0("/home/almut/Dokumente/masterarbeit/results/noFilter/", variant, "_diffGenes.csv"))
+  #filter
+  diff_genes <- diff_genes[which(diff_genes$padj < 0.1 & abs(diff_genes$log2FoldChange) > 2 ),-1]
+
+  #sampledists on basis of diff genes
+  exprVar <- exprMat[diff_genes$ID,]
+  colnames(exprVar) <- colData(ddsCLL)$PatID
+  
+  #compute difference of means
+  sum_means <- as.tibble(t(exprVar)) %>% mutate(case = colData(ddsCLL)[,variant]) %>% filter(!is.na(case)) %>% group_by(case) %>%  summarise_all(funs(mean))
+
+  
+  diff_means <- as.tibble(t(sum_means)) %>% mutate(geneID=colnames(sum_means)) %>% filter(!geneID %in% "case") %>% mutate(diff=abs(as.numeric(V1) - as.numeric(V2)))
+  }
+
+
+
+```
+

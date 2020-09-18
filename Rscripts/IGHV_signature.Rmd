@@ -1,0 +1,430 @@
+---
+title: "IGHV_detailed analysis"
+author: "almut"
+date: "10 Januar 2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Aim: Define a IGHV expression signature
+
+###paper
+- Which genes shall be annotated?
+- Do we have a certain pathway/message we want to emphazise?
+- How many genes? Pattern is much clearer without filtering for fold changes
+- dendogramm and unsupervised clustering on samples? (emphasizes the connectivity, but looks less distinct)
+
+
+libraries
+```{r load libraries, warnings = FALSE, messages = FALSE}
+library(tidyverse)
+library(ggplot2)
+library(DESeq2)
+library(ggpubr)
+library(ComplexHeatmap)
+library(piano)
+library(ggsci)
+library(RColorBrewer)
+library(circlize)
+library(pathview)
+library("colorspace")
+library(svglite)
+```
+
+#data
+```{r load data}
+#dds data set. gene expression data + patmetadata
+load("/home/almut/Dokumente/git/Transcriptome_CLL/dataset/ddsrnaCLL_150218.RData")
+
+#filter for parients without NA in trisomy12 
+ddsCLL <- ddsCLL[, !is.na(colData(ddsCLL)["IGHV"]) & !is.na(colData(ddsCLL)["trisomy12"])]
+
+#differentially expressed genes between IGHV groups 
+ighv_all <- read.csv(file="/home/almut/Dokumente/masterarbeit/results/noTsig/IGHV_diffGenes.csv")
+
+
+rownames(ighv_all) <- ighv_all$X
+ighv <- ighv_all[which(ighv_all$padj < 0.01 ),-1]
+ighv<- ighv[which(abs(ighv$log2FoldChange) > 2 & ighv$baseMean > 500),]
+#ighv<- ighv[which(ighv$baseMean > 500),]
+ighv <- ighv_all[1:50,]
+
+int_genes <- ighv[which(ighv$padj < 0.001 & abs(ighv$log2FoldChange) > 3),]
+
+
+mutStatus <- data.frame(colData(ddsCLL)) %>% arrange(IGHV)
+colnames(ddsCLL) <-colData(ddsCLL)$PatID
+ddsCLL <- ddsCLL[, mutStatus$PatID]
+
+
+```
+
+
+Add all relevant information into one matrix
+```{r tri12 gene expression}
+#expression data
+ddsCLL <- estimateSizeFactors(ddsCLL)
+RNAnorm <- varianceStabilizingTransformation(ddsCLL, blind = T)
+
+
+#filter for sign. genes in Trisomy12 
+exprMat <- assay(RNAnorm)
+exprIGHV <- exprMat[rownames(ighv),]
+colnames(exprIGHV) <- colData(ddsCLL)$PatID
+exprIGHV.new <- log2(exprIGHV)
+exprIGHV.new <- t(scale(t(exprIGHV.new)))
+exprIGHV.new[exprIGHV.new > 4] <- 4
+exprIGHV.new[exprIGHV.new < -4] <- -4
+rownames(exprIGHV.new) <- rowData(RNAnorm[rownames(ighv),])$symbol
+
+```
+
+
+#Plot heatmap using complex heatmaps to show expression signature
+```{r complex heatmap, fig.width= 22, fig.height=25}
+
+#colors
+#colors <- colorRampPalette(rev( brewer.pal(20,"RdBu")) )(20)
+colors = colorRamp2(c(-4,-2,0,2,4), c("#2166ac","#4393c3", "#f7f7f7", "#d6604d","#b2182b"))
+annocol <- colorRampPalette( brewer.pal(11,"Paired") )(11)
+annocol <- get_palette("jco", 10)
+annocolor <- list(IGHV = c("M" = annocol[1], "U" = annocol[2]))
+rowcolors <-colorRampPalette(brewer.pal(5, "Set1"))(5)
+rowcolors[6] <- "white"
+
+
+feature <- as.data.frame(colData(ddsCLL)[,c("IGHV")]) #, "trisomy12")])
+colnames(feature) <- c("IGHV") #"trisomy12")#, 
+
+ha_col <- HeatmapAnnotation(feature, col = annocolor, annotation_height = unit(c(rep(1.9, 1)), "cm"), annotation_legend_param = list(title_gp = gpar(fontsize = 50), labels_gp = gpar(fontsize = 45),  grid_height = unit(1.9, "cm"), grid_width = unit(1.9, "cm")))
+
+
+h1 <- Heatmap(exprIGHV.new ,                                                     #Cluster param
+              km = 2,
+              gap = unit(0.5, "cm"),
+              cluster_columns = F,
+              #clustering_distance_columns = "euclidean",
+              #clustering_method_columns = "ward.D2",
+              clustering_distance_rows = "pearson",
+              clustering_method_rows = "ward.D2",
+              column_title = "Gene signature: IGHV",                      #Graphic parameter
+              col = colors,
+              column_title_gp = gpar(fontsize = 60, fontface = "bold"), 
+              heatmap_legend_param = list(title = "expr", 
+                                          title_gp = gpar(fontsize = 50), 
+                                          grid_height = unit(1.9, "cm"), 
+                                          grid_width = unit(1.9, "cm"), 
+                                          gap = unit(2, "cm"), 
+                                          labels_gp = gpar(fontsize = 45)), 
+              column_dend_height = unit(2.5, "cm"),
+              show_row_dend = FALSE, 
+              show_column_names = FALSE , 
+              show_row_names = TRUE, 
+              row_names_gp = gpar(fontsize = 40),
+              top_annotation = ha_col)
+
+
+#svg(filename="/home/almut/Dokumente/git/Transcriptome_CLL/paper/figures/gene_exprIGHV_stats.svg", width=30, height=45)
+#pdf(file="/home/almut/Dokumente/git/Transcriptome_CLL/paper/figures/gene_exprIGHV_filtered.pdf", width=22, height=25)
+
+draw(h1) #  + ha_genes) #+ ha_row ha_chrom +
+#dev.off()
+
+#draw(h1)
+```
+
+#gene counts for specific genes
+```{r single gene counts, fig.width=6, fig.height=5}
+#function to create stripchart plots for specific genes
+gene_count <- function(gene_nam){
+  geneEnsID <- rownames(ddsCLL)[which(rowData(ddsCLL)$symbol %in% gene_nam)]
+  geneNum <- counts(ddsCLL)[geneEnsID,]
+  mutPat <- as.data.frame(colData(ddsCLL)[, c("IGHV")])
+  colnames(mutPat) <- c("genotype")
+  geneDat <- cbind(mutPat, geneNum)
+  colnames(geneDat) <- c("genotype", "counts")
+  
+  p <- ggstripchart(geneDat, x = "genotype", y = "counts",
+          color = "genotype",
+          palette = "jco",
+          add = "mean_sd",
+          title = paste(gene_nam),
+          font.x = 18, font.y = 18, font.legend = 16, 
+          ylab = "normalized counts") + font("xy.text", size = 15) + font("title", size = 20, face = "bold")
+  #ggsave(file=paste0("/home/almut/Dokumente/masterarbeit/workinprogress/IGHV/genetic_interaction_", gene_nam, ".svg"), plot=p, width=6, height=5)
+  p
+}
+
+geneList <- ighv$Symbol
+
+geneList <- c("CD38", "ZAP70", "LPL", "SEPT10", "ADAM29", "IGHV1-69", "PTCH1", "FGFR1", "CRY1", "CD274", "NUGGC", "SLAMF1")
+  
+  #c("IGLC6", "MYLK", "KANK2", "SEPT10","PPP1R9A", "LINC02363", "IGKV4-1", "IGHV3-23", "EBF1", "LPL", "IGHV1-69", "ZNF667", "IGHV4-34", "ZNF471",  "IGLC7", "PTPRB")
+
+lapply(geneList, gene_count)
+
+
+```
+
+
+## Gene set enrichment 
+
+```{r gene sets}
+#load gene set collection
+#Hallmark
+gsc <- loadGSC("/home/almut/Dokumente/masterarbeit/data/h.all.v6.0.symbols.gmt", type="gmt")
+#Kegg
+gsc_Kegg <- loadGSC("/home/almut/Dokumente/masterarbeit/data/c2.cp.kegg.v6.0.symbols.gmt", type="gmt")
+tft <- loadGSC("/home/almut/Dokumente/masterarbeit/data/c3.tft.v6.0.symbols.gmt", type="gmt")
+c5 <- loadGSC("/home/almut/Dokumente/masterarbeit/data/c5.all.v6.0.symbols.gmt", type="gmt")
+c6 <- loadGSC("/home/almut/Dokumente/masterarbeit/data/c6.all.v6.0.symbols.gmt", type="gmt")
+c7 <- loadGSC("/home/almut/Dokumente/masterarbeit/data/c7.all.v6.0.symbols.gmt", type="gmt")
+cgp <- loadGSC("/home/almut/Dokumente/masterarbeit/data/c2.cgp.v6.0.symbols.gmt", type="gmt")
+```
+
+## Piano
+```{r piano, fig.width=16, fig.height=7}
+
+pal<- scale_color_gradient(low = "white", high = "red")
+
+variant <- "IGHV"
+gmtFile <- "gsc_Kegg"
+gmt_all <- list("cgp" = cgp, "c7" = c7, "c6" = c6, "c5" = c5, "tft" = tft, "gsc_Kegg" = gsc_Kegg, "gsc" = gsc)
+#piano <- function(gmtFile, variant){
+  diff_res <- read.csv(file=paste0("/home/almut/Dokumente/masterarbeit/results/noTsig/", variant ,"_diffGenes.csv"))
+  #needs to be symbol/remove those without symbol, but ENSID only
+  diff_res <- diff_res[-which(diff_res$Symbol %in% c("", NA)),]
+  #get genes and pvalues 
+  geneNam <- diff_res$Symbol 
+  pVal <- diff_res$padj
+  logFold <- diff_res$log2FoldChange
+  stat <- diff_res$stat
+  gsTab <- data.frame(gene = geneNam, stat = stat)
+  gsaTab <- data.frame(row.names = gsTab$gene, stat = gsTab$stat)
+  gmt_obj <- gmt_all[[gmtFile]]
+  res <- runGSA(geneLevelStats = gsaTab,
+                      geneSetStat = "gsea",
+                     adjMethod = "fdr", gsc=gmt_obj,
+                     signifMethod = "geneSampling",
+                      nPerm = 50000,
+                      gsSizeLim=c(1, Inf))
+  Res_up <- arrange(GSAsummaryTable(res), `p adj (dist.dir.up)`)                 #`p adj (non-dir.)`)
+  Res_dn <- arrange(GSAsummaryTable(res), `p adj (dist.dir.dn)`)
+  
+  #rename results to plot
+  #resPlot <- Res[, c(1:5)]
+  resPlot <- Res_dn[, c(1:3,7,8,9)]
+  #colnames(resPlot) <- c("pathway", "gene_number", "stat", "p", "p.adj")
+  colnames(resPlot) <- c("pathway", "gene_number", "stat", "p.adj","genes_up" , "genes_dn")
+  #Prepare for plotting
+  enrichPlot <- resPlot[c(1:12),] %>% mutate(log10Padj = -log10(p.adj)) #%>% mutate(genes = ifelse(gene_number > 5, ">5", "<=5"))
+  #plot
+  p <- ggbarplot(enrichPlot, x = "pathway", y = "log10Padj",
+          fill = "gene_number",           # change fill color by mpg_level
+          color = "white",            # Set bar border colors to white
+          palette =  "gsea",            # jco journal color palett. see ?ggpar
+          sort.val = "asc",          # Sort the value in ascending order
+          sort.by.groups = FALSE,     # Don't sort inside each group
+          #x.text.angle = 90,          # Rotate vertically x axis texts
+          ylab = "-log10(padj)",
+          legend.title = "#diff.genes",
+          rotate = TRUE,
+          font.x = 20, font.y = 20, font.legend = 20, legend = "right", 
+          title = paste(gmtFile),
+          ggtheme = theme_pubr()
+          ) + font("xy.text", size = 16) + font("title", size = 20, face = "bold")
+  
+  ggsave(file=paste0("/home/almut/Dokumente/masterarbeit/results/noTsig/enrichment/IGHV/GSEA_in_IGHV.svg"), plot=p, width=14, height=7)
+  p
+
+
+#gmt_list <- c("gsc_Kegg", "gsc", "c5") #"cgp", "c7", "c6", "c5", "tft",
+
+
+#resListGSA <- 
+#lapply(gmt_list, FUN = "piano", variant = "IGHV")
+
+
+```
+
+#pathview
+```{r pathview function}
+
+#table with variants 
+varTab <- colData(ddsCLL)[, c("IGHV", "del13q14", "trisomy12", "del8p12", "gain8q24", "del11q22.3", "del17p13", "BRAF", "NOTCH1", "SF3B1", "TP53", "ATM", "MED12")]
+rownames(varTab) <- colData(ddsCLL)$PatID
+varTab[,c(2:12)] <- lapply(varTab[,c(2:12)], function(x) as.numeric(as.character(x)))
+varTab <- t(as.matrix(varTab))
+
+#set factor level to 1 and 0 (important for the names in lmfit)
+varTab[varTab > 1] <- 0
+x <- tibble(IGHV = factor(varTab["IGHV",]),
+            tri12  = factor(varTab["trisomy12", ]),
+            PatID = colnames(varTab))
+  noNA <- !is.na(x$IGHV) & !is.na(x$tri12)
+  x <- x[noNA,]
+
+  #patient annotation
+IGHV_M <- x %>% filter(IGHV == 1) %>% dplyr::select(PatID)
+IGHV_U <- x %>% filter(IGHV == 0) %>% dplyr::select(PatID)
+patgroups <- list("IGHV_M" = IGHV_M, "IGHV_U" = IGHV_U)
+
+
+#gene expression data
+#scale and censor
+exprMat <- assay(RNAnorm)
+exprMat.new <- t(scale(t(exprMat)))
+exprMat.new[exprMat.new > 4] <- 4
+exprMat.new[exprMat.new < -4] <- -4
+
+data(paths.hsa)
+data(gene.idtype.bods)
+
+my_pathview <- function(pathwayID){
+  pathwayDir <- paste0("~/Dokumente/git/Transcriptome_CLL/pathviewPlots/IGHV/", pathwayID)
+  dir.create(pathwayDir)
+  setwd(pathwayDir)
+  
+  for(patGroup in c("IGHV_U", "IGHV_M")){
+    patNam <- patgroups[[patGroup]]$PatID
+    expr <- exprMat.new[, patNam]
+    expr_Mean <- as_tibble(expr) %>% mutate(mean = dplyr::select(., starts_with(patNam[1])) %>%  rowMeans()) %>% dplyr::select(mean)
+    exprMatrix <- as.matrix(expr_Mean)
+    rownames(exprMatrix) <- rownames(expr)
+    pathview_out <- pathview(gene.data = exprMatrix, pathway.id = pathwayID, species = "hsa", gene.idtype = "ENSEMBL",   kegg.native = T, both.dirs = list(gene = T, cpd = T), bins = list(gene = 10, cpd = 10), limit = list(gene = 4, cpd = 1), node.sum = "mean", out.suffix = patGroup)
+   }
+}
+
+
+deseq2.fc=ighv_all$log2FoldChange
+#names(deseq2.fc)=rowData(ddsCLL[rownames(ighv_all),])$symbol
+names(deseq2.fc)=rownames(ighv_all)
+exp.fc=deseq2.fc
+
+#pathway_list <- c("hsa04662", "hsa04660", "hsa04010", "hsa04014", "hsa04015", "hsa04150", "hsa04330", "hsa04510", "hsa04350", "hsa04912", "hsa03040", "hsa04650","hsa04620", "hsa04670", "hsa04640", "hsa03010", "hsa04060", "hsa04020", "hsa04144")
+
+pathway_list <- c("hsa04062")
+
+pv.out.list <- sapply(pathway_list, function(pid){
+  pathwayDir <- paste0("~/Dokumente/git/Transcriptome_CLL/pathviewPlots/IGHV/lfc/")
+  dir.create(pathwayDir)
+  setwd(pathwayDir)
+  
+  pathview(gene.data =  exp.fc, pathway.id = pid, species = "hsa", gene.idtype = "ENSEMBL",   kegg.native = T)
+})
+
+#, both.dirs = list(gene = T, cpd = T), bins = list(gene = 10, cpd = 10), limit = list(gene = 4, cpd = 1)
+
+```
+
+
+```{r pathview diff pathways, eval=FALSE, message=F, warning=F, include=FALSE}
+#B-cell receptor pathway
+my_pathview("hsa04662") 
+
+#T-cell receptor pathway
+my_pathview("hsa04660") 
+
+#MAPK signaling pathway
+my_pathview("hsa04010")
+                                                                 
+#Ras signaling pathway
+my_pathview("hsa04014")
+
+#Rap1 signaling pathway
+my_pathview("hsa04015")
+
+#mTor signaling pathway
+my_pathview("hsa04150")
+
+#Notch signaling pathway
+my_pathview("hsa04330")
+
+#Focal adhesion pathway
+my_pathview("hsa04510")
+
+#TGF-Beta signaling pathway
+my_pathview("hsa04350")
+
+#GnrH signaling pathway
+my_pathview("hsa04912")
+                       
+#Actin regulation pathway
+my_pathview("hsa04810")
+                       
+#Leukocyte transendothelial migration pathway
+my_pathview("hsa04670")
+
+#Hematopoietic cell lineage pathway
+my_pathview("hsa04640")
+                       
+#TLR signaling pathway
+my_pathview("hsa04620")
+
+#Endocytosis
+my_pathview("hsa04144")
+
+#Cell adhesion molecules pathway (CAMs)
+my_pathview("hsa04514")
+
+#Cytokine-cytokine receptor interaction
+my_pathview("hsa04060") 
+
+#Natural-killer cell mdeiated cytotoxcity
+my_pathview("hsa04650") 
+
+#Calcium signaling pathway
+my_pathview("hsa04020") 
+
+#Wnt signaling pathway
+my_pathview("hsa04310") 
+
+#Ribosome pathway
+my_pathview("hsa03010") 
+
+#spliceosome pathway
+my_pathview("hsa03040") 
+
+```
+
+
+### Compare IGH gene status with gene expression
+```{r IG variants}
+
+#load object with variant status
+load("/home/almut/Dokumente/masterarbeit/data/2018-03-05_IGHV.RData")
+#sort patIDs by ddsCll object
+IG_gene <- as.tibble(IG_gene_analysis_Uppsala) %>% mutate(IGHV1_69 = ifelse(Vgene %in% "IGHV1-69", 1, 0), PatID = patientID) %>% dplyr::select(IGHV1_69, PatID)
+
+colData_tib <- as.tibble(colData(ddsCLL)) 
+
+colDat_integrated <- left_join(colData_tib,IG_gene)
+
+colData(ddsCLL)$IGHV1_69 <- as.factor(colDat_integrated$IGHV1_69)
+
+
+geneEnsID <- rownames(ddsCLL)[which(rowData(ddsCLL)$symbol %in% "IGHV1-69")]
+geneNum <- counts(ddsCLL)[geneEnsID,]
+mutPat <- as.data.frame(colData(ddsCLL)[, c("IGHV", "IGHV1_69")])
+colnames(mutPat) <- c("genotype", "IGHV1_69_variant")
+geneDat <- cbind(mutPat, geneNum)
+colnames(geneDat) <- c("genotype", "IGHV1_69_variant","counts")
+geneDat <- geneDat[!is.na(geneDat$IGHV1_69_variant),]
+  
+p <- ggstripchart(geneDat, x = "IGHV1_69_variant", y = "counts",
+          color = "IGHV1_69_variant",
+          palette = c("#00AFBB", "#FC4E07"),
+          #add = "mean_sd",
+          title = "IGHV1-69 gene expression",
+          font.x = 18, font.y = 18, font.legend = 16, 
+          ylab = "normalized counts", xlab = "IGHV1-69 variant", shape = "genotype", 
+          legend = "right", size = 3) + font("xy.text", size = 15) + font("title", size = 20, face = "bold")
+  ggsave(file=paste0("/home/almut/Dokumente/masterarbeit/workinprogress/IGHV/IGHV1_69.svg"), plot=p, width=8, height=5)
+p
+
+
+```
+

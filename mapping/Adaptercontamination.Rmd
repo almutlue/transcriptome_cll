@@ -1,0 +1,226 @@
+---
+title: "Adaptercontamination"
+author: "Almut Luetge"
+date: "October 16, 2017"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#16.10.17
+#Plot visualizing the increasing amount of adapter contamination within the readlength
+
+```{r packages , warning=FALSE, message=FALSE}
+
+library(ggplot2)
+library(DESeq2)
+library(plyr)
+library(ggpubr)
+library(tidyverse)
+library(ggbeeswarm)
+library(RColorBrewer)
+
+```
+
+data
+```{r data read length}
+#Read in data
+batch1 <- read.table("/home/almut/Documents/CLL/data/summaryBatch1.txt", header = T)
+rownames(batch1) <- batch1[,"sample"]
+
+batch2 <- read.table("/home/almut/Documents/CLL/data/summaryBatch2.txt", header = T)
+rownames(batch2) <- batch2[,"sample"]
+
+batch0 <- read.table("/home/almut/Documents/CLL/data/summaryBatch0.txt", header = T)
+batch0$sample <- gsub("-T1-R1_[A-Z]*_L00\\d", "", batch0$sample)
+dup <- which(duplicated(batch0$sample))
+batch0 <- batch0[-dup,]
+rownames(batch0) <- batch0[,"sample"]
+
+
+#Add column containg batch info
+num1 <-rep(1, nrow(batch1))
+num2 <-rep(2, nrow(batch2))
+num0 <-rep(0, nrow(batch0))
+
+
+batch1[,"batch"] <- as.factor(num1)
+batch2[,"batch"] <- as.factor(num2)
+batch0[,"batch"] <- as.factor(num0)
+
+
+#Merge to one table
+mappingSum1 <- rbind(batch0, batch1, batch2)
+
+# remove short samples (Only for readlength plots to make them easier to understand -not nesseccary comment out!)
+short2 <- c("H005-1A5K", "H005-TIW9", "H005-A7KR", "H005-3JVV", "H005-424M", "H005-46LY", "H005-GN55", "H005-JQ6C", "H005-KATI","H005-MA8Z", "H005-ON0V", "H005-Q9PA", "H005-1A5K_II", "H005-TIW9_II", "H005-A7KR_II", "H005-3JVV_II", "H005-424M_II", "H005-46LY_II", "H005-GN55_II", "H005-JQ6C_II", "H005-KATI_II","H005-MA8Z_II", "H005-ON0V_II", "H005-Q9PA_II")
+
+#mappingSum1 <- mappingSum1[-which(mappingSum1$sample %in% short2),]
+
+
+```
+
+
+```{r read in data adaptercontamination}
+adapter <- read.table("/home/almut/Documents/CLL/data/summaryAdapterAll.txt", header = T)
+rownames(adapter) <- adapter$sample
+adapter2 <- adapter[rownames(mappingSum1),]
+dim(mappingSum1)
+dim(adapter)
+mappingsum <- cbind(mappingSum1, adapter2[,c("numberAdapter", "numFastqFiles")])
+sum <- as.tibble(mappingsum) %>% select(readlength, numberAdapter, numFastqFiles) %>% mutate(adapter_rel = as.numeric(numberAdapter)*as.numeric(numFastqFiles))
+
+```
+
+#violin plots of adapter contamination
+```{r plots of mappingvariables, fig.height = 5, fig.width = 8}
+
+
+#Readlength
+ggplot(data = sum, aes(x = readlength, y = adapter_rel, color = readlength)) + geom_jitter(size = 5) + labs(x = "Length of reads", y="Number of adapter") + theme(axis.text.x = element_text(size = 30, angle = 90, vjust = 0.5), axis.text.y = element_text(size = 30), axis.title = element_text(size = 50), legend.key.size = unit(1.5, "cm"), legend.text = element_text(size = 30), legend.title = element_text(size = 40))
+
+
+#Readlength barplot
+readSum <- dplyr::select(sum,readlength, adapter_rel) %>% dplyr::group_by(readlength) #%>% dplyr::summarise(averageRead = mean(readlength))
+readSum$readlength <- gsub(252, 250, readSum$readlength)
+
+ggplot(data = readSum, aes(x = readlength, y = adapter_rel, color = readlength, fill = readlength)) + geom_beeswarm(size= 7) + labs(x = "Batch", y="Average mapped length") + theme(axis.text.x = element_text(size = 30, angle = 90, vjust = 0.5), axis.text.y = element_text(size = 30), axis.title = element_text(size = 50))
+
+
+ p <- ggboxplot(readSum,x = "readlength", y = "adapter_rel", color = "readlength", palette =c("#00AFBB", "#E7B800", "#FC4E07"),
+                add = "jitter", shape = "readlength", ylab = "Number adapter", legend = "right")
+
+p
+#ggsave(file="~/git/figures_thesis/adapter_contam.svg", plot=p, width=8, height=5)
+
+
+```
+
+
+PCA of trimmed and untrimmed dataset with readlength marked
+load data
+```{r dds datasets}
+load("/home/almut/Documents/CLL/data//2017-05-31_ddsrna.RData")          #dds-object containg previous data
+colnames(dds) <- colData(dds)$HipoID
+
+#subset with CLL patients only
+cll_vector <- c("CLL", "atyp CLL", "Atyp. CLL","CLL/ET")
+ddsOld <- dds[,colData(dds)$diag %in% cll_vector]
+
+# Remove rows/genes with too few counts
+keep <-apply(counts(ddsOld), 1, function(x) any(x >= 10))
+ddsOld <- ddsOld[keep,]
+
+ddsOld$readlength <- gsub(252, 250, ddsOld$readlength)
+
+dim(ddsOld)
+
+
+load("/home/almut/Documents/CLL/data/ddsrnaCLL_trimmed_tsig_modIGHV.RData")   #trimmed dataset
+colnames(ddsCLL) <- colData(ddsCLL)$HipoID
+ddsCLL <- ddsCLL[,colnames(ddsOld)]
+dim(ddsCLL)
+
+colData(ddsCLL)$readlength <- colData(ddsOld)$readlength 
+
+```
+
+
+Normalize data
+```{r norm data}
+#change to ddsOld/ddsCLL
+#Variance stabilization transformation of the raw data
+ddsOld <- estimateSizeFactors(ddsOld)           
+RNAnorm <- varianceStabilizingTransformation(ddsOld, blind=T)
+```
+
+```{r pca, fig.height=6, fig.width=6}
+#Plot PCA
+exprMat <- assay(RNAnorm)
+
+#top 5000 most variant genes
+sds <- rowSds(exprMat)
+exprMat <- exprMat[order(sds, decreasing = T)[1:5000],]
+
+
+#Calculate PCA
+pcaRes <- prcomp(t(exprMat), scale =T)
+varExp <- (pcaRes$sdev^2 / sum(pcaRes$sdev^2)) * 100
+pcaTab <- data.frame(pcaRes$x[,c(1:10)])
+names(varExp) <- colnames(pcaRes$x)
+
+#add background information
+pcaTab <- cbind(pcaTab, data.frame(colData(RNAnorm)))
+
+
+#plot PCA and color samples based on annotations
+
+  
+p <- ggscatter(pcaTab, x = "PC1", y = "PC2", color = "readlength", palette = c("#00AFBB", "#E7B800", "#FC4E07"),
+  ylab = sprintf("PC2 (%2.1f%%)",varExp[2]), xlab = sprintf("PC1 (%2.1f%%)",varExp[1]), legend = "right", main = "PCA before adapter trimming") + coord_fixed()
+
+#p <- ggscatter(pcaTab, x = "PC3", y = "PC4", color = "trisomy12", palette = "jco",
+#  ylab = sprintf("PC4 (%2.1f%%)",varExp[4]), xlab = sprintf("PC3 (%2.1f%%)",varExp[3]), legend = "right", main = "Trisomy12") + #coord_fixed()
+
+ 
+p  
+ 
+#ggsave(file="~/git/figures_thesis/pca_trisomy12.svg", plot=p, width=5, height=5)
+#ggsave(file="~/git/figures_thesis/pca_readlengthOld.svg", plot=p, width=5, height=5)
+
+```
+
+
+Plots for T cell contamination
+```{r T cell contamination, fig.width=20, fig.height=5}
+ddsCLL  <- ddsCLL[rowData(ddsCLL)$biotype %in% "protein_coding"]
+
+ddsCLL <- estimateSizeFactors(ddsCLL)
+ddsCLL.norm <- varianceStabilizingTransformation(ddsCLL)
+
+Tmark <- c("CD4","CD8A","CD8B","CD3B","CD3G","CD2","CD3E")
+ddsT <- ddsCLL.norm[rowData(ddsCLL.norm)$symbol %in% Tmark,]
+Texpr <- assay(ddsT)
+rownames(Texpr) <- rowData(ddsT)$symbol
+
+#Plot the T marker gene expression gradient
+
+Texpr.plot <- Texpr[,order(colMeans(Texpr))]
+annoCol <- data.frame(row.names = colnames(Texpr.plot), 
+                      RNAprep = colData(ddsCLL[,colnames(Texpr.plot)])$RNAprep)
+
+#svg(filename="~/git/figures_thesis/TmarkExpression.svg", width=20, height=5)
+pheatmap(Texpr.plot, scale = "row", cluster_cols = FALSE, annotation_col = annoCol, show_colnames = F, annotation_colors = list(RNAprep=c("CD19+" = "#00AFBB", "Pellet" = "#FC4E07")), fontsize = 20)
+#dev.off()
+
+
+```
+PCA on T cell marker genes
+```{r, fig.height=5, fig.width=8}
+PCres <- prcomp(t(Texpr), scale. = TRUE, center = TRUE)
+varExp <- (PCres$sdev^2/sum(PCres$sdev^2)) *100
+plotTab <- data.frame(PCres$x)
+plotTab$CD4 <- Texpr["CD4",rownames(plotTab)]
+plotTab$RNAprep <- ddsCLL[,rownames(plotTab)]$RNAprep
+ggplot(plotTab, aes(x=PC1, y = PC2, col = CD4, shape = RNAprep)) + 
+  geom_point() +
+  coord_cartesian(xlim = c(-5,5), ylim = c(-5,5)) +
+  xlab(sprintf("PC1 (%1.2f)", varExp[1])) +
+  ylab(sprintf("PC2 (%1.2f)", varExp[2])) +
+  scale_color_continuous(low = "blue", high = "red") +
+  scale_shape_manual(values = c("Pellet" = 0, "CD19+" = 16))
+
+
+col3 <- colorRampPalette( rev(brewer.pal(11,"RdBu")) )(255)
+p <- ggscatter(plotTab, x = "PC1", y = "PC2", color = "CD4",
+  ylab = sprintf("PC2 (%2.1f%%)",varExp[2]), xlab = sprintf("PC1 (%2.1f%%)",varExp[1]), legend = "right", main = "PCA T cell marker genes") +  scale_color_continuous(low = "royalblue2", high =  "indianred2") + coord_fixed()
+
+p
+#ggsave(file="~/git/figures_thesis/Tmark_pca.svg", plot=p, width=8, height=5)
+
+```
+
+
+
