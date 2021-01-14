@@ -362,6 +362,10 @@ geneDat <- cbind(mutPat, geneNum)
 colnames(geneDat) <- c("genotype", "IGHV1_69_variant","counts")
 geneDat <- geneDat[!is.na(geneDat$IGHV1_69_variant),]
 
+# geneTib <- as.tibble(geneDat) %>% mutate(PatID = rownames(geneDat)) %>%
+#   dplyr::filter(IGHV1_69_variant == 1) %>%
+#   arrange(counts)
+
 
 p <- ggboxplot(geneDat, x = "IGHV1_69_variant", y = "counts",
           color = "IGHV1_69_variant",

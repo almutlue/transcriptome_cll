@@ -219,24 +219,23 @@ saveRDS(p1, file = paste0(output_dir, "/figures/r_objects/Methylation/methylatio
 #function to create stripchart plots for specific genes
 gene_count <- function(gene_nam){
   geneEnsID <- rownames(ddsCLL)[which(rowData(ddsCLL)$symbol %in% gene_nam)]
-  geneNum <- assay(RNAnorm)[geneEnsID,]
-  mutPat <- as.data.frame(colData(ddsCLL)[, c("Methylation")])
-  colnames(mutPat) <- c("genotype")
-  geneDat <- cbind(mutPat, geneNum)
-  colnames(geneDat) <- c("genotype", "counts")
-  
-  p <- ggstripchart(geneDat, x = "genotype", y = "counts",
-          color = "genotype",
-          palette = "jco",
-          add = "mean_sd",
+  gc <- plotCounts(ddsCLL, gene = geneEnsID, intgroup = "Methylation", returnData=TRUE)
+  p <- ggboxplot(gc, x = "Methylation", y = "count",
+          color = "Methylation",
+          size = 1.2,
+          palette = c(annocol[7],annocol[5],annocol[6]),
+          add = "jitter",
+          add.params = list(size = 2.5),
+          outlier.shape = NA, 
+          yscale = "log10",
           title = paste(gene_nam),
-          ylab = "normalized counts")
- # ggsave(file=paste0(figure_dir, "/methylation/genetic_interaction_", gene_nam, ".svg"), plot=p, width=6, height=5)
+          font.x = 20, font.y = 20, font.legend = 20, 
+          ylab = "normalized counts") + font("xy.text", size = 20) + font("title", size = 20, face = "bold")
   saveRDS(p, file = paste0(output_dir, "/figures/r_objects/Methylation/de_genes/", gene_nam, ".rds"))
   p
 }
 
-geneList <- sub_names[1:30]
+geneList <- c(sub_names[1:30], "EGR1", "EGFR", "SOX11", "NFATC1")
 lapply(geneList, gene_count)
 
 

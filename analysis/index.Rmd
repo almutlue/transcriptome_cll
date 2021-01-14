@@ -14,7 +14,7 @@ editor_options:
 
   + [DE summary](summary_de_genes.html)
   + [Variants summary](summary_variants.html)
-  + [DE analysis](de_analysis.html)
+  + [DE analysis](de_analysis.html) - including gene-wise results from DE analysis.
   + [Exploratory data analysis](general_eda.html)
   
 ## Variants  
@@ -38,6 +38,6 @@ editor_options:
 ## Epistasis
 
   + [epistatsis_tri12_ighv](epistasis.html)
-  + [epistatsis_tri12_ighv](methylation_epistasis.html)
+  + [epistatsis_meth](methylation_epistasis.html)
   + [epistatsis_drug](epistasis_drug.html)
 

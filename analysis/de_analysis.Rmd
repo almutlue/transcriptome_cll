@@ -24,6 +24,8 @@ library(ComplexHeatmap)
 library(matrixStats)
 library(here)
 library(reshape2)
+library(DT)
+library(xlsx)
 ```
 
 
@@ -117,12 +119,12 @@ difftab <- function(condition){
   #filter using pvalues
   dataTab <- filter(dataTab, padj <= pCut) %>%
     arrange(padj) %>%
-    mutate(Symbol = rowData(ddsCLL[ID,])$symbol)# %>%
-    #filter(abs(log2FoldChange) > 2)
+    mutate(Symbol = rowData(ddsCLL[ID,])$symbol) %>%
+    filter(abs(log2FoldChange) > 1)
   dataTab <- dataTab[!duplicated(dataTab$Symbol),]
   dataTab <- dataTab[!is.na(dataTab$Symbol),]
   rownames(dataTab) <- dataTab$ID
-  write.csv(dataTab, file=paste0(output_dir,"/diff_genes/", condition, "_diffGenes.csv"))
+  #write.csv(dataTab, file=paste0(output_dir,"/diff_genes/", condition, "_diffGenes.csv"))
   dataTab
 }
 
@@ -136,30 +138,188 @@ names(sigRes) <- cond
 ```
 
 
-### MA-plots
-```{r ma-plots}
-#Check Ma plots
+## MA-plots {.tabset}
+```{r ma-plots, results="asis"}
 
-myMaPlot <-function(condition){
+for (condition in cond) {
+  cat("### ", condition, " {-}\n")
+  
   DESeq2::plotMA(res_list[[condition]], ylim=c(-5,5), main= paste(condition))
+  cat("\n\n")
 }
 
-lapply(cond, myMaPlot)
+# myMaPlot <-function(condition){
+#   DESeq2::plotMA(res_list[[condition]], ylim=c(-5,5), main= paste(condition))
+# }
+# 
+# lapply(cond, myMaPlot)
 
 ```
 
 
-### Histogramm of pvalues
+## Histogramm of pvalues {.tabset}
 
-```{r hist}
+```{r hist, results="asis"}
 
-myHist <- function(condition){
+for (condition in cond) {
+  cat("### ", condition, " {-}\n")
+  
   res <- res_list[[condition]]
-  hist(res$pvalue, breaks=100, col="skyblue", border="slateblue", 
-                    main=paste0("Histogramm of pvalues:", condition),plot = TRUE)
+  hist(res$pvalue, breaks=100, col="skyblue", border="slateblue",
+                     main=paste0("Histogramm of pvalues:", condition),plot = TRUE)
+  cat("\n\n")
 }
 
-hist_cond <- lapply(cond, myHist)
+# myHist <- function(condition){
+#   res <- res_list[[condition]]
+#   hist(res$pvalue, breaks=100, col="skyblue", border="slateblue",
+#                     main=paste0("Histogramm of pvalues:", condition),plot = TRUE)
+# }
+# 
+# hist_cond <- lapply(cond, myHist)
 
 ```
+
+
+## DE genes {.tabset}
+
+### del8p12
+```{r del8p12, warning = FALSE}
+dataTab <- data.frame(res_list[["del8p12"]])
+dataTab$Symbol <- rowData(ddsCLL[rownames(dataTab),])$symbol
+dataTab <- dataTab[!dataTab$Symbol %in% c("",NA),]
+datatable(dataTab, filter = 'top', options = list(
+  pageLength = 5, autoWidth = TRUE
+)) %>% formatRound(1:(ncol(dataTab)-1), 2)
+```
+
+### gain8q24
+```{r gain8q24, warning = FALSE}
+dataTab <- data.frame(res_list[["gain8q24"]])
+dataTab$Symbol <- rowData(ddsCLL[rownames(dataTab),])$symbol
+dataTab <- dataTab[!dataTab$Symbol %in% c("",NA),]
+datatable(dataTab, filter = 'top', options = list(
+  pageLength = 5, autoWidth = TRUE
+)) %>% formatRound(1:(ncol(dataTab)-1), 2)
+```
+
+### del11q22.3
+```{r del11q22.3, warning = FALSE}
+dataTab <- data.frame(res_list[["del11q22.3"]])
+dataTab$Symbol <- rowData(ddsCLL[rownames(dataTab),])$symbol
+dataTab <- dataTab[!dataTab$Symbol %in% c("",NA),]
+datatable(dataTab, filter = 'top', options = list(
+  pageLength = 5, autoWidth = TRUE
+)) %>% formatRound(1:(ncol(dataTab)-1), 2)
+```
+
+### trisomy12
+```{r trisomy12, warning = FALSE}
+dataTab <- data.frame(res_list[["trisomy12"]])
+dataTab$Symbol <- rowData(ddsCLL[rownames(dataTab),])$symbol
+dataTab <- dataTab[!dataTab$Symbol %in% c("",NA),]
+datatable(dataTab, filter = 'top', options = list(
+  pageLength = 5, autoWidth = TRUE
+)) %>% formatRound(1:(ncol(dataTab)-1), 2)
+```
+
+### del13q14
+```{r del13q14, warning = FALSE}
+dataTab <- data.frame(res_list[["del13q14"]])
+dataTab$Symbol <- rowData(ddsCLL[rownames(dataTab),])$symbol
+dataTab <- dataTab[!dataTab$Symbol %in% c("",NA),]
+datatable(dataTab, filter = 'top', options = list(
+  pageLength = 5, autoWidth = TRUE
+)) %>% formatRound(1:(ncol(dataTab)-1), 2)
+```
+
+### del17p13
+```{r del17p13, warning = FALSE}
+dataTab <- data.frame(res_list[["del17p13"]])
+dataTab$Symbol <- rowData(ddsCLL[rownames(dataTab),])$symbol
+dataTab <- dataTab[!dataTab$Symbol %in% c("",NA),]
+datatable(dataTab, filter = 'top', options = list(
+  pageLength = 5, autoWidth = TRUE
+)) %>% formatRound(1:(ncol(dataTab)-1), 2)
+```
+
+### BRAF
+```{r BRAF, warning = FALSE}
+dataTab <- data.frame(res_list[["BRAF"]])
+dataTab$Symbol <- rowData(ddsCLL[rownames(dataTab),])$symbol
+dataTab <- dataTab[!dataTab$Symbol %in% c("",NA),]
+datatable(dataTab, filter = 'top', options = list(
+  pageLength = 5, autoWidth = TRUE
+)) %>% formatRound(1:(ncol(dataTab)-1), 2)
+```
+
+
+### NOTCH1
+```{r NOTCH1, warning = FALSE}
+dataTab <- data.frame(res_list[["NOTCH1"]])
+dataTab$Symbol <- rowData(ddsCLL[rownames(dataTab),])$symbol
+dataTab <- dataTab[!dataTab$Symbol %in% c("",NA),]
+datatable(dataTab, filter = 'top', options = list(
+  pageLength = 5, autoWidth = TRUE
+)) %>% formatRound(1:(ncol(dataTab)-1), 2)
+```
+
+### SF3B1
+```{r SF3B1, warning = FALSE}
+dataTab <- data.frame(res_list[["SF3B1"]])
+dataTab$Symbol <- rowData(ddsCLL[rownames(dataTab),])$symbol
+dataTab <- dataTab[!dataTab$Symbol %in% c("",NA),]
+datatable(dataTab, filter = 'top', options = list(
+  pageLength = 5, autoWidth = TRUE
+)) %>% formatRound(1:(ncol(dataTab)-1), 2)
+```
+
+### TP53
+```{r TP53, warning = FALSE}
+dataTab <- data.frame(res_list[["TP53"]])
+dataTab$Symbol <- rowData(ddsCLL[rownames(dataTab),])$symbol
+dataTab <- dataTab[!dataTab$Symbol %in% c("",NA),]
+datatable(dataTab, filter = 'top', options = list(
+  pageLength = 5, autoWidth = TRUE
+)) %>% formatRound(1:(ncol(dataTab)-1), 2)
+```
+
+### ATM
+```{r ATM, warning = FALSE}
+dataTab <- data.frame(res_list[["ATM"]])
+dataTab$Symbol <- rowData(ddsCLL[rownames(dataTab),])$symbol
+dataTab <- dataTab[!dataTab$Symbol %in% c("",NA),]
+datatable(dataTab, filter = 'top', options = list(
+  pageLength = 5, autoWidth = TRUE
+)) %>% formatRound(1:(ncol(dataTab)-1), 2)
+```
+
+### MED12
+```{r MED12, warning = FALSE}
+dataTab <- data.frame(res_list[["MED12"]])
+dataTab$Symbol <- rowData(ddsCLL[rownames(dataTab),])$symbol
+dataTab <- dataTab[!dataTab$Symbol %in% c("",NA),]
+datatable(dataTab, filter = 'top', options = list(
+  pageLength = 5, autoWidth = TRUE
+)) %>% formatRound(1:(ncol(dataTab)-1), 2)
+```
+
+### IGHV
+```{r IGHV, warning = FALSE}
+dataTab <- data.frame(res_list[["IGHV"]])
+dataTab$Symbol <- rowData(ddsCLL[rownames(dataTab),])$symbol
+dataTab <- dataTab[!dataTab$Symbol %in% c("",NA),]
+datatable(dataTab, filter = 'top', options = list(
+  pageLength = 5, autoWidth = TRUE
+)) %>% formatRound(1:(ncol(dataTab)-1), 2)
+```
+
+## save results
+```{r save excel format}
+wb <- createWorkbook()
+sheets <- lapply(cond, createSheet, wb = wb)
+void <- Map(addDataFrame, sigRes, sheets)
+saveWorkbook(wb, file = paste0(output_dir,"/de_genes_all.xlsx"))
+```
+
 

@@ -32,6 +32,10 @@ library(circlize)
 library(gridExtra)
 library(ggpubr)
 library(RColorBrewer)
+library(clusterProfiler)
+library(msigdbr)
+library(org.Hs.eg.db)
+library(enrichplot)
 library(here)
 
 ```
@@ -151,21 +155,18 @@ saveRDS(h1, file = paste0(output_dir, "/figures/r_objects/TP53/TP53_heatmap.rds"
 # Sample and gene specific expression - top genes
 
 ```{r single gene counts, fig.width=6, fig.height=5}
-#function to create stripchart plots for specific genes
+
 gene_count <- function(gene_nam){
-  geneEnsID <- rownames(ddsCLL)[which(rowData(ddsCLL)$symbol %in% gene_nam)]
-  geneNum <- exprMat[geneEnsID,]
-  mutPat <- as.data.frame(colData(ddsCLL)[, c(variant)])
-  colnames(mutPat) <- c("genotype")
-  geneDat <- cbind(mutPat, geneNum)
-  colnames(geneDat) <- c("genotype", "counts")
-  
-  p <- ggstripchart(geneDat, x = "genotype", y = "counts",
-          color = "genotype",
-          size = 3,
+   geneEnsID <- rownames(ddsCLL)[which(rowData(ddsCLL)$symbol %in% gene_nam)]
+  gc <- plotCounts(ddsCLL, gene = geneEnsID, intgroup = variant, returnData=TRUE)
+  p <- ggboxplot(gc, x = variant, y = "count",
+          color = variant,
+          size = 1.2,
           palette = "jco",
-          add = "mean_sd",
-          add.params = list(size = 1.2),
+          outlier.shape = NA, 
+          add = "jitter",
+          add.params = list(size = 2.5),
+          yscale = "log10",
           title = paste(gene_nam),
           font.x = 20, font.y = 20, font.legend = 20, 
           ylab = "normalized counts") + font("xy.text", size = 20) + font("title", size = 20, face = "bold")
@@ -181,33 +182,8 @@ lapply(geneList, gene_count)
 
 
 ```
-# Interesting top genes
 
-A list of genes, with manual checked expression differences:
-Downregulated in **TP53**:
-+ FLII
-+ NUP88
-+ DRG2
-+ SPAG7
-+ SMG6
-+ RABEP1
-+ ELAC2
-+ TOP3A
-+ MAP2K4
-+ RNF167
-+ PANK4
-+ MED11
-+ PELP1
-+ MPDU1
-+ CTDNEP1
-+ SGF29
-+ FXR2
-
-Upregulated in **TP53**:
-+ HYPK
-
-
-# Gene set enrichment analysis
+## Gene set enrichment analysis
 
 Gene sets
 ```{r gene sets}
@@ -219,7 +195,7 @@ gsc_Kegg <- loadGSC("/home/almut/Dokumente/masterarbeit/data/c2.cp.kegg.v6.0.sym
 
 
 #get all de outputs
-load(paste0(output_dir,"/desRes_15112019.RData"))
+load(paste0(output_dir,"/desRes_250720.RData"))
 difftab <- function(condition){
   dataTab <- data.frame(res_list[[condition]])
   dataTab$ID <- rownames(dataTab)
@@ -235,96 +211,122 @@ difftab <- function(condition){
 }
 
 diff_res <- difftab(variant)
-```
 
-Run piano
-```{r piano, fig.width=8, fig.height=6}
-
-gmtFile <- gsc_Kegg
+#clusterProfiler
 diff_res <- diff_res[-which(diff_res$Symbol %in% c("", NA)),]
+gene_list <- diff_res$stat %>% set_names(diff_res$Symbol)
+gene_list <- sort(gene_list, decreasing = TRUE)
+gene_lfc <- diff_res$log2FoldChange %>% set_names(diff_res$Symbol)
+gene_lfc <- sort(gene_lfc, decreasing = TRUE)
+de_gene <- diff_res %>% filter(padj < 0.01) 
+de_gene <- de_gene$Symbol
 
-geneNam <- diff_res$Symbol 
-pVal <- diff_res$padj
-logFold <- diff_res$log2FoldChange
-stat <- diff_res$stat
-gsTab <- data.frame(gene = geneNam, stat = stat, logFold = logFold)
-gsaTab <- data.frame(row.names = gsTab$gene, stat = gsTab$stat)
-res <- runGSA(geneLevelStats = gsaTab,
-                    geneSetStat = "gsea",
-                    adjMethod = "fdr", gsc=gmtFile,
-                    signifMethod = "geneSampling",
-                    nPerm = 50000,
-                    gsSizeLim=c(1, Inf))
+de_ens <- diff_res %>% filter(padj < 0.01)
+de_ens <- de_ens$ID
+#Get Gene IDs
+gene_id <- bitr(de_ens, fromType = "ENSEMBL",
+        toType = c("ENTREZID", "SYMBOL"),
+        OrgDb = org.Hs.eg.db)
 
-saveRDS(res, file=paste0(output_dir,"/enrichment/", variant, "_gsea.rds"))
-res <- readRDS(paste0(output_dir,"/enrichment/", variant, "_gsea.rds"))
-  
-Res_up <- arrange(GSAsummaryTable(res), `p adj (dist.dir.up)`)            
-Res_dn <- arrange(GSAsummaryTable(res), `p adj (dist.dir.dn)`)
-  
+gene_list_id <- bitr(diff_res$ID, fromType = "ENSEMBL",
+        toType = c("ENTREZID", "SYMBOL"),
+        OrgDb = org.Hs.eg.db)
+names(gene_list_id) <- c("ID", "ENTREZID", "Symbol")
+diff_id <- left_join(gene_list_id, diff_res)
+gene_list_id <- diff_id$stat %>% set_names(diff_id$ENTREZID)
+gene_list_id <- sort(gene_list_id, decreasing = TRUE)
+gene_lfc_id <- diff_id$log2FoldChange %>% set_names(diff_id$ENTREZID)
+gene_lfc_id <- sort(gene_lfc_id, decreasing = TRUE)
 
-#Plot
-resPlot <- Res_up[, c(1:3,5,8,9)]
-resPlot_dn <- Res_dn[, c(1:3,7,8,9)]
-colnames(resPlot) <- c("pathway", "gene_number", "stat", "p.adj","genes_up" , "genes_dn")
-colnames(resPlot_dn) <- c("pathway", "gene_number", "stat", "p.adj","genes_up" , "genes_dn")
+#convert gsc
+m_t2g <- msigdbr(species = "Homo sapiens", category = "H") %>% 
+  dplyr::select(gs_name, human_gene_symbol)
 
+#Hallmark
+em2 <- GSEA(gene_list, TERM2GENE = m_t2g, pvalueCutoff = 0.1)
+em <- enricher(de_gene, TERM2GENE = m_t2g)
 
-enrichPlot <- resPlot_dn[c(1:6),] %>% mutate(log10Padj = -log10(p.adj)) %>% arrange(-row_number())
-enrichPlot$pathway <- gsub("KEGG_", "",  enrichPlot$pathway)
-enrichPlot$pathway <- gsub("_", " ",  enrichPlot$pathway)
-enrichPlot$pathway <- tolower(enrichPlot$pathway)
+#Kegg
+kk <- enrichKEGG(gene_id$ENTREZID,
+                 organism     = 'hsa',
+                 pvalueCutoff = 0.2)
 
-#plot
-p <- ggbarplot(enrichPlot, x = "pathway", y = "gene_number",
-          fill = "p.adj",   
-          orientation = "vertical",
-          label = enrichPlot$pathway, lab.col = "white", lab.size = 4, lab.vjust = 0, lab.hjust = 1.01,
-          sort.val = "none",         
-          sort.by.groups = FALSE,     
-          xlab = "Pathway",
-          ylab = "gene number",
-          legend.title = "p.adj",
-          rotate = TRUE, font.x = 20, font.y = 20, font.legend = 20, legend = "right", 
-          title = "TP53 - Kegg down",
-          ggtheme = theme_pubr()) + 
-  font("x.text", size = 16) + 
-  font("y.text", size = 0) +
-  font("title", size = 20, face = "bold") + 
-  gradient_color(c("blue", "white", "red"))
-  
-#ggsave(file=paste0(figure_dir,"/GSEA_", variant, "_Kegg.svg"), plot=p, width=14, height=7)
-  p
-  
-saveRDS(p, file = paste0(output_dir, "/figures/r_objects/TP53/TP53_enrichment_dn.rds"))
+kk2 <- gseKEGG(geneList     = gene_list_id,
+               organism     = 'hsa',
+               nPerm        = 1000,
+               minGSSize    = 50,
+               pvalueCutoff = 0.2,
+               verbose      = FALSE)
 
-
-enrichPlot <- resPlot[c(1:6),] %>% mutate(log10Padj = -log10(p.adj)) %>% arrange(-row_number())
-enrichPlot$pathway <- gsub("KEGG_", "",  enrichPlot$pathway)
-enrichPlot$pathway <- gsub("_", " ",  enrichPlot$pathway)
-enrichPlot$pathway <- tolower(enrichPlot$pathway)
-
-#plot
-p <- ggbarplot(enrichPlot, x = "pathway", y = "gene_number",
-          fill = "p.adj",   
-          orientation = "vertical",
-          label = enrichPlot$pathway, lab.col = "white", lab.size = 4, lab.vjust = 0, lab.hjust = 1.01,
-          sort.val = "none",         
-          sort.by.groups = FALSE,     
-          xlab = "Pathway",
-          ylab = "gene number",
-          legend.title = "p.adj",
-          rotate = TRUE, font.x = 20, font.y = 20, font.legend = 20, legend = "right", 
-          title = "TP53 - Kegg up",
-          ggtheme = theme_pubr()) + 
-  font("x.text", size = 16) + 
-  font("y.text", size = 0) +
-  font("title", size = 20, face = "bold") + 
-  gradient_color(c("blue", "white", "red"))
-  
-#ggsave(file=paste0(figure_dir,"/GSEA_", variant, "_Kegg.svg"), plot=p, width=14, height=7)
-  p
-  
-saveRDS(p, file = paste0(output_dir, "/figures/r_objects/TP53/TP53_enrichment_up.rds"))
+kk2x <- setReadable(kk2, 'org.Hs.eg.db', 'ENTREZID')
 ```
 
+Visualize ClusterProfiler results
+```{r clusterProfiler}
+barplot(kk, showCategory=5)
+barplot(em, showCategory=5)
+
+dot1 <- clusterProfiler::dotplot(em2, showCategory=10) + ggtitle("GSEA for TP53") +
+  theme_pubr() +
+  theme(legend.position="right") + 
+  theme(plot.title = element_text(face = "bold")) 
+dot1
+dotplot(em, showCategory=10) + ggtitle("Enrichment for TP53")
+
+dotplot(kk2, showCategory=10) + ggtitle("GSEA for TP53")
+dot2 <- clusterProfiler::dotplot(kk, showCategory=10) + ggtitle("Enrichment for TP53") +
+  theme_pubr() +
+  theme(legend.position="right") +
+  theme(plot.title = element_text(face = "bold"))
+dot2
+
+ridgeplot(em2)
+ridgeplot(kk2)
+
+gseaplot2(em2, geneSetID = 3, title = em2$Description[3])
+gseaplot2(kk2, geneSetID = 2, title = kk2$Description[2])
+
+saveRDS(dot1, file = paste0(output_dir, "/figures/r_objects/TP53/enrich_dot_hm.rds"))
+saveRDS(dot2, file = paste0(output_dir, "/figures/r_objects/TP53/enrich_dot2.rds"))
+```
+
+
+
+network plot
+```{r network, fig.width=10, fig.height=10}
+# Networks Hallmark
+ em2_sub <- em2
+ em2_sub@result <- em2@result[which(em2@result$Description %in% c("HALLMARK_OXIDATIVE_PHOSPHORYLATION",
+                                                                    "HALLMARK_DNA_REPAIR",
+                                                                    "HALLMARK_G2M_CHECKPOINT")),]
+p_net <- cnetplot(em2_sub, categorySize="pvalue", foldChange=gene_lfc) + 
+  scale_colour_gradientn(colors = c("#581845", "#900C3F", "#C70039", "#FF5733", "#FFC300", "#DAF7A6")) + 
+  guides(size = FALSE) + 
+  labs(color = "logFC")
+
+p_net  
+
+# Networks KEGG
+ kk2_sub <- kk2x
+ kk2_sub@result <- kk2x@result[which(kk2x@result$Description %in% c("p53 signaling pathway",
+                                                                    "Oxidative phosphorylation",
+                                                                    "Transcriptional misregulation in cancer"
+                                                                    )),]
+
+pnet_kegg <- cnetplot(kk2_sub, categorySize="pvalue", foldChange=gene_lfc) + 
+  scale_color_gradient(high="blue", low="red") +
+  guides(size = FALSE) + 
+  labs(color = "logFC")
+
+pnet_kegg
+
+saveRDS(pnet_kegg, file = paste0(output_dir, "/figures/r_objects/TP53/enrich_net_kegg.rds"))
+saveRDS(p_net, file = paste0(output_dir, "/figures/r_objects/TP53/enrich_net_hm.rds"))
+
+```
+
+heatplot
+```{r heatplot, fig.width=20, fig.height=5}
+heatplot(em2, foldChange=gene_lfc, showCategory = 3)
+heatplot(kk2x, foldChange=gene_lfc, showCategory = 3 ) 
+```
