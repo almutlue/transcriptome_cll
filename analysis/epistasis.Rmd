@@ -105,7 +105,7 @@ resTab$symbol <- rowData(RNAnorm[rownames(resSig),])$symbol
   geneExpression_new[geneExpression_new > 4] <- 4
   geneExpression_new[geneExpression_new < -4] <- -4
 
-  mutnames <- c("none", "IGHV", "trisomy12", "both")
+  mutnames <- c("IGHV-UM", "IGHV-M", "trisomy12", "both")
   
   mutStatus <- data.frame(colData(RNAnorm)) %>% mutate(IGHVnew = ifelse(IGHV %in% "M", 1, 0)) %>% 
     dplyr::select(-IGHV) %>% mutate(IGHV = IGHVnew) %>% 
@@ -124,8 +124,8 @@ resTab$symbol <- rowData(RNAnorm[rownames(resSig),])$symbol
   annocol <- get_palette("uchicago", 9)
   chromcol <- list(chromosome = c("12" = annocol[6], "other" = annocol[5]))
   
-  annocolor <- list(Variant = c("none" = annocol[3], "IGHV" = annocol[5], "trisomy12" = annocol[7], "both" = annocol[9]))
-  names(annocolor$Variant) <- c("none", "IGHV", "trisomy12", "both")
+  annocolor <- list(Variant = c("IGHV-UM" = annocol[3], "IGHV-M" = annocol[5], "trisomy12" = annocol[7], "both" = annocol[9]))
+  names(annocolor$Variant) <- c("IGHV-UM", "IGHV-M", "trisomy12", "both")
   mutationStatus <- data.frame(mutStatus$mut)
   rownames(mutationStatus) <- mutStatus$PatID
   colnames(mutationStatus) <- "Variant"
@@ -209,7 +209,7 @@ p1 <- draw(h1 + ha_genes )
   #draw(h1 + ha_chrom + ha_genes)
 #saveRDS(p1, file = paste0(output_dir, "/figures/r_objects/epistasis/epistasis_heatmap.rds"))
 IGHVTri12 <- list("sig_Genes" = sig_Genes, "geneExp" = geneExpression_new, "h1"= h1)
-
+p1
 ```
 
 
@@ -230,7 +230,7 @@ IGHVTri12 <- list("sig_Genes" = sig_Genes, "geneExp" = geneExpression_new, "h1"=
   geneExpression_new[geneExpression_new > 4] <- 4
   geneExpression_new[geneExpression_new < -4] <- -4
 
-  mutnames <- c("none", "IGHV", "trisomy12", "both")
+  mutnames <- c("IGHV-UM", "IGHV-M", "trisomy12", "both")
   
   mutStatus <- data.frame(colData(RNAnorm)) %>% mutate(IGHVnew = ifelse(IGHV %in% "M", 1, 0)) %>% 
     dplyr::select(-IGHV) %>% mutate(IGHV = IGHVnew) %>% 
@@ -249,8 +249,8 @@ IGHVTri12 <- list("sig_Genes" = sig_Genes, "geneExp" = geneExpression_new, "h1"=
   annocol <- get_palette("uchicago", 9)
   chromcol <- list(chromosome = c("12" = annocol[6], "other" = annocol[5]))
   
-  annocolor <- list(Variant = c("none" = annocol[3], "IGHV" = annocol[5], "trisomy12" = annocol[7], "both" = annocol[9]))
-  names(annocolor$Variant) <- c("none", "IGHV", "trisomy12", "both")
+  annocolor <- list(Variant = c("IGHV-UM" = annocol[3], "IGHV-M" = annocol[5], "trisomy12" = annocol[7], "both" = annocol[9]))
+  names(annocolor$Variant) <- c("IGHV-UM", "IGHV-M", "trisomy12", "both")
   mutationStatus <- data.frame(mutStatus$mut)
   rownames(mutationStatus) <- mutStatus$PatID
   colnames(mutationStatus) <- "Variant"
@@ -388,10 +388,27 @@ distr
 
 Gene sets
 ```{r gene sets}
+#convert names
+convert_names <- function(nam_vec){
+  nam_vec <- gsub("HALLMARK_", "", nam_vec)
+  nam_vec<- gsub("_", " ", nam_vec)
+  nam_vec <- tolower(nam_vec)
+  nam_vec <- gsub("tnfa signaling via nfkb", "TNFA signaling via NFKB", nam_vec)
+  nam_vec <- gsub("nfkb", "NFKB", nam_vec)
+  nam_vec <- gsub("myc", "Myc", nam_vec)
+  nam_vec <- gsub("il2 stat5", "IL2 STAT5", nam_vec)
+  nam_vec <- gsub("uv response", "UV response", nam_vec)
+  nam_vec <- gsub("e2f targets", "E2F targets", nam_vec)
+  nam_vec
+}
 
 #load gene set collection
 #Hallmark
 gsc <- loadGSC("/home/almut/Dokumente/masterarbeit/data/h.all.v6.0.symbols.gmt", type="gmt")
+
+#names(gsc$gsc) <- convert_names(names(gsc$gsc))
+#gsc$addInfo[,1] <- convert_names(gsc$addInfo[,1])
+
 #Kegg
 gsc_Kegg <- loadGSC("/home/almut/Dokumente/masterarbeit/data/c2.cp.kegg.v6.0.symbols.gmt", type="gmt")
 
@@ -453,6 +470,8 @@ kk2x <- setReadable(kk2, 'org.Hs.eg.db', 'ENTREZID')
 
 Visualize ClusterProfiler results
 ```{r clusterProfiler}
+#em2@result$ID <- convert_names(em2@result$ID)
+#em2@result$Description <- convert_names(em2@result$Description)
 barplot(kk, showCategory=5)
 barplot(em, showCategory=5)
 
@@ -484,16 +503,16 @@ saveRDS(dot2, file = paste0(output_dir, "/figures/r_objects/epistasis/enrich_dot
 network plot
 ```{r network, fig.width=10, fig.height=10}
 # Networks Hallmark
- em2_sub <- em2
- em2_sub@result <- em2@result[which(em2@result$Description %in% c("HALLMARK_TNFA_SIGNALING_VIA_NFKB",
-                                                                  "HALLMARK_IL2_STAT5_SIGNALING",
-                                                                    "HALLMARK_MYC_TARGETS_V2")),]
-p_net <- cnetplot(em2_sub, categorySize="pvalue", foldChange=gene_lfc) + 
-  scale_colour_gradientn(colors = c("#581845", "#900C3F", "#C70039", "#FF5733", "#FFC300", "#DAF7A6")) + 
-  guides(size = FALSE) + 
-  labs(color = "logFC")
-
-p_net  
+#  em2_sub <- em2
+#  em2_sub@result <- em2@result[which(em2@result$Description %in% c("TNFA signaling via NFKB",
+#                                                                   "IL2 STAT5 signaling",
+#                                                                     "Myc targets v2")),]
+# p_net <- cnetplot(em2_sub, categorySize="pvalue", foldChange=gene_lfc) + 
+#   scale_colour_gradientn(colors = c("#581845", "#900C3F", "#C70039", "#FF5733", "#FFC300", "#DAF7A6")) + 
+#   guides(size = FALSE) + 
+#   labs(color = "logFC")
+# 
+# p_net  
 
 # Networks KEGG
  kk2_sub <- kk2x
@@ -510,7 +529,7 @@ pnet_kegg <- cnetplot(kk2_sub, categorySize="pvalue", foldChange=gene_lfc) +
 pnet_kegg
 
 saveRDS(pnet_kegg, file = paste0(output_dir, "/figures/r_objects/epistasis/enrich_net_kegg.rds"))
-saveRDS(p_net, file = paste0(output_dir, "/figures/r_objects/epistasis/enrich_net_hm.rds"))
+#saveRDS(p_net, file = paste0(output_dir, "/figures/r_objects/epistasis/enrich_net_hm.rds"))
 
 ```
 
@@ -573,6 +592,8 @@ epitype_gsea <- function(clusternr){
 
     #Hallmark
     em2 <- GSEA(gene_list, TERM2GENE = m_t2g, pvalueCutoff = 0.1)
+    #em2@result$ID <- convert_names(em2@result$ID)
+    #em2@result$Description <- convert_names(em2@result$Description)
     #Kegg
     kk2 <- gseKEGG(geneList     = gene_list_id,
                organism     = 'hsa',
@@ -734,13 +755,14 @@ saveRDS(h1, file = paste0(output_dir, "/figures/r_objects/epistasis/epistasis_sc
 
 ```{r epistasis scheme lollipop, fig.width=6, fig.height=4}
 annocol <- get_palette("uchicago", 9)
-annocolor <- c("none" = annocol[3], "IGHV" = annocol[5], "trisomy12" = annocol[7], "both" = annocol[9])
+annocolor <- c("IGHV-UM" = annocol[3], "IGHV-M" = annocol[5], "trisomy12" = annocol[7], "both" = annocol[9])
 
 #generate a dataframe
 mix <- t(data.frame(synergy = c(10, 30, 25, 450), buffering = c(400, 450, 425, 50), suppression = c(20, 30, 450, 40), inversion = c(20, 420, 450, 35)))
 
-colnames(mix) <-  c("none", "IGHV", "trisomy12", "both")
+colnames(mix) <-  c("IGHV-UM", "IGHV-M", "trisomy12", "both")
 mix <- data.frame(mix)
+colnames(mix) <-  c("IGHV-UM", "IGHV-M", "trisomy12", "both")
 mix$epistasis_type <- rownames(mix)
 mix_long <- melt(setDT(mix), id.vars = c("epistasis_type"), variable.name = "genotype")
 mix_long$epistasis_type <- factor(mix_long$epistasis_type, levels = mix$epistasis_type)
