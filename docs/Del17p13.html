@@ -444,7 +444,7 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-11-19
+<strong>Last updated:</strong> 2021-03-21
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
@@ -535,10 +535,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltreea5e23fd3d186bbbfe00943ac9b0d1e38e615559atargetblanka5e23fda"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/almutlue/transcriptome_cll/tree/a5e23fd3d186bbbfe00943ac9b0d1e38e615559a" target="_blank">a5e23fd</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree50a8daa4aee5fcf3537eff9137c5f11cea530b09targetblank50a8daaa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/almutlue/transcriptome_cll/tree/50a8daa4aee5fcf3537eff9137c5f11cea530b09" target="_blank">50a8daa</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltreea5e23fd3d186bbbfe00943ac9b0d1e38e615559atargetblanka5e23fda" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree50a8daa4aee5fcf3537eff9137c5f11cea530b09targetblank50a8daaa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -547,44 +547,88 @@ Great! You are using Git for version control. Tracking code development and conn
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+    Ignored:    output/figures/r_objects/BRAF/enrichment/
 
 Untracked files:
-    Untracked:  data/2018-03-05_IGHV.RData
-    Untracked:  data/patmeta_170324.RData
-    Untracked:  output/IGHV1_69.svg
-    Untracked:  output/cluster1000exprgenes.pdf
-    Untracked:  output/cluster500exprgenes.pdf
-    Untracked:  output/desRes_15112019.RData
-    Untracked:  output/figures/hist_mutations.svg
-    Untracked:  output/figures/overview_mutations.pdf
-    Untracked:  output/figures/paper_fig/
-    Untracked:  output/figures/r_objects/
-    Untracked:  output/figures/sum_diffGenes_0.05_2.pdf
-    Untracked:  output/figures/sum_diffGenes_noTsig.pdf
-    Untracked:  output/figures/sum_diffGenes_noTsig_IGHVTri12.pdf
+    Untracked:  docs/figure/TP53.Rmd/
+    Untracked:  docs/figure/del11q22.Rmd/
+    Untracked:  output/figures/r_objects/del11q22/de_genes/CLDN3.rds
+    Untracked:  output/figures/r_objects/del11q22/de_genes/IGHE.rds
+    Untracked:  output/figures/r_objects/del11q22/de_genes/TFCP2L1.rds
+    Untracked:  output/figures/r_objects/epistasis/de_genes/CD38.rds
 
 Unstaged changes:
-    Modified:   analysis/Gain8q24.Rmd
-    Modified:   analysis/IGHV.Rmd
-    Modified:   analysis/Med12.Rmd
-    Modified:   analysis/Notch1.Rmd
-    Modified:   analysis/TP53.Rmd
-    Modified:   analysis/epistasis.Rmd
-    Modified:   analysis/general_eda.Rmd
-    Modified:   analysis/trisomy12.Rmd
-    Modified:   output/diff_genes/ATM_diffGenes.csv
-    Modified:   output/diff_genes/BRAF_diffGenes.csv
-    Modified:   output/diff_genes/MED12_diffGenes.csv
-    Modified:   output/diff_genes/NOTCH1_diffGenes.csv
-    Modified:   output/diff_genes/SF3B1_diffGenes.csv
-    Modified:   output/diff_genes/TP53_diffGenes.csv
-    Modified:   output/diff_genes/del11q22.3_diffGenes.csv
-    Modified:   output/diff_genes/del13q14_diffGenes.csv
-    Modified:   output/diff_genes/del17p13_diffGenes.csv
-    Modified:   output/diff_genes/del8p12_diffGenes.csv
-    Modified:   output/diff_genes/gain8q24_diffGenes.csv
-    Modified:   output/diff_genes/trisomy12_diffGenes.csv
-    Modified:   output/figures/pca_Meth_top150.svg
+    Modified:   output/enrichment/del11q22.3_gsea.rds
+    Modified:   output/figures/paper_fig/figure_epi.pdf
+    Modified:   output/figures/paper_fig/figure_epi.svg
+    Modified:   output/figures/paper_fig/generate_figures.Rmd
+    Modified:   output/figures/r_objects/TP53/enrich_dot2.rds
+    Modified:   output/figures/r_objects/TP53/enrich_net_hm.rds
+    Modified:   output/figures/r_objects/TP53/enrich_net_kegg.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/ACAT1.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/AIRE.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/ALG9.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/ALKBH8.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/ATM.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/C11orf57.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/CUL5.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/CWF19L2.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/DDX10.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/DPY19L2.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/IGHV3-11.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/IGHV4-34.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/IGHV4-39.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/KBTBD3.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/NPAT.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/NT5E.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/PPP2R1B.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/RBM7.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/REXO2.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/SIK2.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/TEAD1.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/TMPRSS5.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/TTC12.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/USP28.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/ZW10.rds
+    Modified:   output/figures/r_objects/del11q22/del11q22_enrichment_dn.rds
+    Modified:   output/figures/r_objects/del11q22/del11q22_enrichment_up.rds
+    Modified:   output/figures/r_objects/del11q22/del11q22_heatmap.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/ABLIM2.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/BCL2A1.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/CAMK2N1.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/CHAD.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/CRIM1.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/E2F2.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/EBF1.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/EBF4.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/EML6.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/ENPP3.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/EPHB1.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/EPHB6.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/FAM212A.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/FGD6.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/FGF2.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/GEN1.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/GP5.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/JAG1.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/LEF1.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/PPP1R14A.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/RAI14.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/SLC4A8.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/SYBU.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/TCTN1.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/TIMELESS.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/TMPRSS11E.rds
+    Modified:   output/figures/r_objects/epistasis/enrich_dot2.rds
+    Modified:   output/figures/r_objects/epistasis/enrich_dot_buffering.rds
+    Modified:   output/figures/r_objects/epistasis/enrich_dot_hm.rds
+    Modified:   output/figures/r_objects/epistasis/enrich_dot_inversion.rds
+    Modified:   output/figures/r_objects/epistasis/enrich_dot_supression.rds
+    Modified:   output/figures/r_objects/epistasis/enrich_dot_synergy.rds
+    Modified:   output/figures/r_objects/epistasis/enrich_net_kegg.rds
+    Modified:   output/figures/r_objects/epistasis/epistasis_heatmap.rds
+    Modified:   output/figures/r_objects/epistasis/epistasis_scheme.rds
+    Modified:   output/figures/r_objects/epistasis/epistasis_scheme_lolli.rds
 
 </code></pre>
 <p>
@@ -623,6 +667,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/almutlue/transcriptome_cll/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/Del17p13.html" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -826,7 +887,7 @@ diff_all &lt;- read.csv(file=paste0(output_dir, &quot;/diff_genes/&quot;, varian
 
 rownames(diff_all) &lt;- diff_all$X
 diff_all &lt;- diff_all[which(diff_all$padj &lt; 0.01 ),-1]
-diff &lt;- diff_all
+diff &lt;- diff_all[which( abs(diff_all$stat) &gt; 4),]
 
 
 mutStatus &lt;- data.frame(colData(ddsCLL)) %&gt;% arrange(del17p13)
@@ -857,11 +918,24 @@ rowcolors &lt;-colorRampPalette(brewer.pal(5, &quot;Set1&quot;))(5)
 rowcolors[6] &lt;- &quot;white&quot;
 
 
+
 feature &lt;- as.data.frame(colData(ddsCLL)[,c(variant)])
 colnames(feature) &lt;- c(variant)  
 
-ha_col &lt;- HeatmapAnnotation(df = feature, col = annocolor, annotation_height = unit(c(rep(1.9, 1)), &quot;cm&quot;), annotation_legend_param = list(title_gp = gpar(fontsize = 50), labels_gp = gpar(fontsize = 45),  grid_height = unit(1.9, &quot;cm&quot;), grid_width = unit(1.9, &quot;cm&quot;)))
+ha_col &lt;- HeatmapAnnotation(df = feature, col = annocolor, annotation_height = unit(c(rep(1.9, 1)), &quot;cm&quot;), 
+                            simple_anno_size = unit(1, &quot;cm&quot;),
+                            annotation_name_gp = gpar(fontsize = 22, fontface = &quot;bold&quot;),
+                            annotation_legend_param = list(title_gp = gpar(fontsize = 23), 
+                                                           labels_gp = gpar(fontsize = 18),  
+                                                           grid_height = unit(1.2, &quot;cm&quot;), 
+                                                           grid_width = unit(1.2, &quot;cm&quot;)))
 
+
+#Annotate top 50 genes
+diff &lt;- diff_all[which(abs(diff_all$stat) &gt; 4),]
+sub_names &lt;- unique(diff$Symbol)
+geneIDs &lt;- which(rownames(exprVariant.new) %in% sub_names)
+rownames(exprVariant.new)[-geneIDs] &lt;- &quot;&quot;
 
 h1 &lt;- Heatmap(exprVariant.new ,                                                     
               km = 2,
@@ -871,18 +945,18 @@ h1 &lt;- Heatmap(exprVariant.new ,
               clustering_method_rows = &quot;ward.D2&quot;,
               column_title = paste0(&quot;Gene signature: &quot;, variant),                      
               col = colors,
-              column_title_gp = gpar(fontsize = 60, fontface = &quot;bold&quot;), 
+              column_title_gp = gpar(fontsize = 25, fontface = &quot;bold&quot;), 
               heatmap_legend_param = list(title = &quot;expr&quot;, 
-                                          title_gp = gpar(fontsize = 50), 
-                                          grid_height = unit(1.9, &quot;cm&quot;), 
-                                          grid_width = unit(1.9, &quot;cm&quot;), 
+                                          title_gp = gpar(fontsize = 23), 
+                                          grid_height = unit(1.5, &quot;cm&quot;), 
+                                          grid_width = unit(1.2, &quot;cm&quot;), 
                                           gap = unit(2, &quot;cm&quot;), 
-                                          labels_gp = gpar(fontsize = 45)), 
-              column_dend_height = unit(2.5, &quot;cm&quot;),
+                                          labels_gp = gpar(fontsize = 18)), 
+              column_dend_height = unit(1, &quot;cm&quot;),
               show_row_dend = FALSE, 
               show_column_names = FALSE , 
-              show_row_names = FALSE, 
-              row_names_gp = gpar(fontsize = 40),
+              show_row_names = TRUE, 
+              row_names_gp = gpar(fontsize = 12),
               top_annotation = ha_col)
 
 
@@ -890,7 +964,7 @@ h1 &lt;- Heatmap(exprVariant.new ,
 #pdf(file=paste0(figure_dir, &quot;/&quot;, variant, &quot;_gene_expr.pdf&quot;), width=22, height=25)
 
 draw(h1 ) </code></pre>
-<p><img src="figure/Del17p13.Rmd/complex%20heatmap-1.png" width="2112" style="display: block; margin: auto;" /></p>
+<p><img src="figure/Del17p13.Rmd/complex%20heatmap-1.png" width="1440" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-complex-heatmap-1">
 Past versions of “complex heatmap-1.png”
@@ -949,7 +1023,7 @@ saveRDS(h1, file = paste0(output_dir, &quot;/figures/r_objects/del17p13/del17p13
 <pre class="r"><code>#function to create stripchart plots for specific genes
 gene_count &lt;- function(gene_nam){
   geneEnsID &lt;- rownames(ddsCLL)[which(rowData(ddsCLL)$symbol %in% gene_nam)]
-  geneNum &lt;- assay(RNAnorm)[geneEnsID,]
+  geneNum &lt;- exprMat[geneEnsID,]
   mutPat &lt;- as.data.frame(colData(ddsCLL)[, c(variant)])
   colnames(mutPat) &lt;- c(&quot;genotype&quot;)
   geneDat &lt;- cbind(mutPat, geneNum)
@@ -957,12 +1031,13 @@ gene_count &lt;- function(gene_nam){
   
   p &lt;- ggstripchart(geneDat, x = &quot;genotype&quot;, y = &quot;counts&quot;,
           color = &quot;genotype&quot;,
+          size = 3,
           palette = &quot;jco&quot;,
           add = &quot;mean_sd&quot;,
+          add.params = list(size = 1.2),
           title = paste(gene_nam),
-          font.x = 18, font.y = 18, font.legend = 16, 
-          ylab = &quot;counts&quot;) + font(&quot;xy.text&quot;, size = 15) + font(&quot;title&quot;, size = 20, face = &quot;bold&quot;)
-  #ggsave(file=paste0(figure_dir, &quot;/tri12/genetic_interaction_&quot;, gene_nam, &quot;.svg&quot;), plot=p, width=6, height=5)
+          font.x = 20, font.y = 20, font.legend = 20, 
+          ylab = &quot;normalized counts&quot;) + font(&quot;xy.text&quot;, size = 20) + font(&quot;title&quot;, size = 20, face = &quot;bold&quot;)
   saveRDS(p, file = paste0(output_dir, &quot;/figures/r_objects/del17p13/de_genes/&quot;, gene_nam, &quot;.rds&quot;))
   p
 }
@@ -996,6 +1071,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-1.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-1.png" target="_blank">27f8cd7</a>
@@ -1060,6 +1146,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-2.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-2.png" target="_blank">27f8cd7</a>
 </td>
 <td>
@@ -1120,6 +1217,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-3.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-3.png" target="_blank">27f8cd7</a>
@@ -1184,6 +1292,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-4.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-4.png" target="_blank">27f8cd7</a>
 </td>
 <td>
@@ -1244,6 +1363,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-5.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-5.png" target="_blank">27f8cd7</a>
@@ -1308,6 +1438,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-6.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-6.png" target="_blank">27f8cd7</a>
 </td>
 <td>
@@ -1368,6 +1509,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-7.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-7.png" target="_blank">27f8cd7</a>
@@ -1432,6 +1584,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-8.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-8.png" target="_blank">27f8cd7</a>
 </td>
 <td>
@@ -1492,6 +1655,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-9.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-9.png" target="_blank">27f8cd7</a>
@@ -1556,6 +1730,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-10.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-10.png" target="_blank">27f8cd7</a>
 </td>
 <td>
@@ -1616,6 +1801,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-11.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-11.png" target="_blank">27f8cd7</a>
@@ -1680,6 +1876,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-12.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-12.png" target="_blank">27f8cd7</a>
 </td>
 <td>
@@ -1740,6 +1947,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-13.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-13.png" target="_blank">27f8cd7</a>
@@ -1804,6 +2022,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-14.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-14.png" target="_blank">27f8cd7</a>
 </td>
 <td>
@@ -1864,6 +2093,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-15.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-15.png" target="_blank">27f8cd7</a>
@@ -1928,6 +2168,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-16.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-16.png" target="_blank">27f8cd7</a>
 </td>
 <td>
@@ -1977,6 +2228,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-17.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-17.png" target="_blank">27f8cd7</a>
@@ -2030,6 +2292,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-18.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-18.png" target="_blank">27f8cd7</a>
 </td>
 <td>
@@ -2079,6 +2352,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-19.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-19.png" target="_blank">27f8cd7</a>
@@ -2132,6 +2416,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-20.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-20.png" target="_blank">27f8cd7</a>
 </td>
 <td>
@@ -2181,6 +2476,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-21.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-21.png" target="_blank">27f8cd7</a>
@@ -2234,6 +2540,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-22.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-22.png" target="_blank">27f8cd7</a>
 </td>
 <td>
@@ -2283,6 +2600,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-23.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-23.png" target="_blank">27f8cd7</a>
@@ -2336,6 +2664,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-24.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-24.png" target="_blank">27f8cd7</a>
 </td>
 <td>
@@ -2385,6 +2724,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-25.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-25.png" target="_blank">27f8cd7</a>
@@ -2438,6 +2788,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-26.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-26.png" target="_blank">27f8cd7</a>
 </td>
 <td>
@@ -2487,6 +2848,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-27.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-27.png" target="_blank">27f8cd7</a>
@@ -2540,6 +2912,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-28.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-28.png" target="_blank">27f8cd7</a>
 </td>
 <td>
@@ -2589,6 +2972,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-29.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-29.png" target="_blank">27f8cd7</a>
@@ -2642,6 +3036,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-30.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-30.png" target="_blank">27f8cd7</a>
 </td>
 <td>
@@ -2691,6 +3096,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-31.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-31.png" target="_blank">27f8cd7</a>
@@ -2744,6 +3160,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-32.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-32.png" target="_blank">27f8cd7</a>
 </td>
 <td>
@@ -2793,6 +3220,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-33.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-33.png" target="_blank">27f8cd7</a>
@@ -2846,6 +3284,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-34.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-34.png" target="_blank">27f8cd7</a>
 </td>
 <td>
@@ -2895,6 +3344,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-35.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-35.png" target="_blank">27f8cd7</a>
@@ -2948,6 +3408,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-36.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-36.png" target="_blank">27f8cd7</a>
 </td>
 <td>
@@ -2997,6 +3468,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-37.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-37.png" target="_blank">27f8cd7</a>
@@ -3050,6 +3532,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-38.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-38.png" target="_blank">27f8cd7</a>
 </td>
 <td>
@@ -3099,6 +3592,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-39.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-39.png" target="_blank">27f8cd7</a>
@@ -3152,6 +3656,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-40.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-40.png" target="_blank">27f8cd7</a>
 </td>
 <td>
@@ -3201,6 +3716,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-41.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-41.png" target="_blank">27f8cd7</a>
@@ -3254,6 +3780,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-42.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-42.png" target="_blank">27f8cd7</a>
 </td>
 <td>
@@ -3303,6 +3840,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-43.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-43.png" target="_blank">27f8cd7</a>
@@ -3356,6 +3904,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-44.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-44.png" target="_blank">27f8cd7</a>
 </td>
 <td>
@@ -3405,6 +3964,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-45.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-45.png" target="_blank">27f8cd7</a>
@@ -3458,6 +4028,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-46.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-46.png" target="_blank">27f8cd7</a>
 </td>
 <td>
@@ -3507,6 +4088,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-47.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-47.png" target="_blank">27f8cd7</a>
@@ -3560,6 +4152,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-48.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-48.png" target="_blank">27f8cd7</a>
 </td>
 <td>
@@ -3609,6 +4212,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-49.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-49.png" target="_blank">27f8cd7</a>
@@ -3662,6 +4276,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-50.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-50.png" target="_blank">27f8cd7</a>
 </td>
 <td>
@@ -3711,6 +4336,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-51.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-51.png" target="_blank">27f8cd7</a>
@@ -3764,6 +4400,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-52.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-52.png" target="_blank">27f8cd7</a>
 </td>
 <td>
@@ -3813,6 +4460,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-53.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-53.png" target="_blank">27f8cd7</a>
@@ -3866,6 +4524,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-54.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-54.png" target="_blank">27f8cd7</a>
 </td>
 <td>
@@ -3915,6 +4584,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-55.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-55.png" target="_blank">27f8cd7</a>
@@ -3968,6 +4648,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-56.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-56.png" target="_blank">27f8cd7</a>
 </td>
 <td>
@@ -4017,6 +4708,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-57.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-57.png" target="_blank">27f8cd7</a>
@@ -4070,6 +4772,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-58.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-58.png" target="_blank">27f8cd7</a>
 </td>
 <td>
@@ -4119,6 +4832,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-59.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-59.png" target="_blank">27f8cd7</a>
@@ -4172,6 +4896,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-60.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-60.png" target="_blank">27f8cd7</a>
 </td>
 <td>
@@ -4221,6 +4956,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-61.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-61.png" target="_blank">27f8cd7</a>
@@ -4274,6 +5020,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/6b377e8d38b667de8f101722e8e92ab2fda3bdcc/docs/figure/Del17p13.Rmd/single gene counts-62.png" target="_blank">6b377e8</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-62.png" target="_blank">27f8cd7</a>
 </td>
 <td>
@@ -4298,1262 +5055,6 @@ aluetge
 </table>
 </div>
 </div>
-<pre><code>
-[[63]]</code></pre>
-<p><img src="figure/Del17p13.Rmd/single%20gene%20counts-63.png" width="576" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-63">
-Past versions of “single gene counts-63.png”
-</button>
-</p>
-<div id="fig-no-spaces-single-gene-counts-63" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-63.png" target="_blank">27f8cd7</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-17
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/Del17p13.Rmd/single gene counts-63.png" target="_blank">239b1ce</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-10
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-[[64]]</code></pre>
-<p><img src="figure/Del17p13.Rmd/single%20gene%20counts-64.png" width="576" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-64">
-Past versions of “single gene counts-64.png”
-</button>
-</p>
-<div id="fig-no-spaces-single-gene-counts-64" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-64.png" target="_blank">27f8cd7</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-17
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/Del17p13.Rmd/single gene counts-64.png" target="_blank">239b1ce</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-10
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-[[65]]</code></pre>
-<p><img src="figure/Del17p13.Rmd/single%20gene%20counts-65.png" width="576" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-65">
-Past versions of “single gene counts-65.png”
-</button>
-</p>
-<div id="fig-no-spaces-single-gene-counts-65" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-65.png" target="_blank">27f8cd7</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-17
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/Del17p13.Rmd/single gene counts-65.png" target="_blank">239b1ce</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-10
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-[[66]]</code></pre>
-<p><img src="figure/Del17p13.Rmd/single%20gene%20counts-66.png" width="576" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-66">
-Past versions of “single gene counts-66.png”
-</button>
-</p>
-<div id="fig-no-spaces-single-gene-counts-66" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-66.png" target="_blank">27f8cd7</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-17
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/Del17p13.Rmd/single gene counts-66.png" target="_blank">239b1ce</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-10
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-[[67]]</code></pre>
-<p><img src="figure/Del17p13.Rmd/single%20gene%20counts-67.png" width="576" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-67">
-Past versions of “single gene counts-67.png”
-</button>
-</p>
-<div id="fig-no-spaces-single-gene-counts-67" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-67.png" target="_blank">27f8cd7</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-17
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/Del17p13.Rmd/single gene counts-67.png" target="_blank">239b1ce</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-10
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-[[68]]</code></pre>
-<p><img src="figure/Del17p13.Rmd/single%20gene%20counts-68.png" width="576" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-68">
-Past versions of “single gene counts-68.png”
-</button>
-</p>
-<div id="fig-no-spaces-single-gene-counts-68" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-68.png" target="_blank">27f8cd7</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-17
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/Del17p13.Rmd/single gene counts-68.png" target="_blank">239b1ce</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-10
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-[[69]]</code></pre>
-<p><img src="figure/Del17p13.Rmd/single%20gene%20counts-69.png" width="576" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-69">
-Past versions of “single gene counts-69.png”
-</button>
-</p>
-<div id="fig-no-spaces-single-gene-counts-69" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-69.png" target="_blank">27f8cd7</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-17
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/Del17p13.Rmd/single gene counts-69.png" target="_blank">239b1ce</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-10
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-[[70]]</code></pre>
-<p><img src="figure/Del17p13.Rmd/single%20gene%20counts-70.png" width="576" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-70">
-Past versions of “single gene counts-70.png”
-</button>
-</p>
-<div id="fig-no-spaces-single-gene-counts-70" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-70.png" target="_blank">27f8cd7</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-17
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/Del17p13.Rmd/single gene counts-70.png" target="_blank">239b1ce</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-10
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-[[71]]</code></pre>
-<p><img src="figure/Del17p13.Rmd/single%20gene%20counts-71.png" width="576" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-71">
-Past versions of “single gene counts-71.png”
-</button>
-</p>
-<div id="fig-no-spaces-single-gene-counts-71" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-71.png" target="_blank">27f8cd7</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-17
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/Del17p13.Rmd/single gene counts-71.png" target="_blank">239b1ce</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-10
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-[[72]]</code></pre>
-<p><img src="figure/Del17p13.Rmd/single%20gene%20counts-72.png" width="576" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-72">
-Past versions of “single gene counts-72.png”
-</button>
-</p>
-<div id="fig-no-spaces-single-gene-counts-72" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-72.png" target="_blank">27f8cd7</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-17
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/Del17p13.Rmd/single gene counts-72.png" target="_blank">239b1ce</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-10
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-[[73]]</code></pre>
-<p><img src="figure/Del17p13.Rmd/single%20gene%20counts-73.png" width="576" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-73">
-Past versions of “single gene counts-73.png”
-</button>
-</p>
-<div id="fig-no-spaces-single-gene-counts-73" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-73.png" target="_blank">27f8cd7</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-17
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/Del17p13.Rmd/single gene counts-73.png" target="_blank">239b1ce</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-10
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-[[74]]</code></pre>
-<p><img src="figure/Del17p13.Rmd/single%20gene%20counts-74.png" width="576" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-74">
-Past versions of “single gene counts-74.png”
-</button>
-</p>
-<div id="fig-no-spaces-single-gene-counts-74" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-74.png" target="_blank">27f8cd7</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-17
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/Del17p13.Rmd/single gene counts-74.png" target="_blank">239b1ce</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-10
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-[[75]]</code></pre>
-<p><img src="figure/Del17p13.Rmd/single%20gene%20counts-75.png" width="576" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-75">
-Past versions of “single gene counts-75.png”
-</button>
-</p>
-<div id="fig-no-spaces-single-gene-counts-75" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-75.png" target="_blank">27f8cd7</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-17
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/Del17p13.Rmd/single gene counts-75.png" target="_blank">239b1ce</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-10
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-[[76]]</code></pre>
-<p><img src="figure/Del17p13.Rmd/single%20gene%20counts-76.png" width="576" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-76">
-Past versions of “single gene counts-76.png”
-</button>
-</p>
-<div id="fig-no-spaces-single-gene-counts-76" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-76.png" target="_blank">27f8cd7</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-17
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/Del17p13.Rmd/single gene counts-76.png" target="_blank">239b1ce</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-10
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-[[77]]</code></pre>
-<p><img src="figure/Del17p13.Rmd/single%20gene%20counts-77.png" width="576" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-77">
-Past versions of “single gene counts-77.png”
-</button>
-</p>
-<div id="fig-no-spaces-single-gene-counts-77" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-77.png" target="_blank">27f8cd7</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-17
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/Del17p13.Rmd/single gene counts-77.png" target="_blank">239b1ce</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-10
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-[[78]]</code></pre>
-<p><img src="figure/Del17p13.Rmd/single%20gene%20counts-78.png" width="576" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-78">
-Past versions of “single gene counts-78.png”
-</button>
-</p>
-<div id="fig-no-spaces-single-gene-counts-78" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-78.png" target="_blank">27f8cd7</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-17
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/Del17p13.Rmd/single gene counts-78.png" target="_blank">239b1ce</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-10
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-[[79]]</code></pre>
-<p><img src="figure/Del17p13.Rmd/single%20gene%20counts-79.png" width="576" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-79">
-Past versions of “single gene counts-79.png”
-</button>
-</p>
-<div id="fig-no-spaces-single-gene-counts-79" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-79.png" target="_blank">27f8cd7</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-17
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-[[80]]</code></pre>
-<p><img src="figure/Del17p13.Rmd/single%20gene%20counts-80.png" width="576" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-80">
-Past versions of “single gene counts-80.png”
-</button>
-</p>
-<div id="fig-no-spaces-single-gene-counts-80" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-80.png" target="_blank">27f8cd7</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-17
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-[[81]]</code></pre>
-<p><img src="figure/Del17p13.Rmd/single%20gene%20counts-81.png" width="576" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-81">
-Past versions of “single gene counts-81.png”
-</button>
-</p>
-<div id="fig-no-spaces-single-gene-counts-81" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-81.png" target="_blank">27f8cd7</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-17
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-[[82]]</code></pre>
-<p><img src="figure/Del17p13.Rmd/single%20gene%20counts-82.png" width="576" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-82">
-Past versions of “single gene counts-82.png”
-</button>
-</p>
-<div id="fig-no-spaces-single-gene-counts-82" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-82.png" target="_blank">27f8cd7</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-17
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-[[83]]</code></pre>
-<p><img src="figure/Del17p13.Rmd/single%20gene%20counts-83.png" width="576" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-83">
-Past versions of “single gene counts-83.png”
-</button>
-</p>
-<div id="fig-no-spaces-single-gene-counts-83" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-83.png" target="_blank">27f8cd7</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-17
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-[[84]]</code></pre>
-<p><img src="figure/Del17p13.Rmd/single%20gene%20counts-84.png" width="576" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-84">
-Past versions of “single gene counts-84.png”
-</button>
-</p>
-<div id="fig-no-spaces-single-gene-counts-84" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-84.png" target="_blank">27f8cd7</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-17
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-[[85]]</code></pre>
-<p><img src="figure/Del17p13.Rmd/single%20gene%20counts-85.png" width="576" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-85">
-Past versions of “single gene counts-85.png”
-</button>
-</p>
-<div id="fig-no-spaces-single-gene-counts-85" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-85.png" target="_blank">27f8cd7</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-17
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-[[86]]</code></pre>
-<p><img src="figure/Del17p13.Rmd/single%20gene%20counts-86.png" width="576" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-86">
-Past versions of “single gene counts-86.png”
-</button>
-</p>
-<div id="fig-no-spaces-single-gene-counts-86" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-86.png" target="_blank">27f8cd7</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-17
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-[[87]]</code></pre>
-<p><img src="figure/Del17p13.Rmd/single%20gene%20counts-87.png" width="576" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-87">
-Past versions of “single gene counts-87.png”
-</button>
-</p>
-<div id="fig-no-spaces-single-gene-counts-87" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-87.png" target="_blank">27f8cd7</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-17
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-[[88]]</code></pre>
-<p><img src="figure/Del17p13.Rmd/single%20gene%20counts-88.png" width="576" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-88">
-Past versions of “single gene counts-88.png”
-</button>
-</p>
-<div id="fig-no-spaces-single-gene-counts-88" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-88.png" target="_blank">27f8cd7</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-17
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<pre><code>
-[[89]]</code></pre>
-<p><img src="figure/Del17p13.Rmd/single%20gene%20counts-89.png" width="576" style="display: block; margin: auto;" /></p>
-<p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-89">
-Past versions of “single gene counts-89.png”
-</button>
-</p>
-<div id="fig-no-spaces-single-gene-counts-89" class="collapse">
-<div class="table-responsive">
-<table class="table table-condensed table-hover">
-<thead>
-<tr>
-<th>
-Version
-</th>
-<th>
-Author
-</th>
-<th>
-Date
-</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/27f8cd792bb517fc0956a3a7d44fe2f951072ea4/docs/figure/Del17p13.Rmd/single gene counts-89.png" target="_blank">27f8cd7</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-17
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
 </div>
 <div id="interesting-top-genes" class="section level1">
 <h1>Interesting top genes</h1>
@@ -5567,15 +5068,29 @@ aluetge
 #Hallmark
 gsc &lt;- loadGSC(&quot;/home/almut/Dokumente/masterarbeit/data/h.all.v6.0.symbols.gmt&quot;, type=&quot;gmt&quot;)
 #Kegg
-gsc_Kegg &lt;- loadGSC(&quot;/home/almut/Dokumente/masterarbeit/data/c2.cp.kegg.v6.0.symbols.gmt&quot;, type=&quot;gmt&quot;)</code></pre>
+gsc_Kegg &lt;- loadGSC(&quot;/home/almut/Dokumente/masterarbeit/data/c2.cp.kegg.v6.0.symbols.gmt&quot;, type=&quot;gmt&quot;)
+
+
+#get all de outputs
+load(paste0(output_dir,&quot;/desRes_15112019.RData&quot;))
+difftab &lt;- function(condition){
+  dataTab &lt;- data.frame(res_list[[condition]])
+  dataTab$ID &lt;- rownames(dataTab)
+  #filter using pvalues
+  dataTab &lt;- dataTab %&gt;%
+    arrange(padj) %&gt;%
+    mutate(Symbol = rowData(ddsCLL[ID,])$symbol)# %&gt;%
+    #filter(abs(log2FoldChange) &gt; 2)
+  dataTab &lt;- dataTab[!duplicated(dataTab$Symbol),]
+  dataTab &lt;- dataTab[!is.na(dataTab$Symbol),]
+  rownames(dataTab) &lt;- dataTab$ID
+   dataTab
+}
+
+diff_res &lt;- difftab(variant)</code></pre>
 <p>Run piano</p>
 <pre class="r"><code>gmtFile &lt;- gsc_Kegg
-
-diff_res &lt;- diff_all
-diff_res$chromosome &lt;- rowData(RNAnorm)[rownames(diff_res),]$chromosome
 diff_res &lt;- diff_res[-which(diff_res$Symbol %in% c(&quot;&quot;, NA)),]
-#Filter chromosome 17 - we are not interested in the dosage effect 
-diff_res &lt;- diff_res[-which(diff_res$chromosome %in% c(&quot;17&quot;)),]
 
 geneNam &lt;- diff_res$Symbol 
 pVal &lt;- diff_res$padj
@@ -5592,18 +5107,21 @@ res &lt;- runGSA(geneLevelStats = gsaTab,
 <pre><code>Running gene set analysis:</code></pre>
 <pre><code>Checking arguments...done!</code></pre>
 <pre><code>*** Please note that running the GSEA-method may take a substantial amount of time! ***</code></pre>
-<pre><code>Final gene/gene-set association: 34 genes and 84 gene sets</code></pre>
+<pre><code>Final gene/gene-set association: 4271 genes and 186 gene sets</code></pre>
 <pre><code>  Details:</code></pre>
-<pre><code>  Calculating gene set statistics from 34 out of 209 gene-level statistics</code></pre>
-<pre><code>  Using all 209 gene-level statistics for significance estimation</code></pre>
-<pre><code>  Removed 5232 genes from GSC due to lack of matching gene statistics</code></pre>
-<pre><code>  Removed 102 gene sets containing no genes after gene removal</code></pre>
+<pre><code>  Calculating gene set statistics from 4271 out of 21668 gene-level statistics</code></pre>
+<pre><code>  Using all 21668 gene-level statistics for significance estimation</code></pre>
+<pre><code>  Removed 995 genes from GSC due to lack of matching gene statistics</code></pre>
+<pre><code>  Removed 0 gene sets containing no genes after gene removal</code></pre>
 <pre><code>  Removed additionally 0 gene sets not matching the size limits</code></pre>
-<pre><code>  Loaded additional information for 84 gene sets</code></pre>
+<pre><code>  Loaded additional information for 186 gene sets</code></pre>
 <pre><code>Calculating gene set statistics...done!
 Calculating gene set significance...done!
 Adjusting for multiple testing...done!</code></pre>
-<pre class="r"><code>Res_up &lt;- arrange(GSAsummaryTable(res), `p adj (dist.dir.up)`)            
+<pre class="r"><code>saveRDS(res, file=paste0(output_dir,&quot;/enrichment/&quot;, variant, &quot;_gsea.rds&quot;))
+res &lt;- readRDS(paste0(output_dir,&quot;/enrichment/&quot;, variant, &quot;_gsea.rds&quot;))
+  
+Res_up &lt;- arrange(GSAsummaryTable(res), `p adj (dist.dir.up)`)            
 Res_dn &lt;- arrange(GSAsummaryTable(res), `p adj (dist.dir.dn)`)
   
 
@@ -5614,27 +5132,32 @@ colnames(resPlot) &lt;- c(&quot;pathway&quot;, &quot;gene_number&quot;, &quot;st
 colnames(resPlot_dn) &lt;- c(&quot;pathway&quot;, &quot;gene_number&quot;, &quot;stat&quot;, &quot;p.adj&quot;,&quot;genes_up&quot; , &quot;genes_dn&quot;)
 
 
-enrichPlot &lt;- resPlot_dn[c(1:6),] %&gt;% mutate(log10Padj = -log10(p.adj)) 
+enrichPlot &lt;- resPlot_dn[c(1:6),] %&gt;% mutate(log10Padj = -log10(p.adj)) %&gt;% arrange(-row_number())
+enrichPlot$pathway &lt;- gsub(&quot;KEGG_&quot;, &quot;&quot;,  enrichPlot$pathway)
+enrichPlot$pathway &lt;- gsub(&quot;_&quot;, &quot; &quot;,  enrichPlot$pathway)
+enrichPlot$pathway &lt;- tolower(enrichPlot$pathway)
 
 #plot
-p &lt;- ggbarplot(enrichPlot, x = &quot;pathway&quot;, y = &quot;log10Padj&quot;,
-          fill = &quot;gene_number&quot;,         
-          color = &quot;white&quot;,            
-          palette =  &quot;gsea&quot;,            
-          sort.val = &quot;asc&quot;,         
+p &lt;- ggbarplot(enrichPlot, x = &quot;pathway&quot;, y = &quot;gene_number&quot;,
+          fill = &quot;p.adj&quot;,   
+          orientation = &quot;vertical&quot;,
+          label = enrichPlot$pathway, lab.col = &quot;white&quot;, lab.size = 4, lab.vjust = 0, lab.hjust = 1.01,
+          sort.val = &quot;none&quot;,         
           sort.by.groups = FALSE,     
-          ylab = &quot;-log10(padj)&quot;,
-          legend.title = &quot;#diff.genes&quot;,
-          rotate = TRUE,
-          font.x = 20, font.y = 20, font.legend = 20, legend = &quot;right&quot;, 
-          title = &quot;del17p13 - Kegg&quot;,
+          xlab = &quot;Pathway&quot;,
+          ylab = &quot;gene number&quot;,
+          legend.title = &quot;p.adj&quot;,
+          rotate = TRUE, font.x = 20, font.y = 20, font.legend = 20, legend = &quot;right&quot;, 
+          title = &quot;del17p13 - Kegg down&quot;,
           ggtheme = theme_pubr()) + 
-  font(&quot;xy.text&quot;, size = 16) + 
-  font(&quot;title&quot;, size = 20, face = &quot;bold&quot;)
+  font(&quot;x.text&quot;, size = 16) + 
+  font(&quot;y.text&quot;, size = 0) +
+  font(&quot;title&quot;, size = 20, face = &quot;bold&quot;) + 
+  gradient_color(c(&quot;blue&quot;, &quot;white&quot;, &quot;red&quot;))
   
 #ggsave(file=paste0(figure_dir,&quot;/GSEA_&quot;, variant, &quot;_Kegg.svg&quot;), plot=p, width=14, height=7)
   p</code></pre>
-<p><img src="figure/Del17p13.Rmd/piano-1.png" width="1536" style="display: block; margin: auto;" /></p>
+<p><img src="figure/Del17p13.Rmd/piano-1.png" width="768" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-piano-1">
 Past versions of piano-1.png
@@ -5683,7 +5206,36 @@ aluetge
 </table>
 </div>
 </div>
-<pre class="r"><code>  saveRDS(p, file = paste0(output_dir, &quot;/figures/r_objects/del17p13/del17p13_enrichment.rds&quot;))</code></pre>
+<pre class="r"><code>saveRDS(p, file = paste0(output_dir, &quot;/figures/r_objects/del17p13/del17p13_enrichment_dn.rds&quot;))
+
+
+enrichPlot &lt;- resPlot[c(1:6),] %&gt;% mutate(log10Padj = -log10(p.adj)) %&gt;% arrange(-row_number())
+enrichPlot$pathway &lt;- gsub(&quot;KEGG_&quot;, &quot;&quot;,  enrichPlot$pathway)
+enrichPlot$pathway &lt;- gsub(&quot;_&quot;, &quot; &quot;,  enrichPlot$pathway)
+enrichPlot$pathway &lt;- tolower(enrichPlot$pathway)
+
+#plot
+p &lt;- ggbarplot(enrichPlot, x = &quot;pathway&quot;, y = &quot;gene_number&quot;,
+          fill = &quot;p.adj&quot;,   
+          orientation = &quot;vertical&quot;,
+          label = enrichPlot$pathway, lab.col = &quot;white&quot;, lab.size = 4, lab.vjust = 0, lab.hjust = 1.01,
+          sort.val = &quot;none&quot;,         
+          sort.by.groups = FALSE,     
+          xlab = &quot;Pathway&quot;,
+          ylab = &quot;gene number&quot;,
+          legend.title = &quot;p.adj&quot;,
+          rotate = TRUE, font.x = 20, font.y = 20, font.legend = 20, legend = &quot;right&quot;, 
+          title = &quot;del17p13 - Kegg up&quot;,
+          ggtheme = theme_pubr()) + 
+  font(&quot;x.text&quot;, size = 16) + 
+  font(&quot;y.text&quot;, size = 0) +
+  font(&quot;title&quot;, size = 20, face = &quot;bold&quot;) + 
+  gradient_color(c(&quot;blue&quot;, &quot;white&quot;, &quot;red&quot;))
+  
+#ggsave(file=paste0(figure_dir,&quot;/GSEA_&quot;, variant, &quot;_Kegg.svg&quot;), plot=p, width=14, height=7)
+  p</code></pre>
+<p><img src="figure/Del17p13.Rmd/piano-2.png" width="768" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>saveRDS(p, file = paste0(output_dir, &quot;/figures/r_objects/del17p13/del17p13_enrichment_up.rds&quot;))</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -5692,9 +5244,9 @@ aluetge
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 3.6.0 (2019-04-26)
+<pre><code>R version 3.6.3 (2020-02-29)
 Platform: x86_64-pc-linux-gnu (64-bit)
-Running under: Ubuntu 16.04.6 LTS
+Running under: Ubuntu 16.04.7 LTS
 
 Matrix products: default
 BLAS:   /usr/lib/libblas/libblas.so.3.6.0
@@ -5734,9 +5286,9 @@ loaded via a namespace (and not attached):
   [1] readxl_1.3.1           backports_1.1.4        Hmisc_4.2-0           
   [4] fastmatch_1.1-0        workflowr_1.4.0        plyr_1.8.4            
   [7] igraph_1.2.4.1         lazyeval_0.2.2         shinydashboard_0.7.1  
- [10] splines_3.6.0          digest_0.6.19          htmltools_0.3.6       
+ [10] splines_3.6.3          digest_0.6.19          htmltools_0.3.6       
  [13] gdata_2.18.0           checkmate_1.9.3        memoise_1.1.0         
- [16] cluster_2.1.0          limma_3.40.2           annotate_1.62.0       
+ [16] cluster_2.1.1          limma_3.40.2           annotate_1.62.0       
  [19] modelr_0.1.4           colorspace_1.4-1       blob_1.1.1            
  [22] rvest_0.3.4            haven_2.1.0            xfun_0.7              
  [25] crayon_1.3.4           RCurl_1.95-4.12        jsonlite_1.6          
@@ -5744,22 +5296,22 @@ loaded via a namespace (and not attached):
  [31] XVector_0.24.0         GetoptLong_0.1.7       shape_1.4.4           
  [34] scales_1.0.0           DBI_1.0.0              relations_0.6-8       
  [37] Rcpp_1.0.1             xtable_1.8-4           htmlTable_1.13.1      
- [40] clue_0.3-57            foreign_0.8-71         bit_1.1-14            
- [43] Formula_1.2-3          DT_0.7                 htmlwidgets_1.3       
+ [40] clue_0.3-57            foreign_0.8-76         bit_1.1-14            
+ [43] Formula_1.2-3          DT_0.17                htmlwidgets_1.3       
  [46] httr_1.4.0             fgsea_1.10.0           gplots_3.0.1.1        
  [49] acepack_1.4.1          pkgconfig_2.0.2        XML_3.98-1.20         
- [52] nnet_7.3-12            locfit_1.5-9.1         labeling_0.3          
+ [52] nnet_7.3-15            locfit_1.5-9.1         labeling_0.3          
  [55] tidyselect_0.2.5       rlang_0.3.4            later_0.8.0           
  [58] AnnotationDbi_1.46.0   munsell_0.5.0          cellranger_1.1.0      
- [61] tools_3.6.0            visNetwork_2.0.7       cli_1.1.0             
+ [61] tools_3.6.3            visNetwork_2.0.7       cli_1.1.0             
  [64] generics_0.0.2         RSQLite_2.1.1          broom_0.5.2           
  [67] evaluate_0.14          yaml_2.2.0             knitr_1.23            
  [70] bit64_0.9-7            fs_1.3.1               caTools_1.17.1.2      
- [73] nlme_3.1-140           whisker_0.3-2          mime_0.7              
- [76] slam_0.1-45            xml2_1.2.0             compiler_3.6.0        
+ [73] nlme_3.1-152           whisker_0.3-2          mime_0.7              
+ [76] slam_0.1-45            xml2_1.2.0             compiler_3.6.3        
  [79] rstudioapi_0.10        png_0.1-7              marray_1.62.0         
  [82] geneplotter_1.62.0     stringi_1.4.3          lattice_0.20-38       
- [85] Matrix_1.2-17          shinyjs_1.0            pillar_1.4.1          
+ [85] Matrix_1.3-2           shinyjs_1.0            pillar_1.4.1          
  [88] GlobalOptions_0.1.0    data.table_1.12.2      bitops_1.0-6          
  [91] httpuv_1.5.1           R6_2.4.0               latticeExtra_0.6-28   
  [94] promises_1.0.1         KernSmooth_2.23-15     gtools_3.8.1          

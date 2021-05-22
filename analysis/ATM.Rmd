@@ -213,7 +213,7 @@ diff_res <- difftab(variant)
 ```
 
 Run piano
-```{r piano, fig.width=8, fig.height=6}
+```{r piano, eval=FALSE, fig.height=6, fig.width=8, include=FALSE}
 
 gmtFile <- gsc_Kegg
 diff_res <- diff_res[-which(diff_res$Symbol %in% c("", NA)),]

@@ -427,7 +427,7 @@ div.section {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -436,7 +436,7 @@ div.section {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -445,10 +445,10 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2019-11-19
+<strong>Last updated:</strong> 2021-03-22
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>transcriptome_cll/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -464,12 +464,12 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
@@ -536,10 +536,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltreea132f77a820392f3dc7f05ad566a74156974309etargetblanka132f77a"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/almutlue/transcriptome_cll/tree/a132f77a820392f3dc7f05ad566a74156974309e" target="_blank">a132f77</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree50a8daa4aee5fcf3537eff9137c5f11cea530b09targetblank50a8daaa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/almutlue/transcriptome_cll/tree/50a8daa4aee5fcf3537eff9137c5f11cea530b09" target="_blank">50a8daa</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltreea132f77a820392f3dc7f05ad566a74156974309etargetblanka132f77a" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree50a8daa4aee5fcf3537eff9137c5f11cea530b09targetblank50a8daaa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -548,40 +548,404 @@ Great! You are using Git for version control. Tracking code development and conn
 Ignored files:
     Ignored:    .Rhistory
     Ignored:    .Rproj.user/
+    Ignored:    analysis/figure/
+    Ignored:    output/figures/r_objects/BRAF/enrichment/
 
 Untracked files:
-    Untracked:  data/2018-03-05_IGHV.RData
-    Untracked:  data/patmeta_170324.RData
-    Untracked:  output/IGHV1_69.svg
-    Untracked:  output/cluster1000exprgenes.pdf
-    Untracked:  output/cluster500exprgenes.pdf
-    Untracked:  output/desRes_15112019.RData
-    Untracked:  output/figures/hist_mutations.svg
-    Untracked:  output/figures/overview_mutations.pdf
-    Untracked:  output/figures/paper_fig/
-    Untracked:  output/figures/r_objects/
-    Untracked:  output/figures/sum_diffGenes_0.05_2.pdf
-    Untracked:  output/figures/sum_diffGenes_noTsig.pdf
-    Untracked:  output/figures/sum_diffGenes_noTsig_IGHVTri12.pdf
+    Untracked:  docs/figure/Del13q14.Rmd/
+    Untracked:  docs/figure/Del17p13.Rmd/
+    Untracked:  docs/figure/Del8p12.Rmd/
+    Untracked:  docs/figure/Gain8q24.Rmd/
+    Untracked:  docs/figure/Notch1.Rmd/
+    Untracked:  docs/figure/TP53.Rmd/
+    Untracked:  docs/figure/del11q22.Rmd/
+    Untracked:  output/enrichment/NOTCH1_gsea.rds
+    Untracked:  output/enrichment/del13q14_gsea.rds
+    Untracked:  output/enrichment/del17p13_gsea.rds
+    Untracked:  output/enrichment/gain8q24_gsea.rds
+    Untracked:  output/figures/r_objects/Notch1/Notch1_enrichment_dn.rds
+    Untracked:  output/figures/r_objects/Notch1/Notch1_enrichment_up.rds
+    Untracked:  output/figures/r_objects/Notch1/de_genes/AAAS.rds
+    Untracked:  output/figures/r_objects/Notch1/de_genes/ARHGEF37.rds
+    Untracked:  output/figures/r_objects/Notch1/de_genes/ASH2LP1.rds
+    Untracked:  output/figures/r_objects/Notch1/de_genes/CCDC114.rds
+    Untracked:  output/figures/r_objects/Notch1/de_genes/CD1A.rds
+    Untracked:  output/figures/r_objects/Notch1/de_genes/CELSR2.rds
+    Untracked:  output/figures/r_objects/Notch1/de_genes/CNFN.rds
+    Untracked:  output/figures/r_objects/Notch1/de_genes/CR1.rds
+    Untracked:  output/figures/r_objects/Notch1/de_genes/DNAH2.rds
+    Untracked:  output/figures/r_objects/Notch1/de_genes/FOXP2.rds
+    Untracked:  output/figures/r_objects/Notch1/de_genes/IGHV1-3.rds
+    Untracked:  output/figures/r_objects/Notch1/de_genes/IGLV1-47.rds
+    Untracked:  output/figures/r_objects/Notch1/de_genes/IGLV2-23.rds
+    Untracked:  output/figures/r_objects/Notch1/de_genes/IGLV3-10.rds
+    Untracked:  output/figures/r_objects/Notch1/de_genes/IGLV4-69.rds
+    Untracked:  output/figures/r_objects/Notch1/de_genes/IGLV5-37.rds
+    Untracked:  output/figures/r_objects/Notch1/de_genes/MOB3B.rds
+    Untracked:  output/figures/r_objects/Notch1/de_genes/OCA2.rds
+    Untracked:  output/figures/r_objects/Notch1/de_genes/POU6F2.rds
+    Untracked:  output/figures/r_objects/Notch1/de_genes/SERPINE2.rds
+    Untracked:  output/figures/r_objects/Notch1/de_genes/SPAG17.rds
+    Untracked:  output/figures/r_objects/Notch1/de_genes/SPTBN5.rds
+    Untracked:  output/figures/r_objects/Notch1/de_genes/TMPRSS4.rds
+    Untracked:  output/figures/r_objects/del11q22/de_genes/CLDN3.rds
+    Untracked:  output/figures/r_objects/del11q22/de_genes/IGHE.rds
+    Untracked:  output/figures/r_objects/del11q22/de_genes/TFCP2L1.rds
+    Untracked:  output/figures/r_objects/del13q14/de_genes/ARNTL2.rds
+    Untracked:  output/figures/r_objects/del13q14/de_genes/CCDC151.rds
+    Untracked:  output/figures/r_objects/del13q14/de_genes/CSGALNACT1.rds
+    Untracked:  output/figures/r_objects/del13q14/de_genes/FBLN2.rds
+    Untracked:  output/figures/r_objects/del13q14/de_genes/FRMD5.rds
+    Untracked:  output/figures/r_objects/del13q14/de_genes/IGHV1-2.rds
+    Untracked:  output/figures/r_objects/del13q14/de_genes/IGHV3-33.rds
+    Untracked:  output/figures/r_objects/del13q14/de_genes/IGKV1-39.rds
+    Untracked:  output/figures/r_objects/del13q14/de_genes/IGKV1-5.rds
+    Untracked:  output/figures/r_objects/del13q14/de_genes/IGKV1-8.rds
+    Untracked:  output/figures/r_objects/del13q14/de_genes/IGKV1D-39.rds
+    Untracked:  output/figures/r_objects/del13q14/de_genes/INHBA.rds
+    Untracked:  output/figures/r_objects/del13q14/de_genes/LAMP3.rds
+    Untracked:  output/figures/r_objects/del13q14/de_genes/RAI14.rds
+    Untracked:  output/figures/r_objects/del13q14/de_genes/RASSF8.rds
+    Untracked:  output/figures/r_objects/del13q14/de_genes/RNF157.rds
+    Untracked:  output/figures/r_objects/del13q14/de_genes/SEPT10.rds
+    Untracked:  output/figures/r_objects/del13q14/de_genes/SLC19A1.rds
+    Untracked:  output/figures/r_objects/del13q14/del13q14_enrichment_dn.rds
+    Untracked:  output/figures/r_objects/del13q14/del13q14_enrichment_up.rds
+    Untracked:  output/figures/r_objects/del17p13/de_genes/ARNTL2.rds
+    Untracked:  output/figures/r_objects/del17p13/de_genes/CDH2.rds
+    Untracked:  output/figures/r_objects/del17p13/de_genes/CEP55.rds
+    Untracked:  output/figures/r_objects/del17p13/de_genes/COL6A1.rds
+    Untracked:  output/figures/r_objects/del17p13/de_genes/FLT4.rds
+    Untracked:  output/figures/r_objects/del17p13/de_genes/IGHV3-11.rds
+    Untracked:  output/figures/r_objects/del17p13/de_genes/IGKV1-16.rds
+    Untracked:  output/figures/r_objects/del17p13/de_genes/KIF7.rds
+    Untracked:  output/figures/r_objects/del17p13/de_genes/MDM2.rds
+    Untracked:  output/figures/r_objects/del17p13/de_genes/MEIS1.rds
+    Untracked:  output/figures/r_objects/del17p13/de_genes/MIR4538.rds
+    Untracked:  output/figures/r_objects/del17p13/de_genes/MRAP2.rds
+    Untracked:  output/figures/r_objects/del17p13/de_genes/MYL12BP2.rds
+    Untracked:  output/figures/r_objects/del17p13/de_genes/NPTX1.rds
+    Untracked:  output/figures/r_objects/del17p13/de_genes/NRP2.rds
+    Untracked:  output/figures/r_objects/del17p13/de_genes/PPM1H.rds
+    Untracked:  output/figures/r_objects/del17p13/de_genes/RNF157.rds
+    Untracked:  output/figures/r_objects/del17p13/de_genes/SLFNL1.rds
+    Untracked:  output/figures/r_objects/del17p13/de_genes/SRP72P2.rds
+    Untracked:  output/figures/r_objects/del17p13/de_genes/TFCP2L1.rds
+    Untracked:  output/figures/r_objects/del17p13/de_genes/WDR87.rds
+    Untracked:  output/figures/r_objects/del17p13/del17p13_enrichment_dn.rds
+    Untracked:  output/figures/r_objects/del17p13/del17p13_enrichment_up.rds
+    Untracked:  output/figures/r_objects/del8p12/de_genes/IGHJ2P.rds
+    Untracked:  output/figures/r_objects/del8p12/de_genes/OVCH1-AS1.rds
+    Untracked:  output/figures/r_objects/del8p12/de_genes/PLCB1.rds
+    Untracked:  output/figures/r_objects/del8p12/de_genes/TM6SF1.rds
+    Untracked:  output/figures/r_objects/epistasis/de_genes/CD38.rds
+    Untracked:  output/figures/r_objects/gain8q24/de_genes/C1orf127.rds
+    Untracked:  output/figures/r_objects/gain8q24/de_genes/CBS.rds
+    Untracked:  output/figures/r_objects/gain8q24/de_genes/FAM160B2.rds
+    Untracked:  output/figures/r_objects/gain8q24/de_genes/FAM85B.rds
+    Untracked:  output/figures/r_objects/gain8q24/de_genes/IGLV1-51.rds
+    Untracked:  output/figures/r_objects/gain8q24/de_genes/MTERF3.rds
+    Untracked:  output/figures/r_objects/gain8q24/de_genes/RPL23AP53.rds
+    Untracked:  output/figures/r_objects/gain8q24/de_genes/TM6SF1.rds
+    Untracked:  output/figures/r_objects/gain8q24/de_genes/TMEM242.rds
+    Untracked:  output/figures/r_objects/gain8q24/de_genes/ZNF662.rds
+    Untracked:  output/figures/r_objects/gain8q24/gain8q24_enrichment_dn.rds
+    Untracked:  output/figures/r_objects/gain8q24/gain8q24_enrichment_up.rds
+    Untracked:  output/figures/r_objects/med12/de_genes/C10orf105.rds
+    Untracked:  output/figures/r_objects/med12/de_genes/COL1A1.rds
+    Untracked:  output/figures/r_objects/med12/de_genes/DUSP2.rds
+    Untracked:  output/figures/r_objects/med12/de_genes/ENTPD4.rds
+    Untracked:  output/figures/r_objects/med12/de_genes/ERRFI1.rds
+    Untracked:  output/figures/r_objects/med12/de_genes/HSPA1A.rds
+    Untracked:  output/figures/r_objects/med12/de_genes/HSPA1B.rds
+    Untracked:  output/figures/r_objects/med12/de_genes/HSPA6.rds
+    Untracked:  output/figures/r_objects/med12/de_genes/IGHJ2P.rds
+    Untracked:  output/figures/r_objects/med12/de_genes/IGHV1-45.rds
+    Untracked:  output/figures/r_objects/med12/de_genes/IGKV2-28.rds
+    Untracked:  output/figures/r_objects/med12/de_genes/IGLV6-57.rds
+    Untracked:  output/figures/r_objects/med12/de_genes/LTBP1.rds
+    Untracked:  output/figures/r_objects/med12/de_genes/MTUS1.rds
+    Untracked:  output/figures/r_objects/med12/de_genes/RASSF1.rds
+    Untracked:  output/figures/r_objects/med12/de_genes/SNCAIP.rds
+    Untracked:  output/figures/r_objects/med12/de_genes/TMPRSS11E.rds
+    Untracked:  output/figures/r_objects/med12/de_genes/TRIM16L.rds
 
 Unstaged changes:
-    Modified:   analysis/IGHV.Rmd
-    Modified:   analysis/Notch1.Rmd
-    Modified:   analysis/TP53.Rmd
-    Modified:   analysis/trisomy12.Rmd
-    Modified:   output/diff_genes/ATM_diffGenes.csv
-    Modified:   output/diff_genes/BRAF_diffGenes.csv
-    Modified:   output/diff_genes/MED12_diffGenes.csv
-    Modified:   output/diff_genes/NOTCH1_diffGenes.csv
-    Modified:   output/diff_genes/SF3B1_diffGenes.csv
-    Modified:   output/diff_genes/TP53_diffGenes.csv
-    Modified:   output/diff_genes/del11q22.3_diffGenes.csv
-    Modified:   output/diff_genes/del13q14_diffGenes.csv
-    Modified:   output/diff_genes/del17p13_diffGenes.csv
-    Modified:   output/diff_genes/del8p12_diffGenes.csv
-    Modified:   output/diff_genes/gain8q24_diffGenes.csv
-    Modified:   output/diff_genes/trisomy12_diffGenes.csv
-    Modified:   output/figures/pca_Meth_top150.svg
+    Modified:   analysis/Del8p12.Rmd
+    Modified:   analysis/Med12.Rmd
+    Modified:   output/enrichment/del11q22.3_gsea.rds
+    Modified:   output/figures/paper_fig/figure_epi.pdf
+    Modified:   output/figures/paper_fig/figure_epi.svg
+    Modified:   output/figures/paper_fig/generate_figures.Rmd
+    Modified:   output/figures/r_objects/Notch1/de_genes/CLN8.rds
+    Modified:   output/figures/r_objects/Notch1/de_genes/COL5A2.rds
+    Modified:   output/figures/r_objects/Notch1/de_genes/GJB7.rds
+    Modified:   output/figures/r_objects/Notch1/de_genes/IGLC6.rds
+    Modified:   output/figures/r_objects/Notch1/de_genes/IGLV7-46.rds
+    Modified:   output/figures/r_objects/Notch1/de_genes/KLK4.rds
+    Modified:   output/figures/r_objects/Notch1/de_genes/MSI2.rds
+    Modified:   output/figures/r_objects/Notch1/de_genes/NOTCH4.rds
+    Modified:   output/figures/r_objects/Notch1/de_genes/SEPT3.rds
+    Modified:   output/figures/r_objects/Notch1/de_genes/SPACA9.rds
+    Modified:   output/figures/r_objects/Notch1/notch1_heatmap.rds
+    Modified:   output/figures/r_objects/TP53/enrich_dot2.rds
+    Modified:   output/figures/r_objects/TP53/enrich_net_hm.rds
+    Modified:   output/figures/r_objects/TP53/enrich_net_kegg.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/ACAT1.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/AIRE.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/ALG9.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/ALKBH8.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/ATM.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/C11orf57.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/CUL5.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/CWF19L2.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/DDX10.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/DPY19L2.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/IGHV3-11.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/IGHV4-34.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/IGHV4-39.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/KBTBD3.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/NPAT.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/NT5E.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/PPP2R1B.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/RBM7.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/REXO2.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/SIK2.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/TEAD1.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/TMPRSS5.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/TTC12.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/USP28.rds
+    Modified:   output/figures/r_objects/del11q22/de_genes/ZW10.rds
+    Modified:   output/figures/r_objects/del11q22/del11q22_enrichment_dn.rds
+    Modified:   output/figures/r_objects/del11q22/del11q22_enrichment_up.rds
+    Modified:   output/figures/r_objects/del11q22/del11q22_heatmap.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/ANK3.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/AXL.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/C10orf10.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/C1orf127.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/C9orf139.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/CD1A.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/CDCP1.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/CELSR2.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/CLEC4A.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/CNFN.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/CTAGE9.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/ENPP3.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/F12.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/IGHV1-24.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/IGHV3-23.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/IGHV3-49.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/IGKV2-24.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/IGKV4-1.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/IGLV1-40.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/IGLV3-10.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/ILDR2.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/ISL2.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/ITM2B.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/KCNRG.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/KIAA1549.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/KIF7.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/LARGE1.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/LINC00470.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/LINC00861.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/LINC02363.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/MAF.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/MIOX.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/MOGAT2.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/MTCO3P40.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/MTUS1.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/MYLK.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/NT5E.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/PALD1.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/PERP.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/PI16.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/PLEKHG7.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/RAMP1.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/RGL3.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/SCIN.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/SDC3.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/SERPINE2.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/SLC1A6.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/SMAD3.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/SNTB1.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/SOAT2.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/TFCP2L1.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/TM6SF1.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/TMPRSS4.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/TSPAN13.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/UACA.rds
+    Modified:   output/figures/r_objects/del13q14/de_genes/UBE2F.rds
+    Modified:   output/figures/r_objects/del13q14/del13q14_heatmap.rds
+    Modified:   output/figures/r_objects/del17p13/de_genes/ACAP1.rds
+    Modified:   output/figures/r_objects/del17p13/de_genes/ANKRD36BP2.rds
+    Modified:   output/figures/r_objects/del17p13/de_genes/BTBD18.rds
+    Modified:   output/figures/r_objects/del17p13/de_genes/CA1.rds
+    Modified:   output/figures/r_objects/del17p13/de_genes/CDHR1.rds
+    Modified:   output/figures/r_objects/del17p13/de_genes/CPT1C.rds
+    Modified:   output/figures/r_objects/del17p13/de_genes/CTC1.rds
+    Modified:   output/figures/r_objects/del17p13/de_genes/CTNS.rds
+    Modified:   output/figures/r_objects/del17p13/de_genes/DPH1.rds
+    Modified:   output/figures/r_objects/del17p13/de_genes/DRC3.rds
+    Modified:   output/figures/r_objects/del17p13/de_genes/DSE.rds
+    Modified:   output/figures/r_objects/del17p13/de_genes/DVL2.rds
+    Modified:   output/figures/r_objects/del17p13/de_genes/FOXA3.rds
+    Modified:   output/figures/r_objects/del17p13/de_genes/FXR2.rds
+    Modified:   output/figures/r_objects/del17p13/de_genes/GK3P.rds
+    Modified:   output/figures/r_objects/del17p13/de_genes/GLOD4.rds
+    Modified:   output/figures/r_objects/del17p13/de_genes/GPS2.rds
+    Modified:   output/figures/r_objects/del17p13/de_genes/IGKV2-24.rds
+    Modified:   output/figures/r_objects/del17p13/de_genes/IGKV2D-28.rds
+    Modified:   output/figures/r_objects/del17p13/de_genes/IGLV9-49.rds
+    Modified:   output/figures/r_objects/del17p13/de_genes/KIAA0753.rds
+    Modified:   output/figures/r_objects/del17p13/de_genes/MAP2K4.rds
+    Modified:   output/figures/r_objects/del17p13/de_genes/MELK.rds
+    Modified:   output/figures/r_objects/del17p13/de_genes/MPDU1.rds
+    Modified:   output/figures/r_objects/del17p13/de_genes/MT-RNR1.rds
+    Modified:   output/figures/r_objects/del17p13/de_genes/MTMR11.rds
+    Modified:   output/figures/r_objects/del17p13/de_genes/MYH3.rds
+    Modified:   output/figures/r_objects/del17p13/de_genes/NEURL4.rds
+    Modified:   output/figures/r_objects/del17p13/de_genes/NLRP1.rds
+    Modified:   output/figures/r_objects/del17p13/de_genes/RABEP1.rds
+    Modified:   output/figures/r_objects/del17p13/de_genes/RNF167.rds
+    Modified:   output/figures/r_objects/del17p13/de_genes/SENP3.rds
+    Modified:   output/figures/r_objects/del17p13/de_genes/SMG6.rds
+    Modified:   output/figures/r_objects/del17p13/de_genes/SOX15.rds
+    Modified:   output/figures/r_objects/del17p13/de_genes/TNK1.rds
+    Modified:   output/figures/r_objects/del17p13/de_genes/TRPC5.rds
+    Modified:   output/figures/r_objects/del17p13/de_genes/UPK1A.rds
+    Modified:   output/figures/r_objects/del17p13/de_genes/VPS53.rds
+    Modified:   output/figures/r_objects/del17p13/de_genes/WRAP53.rds
+    Modified:   output/figures/r_objects/del17p13/de_genes/ZBTB4.rds
+    Modified:   output/figures/r_objects/del17p13/de_genes/ZZEF1.rds
+    Modified:   output/figures/r_objects/del17p13/del17p13_heatmap.rds
+    Modified:   output/figures/r_objects/del8p12/de_genes/ADGRG7.rds
+    Modified:   output/figures/r_objects/del8p12/de_genes/ALG1L13P.rds
+    Modified:   output/figures/r_objects/del8p12/de_genes/C8orf58.rds
+    Modified:   output/figures/r_objects/del8p12/de_genes/DDX43.rds
+    Modified:   output/figures/r_objects/del8p12/de_genes/ELP3.rds
+    Modified:   output/figures/r_objects/del8p12/de_genes/EPHX2.rds
+    Modified:   output/figures/r_objects/del8p12/de_genes/ERICH1.rds
+    Modified:   output/figures/r_objects/del8p12/de_genes/FAM160B2.rds
+    Modified:   output/figures/r_objects/del8p12/de_genes/FBXO25.rds
+    Modified:   output/figures/r_objects/del8p12/de_genes/GTF2E2.rds
+    Modified:   output/figures/r_objects/del8p12/de_genes/HMBOX1.rds
+    Modified:   output/figures/r_objects/del8p12/de_genes/IGKV1-5.rds
+    Modified:   output/figures/r_objects/del8p12/de_genes/IGKV3-20.rds
+    Modified:   output/figures/r_objects/del8p12/de_genes/INTS10.rds
+    Modified:   output/figures/r_objects/del8p12/de_genes/INTS9.rds
+    Modified:   output/figures/r_objects/del8p12/de_genes/KIF13B.rds
+    Modified:   output/figures/r_objects/del8p12/de_genes/LGSN.rds
+    Modified:   output/figures/r_objects/del8p12/de_genes/LINC01016.rds
+    Modified:   output/figures/r_objects/del8p12/de_genes/MAPRE3.rds
+    Modified:   output/figures/r_objects/del8p12/de_genes/MCPH1.rds
+    Modified:   output/figures/r_objects/del8p12/de_genes/MEF2B.rds
+    Modified:   output/figures/r_objects/del8p12/de_genes/MTCO3P12.rds
+    Modified:   output/figures/r_objects/del8p12/de_genes/NEIL2.rds
+    Modified:   output/figures/r_objects/del8p12/de_genes/OVCH1.rds
+    Modified:   output/figures/r_objects/del8p12/de_genes/PNOC.rds
+    Modified:   output/figures/r_objects/del8p12/de_genes/PPP3CC.rds
+    Modified:   output/figures/r_objects/del8p12/de_genes/PRDM16.rds
+    Modified:   output/figures/r_objects/del8p12/de_genes/PSPHP1.rds
+    Modified:   output/figures/r_objects/del8p12/de_genes/PTCH1.rds
+    Modified:   output/figures/r_objects/del8p12/de_genes/PTK2B.rds
+    Modified:   output/figures/r_objects/del8p12/de_genes/PTP4A3.rds
+    Modified:   output/figures/r_objects/del8p12/de_genes/PTPRQ.rds
+    Modified:   output/figures/r_objects/del8p12/de_genes/R3HCC1.rds
+    Modified:   output/figures/r_objects/del8p12/de_genes/REEP4.rds
+    Modified:   output/figures/r_objects/del8p12/de_genes/SCUBE2.rds
+    Modified:   output/figures/r_objects/del8p12/de_genes/SLC44A5.rds
+    Modified:   output/figures/r_objects/del8p12/de_genes/SLC6A9.rds
+    Modified:   output/figures/r_objects/del8p12/de_genes/SNTB1.rds
+    Modified:   output/figures/r_objects/del8p12/de_genes/TRPM2-AS.rds
+    Modified:   output/figures/r_objects/del8p12/de_genes/XPO7.rds
+    Modified:   output/figures/r_objects/del8p12/del8p12_heatmap.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/ABLIM2.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/BCL2A1.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/CAMK2N1.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/CHAD.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/CRIM1.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/E2F2.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/EBF1.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/EBF4.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/EML6.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/ENPP3.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/EPHB1.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/EPHB6.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/FAM212A.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/FGD6.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/FGF2.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/GEN1.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/GP5.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/JAG1.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/LEF1.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/PPP1R14A.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/RAI14.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/SLC4A8.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/SYBU.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/TCTN1.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/TIMELESS.rds
+    Modified:   output/figures/r_objects/epistasis/de_genes/TMPRSS11E.rds
+    Modified:   output/figures/r_objects/epistasis/enrich_dot2.rds
+    Modified:   output/figures/r_objects/epistasis/enrich_dot_buffering.rds
+    Modified:   output/figures/r_objects/epistasis/enrich_dot_hm.rds
+    Modified:   output/figures/r_objects/epistasis/enrich_dot_inversion.rds
+    Modified:   output/figures/r_objects/epistasis/enrich_dot_supression.rds
+    Modified:   output/figures/r_objects/epistasis/enrich_dot_synergy.rds
+    Modified:   output/figures/r_objects/epistasis/enrich_net_kegg.rds
+    Modified:   output/figures/r_objects/epistasis/epistasis_heatmap.rds
+    Modified:   output/figures/r_objects/epistasis/epistasis_scheme.rds
+    Modified:   output/figures/r_objects/epistasis/epistasis_scheme_lolli.rds
+    Modified:   output/figures/r_objects/gain8q24/de_genes/ADAMDEC1.rds
+    Modified:   output/figures/r_objects/gain8q24/de_genes/ALG1L13P.rds
+    Modified:   output/figures/r_objects/gain8q24/de_genes/C8orf33.rds
+    Modified:   output/figures/r_objects/gain8q24/de_genes/C8orf76.rds
+    Modified:   output/figures/r_objects/gain8q24/de_genes/CPQ.rds
+    Modified:   output/figures/r_objects/gain8q24/de_genes/CTHRC1.rds
+    Modified:   output/figures/r_objects/gain8q24/de_genes/CYHR1.rds
+    Modified:   output/figures/r_objects/gain8q24/de_genes/E2F5.rds
+    Modified:   output/figures/r_objects/gain8q24/de_genes/EBAG9.rds
+    Modified:   output/figures/r_objects/gain8q24/de_genes/FAM49B.rds
+    Modified:   output/figures/r_objects/gain8q24/de_genes/FAM86B3P.rds
+    Modified:   output/figures/r_objects/gain8q24/de_genes/IGKV3-20.rds
+    Modified:   output/figures/r_objects/gain8q24/de_genes/INTS9.rds
+    Modified:   output/figures/r_objects/gain8q24/de_genes/MTBP.rds
+    Modified:   output/figures/r_objects/gain8q24/de_genes/PABPC1.rds
+    Modified:   output/figures/r_objects/gain8q24/de_genes/PHF20L1.rds
+    Modified:   output/figures/r_objects/gain8q24/de_genes/PLCD3.rds
+    Modified:   output/figures/r_objects/gain8q24/de_genes/POLR2K.rds
+    Modified:   output/figures/r_objects/gain8q24/de_genes/POTEM.rds
+    Modified:   output/figures/r_objects/gain8q24/de_genes/PTPRQ.rds
+    Modified:   output/figures/r_objects/gain8q24/de_genes/RAD21.rds
+    Modified:   output/figures/r_objects/gain8q24/de_genes/RRM2B.rds
+    Modified:   output/figures/r_objects/gain8q24/de_genes/SLC44A5.rds
+    Modified:   output/figures/r_objects/gain8q24/de_genes/SNTB1.rds
+    Modified:   output/figures/r_objects/gain8q24/de_genes/TATDN1.rds
+    Modified:   output/figures/r_objects/gain8q24/de_genes/TMEM55A.rds
+    Modified:   output/figures/r_objects/gain8q24/de_genes/TSTA3.rds
+    Modified:   output/figures/r_objects/gain8q24/de_genes/UST.rds
+    Modified:   output/figures/r_objects/gain8q24/de_genes/UTP23.rds
+    Modified:   output/figures/r_objects/gain8q24/de_genes/ZNF16.rds
+    Modified:   output/figures/r_objects/gain8q24/de_genes/ZNF251.rds
+    Modified:   output/figures/r_objects/gain8q24/de_genes/ZNF462.rds
+    Modified:   output/figures/r_objects/gain8q24/de_genes/ZNF7.rds
+    Modified:   output/figures/r_objects/gain8q24/de_genes/ZNF706.rds
+    Modified:   output/figures/r_objects/gain8q24/de_genes/ZNF707.rds
+    Modified:   output/figures/r_objects/gain8q24/gain8q24_heatmap.rds
+    Modified:   output/figures/r_objects/med12/de_genes/ADGRG7.rds
+    Modified:   output/figures/r_objects/med12/de_genes/CDH20.rds
+    Modified:   output/figures/r_objects/med12/de_genes/CLCNKA.rds
+    Modified:   output/figures/r_objects/med12/de_genes/CSPG5.rds
+    Modified:   output/figures/r_objects/med12/de_genes/DCHS1.rds
+    Modified:   output/figures/r_objects/med12/de_genes/DDX43.rds
+    Modified:   output/figures/r_objects/med12/de_genes/FCRL4.rds
+    Modified:   output/figures/r_objects/med12/de_genes/FXYD6.rds
+    Modified:   output/figures/r_objects/med12/de_genes/IGLV1-40.rds
+    Modified:   output/figures/r_objects/med12/de_genes/IL15.rds
+    Modified:   output/figures/r_objects/med12/de_genes/MTA1.rds
+    Modified:   output/figures/r_objects/med12/de_genes/MYO5C.rds
+    Modified:   output/figures/r_objects/med12/de_genes/NRCAM.rds
+    Modified:   output/figures/r_objects/med12/de_genes/TCTN1.rds
+    Modified:   output/figures/r_objects/med12/med12_heatmap.rds
 
 </code></pre>
 <p>
@@ -620,6 +984,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/almutlue/transcriptome_cll/712d2e92f0600e7f359092f190d279dbbf8b1a55/docs/Med12.html" target="_blank">712d2e9</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+<td>
+Build site.
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -787,9 +1168,14 @@ rowcolors[6] &lt;- &quot;white&quot;
 
 feature &lt;- as.data.frame(colData(ddsCLL)[,c(variant)])
 colnames(feature) &lt;- c(variant)  
-rownames(feature) &lt;- colnames(RNAnorm)
 
-ha_col &lt;- HeatmapAnnotation(df = feature, col = annocolor, annotation_height = unit(c(rep(1.9, 1)), &quot;cm&quot;), annotation_legend_param = list(title_gp = gpar(fontsize = 50), labels_gp = gpar(fontsize = 45),  grid_height = unit(1.9, &quot;cm&quot;), grid_width = unit(1.9, &quot;cm&quot;)))
+ha_col &lt;- HeatmapAnnotation(df = feature, col = annocolor, annotation_height = unit(c(rep(1.9, 1)), &quot;cm&quot;), 
+                            simple_anno_size = unit(1, &quot;cm&quot;),
+                            annotation_name_gp = gpar(fontsize = 22, fontface = &quot;bold&quot;),
+                            annotation_legend_param = list(title_gp = gpar(fontsize = 23), 
+                                                           labels_gp = gpar(fontsize = 18),  
+                                                           grid_height = unit(1.2, &quot;cm&quot;), 
+                                                           grid_width = unit(1.2, &quot;cm&quot;)))
 
 
 h1 &lt;- Heatmap(exprVariant.new ,                                                     
@@ -800,18 +1186,18 @@ h1 &lt;- Heatmap(exprVariant.new ,
               clustering_method_rows = &quot;ward.D2&quot;,
               column_title = paste0(&quot;Gene signature: &quot;, variant),                      
               col = colors,
-              column_title_gp = gpar(fontsize = 60, fontface = &quot;bold&quot;), 
+              column_title_gp = gpar(fontsize = 25, fontface = &quot;bold&quot;), 
               heatmap_legend_param = list(title = &quot;expr&quot;, 
-                                          title_gp = gpar(fontsize = 50), 
-                                          grid_height = unit(1.9, &quot;cm&quot;), 
-                                          grid_width = unit(1.9, &quot;cm&quot;), 
+                                          title_gp = gpar(fontsize = 23), 
+                                          grid_height = unit(1.5, &quot;cm&quot;), 
+                                          grid_width = unit(1.2, &quot;cm&quot;), 
                                           gap = unit(2, &quot;cm&quot;), 
-                                          labels_gp = gpar(fontsize = 45)), 
-              column_dend_height = unit(2.5, &quot;cm&quot;),
+                                          labels_gp = gpar(fontsize = 18)), 
+              column_dend_height = unit(1, &quot;cm&quot;),
               show_row_dend = FALSE, 
               show_column_names = FALSE , 
               show_row_names = TRUE, 
-              row_names_gp = gpar(fontsize = 20),
+              row_names_gp = gpar(fontsize = 12),
               top_annotation = ha_col)
 
 
@@ -819,7 +1205,7 @@ h1 &lt;- Heatmap(exprVariant.new ,
 #pdf(file=paste0(figure_dir, &quot;/&quot;, variant, &quot;_gene_expr.pdf&quot;), width=22, height=25)
 
 draw(h1 ) </code></pre>
-<p><img src="figure/Med12.Rmd/complex%20heatmap-1.png" width="2112" style="display: block; margin: auto;" /></p>
+<p><img src="figure/Med12.Rmd/complex%20heatmap-1.png" width="1440" style="display: block; margin: auto;" /></p>
 <p>
 <button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-complex-heatmap-1">
 Past versions of “complex heatmap-1.png”
@@ -878,7 +1264,7 @@ saveRDS(h1, file = paste0(output_dir, &quot;/figures/r_objects/med12/med12_heatm
 <pre class="r"><code>#function to create stripchart plots for specific genes
 gene_count &lt;- function(gene_nam){
   geneEnsID &lt;- rownames(ddsCLL)[which(rowData(ddsCLL)$symbol %in% gene_nam)]
-  geneNum &lt;- assay(RNAnorm)[geneEnsID,]
+  geneNum &lt;- exprMat[geneEnsID,]
   mutPat &lt;- as.data.frame(colData(ddsCLL)[, c(variant)])
   colnames(mutPat) &lt;- c(&quot;genotype&quot;)
   geneDat &lt;- cbind(mutPat, geneNum)
@@ -886,12 +1272,13 @@ gene_count &lt;- function(gene_nam){
   
   p &lt;- ggstripchart(geneDat, x = &quot;genotype&quot;, y = &quot;counts&quot;,
           color = &quot;genotype&quot;,
+          size = 3,
           palette = &quot;jco&quot;,
           add = &quot;mean_sd&quot;,
+          add.params = list(size = 1.2),
           title = paste(gene_nam),
-          font.x = 18, font.y = 18, font.legend = 16, 
-          ylab = &quot;normalized counts&quot;) + font(&quot;xy.text&quot;, size = 15) + font(&quot;title&quot;, size = 20, face = &quot;bold&quot;)
-  #ggsave(file=paste0(figure_dir, &quot;/tri12/genetic_interaction_&quot;, gene_nam, &quot;.svg&quot;), plot=p, width=6, height=5)
+          font.x = 20, font.y = 20, font.legend = 20, 
+          ylab = &quot;normalized counts&quot;) + font(&quot;xy.text&quot;, size = 20) + font(&quot;title&quot;, size = 20, face = &quot;bold&quot;)
   saveRDS(p, file = paste0(output_dir, &quot;/figures/r_objects/med12/de_genes/&quot;, gene_nam, &quot;.rds&quot;))
   p
 }
@@ -926,6 +1313,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/712d2e92f0600e7f359092f190d279dbbf8b1a55/docs/figure/Med12.Rmd/single gene counts-1.png" target="_blank">712d2e9</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/Med12.Rmd/single gene counts-1.png" target="_blank">cc24f92</a>
@@ -966,6 +1364,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/712d2e92f0600e7f359092f190d279dbbf8b1a55/docs/figure/Med12.Rmd/single gene counts-2.png" target="_blank">712d2e9</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/00aa5f9e085bb984b0010ae6b699029e9ebb985e/docs/figure/Med12.Rmd/single gene counts-2.png" target="_blank">00aa5f9</a>
@@ -1019,6 +1428,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/712d2e92f0600e7f359092f190d279dbbf8b1a55/docs/figure/Med12.Rmd/single gene counts-3.png" target="_blank">712d2e9</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/00aa5f9e085bb984b0010ae6b699029e9ebb985e/docs/figure/Med12.Rmd/single gene counts-3.png" target="_blank">00aa5f9</a>
 </td>
 <td>
@@ -1068,6 +1488,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/712d2e92f0600e7f359092f190d279dbbf8b1a55/docs/figure/Med12.Rmd/single gene counts-4.png" target="_blank">712d2e9</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/00aa5f9e085bb984b0010ae6b699029e9ebb985e/docs/figure/Med12.Rmd/single gene counts-4.png" target="_blank">00aa5f9</a>
@@ -1121,6 +1552,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/712d2e92f0600e7f359092f190d279dbbf8b1a55/docs/figure/Med12.Rmd/single gene counts-5.png" target="_blank">712d2e9</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/Med12.Rmd/single gene counts-5.png" target="_blank">cc24f92</a>
 </td>
 <td>
@@ -1159,6 +1601,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/712d2e92f0600e7f359092f190d279dbbf8b1a55/docs/figure/Med12.Rmd/single gene counts-6.png" target="_blank">712d2e9</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/00aa5f9e085bb984b0010ae6b699029e9ebb985e/docs/figure/Med12.Rmd/single gene counts-6.png" target="_blank">00aa5f9</a>
@@ -1212,6 +1665,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/712d2e92f0600e7f359092f190d279dbbf8b1a55/docs/figure/Med12.Rmd/single gene counts-7.png" target="_blank">712d2e9</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/Med12.Rmd/single gene counts-7.png" target="_blank">cc24f92</a>
 </td>
 <td>
@@ -1250,6 +1714,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/712d2e92f0600e7f359092f190d279dbbf8b1a55/docs/figure/Med12.Rmd/single gene counts-8.png" target="_blank">712d2e9</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/00aa5f9e085bb984b0010ae6b699029e9ebb985e/docs/figure/Med12.Rmd/single gene counts-8.png" target="_blank">00aa5f9</a>
@@ -1303,6 +1778,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/712d2e92f0600e7f359092f190d279dbbf8b1a55/docs/figure/Med12.Rmd/single gene counts-9.png" target="_blank">712d2e9</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/00aa5f9e085bb984b0010ae6b699029e9ebb985e/docs/figure/Med12.Rmd/single gene counts-9.png" target="_blank">00aa5f9</a>
 </td>
 <td>
@@ -1352,6 +1838,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/712d2e92f0600e7f359092f190d279dbbf8b1a55/docs/figure/Med12.Rmd/single gene counts-10.png" target="_blank">712d2e9</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/00aa5f9e085bb984b0010ae6b699029e9ebb985e/docs/figure/Med12.Rmd/single gene counts-10.png" target="_blank">00aa5f9</a>
@@ -1405,6 +1902,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/712d2e92f0600e7f359092f190d279dbbf8b1a55/docs/figure/Med12.Rmd/single gene counts-11.png" target="_blank">712d2e9</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/00aa5f9e085bb984b0010ae6b699029e9ebb985e/docs/figure/Med12.Rmd/single gene counts-11.png" target="_blank">00aa5f9</a>
 </td>
 <td>
@@ -1454,6 +1962,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/712d2e92f0600e7f359092f190d279dbbf8b1a55/docs/figure/Med12.Rmd/single gene counts-12.png" target="_blank">712d2e9</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/00aa5f9e085bb984b0010ae6b699029e9ebb985e/docs/figure/Med12.Rmd/single gene counts-12.png" target="_blank">00aa5f9</a>
@@ -1507,6 +2026,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/712d2e92f0600e7f359092f190d279dbbf8b1a55/docs/figure/Med12.Rmd/single gene counts-13.png" target="_blank">712d2e9</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/00aa5f9e085bb984b0010ae6b699029e9ebb985e/docs/figure/Med12.Rmd/single gene counts-13.png" target="_blank">00aa5f9</a>
 </td>
 <td>
@@ -1556,6 +2086,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/712d2e92f0600e7f359092f190d279dbbf8b1a55/docs/figure/Med12.Rmd/single gene counts-14.png" target="_blank">712d2e9</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/00aa5f9e085bb984b0010ae6b699029e9ebb985e/docs/figure/Med12.Rmd/single gene counts-14.png" target="_blank">00aa5f9</a>
@@ -1609,6 +2150,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/712d2e92f0600e7f359092f190d279dbbf8b1a55/docs/figure/Med12.Rmd/single gene counts-15.png" target="_blank">712d2e9</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/00aa5f9e085bb984b0010ae6b699029e9ebb985e/docs/figure/Med12.Rmd/single gene counts-15.png" target="_blank">00aa5f9</a>
 </td>
 <td>
@@ -1658,6 +2210,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/712d2e92f0600e7f359092f190d279dbbf8b1a55/docs/figure/Med12.Rmd/single gene counts-16.png" target="_blank">712d2e9</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/00aa5f9e085bb984b0010ae6b699029e9ebb985e/docs/figure/Med12.Rmd/single gene counts-16.png" target="_blank">00aa5f9</a>
@@ -1711,6 +2274,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/712d2e92f0600e7f359092f190d279dbbf8b1a55/docs/figure/Med12.Rmd/single gene counts-17.png" target="_blank">712d2e9</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/00aa5f9e085bb984b0010ae6b699029e9ebb985e/docs/figure/Med12.Rmd/single gene counts-17.png" target="_blank">00aa5f9</a>
 </td>
 <td>
@@ -1760,6 +2334,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/712d2e92f0600e7f359092f190d279dbbf8b1a55/docs/figure/Med12.Rmd/single gene counts-18.png" target="_blank">712d2e9</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/00aa5f9e085bb984b0010ae6b699029e9ebb985e/docs/figure/Med12.Rmd/single gene counts-18.png" target="_blank">00aa5f9</a>
@@ -1813,6 +2398,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/712d2e92f0600e7f359092f190d279dbbf8b1a55/docs/figure/Med12.Rmd/single gene counts-19.png" target="_blank">712d2e9</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/00aa5f9e085bb984b0010ae6b699029e9ebb985e/docs/figure/Med12.Rmd/single gene counts-19.png" target="_blank">00aa5f9</a>
 </td>
 <td>
@@ -1862,6 +2458,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/712d2e92f0600e7f359092f190d279dbbf8b1a55/docs/figure/Med12.Rmd/single gene counts-20.png" target="_blank">712d2e9</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/00aa5f9e085bb984b0010ae6b699029e9ebb985e/docs/figure/Med12.Rmd/single gene counts-20.png" target="_blank">00aa5f9</a>
@@ -1915,6 +2522,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/712d2e92f0600e7f359092f190d279dbbf8b1a55/docs/figure/Med12.Rmd/single gene counts-21.png" target="_blank">712d2e9</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/00aa5f9e085bb984b0010ae6b699029e9ebb985e/docs/figure/Med12.Rmd/single gene counts-21.png" target="_blank">00aa5f9</a>
 </td>
 <td>
@@ -1964,6 +2582,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/712d2e92f0600e7f359092f190d279dbbf8b1a55/docs/figure/Med12.Rmd/single gene counts-22.png" target="_blank">712d2e9</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/00aa5f9e085bb984b0010ae6b699029e9ebb985e/docs/figure/Med12.Rmd/single gene counts-22.png" target="_blank">00aa5f9</a>
@@ -2017,6 +2646,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/712d2e92f0600e7f359092f190d279dbbf8b1a55/docs/figure/Med12.Rmd/single gene counts-23.png" target="_blank">712d2e9</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-11-19
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/00aa5f9e085bb984b0010ae6b699029e9ebb985e/docs/figure/Med12.Rmd/single gene counts-23.png" target="_blank">00aa5f9</a>
 </td>
 <td>
@@ -2041,88 +2681,15 @@ aluetge
 </table>
 </div>
 </div>
-</div>
-<div id="gene-set-enrichment-analysis" class="section level1">
-<h1>Gene set enrichment analysis</h1>
-<p>Gene sets</p>
-<pre class="r"><code>#load gene set collection
-#Hallmark
-gsc &lt;- loadGSC(&quot;/home/almut/Dokumente/masterarbeit/data/h.all.v6.0.symbols.gmt&quot;, type=&quot;gmt&quot;)
-#Kegg
-gsc_Kegg &lt;- loadGSC(&quot;/home/almut/Dokumente/masterarbeit/data/c2.cp.kegg.v6.0.symbols.gmt&quot;, type=&quot;gmt&quot;)</code></pre>
-<p>Run piano</p>
-<pre class="r"><code>gmtFile &lt;- gsc_Kegg
-
-diff_res &lt;- diff_all
-diff_res$chromosome &lt;- rowData(RNAnorm)[rownames(diff_res),]$chromosome
-diff_res &lt;- diff_res[-which(diff_res$Symbol %in% c(&quot;&quot;, NA)),]
-
-
-geneNam &lt;- diff_res$Symbol 
-pVal &lt;- diff_res$padj
-logFold &lt;- diff_res$log2FoldChange
-stat &lt;- diff_res$stat
-gsTab &lt;- data.frame(gene = geneNam, stat = stat, logFold = logFold)
-gsaTab &lt;- data.frame(row.names = gsTab$gene, stat = gsTab$stat)
-res &lt;- runGSA(geneLevelStats = gsaTab,
-                    geneSetStat = &quot;gsea&quot;,
-                    adjMethod = &quot;fdr&quot;, gsc=gmtFile,
-                    signifMethod = &quot;geneSampling&quot;,
-                    nPerm = 50000,
-                    gsSizeLim=c(1, Inf))</code></pre>
-<pre><code>Running gene set analysis:</code></pre>
-<pre><code>Checking arguments...done!</code></pre>
-<pre><code>*** Please note that running the GSEA-method may take a substantial amount of time! ***</code></pre>
-<pre><code>Final gene/gene-set association: 5 genes and 12 gene sets</code></pre>
-<pre><code>  Details:</code></pre>
-<pre><code>  Calculating gene set statistics from 5 out of 23 gene-level statistics</code></pre>
-<pre><code>  Using all 23 gene-level statistics for significance estimation</code></pre>
-<pre><code>  Removed 5261 genes from GSC due to lack of matching gene statistics</code></pre>
-<pre><code>  Removed 174 gene sets containing no genes after gene removal</code></pre>
-<pre><code>  Removed additionally 0 gene sets not matching the size limits</code></pre>
-<pre><code>  Loaded additional information for 12 gene sets</code></pre>
-<pre><code>Calculating gene set statistics...done!
-Calculating gene set significance...done!
-Adjusting for multiple testing...done!</code></pre>
-<pre class="r"><code>Res_up &lt;- arrange(GSAsummaryTable(res), `p adj (dist.dir.up)`)            
-Res_dn &lt;- arrange(GSAsummaryTable(res), `p adj (dist.dir.dn)`)
-  
-
-#Plot
-resPlot &lt;- Res_up[, c(1:3,5,8,9)]
-resPlot_dn &lt;- Res_dn[, c(1:3,7,8,9)]
-colnames(resPlot) &lt;- c(&quot;pathway&quot;, &quot;gene_number&quot;, &quot;stat&quot;, &quot;p.adj&quot;,&quot;genes_up&quot; , &quot;genes_dn&quot;)
-colnames(resPlot_dn) &lt;- c(&quot;pathway&quot;, &quot;gene_number&quot;, &quot;stat&quot;, &quot;p.adj&quot;,&quot;genes_up&quot; , &quot;genes_dn&quot;)
-
-
-enrichPlot &lt;- resPlot[c(1:5),] %&gt;% mutate(log10Padj = -log10(p.adj)) 
-
-#plot
-p &lt;- ggbarplot(enrichPlot, x = &quot;pathway&quot;, y = &quot;log10Padj&quot;,
-          fill = &quot;gene_number&quot;,         
-          color = &quot;white&quot;,            
-          palette =  &quot;gsea&quot;,            
-          sort.val = &quot;asc&quot;,         
-          sort.by.groups = FALSE,     
-          ylab = &quot;-log10(padj)&quot;,
-          legend.title = &quot;#diff.genes&quot;,
-          rotate = TRUE,
-          font.x = 20, font.y = 20, font.legend = 20, legend = &quot;right&quot;, 
-          title = &quot;MED12 - Kegg&quot;,
-          ggtheme = theme_pubr()) + 
-  font(&quot;xy.text&quot;, size = 16) + 
-  font(&quot;title&quot;, size = 20, face = &quot;bold&quot;)
-  
-#ggsave(file=paste0(figure_dir,&quot;/GSEA_&quot;, variant, &quot;_Kegg.svg&quot;), plot=p, width=14, height=7)
-  p</code></pre>
-<pre><code>Warning: Removed 2 rows containing missing values (position_stack).</code></pre>
-<p><img src="figure/Med12.Rmd/piano-1.png" width="1536" style="display: block; margin: auto;" /></p>
+<pre><code>
+[[24]]</code></pre>
+<p><img src="figure/Med12.Rmd/single%20gene%20counts-24.png" width="576" style="display: block; margin: auto;" /></p>
 <p>
-<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-piano-1">
-Past versions of piano-1.png
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-24">
+Past versions of “single gene counts-24.png”
 </button>
 </p>
-<div id="fig-piano-1" class="collapse">
+<div id="fig-no-spaces-single-gene-counts-24" class="collapse">
 <div class="table-responsive">
 <table class="table table-condensed table-hover">
 <thead>
@@ -2141,18 +2708,7 @@ Date
 <tbody>
 <tr>
 <td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/00aa5f9e085bb984b0010ae6b699029e9ebb985e/docs/figure/Med12.Rmd/piano-1.png" target="_blank">00aa5f9</a>
-</td>
-<td>
-aluetge
-</td>
-<td>
-2019-11-17
-</td>
-</tr>
-<tr>
-<td>
-<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/Med12.Rmd/piano-1.png" target="_blank">cc24f92</a>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/Med12.Rmd/single gene counts-24.png" target="_blank">cc24f92</a>
 </td>
 <td>
 aluetge
@@ -2165,7 +2721,356 @@ aluetge
 </table>
 </div>
 </div>
-<pre class="r"><code>saveRDS(p, file = paste0(output_dir, &quot;/figures/r_objects/med12/med12_enrichment.rds&quot;))</code></pre>
+<pre><code>
+[[25]]</code></pre>
+<p><img src="figure/Med12.Rmd/single%20gene%20counts-25.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-25">
+Past versions of “single gene counts-25.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-25" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/Med12.Rmd/single gene counts-25.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[26]]</code></pre>
+<p><img src="figure/Med12.Rmd/single%20gene%20counts-26.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-26">
+Past versions of “single gene counts-26.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-26" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/Med12.Rmd/single gene counts-26.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[27]]</code></pre>
+<p><img src="figure/Med12.Rmd/single%20gene%20counts-27.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-27">
+Past versions of “single gene counts-27.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-27" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/Med12.Rmd/single gene counts-27.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[28]]</code></pre>
+<p><img src="figure/Med12.Rmd/single%20gene%20counts-28.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-28">
+Past versions of “single gene counts-28.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-28" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/Med12.Rmd/single gene counts-28.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[29]]</code></pre>
+<p><img src="figure/Med12.Rmd/single%20gene%20counts-29.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-29">
+Past versions of “single gene counts-29.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-29" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/Med12.Rmd/single gene counts-29.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[30]]</code></pre>
+<p><img src="figure/Med12.Rmd/single%20gene%20counts-30.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-30">
+Past versions of “single gene counts-30.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-30" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/Med12.Rmd/single gene counts-30.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[31]]</code></pre>
+<p><img src="figure/Med12.Rmd/single%20gene%20counts-31.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-31">
+Past versions of “single gene counts-31.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-31" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/Med12.Rmd/single gene counts-31.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[32]]</code></pre>
+<p><img src="figure/Med12.Rmd/single%20gene%20counts-32.png" width="576" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-single-gene-counts-32">
+Past versions of “single gene counts-32.png”
+</button>
+</p>
+<div id="fig-no-spaces-single-gene-counts-32" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/cc24f928b35f1d70caf1f312608fad772de22bab/docs/figure/Med12.Rmd/single gene counts-32.png" target="_blank">cc24f92</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2019-07-28
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="gene-set-enrichment-analysis" class="section level1">
+<h1>Gene set enrichment analysis</h1>
+<p>Gene sets</p>
+<pre class="r"><code>#load gene set collection
+#Hallmark
+gsc &lt;- loadGSC(&quot;/home/almut/Dokumente/masterarbeit/data/h.all.v6.0.symbols.gmt&quot;, type=&quot;gmt&quot;)
+#Kegg
+gsc_Kegg &lt;- loadGSC(&quot;/home/almut/Dokumente/masterarbeit/data/c2.cp.kegg.v6.0.symbols.gmt&quot;, type=&quot;gmt&quot;)
+
+
+#get all de outputs
+load(paste0(output_dir,&quot;/desRes_15112019.RData&quot;))
+difftab &lt;- function(condition){
+  dataTab &lt;- data.frame(res_list[[condition]])
+  dataTab$ID &lt;- rownames(dataTab)
+  #filter using pvalues
+  dataTab &lt;- dataTab %&gt;%
+    arrange(padj) %&gt;%
+    mutate(Symbol = rowData(ddsCLL[ID,])$symbol)# %&gt;%
+    #filter(abs(log2FoldChange) &gt; 2)
+  dataTab &lt;- dataTab[!duplicated(dataTab$Symbol),]
+  dataTab &lt;- dataTab[!is.na(dataTab$Symbol),]
+  rownames(dataTab) &lt;- dataTab$ID
+   dataTab
+}
+
+diff_res &lt;- difftab(variant)</code></pre>
+<p>Run piano</p>
+<p>```</p>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -2174,9 +3079,9 @@ aluetge
 </p>
 <div id="workflowr-sessioninfo" class="collapse">
 <pre class="r"><code>sessionInfo()</code></pre>
-<pre><code>R version 3.6.0 (2019-04-26)
+<pre><code>R version 3.6.3 (2020-02-29)
 Platform: x86_64-pc-linux-gnu (64-bit)
-Running under: Ubuntu 16.04.6 LTS
+Running under: Ubuntu 16.04.7 LTS
 
 Matrix products: default
 BLAS:   /usr/lib/libblas/libblas.so.3.6.0
@@ -2216,9 +3121,9 @@ loaded via a namespace (and not attached):
   [1] readxl_1.3.1           backports_1.1.4        Hmisc_4.2-0           
   [4] fastmatch_1.1-0        workflowr_1.4.0        plyr_1.8.4            
   [7] igraph_1.2.4.1         lazyeval_0.2.2         shinydashboard_0.7.1  
- [10] splines_3.6.0          digest_0.6.19          htmltools_0.3.6       
+ [10] splines_3.6.3          digest_0.6.19          htmltools_0.3.6       
  [13] gdata_2.18.0           checkmate_1.9.3        memoise_1.1.0         
- [16] cluster_2.1.0          limma_3.40.2           annotate_1.62.0       
+ [16] cluster_2.1.1          limma_3.40.2           annotate_1.62.0       
  [19] modelr_0.1.4           colorspace_1.4-1       blob_1.1.1            
  [22] rvest_0.3.4            haven_2.1.0            xfun_0.7              
  [25] crayon_1.3.4           RCurl_1.95-4.12        jsonlite_1.6          
@@ -2226,22 +3131,22 @@ loaded via a namespace (and not attached):
  [31] XVector_0.24.0         GetoptLong_0.1.7       shape_1.4.4           
  [34] scales_1.0.0           DBI_1.0.0              relations_0.6-8       
  [37] Rcpp_1.0.1             xtable_1.8-4           htmlTable_1.13.1      
- [40] clue_0.3-57            foreign_0.8-71         bit_1.1-14            
- [43] Formula_1.2-3          DT_0.7                 htmlwidgets_1.3       
+ [40] clue_0.3-57            foreign_0.8-76         bit_1.1-14            
+ [43] Formula_1.2-3          DT_0.17                htmlwidgets_1.3       
  [46] httr_1.4.0             fgsea_1.10.0           gplots_3.0.1.1        
  [49] acepack_1.4.1          pkgconfig_2.0.2        XML_3.98-1.20         
- [52] nnet_7.3-12            locfit_1.5-9.1         labeling_0.3          
+ [52] nnet_7.3-15            locfit_1.5-9.1         labeling_0.3          
  [55] tidyselect_0.2.5       rlang_0.3.4            later_0.8.0           
  [58] AnnotationDbi_1.46.0   munsell_0.5.0          cellranger_1.1.0      
- [61] tools_3.6.0            visNetwork_2.0.7       cli_1.1.0             
+ [61] tools_3.6.3            visNetwork_2.0.7       cli_1.1.0             
  [64] generics_0.0.2         RSQLite_2.1.1          broom_0.5.2           
  [67] evaluate_0.14          yaml_2.2.0             knitr_1.23            
  [70] bit64_0.9-7            fs_1.3.1               caTools_1.17.1.2      
- [73] nlme_3.1-140           whisker_0.3-2          mime_0.7              
- [76] slam_0.1-45            xml2_1.2.0             compiler_3.6.0        
+ [73] nlme_3.1-152           whisker_0.3-2          mime_0.7              
+ [76] slam_0.1-45            xml2_1.2.0             compiler_3.6.3        
  [79] rstudioapi_0.10        png_0.1-7              marray_1.62.0         
  [82] geneplotter_1.62.0     stringi_1.4.3          lattice_0.20-38       
- [85] Matrix_1.2-17          shinyjs_1.0            pillar_1.4.1          
+ [85] Matrix_1.3-2           shinyjs_1.0            pillar_1.4.1          
  [88] GlobalOptions_0.1.0    data.table_1.12.2      bitops_1.0-6          
  [91] httpuv_1.5.1           R6_2.4.0               latticeExtra_0.6-28   
  [94] promises_1.0.1         KernSmooth_2.23-15     gtools_3.8.1          
