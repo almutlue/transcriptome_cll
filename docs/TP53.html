@@ -426,7 +426,7 @@ div.section {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -435,7 +435,7 @@ div.section {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -444,10 +444,10 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-03-21
+<strong>Last updated:</strong> 2021-10-17
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>transcriptome_cll/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -463,12 +463,12 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
@@ -535,10 +535,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree50a8daa4aee5fcf3537eff9137c5f11cea530b09targetblank50a8daaa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/almutlue/transcriptome_cll/tree/50a8daa4aee5fcf3537eff9137c5f11cea530b09" target="_blank">50a8daa</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree16605fa1532da14ad36fbd238610b8370937d60ftargetblank16605faa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/almutlue/transcriptome_cll/tree/16605fa1532da14ad36fbd238610b8370937d60f" target="_blank">16605fa</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree50a8daa4aee5fcf3537eff9137c5f11cea530b09targetblank50a8daaa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree16605fa1532da14ad36fbd238610b8370937d60ftargetblank16605faa" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -549,82 +549,12 @@ Ignored files:
     Ignored:    .Rproj.user/
     Ignored:    output/figures/r_objects/BRAF/enrichment/
 
-Untracked files:
-    Untracked:  docs/figure/del11q22.Rmd/
-    Untracked:  output/figures/r_objects/del11q22/de_genes/CLDN3.rds
-    Untracked:  output/figures/r_objects/del11q22/de_genes/IGHE.rds
-    Untracked:  output/figures/r_objects/del11q22/de_genes/TFCP2L1.rds
-    Untracked:  output/figures/r_objects/epistasis/de_genes/CD38.rds
-
 Unstaged changes:
-    Modified:   output/enrichment/del11q22.3_gsea.rds
-    Modified:   output/figures/paper_fig/figure_epi.pdf
-    Modified:   output/figures/paper_fig/figure_epi.svg
-    Modified:   output/figures/paper_fig/generate_figures.Rmd
-    Modified:   output/figures/r_objects/del11q22/de_genes/ACAT1.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/AIRE.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/ALG9.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/ALKBH8.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/ATM.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/C11orf57.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/CUL5.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/CWF19L2.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/DDX10.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/DPY19L2.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/IGHV3-11.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/IGHV4-34.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/IGHV4-39.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/KBTBD3.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/NPAT.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/NT5E.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/PPP2R1B.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/RBM7.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/REXO2.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/SIK2.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/TEAD1.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/TMPRSS5.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/TTC12.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/USP28.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/ZW10.rds
-    Modified:   output/figures/r_objects/del11q22/del11q22_enrichment_dn.rds
-    Modified:   output/figures/r_objects/del11q22/del11q22_enrichment_up.rds
-    Modified:   output/figures/r_objects/del11q22/del11q22_heatmap.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/ABLIM2.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/BCL2A1.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/CAMK2N1.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/CHAD.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/CRIM1.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/E2F2.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/EBF1.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/EBF4.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/EML6.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/ENPP3.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/EPHB1.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/EPHB6.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/FAM212A.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/FGD6.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/FGF2.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/GEN1.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/GP5.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/JAG1.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/LEF1.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/PPP1R14A.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/RAI14.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/SLC4A8.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/SYBU.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/TCTN1.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/TIMELESS.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/TMPRSS11E.rds
-    Modified:   output/figures/r_objects/epistasis/enrich_dot2.rds
-    Modified:   output/figures/r_objects/epistasis/enrich_dot_buffering.rds
-    Modified:   output/figures/r_objects/epistasis/enrich_dot_hm.rds
-    Modified:   output/figures/r_objects/epistasis/enrich_dot_inversion.rds
-    Modified:   output/figures/r_objects/epistasis/enrich_dot_supression.rds
-    Modified:   output/figures/r_objects/epistasis/enrich_dot_synergy.rds
-    Modified:   output/figures/r_objects/epistasis/enrich_net_kegg.rds
-    Modified:   output/figures/r_objects/epistasis/epistasis_heatmap.rds
-    Modified:   output/figures/r_objects/epistasis/epistasis_scheme.rds
-    Modified:   output/figures/r_objects/epistasis/epistasis_scheme_lolli.rds
+    Modified:   analysis/TP53.Rmd
+    Modified:   output/figures/r_objects/TP53/TP53_heatmap.rds
+    Modified:   output/figures/r_objects/TP53/enrich_dot2.rds
+    Modified:   output/figures/r_objects/TP53/enrich_net_hm.rds
+    Modified:   output/figures/r_objects/TP53/enrich_net_kegg.rds
 
 </code></pre>
 <p>
@@ -663,6 +593,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/almutlue/transcriptome_cll/16605fa1532da14ad36fbd238610b8370937d60f/docs/TP53.html" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+<td>
+complie rmds to show plots
+</td>
+</tr>
 <tr>
 <td>
 Rmd
@@ -902,7 +849,8 @@ library(clusterProfiler)
 library(msigdbr)
 library(org.Hs.eg.db)
 library(enrichplot)
-library(here)</code></pre>
+library(here)
+library(VennDiagram)</code></pre>
 <p>load data</p>
 <pre class="r"><code>data_dir &lt;- here(&quot;data&quot;)
 output_dir &lt;- here(&quot;output&quot;)
@@ -1022,6 +970,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/complex heatmap-1.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/0418f09f31d9983507a3b8eb222fe631d23ccaed/docs/figure/TP53.Rmd/complex heatmap-1.png" target="_blank">0418f09</a>
 </td>
 <td>
@@ -1102,6 +1061,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-1.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-1.png" target="_blank">adccf9e</a>
 </td>
 <td>
@@ -1162,6 +1132,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-2.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-2.png" target="_blank">adccf9e</a>
@@ -1226,6 +1207,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-3.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/239b1ce27f8f1899e52f4d1816488056960c30d0/docs/figure/TP53.Rmd/single gene counts-3.png" target="_blank">239b1ce</a>
 </td>
 <td>
@@ -1275,6 +1267,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-4.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-4.png" target="_blank">adccf9e</a>
@@ -1339,6 +1342,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-5.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-5.png" target="_blank">adccf9e</a>
 </td>
 <td>
@@ -1399,6 +1413,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-6.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-6.png" target="_blank">adccf9e</a>
@@ -1463,6 +1488,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-7.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-7.png" target="_blank">adccf9e</a>
 </td>
 <td>
@@ -1523,6 +1559,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-8.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-8.png" target="_blank">adccf9e</a>
@@ -1587,6 +1634,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-9.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-9.png" target="_blank">adccf9e</a>
 </td>
 <td>
@@ -1647,6 +1705,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-10.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-10.png" target="_blank">adccf9e</a>
@@ -1711,6 +1780,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-11.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-11.png" target="_blank">adccf9e</a>
 </td>
 <td>
@@ -1771,6 +1851,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-12.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-12.png" target="_blank">adccf9e</a>
@@ -1835,6 +1926,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-13.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-13.png" target="_blank">adccf9e</a>
 </td>
 <td>
@@ -1895,6 +1997,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-14.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-14.png" target="_blank">adccf9e</a>
@@ -1959,6 +2072,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-15.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-15.png" target="_blank">adccf9e</a>
 </td>
 <td>
@@ -2019,6 +2143,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-16.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-16.png" target="_blank">adccf9e</a>
@@ -2083,6 +2218,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-17.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-17.png" target="_blank">adccf9e</a>
 </td>
 <td>
@@ -2143,6 +2289,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-18.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-18.png" target="_blank">adccf9e</a>
@@ -2207,6 +2364,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-19.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-19.png" target="_blank">adccf9e</a>
 </td>
 <td>
@@ -2267,6 +2435,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-20.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-20.png" target="_blank">adccf9e</a>
@@ -2331,6 +2510,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-21.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-21.png" target="_blank">adccf9e</a>
 </td>
 <td>
@@ -2391,6 +2581,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-22.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-22.png" target="_blank">adccf9e</a>
@@ -2455,6 +2656,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-23.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-23.png" target="_blank">adccf9e</a>
 </td>
 <td>
@@ -2515,6 +2727,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-24.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-24.png" target="_blank">adccf9e</a>
@@ -2579,6 +2802,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-25.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-25.png" target="_blank">adccf9e</a>
 </td>
 <td>
@@ -2639,6 +2873,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-26.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-26.png" target="_blank">adccf9e</a>
@@ -2703,6 +2948,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-27.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-27.png" target="_blank">adccf9e</a>
 </td>
 <td>
@@ -2763,6 +3019,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-28.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-28.png" target="_blank">adccf9e</a>
@@ -2827,6 +3094,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-29.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-29.png" target="_blank">adccf9e</a>
 </td>
 <td>
@@ -2887,6 +3165,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-30.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-30.png" target="_blank">adccf9e</a>
@@ -2951,6 +3240,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-31.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-31.png" target="_blank">adccf9e</a>
 </td>
 <td>
@@ -3011,6 +3311,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-32.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-32.png" target="_blank">adccf9e</a>
@@ -3075,6 +3386,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-33.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-33.png" target="_blank">adccf9e</a>
 </td>
 <td>
@@ -3135,6 +3457,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-34.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-34.png" target="_blank">adccf9e</a>
@@ -3199,6 +3532,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-35.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-35.png" target="_blank">adccf9e</a>
 </td>
 <td>
@@ -3259,6 +3603,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-36.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-36.png" target="_blank">adccf9e</a>
@@ -3323,6 +3678,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-37.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-37.png" target="_blank">adccf9e</a>
 </td>
 <td>
@@ -3383,6 +3749,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-38.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-38.png" target="_blank">adccf9e</a>
@@ -3447,6 +3824,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-39.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-39.png" target="_blank">adccf9e</a>
 </td>
 <td>
@@ -3507,6 +3895,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-40.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-40.png" target="_blank">adccf9e</a>
@@ -3571,6 +3970,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-41.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-41.png" target="_blank">adccf9e</a>
 </td>
 <td>
@@ -3631,6 +4041,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-42.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-42.png" target="_blank">adccf9e</a>
@@ -3695,6 +4116,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-43.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-43.png" target="_blank">adccf9e</a>
 </td>
 <td>
@@ -3755,6 +4187,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-44.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-44.png" target="_blank">adccf9e</a>
@@ -3819,6 +4262,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-45.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-45.png" target="_blank">adccf9e</a>
 </td>
 <td>
@@ -3879,6 +4333,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-46.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-46.png" target="_blank">adccf9e</a>
@@ -3943,6 +4408,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-47.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-47.png" target="_blank">adccf9e</a>
 </td>
 <td>
@@ -4003,6 +4479,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-48.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-48.png" target="_blank">adccf9e</a>
@@ -4067,6 +4554,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-49.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-49.png" target="_blank">adccf9e</a>
 </td>
 <td>
@@ -4129,6 +4627,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-50.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-50.png" target="_blank">adccf9e</a>
 </td>
 <td>
@@ -4178,6 +4687,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-51.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-51.png" target="_blank">adccf9e</a>
@@ -4231,6 +4751,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-52.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-52.png" target="_blank">adccf9e</a>
 </td>
 <td>
@@ -4280,6 +4811,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-53.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-53.png" target="_blank">adccf9e</a>
@@ -4333,6 +4875,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-54.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-54.png" target="_blank">adccf9e</a>
 </td>
 <td>
@@ -4371,6 +4924,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-55.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-55.png" target="_blank">adccf9e</a>
@@ -4413,6 +4977,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-56.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-56.png" target="_blank">adccf9e</a>
 </td>
 <td>
@@ -4451,6 +5026,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-57.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-57.png" target="_blank">adccf9e</a>
@@ -4493,6 +5079,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-58.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-58.png" target="_blank">adccf9e</a>
 </td>
 <td>
@@ -4531,6 +5128,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-59.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-59.png" target="_blank">adccf9e</a>
@@ -4573,6 +5181,17 @@ Date
 <tbody>
 <tr>
 <td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-60.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+<tr>
+<td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-60.png" target="_blank">adccf9e</a>
 </td>
 <td>
@@ -4611,6 +5230,17 @@ Date
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/single gene counts-61.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
 <tr>
 <td>
 <a href="https://github.com/almutlue/transcriptome_cll/blob/adccf9ed70e336d6dfb70b8b8af5107b019be6b6/docs/figure/TP53.Rmd/single gene counts-61.png" target="_blank">adccf9e</a>
@@ -4716,8 +5346,82 @@ kk2x &lt;- setReadable(kk2, &#39;org.Hs.eg.db&#39;, &#39;ENTREZID&#39;)</code></
 <p>Visualize ClusterProfiler results</p>
 <pre class="r"><code>barplot(kk, showCategory=5)</code></pre>
 <p><img src="figure/TP53.Rmd/clusterProfiler-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-clusterProfiler-1">
+Past versions of clusterProfiler-1.png
+</button>
+</p>
+<div id="fig-clusterProfiler-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/clusterProfiler-1.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>barplot(em, showCategory=5)</code></pre>
 <p><img src="figure/TP53.Rmd/clusterProfiler-2.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-clusterProfiler-2">
+Past versions of clusterProfiler-2.png
+</button>
+</p>
+<div id="fig-clusterProfiler-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/clusterProfiler-2.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>dot1 &lt;- clusterProfiler::dotplot(em2, showCategory=10) + ggtitle(&quot;GSEA for TP53&quot;) +
   theme_pubr() +
   theme(legend.position=&quot;right&quot;) + 
@@ -4725,12 +5429,123 @@ kk2x &lt;- setReadable(kk2, &#39;org.Hs.eg.db&#39;, &#39;ENTREZID&#39;)</code></
 <pre><code>wrong orderBy parameter; set to default `orderBy = &quot;x&quot;`</code></pre>
 <pre class="r"><code>dot1</code></pre>
 <p><img src="figure/TP53.Rmd/clusterProfiler-3.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-clusterProfiler-3">
+Past versions of clusterProfiler-3.png
+</button>
+</p>
+<div id="fig-clusterProfiler-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/clusterProfiler-3.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>dotplot(em, showCategory=10) + ggtitle(&quot;Enrichment for TP53&quot;)</code></pre>
 <pre><code>wrong orderBy parameter; set to default `orderBy = &quot;x&quot;`</code></pre>
 <p><img src="figure/TP53.Rmd/clusterProfiler-4.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-clusterProfiler-4">
+Past versions of clusterProfiler-4.png
+</button>
+</p>
+<div id="fig-clusterProfiler-4" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/clusterProfiler-4.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>dotplot(kk2, showCategory=10) + ggtitle(&quot;GSEA for TP53&quot;)</code></pre>
 <pre><code>wrong orderBy parameter; set to default `orderBy = &quot;x&quot;`</code></pre>
 <p><img src="figure/TP53.Rmd/clusterProfiler-5.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-clusterProfiler-5">
+Past versions of clusterProfiler-5.png
+</button>
+</p>
+<div id="fig-clusterProfiler-5" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/clusterProfiler-5.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>dot2 &lt;- clusterProfiler::dotplot(kk, showCategory=10) + ggtitle(&quot;Enrichment for TP53&quot;) +
   theme_pubr() +
   theme(legend.position=&quot;right&quot;) +
@@ -4738,16 +5553,201 @@ kk2x &lt;- setReadable(kk2, &#39;org.Hs.eg.db&#39;, &#39;ENTREZID&#39;)</code></
 <pre><code>wrong orderBy parameter; set to default `orderBy = &quot;x&quot;`</code></pre>
 <pre class="r"><code>dot2</code></pre>
 <p><img src="figure/TP53.Rmd/clusterProfiler-6.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-clusterProfiler-6">
+Past versions of clusterProfiler-6.png
+</button>
+</p>
+<div id="fig-clusterProfiler-6" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/clusterProfiler-6.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ridgeplot(em2)</code></pre>
 <pre><code>Picking joint bandwidth of 0.302</code></pre>
 <p><img src="figure/TP53.Rmd/clusterProfiler-7.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-clusterProfiler-7">
+Past versions of clusterProfiler-7.png
+</button>
+</p>
+<div id="fig-clusterProfiler-7" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/clusterProfiler-7.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>ridgeplot(kk2)</code></pre>
-<pre><code>Picking joint bandwidth of 0.291</code></pre>
+<pre><code>Picking joint bandwidth of 0.287</code></pre>
 <p><img src="figure/TP53.Rmd/clusterProfiler-8.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-clusterProfiler-8">
+Past versions of clusterProfiler-8.png
+</button>
+</p>
+<div id="fig-clusterProfiler-8" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/clusterProfiler-8.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>gseaplot2(em2, geneSetID = 3, title = em2$Description[3])</code></pre>
 <p><img src="figure/TP53.Rmd/clusterProfiler-9.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-clusterProfiler-9">
+Past versions of clusterProfiler-9.png
+</button>
+</p>
+<div id="fig-clusterProfiler-9" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/clusterProfiler-9.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>gseaplot2(kk2, geneSetID = 2, title = kk2$Description[2])</code></pre>
 <p><img src="figure/TP53.Rmd/clusterProfiler-10.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-clusterProfiler-10">
+Past versions of clusterProfiler-10.png
+</button>
+</p>
+<div id="fig-clusterProfiler-10" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/clusterProfiler-10.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>saveRDS(dot1, file = paste0(output_dir, &quot;/figures/r_objects/TP53/enrich_dot_hm.rds&quot;))
 saveRDS(dot2, file = paste0(output_dir, &quot;/figures/r_objects/TP53/enrich_dot2.rds&quot;))</code></pre>
 <p>network plot</p>
@@ -4764,6 +5764,43 @@ p_net &lt;- cnetplot(em2_sub, categorySize=&quot;pvalue&quot;, foldChange=gene_l
 &#39;colour&#39;, which will replace the existing scale.</code></pre>
 <pre class="r"><code>p_net  </code></pre>
 <p><img src="figure/TP53.Rmd/network-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-network-1">
+Past versions of network-1.png
+</button>
+</p>
+<div id="fig-network-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/network-1.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code># Networks KEGG
  kk2_sub &lt;- kk2x
  kk2_sub@result &lt;- kk2x@result[which(kk2x@result$Description %in% c(&quot;p53 signaling pathway&quot;,
@@ -4779,13 +5816,158 @@ pnet_kegg &lt;- cnetplot(kk2_sub, categorySize=&quot;pvalue&quot;, foldChange=ge
 &#39;colour&#39;, which will replace the existing scale.</code></pre>
 <pre class="r"><code>pnet_kegg</code></pre>
 <p><img src="figure/TP53.Rmd/network-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-network-2">
+Past versions of network-2.png
+</button>
+</p>
+<div id="fig-network-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/network-2.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>saveRDS(pnet_kegg, file = paste0(output_dir, &quot;/figures/r_objects/TP53/enrich_net_kegg.rds&quot;))
 saveRDS(p_net, file = paste0(output_dir, &quot;/figures/r_objects/TP53/enrich_net_hm.rds&quot;))</code></pre>
 <p>heatplot</p>
 <pre class="r"><code>heatplot(em2, foldChange=gene_lfc, showCategory = 3)</code></pre>
 <p><img src="figure/TP53.Rmd/heatplot-1.png" width="1920" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-heatplot-1">
+Past versions of heatplot-1.png
+</button>
+</p>
+<div id="fig-heatplot-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/heatplot-1.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>heatplot(kk2x, foldChange=gene_lfc, showCategory = 3 ) </code></pre>
 <p><img src="figure/TP53.Rmd/heatplot-2.png" width="1920" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-heatplot-2">
+Past versions of heatplot-2.png
+</button>
+</p>
+<div id="fig-heatplot-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/16605fa1532da14ad36fbd238610b8370937d60f/docs/figure/TP53.Rmd/heatplot-2.png" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="overlap-with-del17" class="section level2">
+<h2>Overlap with del17</h2>
+<pre class="r"><code>#differentially expressed genes between del17p13 groups (see differential expression.html)
+del17 &lt;- read.csv(file=paste0(output_dir, &quot;/diff_genes/del17p13_diffGenes.csv&quot;))
+
+rownames(del17) &lt;- del17$X
+del17 &lt;- del17[which(del17$padj &lt; 0.01 ),-1]
+del17&lt;- del17[,-1]
+TP53 &lt;- diff_all
+TP53  &lt;- TP53[-which(TP53$Symbol %in% &quot;&quot;),]
+
+venntab &lt;- unique(c(as.vector(del17$Symbol), as.vector(TP53$Symbol)))
+vennTab_new &lt;- as.data.frame(venntab) %&gt;% mutate(del17p13 = ifelse(as.character(venntab) %in% del17$Symbol, 1, 0)) %&gt;% mutate(TP53 = ifelse(as.character(venntab) %in% TP53$Symbol, 1, 0))
+
+TP53_only &lt;- vennTab_new %&gt;% filter(del17p13 == 0 &amp; TP53 == 1) %&gt;% dplyr::select(venntab)
+del17_only &lt;- vennTab_new %&gt;% filter(del17p13 == 1 &amp; TP53 == 0) %&gt;% dplyr::select(venntab)
+
+
+vennTab_new &lt;- vennTab_new[,-1]
+rownames(vennTab_new) &lt;- venntab
+del17_area &lt;- vennTab_new %&gt;% filter(del17p13 == 1)
+TP53_area &lt;- vennTab_new %&gt;% filter(TP53 == 1)
+Both_area &lt;- vennTab_new %&gt;% filter(del17p13 == 1 &amp; TP53 == 1)
+
+#vennList &lt;- list(&quot;del17p13&quot; = as.vector(del17$Symbol), &quot;TP53&quot; = as.vector(TP53$Symbol))
+#venn &lt;- venn.diagram(vennList, filename = NULL)
+
+venn_pair &lt;- draw.pairwise.venn(nrow(del17_area), nrow(TP53_area), nrow(Both_area), c(&quot;del17p13&quot;, &quot;TP53&quot;), fill = c(&quot;#00AFBB&quot;, &quot;#E7B800&quot;), cex = rep(2, 3), cat.cex = rep(2, 2),  ind = TRUE)
+
+
+grid.draw(venn_pair)</code></pre>
+<p><img src="figure/TP53.Rmd/overlap-1.png" width="672" style="display: block; margin: auto;" /></p>
+<pre class="r"><code>grid.newpage()</code></pre>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -4815,25 +5997,26 @@ attached base packages:
  [8] datasets  methods   base     
 
 other attached packages:
- [1] here_0.1                    enrichplot_1.4.0           
- [3] org.Hs.eg.db_3.8.2          AnnotationDbi_1.46.0       
- [5] msigdbr_7.0.1               clusterProfiler_3.12.0     
- [7] RColorBrewer_1.1-2          ggpubr_0.2                 
- [9] magrittr_1.5                gridExtra_2.3              
-[11] circlize_0.4.6              gtable_0.3.0               
-[13] ComplexHeatmap_2.0.0        genefilter_1.66.0          
-[15] reshape2_1.4.3              piano_2.0.2                
-[17] ggsci_2.9                   forcats_0.4.0              
-[19] stringr_1.4.0               dplyr_0.8.1                
-[21] purrr_0.3.2                 readr_1.3.1                
-[23] tidyr_0.8.3                 tibble_2.1.3               
-[25] ggplot2_3.1.1               tidyverse_1.2.1            
-[27] DESeq2_1.24.0               SummarizedExperiment_1.14.0
-[29] DelayedArray_0.10.0         BiocParallel_1.18.0        
-[31] matrixStats_0.54.0          Biobase_2.44.0             
-[33] GenomicRanges_1.36.0        GenomeInfoDb_1.20.0        
-[35] IRanges_2.18.1              S4Vectors_0.22.0           
-[37] BiocGenerics_0.30.0        
+ [1] VennDiagram_1.6.20          futile.logger_1.4.3        
+ [3] here_0.1                    enrichplot_1.4.0           
+ [5] org.Hs.eg.db_3.8.2          AnnotationDbi_1.46.0       
+ [7] msigdbr_7.0.1               clusterProfiler_3.12.0     
+ [9] RColorBrewer_1.1-2          ggpubr_0.2                 
+[11] magrittr_1.5                gridExtra_2.3              
+[13] circlize_0.4.6              gtable_0.3.0               
+[15] ComplexHeatmap_2.0.0        genefilter_1.66.0          
+[17] reshape2_1.4.3              piano_2.0.2                
+[19] ggsci_2.9                   forcats_0.4.0              
+[21] stringr_1.4.0               dplyr_0.8.1                
+[23] purrr_0.3.2                 readr_1.3.1                
+[25] tidyr_0.8.3                 tibble_2.1.3               
+[27] ggplot2_3.1.1               tidyverse_1.2.1            
+[29] DESeq2_1.24.0               SummarizedExperiment_1.14.0
+[31] DelayedArray_0.10.0         BiocParallel_1.18.0        
+[33] matrixStats_0.54.0          Biobase_2.44.0             
+[35] GenomicRanges_1.36.0        GenomeInfoDb_1.20.0        
+[37] IRanges_2.18.1              S4Vectors_0.22.0           
+[39] BiocGenerics_0.30.0        
 
 loaded via a namespace (and not attached):
   [1] shinydashboard_0.7.1   tidyselect_0.2.5       RSQLite_2.1.1         
@@ -4843,45 +6026,46 @@ loaded via a namespace (and not attached):
  [13] labeling_0.3           git2r_0.25.2           slam_0.1-45           
  [16] urltools_1.7.3         GenomeInfoDbData_1.2.1 polyclip_1.10-0       
  [19] bit64_0.9-7            farver_2.0.3           rprojroot_1.3-2       
- [22] generics_0.0.2         xfun_0.7               sets_1.0-18           
- [25] R6_2.4.0               clue_0.3-57            graphlayouts_0.6.0    
- [28] locfit_1.5-9.1         bitops_1.0-6           fgsea_1.10.0          
- [31] gridGraphics_0.5-0     assertthat_0.2.1       promises_1.0.1        
- [34] scales_1.0.0           ggraph_2.0.2           nnet_7.3-15           
- [37] tidygraph_1.1.2        workflowr_1.4.0        rlang_0.3.4           
- [40] GlobalOptions_0.1.0    splines_3.6.3          lazyeval_0.2.2        
- [43] acepack_1.4.1          broom_0.5.2            europepmc_0.3         
- [46] checkmate_1.9.3        BiocManager_1.30.4     yaml_2.2.0            
- [49] modelr_0.1.4           backports_1.1.4        httpuv_1.5.1          
- [52] qvalue_2.16.0          Hmisc_4.2-0            tools_3.6.3           
- [55] relations_0.6-8        ggplotify_0.0.5        gplots_3.0.1.1        
- [58] ggridges_0.5.2         Rcpp_1.0.1             plyr_1.8.4            
- [61] base64enc_0.1-3        visNetwork_2.0.7       progress_1.2.2        
- [64] zlibbioc_1.30.0        RCurl_1.95-4.12        prettyunits_1.0.2     
- [67] rpart_4.1-15           GetoptLong_0.1.7       viridis_0.5.1         
- [70] cowplot_0.9.4          haven_2.1.0            ggrepel_0.8.1         
- [73] cluster_2.1.1          fs_1.3.1               data.table_1.12.2     
- [76] DO.db_2.9              triebeard_0.3.0        whisker_0.3-2         
- [79] hms_0.4.2              shinyjs_1.0            mime_0.7              
- [82] evaluate_0.14          xtable_1.8-4           XML_3.98-1.20         
- [85] readxl_1.3.1           shape_1.4.4            compiler_3.6.3        
- [88] KernSmooth_2.23-15     crayon_1.3.4           htmltools_0.3.6       
- [91] later_0.8.0            Formula_1.2-3          geneplotter_1.62.0    
- [94] lubridate_1.7.4        DBI_1.0.0              tweenr_1.0.1          
- [97] MASS_7.3-53.1          Matrix_1.3-2           cli_1.1.0             
-[100] marray_1.62.0          gdata_2.18.0           igraph_1.2.4.1        
-[103] pkgconfig_2.0.2        rvcheck_0.1.8          foreign_0.8-76        
-[106] xml2_1.2.0             annotate_1.62.0        XVector_0.24.0        
-[109] rvest_0.3.4            digest_0.6.19          rmarkdown_1.13        
-[112] cellranger_1.1.0       fastmatch_1.1-0        htmlTable_1.13.1      
-[115] shiny_1.3.2            gtools_3.8.1           rjson_0.2.20          
-[118] nlme_3.1-152           jsonlite_1.6           viridisLite_0.3.0     
-[121] limma_3.40.2           pillar_1.4.1           lattice_0.20-38       
-[124] httr_1.4.0             survival_2.44-1.1      GO.db_3.8.2           
-[127] glue_1.3.1             UpSetR_1.4.0           png_0.1-7             
-[130] bit_1.1-14             ggforce_0.3.1          stringi_1.4.3         
-[133] blob_1.1.1             latticeExtra_0.6-28    caTools_1.17.1.2      
-[136] memoise_1.1.0         </code></pre>
+ [22] generics_0.0.2         lambda.r_1.2.3         xfun_0.7              
+ [25] sets_1.0-18            R6_2.4.0               clue_0.3-57           
+ [28] graphlayouts_0.6.0     locfit_1.5-9.1         bitops_1.0-6          
+ [31] fgsea_1.10.0           gridGraphics_0.5-0     assertthat_0.2.1      
+ [34] promises_1.0.1         scales_1.0.0           ggraph_2.0.2          
+ [37] nnet_7.3-16            tidygraph_1.1.2        workflowr_1.4.0       
+ [40] rlang_0.3.4            GlobalOptions_0.1.0    splines_3.6.3         
+ [43] lazyeval_0.2.2         acepack_1.4.1          broom_0.5.2           
+ [46] europepmc_0.3          checkmate_1.9.3        BiocManager_1.30.4    
+ [49] yaml_2.2.0             modelr_0.1.4           backports_1.1.4       
+ [52] httpuv_1.5.1           qvalue_2.16.0          Hmisc_4.2-0           
+ [55] tools_3.6.3            relations_0.6-8        ggplotify_0.0.5       
+ [58] gplots_3.0.1.1         ggridges_0.5.2         Rcpp_1.0.1            
+ [61] plyr_1.8.4             base64enc_0.1-3        visNetwork_2.0.7      
+ [64] progress_1.2.2         zlibbioc_1.30.0        RCurl_1.95-4.12       
+ [67] prettyunits_1.0.2      rpart_4.1-15           GetoptLong_0.1.7      
+ [70] viridis_0.5.1          cowplot_0.9.4          haven_2.1.0           
+ [73] ggrepel_0.8.1          cluster_2.1.2          fs_1.3.1              
+ [76] futile.options_1.0.1   data.table_1.12.2      DO.db_2.9             
+ [79] triebeard_0.3.0        whisker_0.3-2          hms_0.4.2             
+ [82] shinyjs_1.0            mime_0.7               evaluate_0.14         
+ [85] xtable_1.8-4           XML_3.98-1.20          readxl_1.3.1          
+ [88] shape_1.4.4            compiler_3.6.3         KernSmooth_2.23-15    
+ [91] crayon_1.3.4           htmltools_0.3.6        later_0.8.0           
+ [94] Formula_1.2-3          geneplotter_1.62.0     lubridate_1.7.4       
+ [97] DBI_1.0.0              formatR_1.7            tweenr_1.0.1          
+[100] MASS_7.3-54            Matrix_1.3-4           cli_1.1.0             
+[103] marray_1.62.0          gdata_2.18.0           igraph_1.2.4.1        
+[106] pkgconfig_2.0.2        rvcheck_0.1.8          foreign_0.8-76        
+[109] xml2_1.2.0             annotate_1.62.0        XVector_0.24.0        
+[112] rvest_0.3.4            digest_0.6.19          rmarkdown_1.13        
+[115] cellranger_1.1.0       fastmatch_1.1-0        htmlTable_1.13.1      
+[118] shiny_1.3.2            gtools_3.8.1           rjson_0.2.20          
+[121] nlme_3.1-152           jsonlite_1.6           viridisLite_0.3.0     
+[124] limma_3.40.2           pillar_1.4.1           lattice_0.20-38       
+[127] httr_1.4.0             survival_2.44-1.1      GO.db_3.8.2           
+[130] glue_1.3.1             UpSetR_1.4.0           png_0.1-7             
+[133] bit_1.1-14             ggforce_0.3.1          stringi_1.4.3         
+[136] blob_1.1.1             latticeExtra_0.6-28    caTools_1.17.1.2      
+[139] memoise_1.1.0         </code></pre>
 </div>
 </div>
 </div>

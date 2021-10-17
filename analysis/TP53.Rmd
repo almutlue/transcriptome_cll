@@ -37,6 +37,7 @@ library(msigdbr)
 library(org.Hs.eg.db)
 library(enrichplot)
 library(here)
+library(VennDiagram)
 
 ```
 
@@ -330,3 +331,45 @@ heatplot
 heatplot(em2, foldChange=gene_lfc, showCategory = 3)
 heatplot(kk2x, foldChange=gene_lfc, showCategory = 3 ) 
 ```
+
+## Overlap with del17
+
+```{r overlap}
+#differentially expressed genes between del17p13 groups (see differential expression.html)
+del17 <- read.csv(file=paste0(output_dir, "/diff_genes/del17p13_diffGenes.csv"))
+
+rownames(del17) <- del17$X
+del17 <- del17[which(del17$padj < 0.01 ),-1]
+del17<- del17[,-1]
+TP53 <- diff_all
+TP53  <- TP53[-which(TP53$Symbol %in% ""),]
+
+venntab <- unique(c(as.vector(del17$Symbol), as.vector(TP53$Symbol)))
+vennTab_new <- as.data.frame(venntab) %>% mutate(del17p13 = ifelse(as.character(venntab) %in% del17$Symbol, 1, 0)) %>% mutate(TP53 = ifelse(as.character(venntab) %in% TP53$Symbol, 1, 0))
+
+TP53_only <- vennTab_new %>% filter(del17p13 == 0 & TP53 == 1) %>% dplyr::select(venntab)
+del17_only <- vennTab_new %>% filter(del17p13 == 1 & TP53 == 0) %>% dplyr::select(venntab)
+
+
+vennTab_new <- vennTab_new[,-1]
+rownames(vennTab_new) <- venntab
+del17_area <- vennTab_new %>% filter(del17p13 == 1)
+TP53_area <- vennTab_new %>% filter(TP53 == 1)
+Both_area <- vennTab_new %>% filter(del17p13 == 1 & TP53 == 1)
+
+#vennList <- list("del17p13" = as.vector(del17$Symbol), "TP53" = as.vector(TP53$Symbol))
+#venn <- venn.diagram(vennList, filename = NULL)
+
+venn_pair <- draw.pairwise.venn(nrow(del17_area), nrow(TP53_area), nrow(Both_area), c("del17p13", "TP53"), fill = c("#00AFBB", "#E7B800"), cex = rep(2, 3), cat.cex = rep(2, 2),  ind = TRUE)
+
+
+grid.draw(venn_pair)
+
+grid.newpage()
+
+```
+
+
+
+
+
