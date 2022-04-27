@@ -427,7 +427,7 @@ div.section {
 
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-report" data-toggle="collapse" data-target="#workflowr-report">
-<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span>
+<span class="glyphicon glyphicon-list" aria-hidden="true"></span> workflowr <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span>
 </button>
 </p>
 <div id="workflowr-report" class="collapse">
@@ -436,7 +436,7 @@ div.section {
 <a data-toggle="tab" href="#summary">Summary</a>
 </li>
 <li>
-<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> </a>
+<a data-toggle="tab" href="#checks"> Checks <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> </a>
 </li>
 <li>
 <a data-toggle="tab" href="#versions">Past versions</a>
@@ -445,10 +445,10 @@ div.section {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2021-03-22
+<strong>Last updated:</strong> 2022-04-27
 </p>
 <p>
-<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 7 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 0
+<strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
 </p>
 <p>
 <strong>Knit directory:</strong> <code>transcriptome_cll/</code> <span class="glyphicon glyphicon-question-sign" aria-hidden="true" title="This is the local directory in which the code in this file was executed."> </span>
@@ -464,12 +464,12 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguptodate"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>R Markdown file:</strong> up-to-date </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRMarkdownfilestronguncommittedchanges"> <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> <strong>R Markdown file:</strong> uncommitted changes </a>
 </p>
 </div>
-<div id="strongRMarkdownfilestronguptodate" class="panel-collapse collapse">
+<div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>Great! Since the R Markdown file has been committed to the Git repository, you know the exact version of the code that produced these results.</p>
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
@@ -536,10 +536,10 @@ This reproducible <a href="http://rmarkdown.rstudio.com">R Markdown</a> analysis
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree50a8daa4aee5fcf3537eff9137c5f11cea530b09targetblank50a8daaa"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/almutlue/transcriptome_cll/tree/50a8daa4aee5fcf3537eff9137c5f11cea530b09" target="_blank">50a8daa</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree08c606e2c0c56fad1d1759f95a8118bbf751251ctargetblank08c606ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/almutlue/transcriptome_cll/tree/08c606e2c0c56fad1d1759f95a8118bbf751251c" target="_blank">08c606e</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree50a8daa4aee5fcf3537eff9137c5f11cea530b09targetblank50a8daaa" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree08c606e2c0c56fad1d1759f95a8118bbf751251ctargetblank08c606ea" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility. The version displayed above was the version of the Git repository at the time these results were generated. <br><br> Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
@@ -551,491 +551,27 @@ Ignored files:
     Ignored:    output/figures/r_objects/BRAF/enrichment/
 
 Untracked files:
-    Untracked:  docs/figure/ATM.Rmd/
-    Untracked:  docs/figure/BRAF.Rmd/
-    Untracked:  docs/figure/Del13q14.Rmd/
-    Untracked:  docs/figure/Del17p13.Rmd/
-    Untracked:  docs/figure/Del8p12.Rmd/
-    Untracked:  docs/figure/Gain8q24.Rmd/
-    Untracked:  docs/figure/Med12.Rmd/
-    Untracked:  docs/figure/Notch1.Rmd/
-    Untracked:  docs/figure/SF3B1.Rmd/
-    Untracked:  docs/figure/TP53.Rmd/
-    Untracked:  docs/figure/del11q22.Rmd/
-    Untracked:  output/enrichment/NOTCH1_gsea.rds
-    Untracked:  output/enrichment/del13q14_gsea.rds
-    Untracked:  output/enrichment/del17p13_gsea.rds
-    Untracked:  output/enrichment/gain8q24_gsea.rds
-    Untracked:  output/figures/r_objects/BRAF/de_genes/ARNTL2.rds
-    Untracked:  output/figures/r_objects/BRAF/de_genes/C9orf139.rds
-    Untracked:  output/figures/r_objects/BRAF/de_genes/CD1A.rds
-    Untracked:  output/figures/r_objects/BRAF/de_genes/CD1C.rds
-    Untracked:  output/figures/r_objects/BRAF/de_genes/CNFN.rds
-    Untracked:  output/figures/r_objects/BRAF/de_genes/IGHG1.rds
-    Untracked:  output/figures/r_objects/BRAF/de_genes/IGHV3-49.rds
-    Untracked:  output/figures/r_objects/BRAF/de_genes/INMT.rds
-    Untracked:  output/figures/r_objects/BRAF/de_genes/KIF7.rds
-    Untracked:  output/figures/r_objects/BRAF/de_genes/NECAB1.rds
-    Untracked:  output/figures/r_objects/BRAF/de_genes/RAB25.rds
-    Untracked:  output/figures/r_objects/BRAF/de_genes/SPOCD1.rds
-    Untracked:  output/figures/r_objects/BRAF/de_genes/TFCP2L1.rds
-    Untracked:  output/figures/r_objects/BRAF/de_genes/TICRR.rds
-    Untracked:  output/figures/r_objects/BRAF/de_genes/TMPRSS4.rds
-    Untracked:  output/figures/r_objects/Notch1/Notch1_enrichment_dn.rds
-    Untracked:  output/figures/r_objects/Notch1/Notch1_enrichment_up.rds
-    Untracked:  output/figures/r_objects/Notch1/de_genes/AAAS.rds
-    Untracked:  output/figures/r_objects/Notch1/de_genes/ARHGEF37.rds
-    Untracked:  output/figures/r_objects/Notch1/de_genes/ASH2LP1.rds
-    Untracked:  output/figures/r_objects/Notch1/de_genes/CCDC114.rds
-    Untracked:  output/figures/r_objects/Notch1/de_genes/CD1A.rds
-    Untracked:  output/figures/r_objects/Notch1/de_genes/CELSR2.rds
-    Untracked:  output/figures/r_objects/Notch1/de_genes/CNFN.rds
-    Untracked:  output/figures/r_objects/Notch1/de_genes/CR1.rds
-    Untracked:  output/figures/r_objects/Notch1/de_genes/DNAH2.rds
-    Untracked:  output/figures/r_objects/Notch1/de_genes/FOXP2.rds
-    Untracked:  output/figures/r_objects/Notch1/de_genes/IGHV1-3.rds
-    Untracked:  output/figures/r_objects/Notch1/de_genes/IGLV1-47.rds
-    Untracked:  output/figures/r_objects/Notch1/de_genes/IGLV2-23.rds
-    Untracked:  output/figures/r_objects/Notch1/de_genes/IGLV3-10.rds
-    Untracked:  output/figures/r_objects/Notch1/de_genes/IGLV4-69.rds
-    Untracked:  output/figures/r_objects/Notch1/de_genes/IGLV5-37.rds
-    Untracked:  output/figures/r_objects/Notch1/de_genes/MOB3B.rds
-    Untracked:  output/figures/r_objects/Notch1/de_genes/OCA2.rds
-    Untracked:  output/figures/r_objects/Notch1/de_genes/POU6F2.rds
-    Untracked:  output/figures/r_objects/Notch1/de_genes/SERPINE2.rds
-    Untracked:  output/figures/r_objects/Notch1/de_genes/SPAG17.rds
-    Untracked:  output/figures/r_objects/Notch1/de_genes/SPTBN5.rds
-    Untracked:  output/figures/r_objects/Notch1/de_genes/TMPRSS4.rds
-    Untracked:  output/figures/r_objects/atm/de_genes/CYP51A1-AS1.rds
-    Untracked:  output/figures/r_objects/atm/de_genes/IGHV1-18.rds
-    Untracked:  output/figures/r_objects/atm/de_genes/IGLV3-27.rds
-    Untracked:  output/figures/r_objects/atm/de_genes/NCAPGP1.rds
-    Untracked:  output/figures/r_objects/atm/de_genes/PPM1E.rds
-    Untracked:  output/figures/r_objects/atm/de_genes/PRSS21.rds
-    Untracked:  output/figures/r_objects/atm/de_genes/PTPRQ.rds
-    Untracked:  output/figures/r_objects/atm/de_genes/SNTB1.rds
-    Untracked:  output/figures/r_objects/atm/de_genes/TM6SF1.rds
-    Untracked:  output/figures/r_objects/del11q22/de_genes/CLDN3.rds
-    Untracked:  output/figures/r_objects/del11q22/de_genes/IGHE.rds
-    Untracked:  output/figures/r_objects/del11q22/de_genes/TFCP2L1.rds
-    Untracked:  output/figures/r_objects/del13q14/de_genes/ARNTL2.rds
-    Untracked:  output/figures/r_objects/del13q14/de_genes/CCDC151.rds
-    Untracked:  output/figures/r_objects/del13q14/de_genes/CSGALNACT1.rds
-    Untracked:  output/figures/r_objects/del13q14/de_genes/FBLN2.rds
-    Untracked:  output/figures/r_objects/del13q14/de_genes/FRMD5.rds
-    Untracked:  output/figures/r_objects/del13q14/de_genes/IGHV1-2.rds
-    Untracked:  output/figures/r_objects/del13q14/de_genes/IGHV3-33.rds
-    Untracked:  output/figures/r_objects/del13q14/de_genes/IGKV1-39.rds
-    Untracked:  output/figures/r_objects/del13q14/de_genes/IGKV1-5.rds
-    Untracked:  output/figures/r_objects/del13q14/de_genes/IGKV1-8.rds
-    Untracked:  output/figures/r_objects/del13q14/de_genes/IGKV1D-39.rds
-    Untracked:  output/figures/r_objects/del13q14/de_genes/INHBA.rds
-    Untracked:  output/figures/r_objects/del13q14/de_genes/LAMP3.rds
-    Untracked:  output/figures/r_objects/del13q14/de_genes/RAI14.rds
-    Untracked:  output/figures/r_objects/del13q14/de_genes/RASSF8.rds
-    Untracked:  output/figures/r_objects/del13q14/de_genes/RNF157.rds
-    Untracked:  output/figures/r_objects/del13q14/de_genes/SEPT10.rds
-    Untracked:  output/figures/r_objects/del13q14/de_genes/SLC19A1.rds
-    Untracked:  output/figures/r_objects/del13q14/del13q14_enrichment_dn.rds
-    Untracked:  output/figures/r_objects/del13q14/del13q14_enrichment_up.rds
-    Untracked:  output/figures/r_objects/del17p13/de_genes/ARNTL2.rds
-    Untracked:  output/figures/r_objects/del17p13/de_genes/CDH2.rds
-    Untracked:  output/figures/r_objects/del17p13/de_genes/CEP55.rds
-    Untracked:  output/figures/r_objects/del17p13/de_genes/COL6A1.rds
-    Untracked:  output/figures/r_objects/del17p13/de_genes/FLT4.rds
-    Untracked:  output/figures/r_objects/del17p13/de_genes/IGHV3-11.rds
-    Untracked:  output/figures/r_objects/del17p13/de_genes/IGKV1-16.rds
-    Untracked:  output/figures/r_objects/del17p13/de_genes/KIF7.rds
-    Untracked:  output/figures/r_objects/del17p13/de_genes/MDM2.rds
-    Untracked:  output/figures/r_objects/del17p13/de_genes/MEIS1.rds
-    Untracked:  output/figures/r_objects/del17p13/de_genes/MIR4538.rds
-    Untracked:  output/figures/r_objects/del17p13/de_genes/MRAP2.rds
-    Untracked:  output/figures/r_objects/del17p13/de_genes/MYL12BP2.rds
-    Untracked:  output/figures/r_objects/del17p13/de_genes/NPTX1.rds
-    Untracked:  output/figures/r_objects/del17p13/de_genes/NRP2.rds
-    Untracked:  output/figures/r_objects/del17p13/de_genes/PPM1H.rds
-    Untracked:  output/figures/r_objects/del17p13/de_genes/RNF157.rds
-    Untracked:  output/figures/r_objects/del17p13/de_genes/SLFNL1.rds
-    Untracked:  output/figures/r_objects/del17p13/de_genes/SRP72P2.rds
-    Untracked:  output/figures/r_objects/del17p13/de_genes/TFCP2L1.rds
-    Untracked:  output/figures/r_objects/del17p13/de_genes/WDR87.rds
-    Untracked:  output/figures/r_objects/del17p13/del17p13_enrichment_dn.rds
-    Untracked:  output/figures/r_objects/del17p13/del17p13_enrichment_up.rds
-    Untracked:  output/figures/r_objects/del8p12/de_genes/IGHJ2P.rds
-    Untracked:  output/figures/r_objects/del8p12/de_genes/OVCH1-AS1.rds
-    Untracked:  output/figures/r_objects/del8p12/de_genes/PLCB1.rds
-    Untracked:  output/figures/r_objects/del8p12/de_genes/TM6SF1.rds
-    Untracked:  output/figures/r_objects/epistasis/de_genes/CD38.rds
-    Untracked:  output/figures/r_objects/gain8q24/de_genes/C1orf127.rds
-    Untracked:  output/figures/r_objects/gain8q24/de_genes/CBS.rds
-    Untracked:  output/figures/r_objects/gain8q24/de_genes/FAM160B2.rds
-    Untracked:  output/figures/r_objects/gain8q24/de_genes/FAM85B.rds
-    Untracked:  output/figures/r_objects/gain8q24/de_genes/IGLV1-51.rds
-    Untracked:  output/figures/r_objects/gain8q24/de_genes/MTERF3.rds
-    Untracked:  output/figures/r_objects/gain8q24/de_genes/RPL23AP53.rds
-    Untracked:  output/figures/r_objects/gain8q24/de_genes/TM6SF1.rds
-    Untracked:  output/figures/r_objects/gain8q24/de_genes/TMEM242.rds
-    Untracked:  output/figures/r_objects/gain8q24/de_genes/ZNF662.rds
-    Untracked:  output/figures/r_objects/gain8q24/gain8q24_enrichment_dn.rds
-    Untracked:  output/figures/r_objects/gain8q24/gain8q24_enrichment_up.rds
-    Untracked:  output/figures/r_objects/med12/de_genes/C10orf105.rds
-    Untracked:  output/figures/r_objects/med12/de_genes/COL1A1.rds
-    Untracked:  output/figures/r_objects/med12/de_genes/DUSP2.rds
-    Untracked:  output/figures/r_objects/med12/de_genes/ENTPD4.rds
-    Untracked:  output/figures/r_objects/med12/de_genes/ERRFI1.rds
-    Untracked:  output/figures/r_objects/med12/de_genes/HSPA1A.rds
-    Untracked:  output/figures/r_objects/med12/de_genes/HSPA1B.rds
-    Untracked:  output/figures/r_objects/med12/de_genes/HSPA6.rds
-    Untracked:  output/figures/r_objects/med12/de_genes/IGHJ2P.rds
-    Untracked:  output/figures/r_objects/med12/de_genes/IGHV1-45.rds
-    Untracked:  output/figures/r_objects/med12/de_genes/IGKV2-28.rds
-    Untracked:  output/figures/r_objects/med12/de_genes/IGLV6-57.rds
-    Untracked:  output/figures/r_objects/med12/de_genes/LTBP1.rds
-    Untracked:  output/figures/r_objects/med12/de_genes/MTUS1.rds
-    Untracked:  output/figures/r_objects/med12/de_genes/RASSF1.rds
-    Untracked:  output/figures/r_objects/med12/de_genes/SNCAIP.rds
-    Untracked:  output/figures/r_objects/med12/de_genes/TMPRSS11E.rds
-    Untracked:  output/figures/r_objects/med12/de_genes/TRIM16L.rds
+    Untracked:  analysis/de_analysis_treatment.Rmd
+    Untracked:  analysis/de_diagnosis_time_sampling.Rmd
+    Untracked:  data/diagnosis_information.csv
+    Untracked:  docs/figure/de_analysis_treatment.Rmd/
+    Untracked:  output/de_genes_all_pretreatment.xlsx
+    Untracked:  output/desRes_020422.RData
+    Untracked:  output/diff_genes/pretreatment/
+    Untracked:  output/figures/r_objects/TP53/venn_pair.rds
 
 Unstaged changes:
-    Modified:   analysis/ATM.Rmd
-    Modified:   analysis/Del8p12.Rmd
-    Modified:   analysis/Med12.Rmd
-    Modified:   output/enrichment/del11q22.3_gsea.rds
-    Modified:   output/figures/paper_fig/figure_epi.pdf
-    Modified:   output/figures/paper_fig/figure_epi.svg
+    Modified:   analysis/IGHV.Rmd
+    Modified:   analysis/TP53.Rmd
+    Modified:   analysis/summary_de_genes.Rmd
+    Modified:   output/figures/paper_fig/figure_TP53.pdf
+    Modified:   output/figures/paper_fig/figure_TP53.svg
     Modified:   output/figures/paper_fig/generate_figures.Rmd
-    Modified:   output/figures/r_objects/BRAF/BRAF_enrichment_dn.rds
-    Modified:   output/figures/r_objects/BRAF/BRAF_enrichment_up.rds
-    Modified:   output/figures/r_objects/BRAF/BRAF_heatmap.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/ARHGEF37.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/BIRC5.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/CA1.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/CELSR2.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/DHRS9.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/DSP.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/F12.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/FAM111B.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/FAM184A.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/FAM96AP2.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/FLT4.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/HCAR1.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/HJURP.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/IGHV3-11.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/IGHV3-21.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/IGHV3-23.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/IGHV4-61.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/IQGAP3.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/KIF14.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/KIF18B.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/LINC00658.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/LINC01203.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/LINC01358.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/MELK.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/NRP2.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/OR2B6.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/PKMYT1.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/PLIN5.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/PPP1R14C.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/PPP1R3C.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/PTPRB.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/RNF157.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/RPSAP69.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/SAMD12.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/SDC3.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/SEPT3.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/SERPINE2.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/SH3RF1.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/SLC38A11.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/SPRY4.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/TFEC.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/TMEM151B.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/TMPRSS3.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/TSHZ2.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/ZFHX4.rds
-    Modified:   output/figures/r_objects/BRAF/de_genes/ZNF503-AS1.rds
-    Modified:   output/figures/r_objects/Notch1/de_genes/CLN8.rds
-    Modified:   output/figures/r_objects/Notch1/de_genes/COL5A2.rds
-    Modified:   output/figures/r_objects/Notch1/de_genes/GJB7.rds
-    Modified:   output/figures/r_objects/Notch1/de_genes/IGLC6.rds
-    Modified:   output/figures/r_objects/Notch1/de_genes/IGLV7-46.rds
-    Modified:   output/figures/r_objects/Notch1/de_genes/KLK4.rds
-    Modified:   output/figures/r_objects/Notch1/de_genes/MSI2.rds
-    Modified:   output/figures/r_objects/Notch1/de_genes/NOTCH4.rds
-    Modified:   output/figures/r_objects/Notch1/de_genes/SEPT3.rds
-    Modified:   output/figures/r_objects/Notch1/de_genes/SPACA9.rds
-    Modified:   output/figures/r_objects/Notch1/notch1_heatmap.rds
-    Modified:   output/figures/r_objects/SF3B1/enrich_dot2.rds
-    Modified:   output/figures/r_objects/SF3B1/enrich_net_hm.rds
-    Modified:   output/figures/r_objects/SF3B1/enrich_net_kegg.rds
     Modified:   output/figures/r_objects/TP53/enrich_dot2.rds
     Modified:   output/figures/r_objects/TP53/enrich_net_hm.rds
     Modified:   output/figures/r_objects/TP53/enrich_net_kegg.rds
-    Modified:   output/figures/r_objects/atm/atm_heatmap.rds
-    Modified:   output/figures/r_objects/atm/de_genes/AHRR.rds
-    Modified:   output/figures/r_objects/atm/de_genes/MECOM.rds
-    Modified:   output/figures/r_objects/atm/de_genes/P4HA2.rds
-    Modified:   output/figures/r_objects/atm/de_genes/PLCB1.rds
-    Modified:   output/figures/r_objects/atm/de_genes/RBFOX2.rds
-    Modified:   output/figures/r_objects/atm/de_genes/RNASE1.rds
-    Modified:   output/figures/r_objects/atm/de_genes/SAXO2.rds
-    Modified:   output/figures/r_objects/atm/de_genes/TMC5.rds
-    Modified:   output/figures/r_objects/atm/de_genes/WNK2.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/ACAT1.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/AIRE.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/ALG9.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/ALKBH8.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/ATM.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/C11orf57.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/CUL5.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/CWF19L2.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/DDX10.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/DPY19L2.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/IGHV3-11.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/IGHV4-34.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/IGHV4-39.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/KBTBD3.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/NPAT.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/NT5E.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/PPP2R1B.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/RBM7.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/REXO2.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/SIK2.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/TEAD1.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/TMPRSS5.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/TTC12.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/USP28.rds
-    Modified:   output/figures/r_objects/del11q22/de_genes/ZW10.rds
-    Modified:   output/figures/r_objects/del11q22/del11q22_enrichment_dn.rds
-    Modified:   output/figures/r_objects/del11q22/del11q22_enrichment_up.rds
-    Modified:   output/figures/r_objects/del11q22/del11q22_heatmap.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/ANK3.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/AXL.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/C10orf10.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/C1orf127.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/C9orf139.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/CD1A.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/CDCP1.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/CELSR2.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/CLEC4A.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/CNFN.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/CTAGE9.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/ENPP3.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/F12.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/IGHV1-24.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/IGHV3-23.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/IGHV3-49.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/IGKV2-24.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/IGKV4-1.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/IGLV1-40.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/IGLV3-10.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/ILDR2.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/ISL2.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/ITM2B.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/KCNRG.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/KIAA1549.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/KIF7.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/LARGE1.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/LINC00470.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/LINC00861.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/LINC02363.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/MAF.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/MIOX.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/MOGAT2.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/MTCO3P40.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/MTUS1.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/MYLK.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/NT5E.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/PALD1.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/PERP.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/PI16.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/PLEKHG7.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/RAMP1.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/RGL3.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/SCIN.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/SDC3.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/SERPINE2.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/SLC1A6.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/SMAD3.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/SNTB1.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/SOAT2.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/TFCP2L1.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/TM6SF1.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/TMPRSS4.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/TSPAN13.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/UACA.rds
-    Modified:   output/figures/r_objects/del13q14/de_genes/UBE2F.rds
-    Modified:   output/figures/r_objects/del13q14/del13q14_heatmap.rds
-    Modified:   output/figures/r_objects/del17p13/de_genes/ACAP1.rds
-    Modified:   output/figures/r_objects/del17p13/de_genes/ANKRD36BP2.rds
-    Modified:   output/figures/r_objects/del17p13/de_genes/BTBD18.rds
-    Modified:   output/figures/r_objects/del17p13/de_genes/CA1.rds
-    Modified:   output/figures/r_objects/del17p13/de_genes/CDHR1.rds
-    Modified:   output/figures/r_objects/del17p13/de_genes/CPT1C.rds
-    Modified:   output/figures/r_objects/del17p13/de_genes/CTC1.rds
-    Modified:   output/figures/r_objects/del17p13/de_genes/CTNS.rds
-    Modified:   output/figures/r_objects/del17p13/de_genes/DPH1.rds
-    Modified:   output/figures/r_objects/del17p13/de_genes/DRC3.rds
-    Modified:   output/figures/r_objects/del17p13/de_genes/DSE.rds
-    Modified:   output/figures/r_objects/del17p13/de_genes/DVL2.rds
-    Modified:   output/figures/r_objects/del17p13/de_genes/FOXA3.rds
-    Modified:   output/figures/r_objects/del17p13/de_genes/FXR2.rds
-    Modified:   output/figures/r_objects/del17p13/de_genes/GK3P.rds
-    Modified:   output/figures/r_objects/del17p13/de_genes/GLOD4.rds
-    Modified:   output/figures/r_objects/del17p13/de_genes/GPS2.rds
-    Modified:   output/figures/r_objects/del17p13/de_genes/IGKV2-24.rds
-    Modified:   output/figures/r_objects/del17p13/de_genes/IGKV2D-28.rds
-    Modified:   output/figures/r_objects/del17p13/de_genes/IGLV9-49.rds
-    Modified:   output/figures/r_objects/del17p13/de_genes/KIAA0753.rds
-    Modified:   output/figures/r_objects/del17p13/de_genes/MAP2K4.rds
-    Modified:   output/figures/r_objects/del17p13/de_genes/MELK.rds
-    Modified:   output/figures/r_objects/del17p13/de_genes/MPDU1.rds
-    Modified:   output/figures/r_objects/del17p13/de_genes/MT-RNR1.rds
-    Modified:   output/figures/r_objects/del17p13/de_genes/MTMR11.rds
-    Modified:   output/figures/r_objects/del17p13/de_genes/MYH3.rds
-    Modified:   output/figures/r_objects/del17p13/de_genes/NEURL4.rds
-    Modified:   output/figures/r_objects/del17p13/de_genes/NLRP1.rds
-    Modified:   output/figures/r_objects/del17p13/de_genes/RABEP1.rds
-    Modified:   output/figures/r_objects/del17p13/de_genes/RNF167.rds
-    Modified:   output/figures/r_objects/del17p13/de_genes/SENP3.rds
-    Modified:   output/figures/r_objects/del17p13/de_genes/SMG6.rds
-    Modified:   output/figures/r_objects/del17p13/de_genes/SOX15.rds
-    Modified:   output/figures/r_objects/del17p13/de_genes/TNK1.rds
-    Modified:   output/figures/r_objects/del17p13/de_genes/TRPC5.rds
-    Modified:   output/figures/r_objects/del17p13/de_genes/UPK1A.rds
-    Modified:   output/figures/r_objects/del17p13/de_genes/VPS53.rds
-    Modified:   output/figures/r_objects/del17p13/de_genes/WRAP53.rds
-    Modified:   output/figures/r_objects/del17p13/de_genes/ZBTB4.rds
-    Modified:   output/figures/r_objects/del17p13/de_genes/ZZEF1.rds
-    Modified:   output/figures/r_objects/del17p13/del17p13_heatmap.rds
-    Modified:   output/figures/r_objects/del8p12/de_genes/ADGRG7.rds
-    Modified:   output/figures/r_objects/del8p12/de_genes/ALG1L13P.rds
-    Modified:   output/figures/r_objects/del8p12/de_genes/C8orf58.rds
-    Modified:   output/figures/r_objects/del8p12/de_genes/DDX43.rds
-    Modified:   output/figures/r_objects/del8p12/de_genes/ELP3.rds
-    Modified:   output/figures/r_objects/del8p12/de_genes/EPHX2.rds
-    Modified:   output/figures/r_objects/del8p12/de_genes/ERICH1.rds
-    Modified:   output/figures/r_objects/del8p12/de_genes/FAM160B2.rds
-    Modified:   output/figures/r_objects/del8p12/de_genes/FBXO25.rds
-    Modified:   output/figures/r_objects/del8p12/de_genes/GTF2E2.rds
-    Modified:   output/figures/r_objects/del8p12/de_genes/HMBOX1.rds
-    Modified:   output/figures/r_objects/del8p12/de_genes/IGKV1-5.rds
-    Modified:   output/figures/r_objects/del8p12/de_genes/IGKV3-20.rds
-    Modified:   output/figures/r_objects/del8p12/de_genes/INTS10.rds
-    Modified:   output/figures/r_objects/del8p12/de_genes/INTS9.rds
-    Modified:   output/figures/r_objects/del8p12/de_genes/KIF13B.rds
-    Modified:   output/figures/r_objects/del8p12/de_genes/LGSN.rds
-    Modified:   output/figures/r_objects/del8p12/de_genes/LINC01016.rds
-    Modified:   output/figures/r_objects/del8p12/de_genes/MAPRE3.rds
-    Modified:   output/figures/r_objects/del8p12/de_genes/MCPH1.rds
-    Modified:   output/figures/r_objects/del8p12/de_genes/MEF2B.rds
-    Modified:   output/figures/r_objects/del8p12/de_genes/MTCO3P12.rds
-    Modified:   output/figures/r_objects/del8p12/de_genes/NEIL2.rds
-    Modified:   output/figures/r_objects/del8p12/de_genes/OVCH1.rds
-    Modified:   output/figures/r_objects/del8p12/de_genes/PNOC.rds
-    Modified:   output/figures/r_objects/del8p12/de_genes/PPP3CC.rds
-    Modified:   output/figures/r_objects/del8p12/de_genes/PRDM16.rds
-    Modified:   output/figures/r_objects/del8p12/de_genes/PSPHP1.rds
-    Modified:   output/figures/r_objects/del8p12/de_genes/PTCH1.rds
-    Modified:   output/figures/r_objects/del8p12/de_genes/PTK2B.rds
-    Modified:   output/figures/r_objects/del8p12/de_genes/PTP4A3.rds
-    Modified:   output/figures/r_objects/del8p12/de_genes/PTPRQ.rds
-    Modified:   output/figures/r_objects/del8p12/de_genes/R3HCC1.rds
-    Modified:   output/figures/r_objects/del8p12/de_genes/REEP4.rds
-    Modified:   output/figures/r_objects/del8p12/de_genes/SCUBE2.rds
-    Modified:   output/figures/r_objects/del8p12/de_genes/SLC44A5.rds
-    Modified:   output/figures/r_objects/del8p12/de_genes/SLC6A9.rds
-    Modified:   output/figures/r_objects/del8p12/de_genes/SNTB1.rds
-    Modified:   output/figures/r_objects/del8p12/de_genes/TRPM2-AS.rds
-    Modified:   output/figures/r_objects/del8p12/de_genes/XPO7.rds
-    Modified:   output/figures/r_objects/del8p12/del8p12_heatmap.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/ABLIM2.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/BCL2A1.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/CAMK2N1.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/CHAD.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/CRIM1.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/E2F2.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/EBF1.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/EBF4.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/EML6.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/ENPP3.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/EPHB1.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/EPHB6.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/FAM212A.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/FGD6.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/FGF2.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/GEN1.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/GP5.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/JAG1.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/LEF1.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/PPP1R14A.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/RAI14.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/SLC4A8.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/SYBU.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/TCTN1.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/TIMELESS.rds
-    Modified:   output/figures/r_objects/epistasis/de_genes/TMPRSS11E.rds
-    Modified:   output/figures/r_objects/epistasis/enrich_dot2.rds
-    Modified:   output/figures/r_objects/epistasis/enrich_dot_buffering.rds
-    Modified:   output/figures/r_objects/epistasis/enrich_dot_hm.rds
-    Modified:   output/figures/r_objects/epistasis/enrich_dot_inversion.rds
-    Modified:   output/figures/r_objects/epistasis/enrich_dot_supression.rds
-    Modified:   output/figures/r_objects/epistasis/enrich_dot_synergy.rds
-    Modified:   output/figures/r_objects/epistasis/enrich_net_kegg.rds
-    Modified:   output/figures/r_objects/epistasis/epistasis_heatmap.rds
-    Modified:   output/figures/r_objects/epistasis/epistasis_scheme.rds
-    Modified:   output/figures/r_objects/epistasis/epistasis_scheme_lolli.rds
-    Modified:   output/figures/r_objects/gain8q24/de_genes/ADAMDEC1.rds
-    Modified:   output/figures/r_objects/gain8q24/de_genes/ALG1L13P.rds
-    Modified:   output/figures/r_objects/gain8q24/de_genes/C8orf33.rds
-    Modified:   output/figures/r_objects/gain8q24/de_genes/C8orf76.rds
-    Modified:   output/figures/r_objects/gain8q24/de_genes/CPQ.rds
-    Modified:   output/figures/r_objects/gain8q24/de_genes/CTHRC1.rds
-    Modified:   output/figures/r_objects/gain8q24/de_genes/CYHR1.rds
-    Modified:   output/figures/r_objects/gain8q24/de_genes/E2F5.rds
-    Modified:   output/figures/r_objects/gain8q24/de_genes/EBAG9.rds
-    Modified:   output/figures/r_objects/gain8q24/de_genes/FAM49B.rds
-    Modified:   output/figures/r_objects/gain8q24/de_genes/FAM86B3P.rds
-    Modified:   output/figures/r_objects/gain8q24/de_genes/IGKV3-20.rds
-    Modified:   output/figures/r_objects/gain8q24/de_genes/INTS9.rds
-    Modified:   output/figures/r_objects/gain8q24/de_genes/MTBP.rds
-    Modified:   output/figures/r_objects/gain8q24/de_genes/PABPC1.rds
-    Modified:   output/figures/r_objects/gain8q24/de_genes/PHF20L1.rds
-    Modified:   output/figures/r_objects/gain8q24/de_genes/PLCD3.rds
-    Modified:   output/figures/r_objects/gain8q24/de_genes/POLR2K.rds
-    Modified:   output/figures/r_objects/gain8q24/de_genes/POTEM.rds
-    Modified:   output/figures/r_objects/gain8q24/de_genes/PTPRQ.rds
-    Modified:   output/figures/r_objects/gain8q24/de_genes/RAD21.rds
-    Modified:   output/figures/r_objects/gain8q24/de_genes/RRM2B.rds
-    Modified:   output/figures/r_objects/gain8q24/de_genes/SLC44A5.rds
-    Modified:   output/figures/r_objects/gain8q24/de_genes/SNTB1.rds
-    Modified:   output/figures/r_objects/gain8q24/de_genes/TATDN1.rds
-    Modified:   output/figures/r_objects/gain8q24/de_genes/TMEM55A.rds
-    Modified:   output/figures/r_objects/gain8q24/de_genes/TSTA3.rds
-    Modified:   output/figures/r_objects/gain8q24/de_genes/UST.rds
-    Modified:   output/figures/r_objects/gain8q24/de_genes/UTP23.rds
-    Modified:   output/figures/r_objects/gain8q24/de_genes/ZNF16.rds
-    Modified:   output/figures/r_objects/gain8q24/de_genes/ZNF251.rds
-    Modified:   output/figures/r_objects/gain8q24/de_genes/ZNF462.rds
-    Modified:   output/figures/r_objects/gain8q24/de_genes/ZNF7.rds
-    Modified:   output/figures/r_objects/gain8q24/de_genes/ZNF706.rds
-    Modified:   output/figures/r_objects/gain8q24/de_genes/ZNF707.rds
-    Modified:   output/figures/r_objects/gain8q24/gain8q24_heatmap.rds
-    Modified:   output/figures/r_objects/med12/de_genes/ADGRG7.rds
-    Modified:   output/figures/r_objects/med12/de_genes/CDH20.rds
-    Modified:   output/figures/r_objects/med12/de_genes/CLCNKA.rds
-    Modified:   output/figures/r_objects/med12/de_genes/CSPG5.rds
-    Modified:   output/figures/r_objects/med12/de_genes/DCHS1.rds
-    Modified:   output/figures/r_objects/med12/de_genes/DDX43.rds
-    Modified:   output/figures/r_objects/med12/de_genes/FCRL4.rds
-    Modified:   output/figures/r_objects/med12/de_genes/FXYD6.rds
-    Modified:   output/figures/r_objects/med12/de_genes/IGLV1-40.rds
-    Modified:   output/figures/r_objects/med12/de_genes/IL15.rds
-    Modified:   output/figures/r_objects/med12/de_genes/MTA1.rds
-    Modified:   output/figures/r_objects/med12/de_genes/MYO5C.rds
-    Modified:   output/figures/r_objects/med12/de_genes/NRCAM.rds
-    Modified:   output/figures/r_objects/med12/de_genes/TCTN1.rds
-    Modified:   output/figures/r_objects/med12/med12_heatmap.rds
+    Modified:   output/figures/r_objects/summary_de_genes_IGHV_tri12.rds
+    Modified:   output/figures/r_objects/summary_de_genes_all.rds
 
 </code></pre>
 <p>
@@ -1074,6 +610,23 @@ Message
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/almutlue/transcriptome_cll/16605fa1532da14ad36fbd238610b8370937d60f/docs/summary_de_genes.html" target="_blank">16605fa</a>
+</td>
+<td>
+aluetge
+</td>
+<td>
+2021-05-22
+</td>
+<td>
+complie rmds to show plots
+</td>
+</tr>
 <tr>
 <td>
 html
@@ -1250,8 +803,8 @@ variants &lt;- c(variants, &quot;IGHV&quot;)</code></pre>
 <p>Summarize de genes in a table</p>
 <pre class="r"><code>#Function to summarize de genes
 variant_stats &lt;- function(variant, chr){
-   diff_genes &lt;-read.csv(file=paste0(output_dir, &quot;/diff_genes/&quot;, variant, &quot;_diffGenes.csv&quot;))
-  sig_genes &lt;- as.tibble(diff_genes) %&gt;% filter(padj &lt; 0.01 &amp; abs(log2FoldChange) &gt; 0) 
+   diff_genes &lt;-read.csv(file=paste0(output_dir, &quot;/diff_genes/pretreatment/&quot;, variant, &quot;_diffGenes.csv&quot;))
+  sig_genes &lt;- as.tibble(diff_genes) %&gt;% filter(padj &lt; 0.05) 
   up_genes &lt;- sig_genes %&gt;% filter(log2FoldChange &gt; 0) %&gt;% mutate(chrom = rowData(ddsCLL)$chromosome[which(rownames(ddsCLL) %in% X)])
   dn_genes &lt;- sig_genes %&gt;% filter(log2FoldChange &lt; 0) %&gt;% mutate(chrom = rowData(ddsCLL)$chromosome[which(rownames(ddsCLL) %in% X)])
   chr_up &lt;- ifelse(!is.na(chr), length(which(up_genes$chrom %in% chr)), 0)
@@ -1301,7 +854,7 @@ input</code></pre>
 <pre class="r"><code>summary &lt;- mapply(variant_stats, variants, chromo)
 sum_dat &lt;- data.frame(matrix(unlist(summary), nrow=length(variants), byrow=T),stringsAsFactors=FALSE)
 colnames(sum_dat) &lt;- c(&quot;variant&quot;, &quot;n_genes&quot;, &quot;up_genes&quot;, &quot;dn_genes&quot;, &quot;nr_up&quot;, &quot;nr_dn&quot;, &quot;nr_chrom&quot;, &quot;nr_other&quot;)
-sum_dat &lt;- sum_dat %&gt;% filter(as.numeric(n_genes) &gt;= 100)
+sum_dat &lt;- sum_dat %&gt;% filter(as.numeric(n_genes) &gt;= 200)
 sum_order &lt;- as.tibble(sum_dat) %&gt;% arrange(desc(-1*as.numeric(n_genes))) %&gt;% dplyr::select(variant)
 
 #sum_dat_long &lt;- melt(sum_dat[,c(&quot;variant&quot;,&quot;up_genes&quot;, &quot;dn_genes&quot;)], id.vars = c(&quot;variant&quot;)) #, variable_name = c(&quot;up_genes&quot;, &quot;dn_genes&quot;))
@@ -1509,14 +1062,14 @@ aluetge
 <pre class="r"><code>#pdf(file=paste0(output_dir,&quot;/sum_diffGenes_table.pdf&quot;), width=5, height=7.5)
 sum_dat</code></pre>
 <pre><code>     variant n_genes up_genes dn_genes nr_up nr_dn nr_chrom nr_other
-1 del11q22.3     137       58       79     1    42       43       94
-2  trisomy12    3679     1806     1873   520    14      534     3145
-3   del13q14     257       49      208     1     9       10      247
-4   del17p13     277      171      106    14    66       80      197
-5       BRAF     227      193       34     0     0        0      227
-6      SF3B1     455      306      149     0     0        0      455
-7       TP53     157      100       57     0     0        0      157
-8       IGHV    3022     1769     1253     0     0        0     3022</code></pre>
+1 del11q22.3     237      122      115     4    52       56      181
+2  trisomy12    5273     2660     2613   609    19      628     4645
+3   del13q14     682      216      466     4    26       30      652
+4   del17p13     610      398      212    29   100      129      481
+5       BRAF     347      268       79     0     0        0      347
+6      SF3B1     685      426      259     0     0        0      685
+7       TP53     273      136      137     0     0        0      273
+8       IGHV    3410     1824     1586     0     0        0     3410</code></pre>
 <pre class="r"><code>#dev.off()</code></pre>
 <br>
 <p>
@@ -1569,9 +1122,9 @@ loaded via a namespace (and not attached):
 [10] AnnotationDbi_1.46.0   lubridate_1.7.4        xml2_1.2.0            
 [13] splines_3.6.3          geneplotter_1.62.0     knitr_1.23            
 [16] Formula_1.2-3          jsonlite_1.6           workflowr_1.4.0       
-[19] broom_0.5.2            annotate_1.62.0        cluster_2.1.1         
+[19] broom_0.5.2            annotate_1.62.0        cluster_2.1.2         
 [22] compiler_3.6.3         httr_1.4.0             backports_1.1.4       
-[25] assertthat_0.2.1       Matrix_1.3-2           lazyeval_0.2.2        
+[25] assertthat_0.2.1       Matrix_1.3-4           lazyeval_0.2.2        
 [28] cli_1.1.0              acepack_1.4.1          htmltools_0.3.6       
 [31] tools_3.6.3            gtable_0.3.0           glue_1.3.1            
 [34] GenomeInfoDbData_1.2.1 Rcpp_1.0.1             cellranger_1.1.0      
@@ -1587,7 +1140,7 @@ loaded via a namespace (and not attached):
 [64] R6_2.4.0               generics_0.0.2         Hmisc_4.2-0           
 [67] DBI_1.0.0              pillar_1.4.1           haven_2.1.0           
 [70] whisker_0.3-2          foreign_0.8-76         withr_2.1.2           
-[73] survival_2.44-1.1      RCurl_1.95-4.12        nnet_7.3-15           
+[73] survival_2.44-1.1      RCurl_1.95-4.12        nnet_7.3-16           
 [76] modelr_0.1.4           crayon_1.3.4           rmarkdown_1.13        
 [79] locfit_1.5-9.1         grid_3.6.3             readxl_1.3.1          
 [82] data.table_1.12.2      blob_1.1.1             git2r_0.25.2          

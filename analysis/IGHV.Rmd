@@ -56,7 +56,7 @@ variant <- "IGHV"
 ddsCLL <- ddsCLL[, !is.na(colData(ddsCLL)[,variant])]
 
 #differentially expressed genes between IGHV groups (see differential expression.html)
-diff_all <- read.csv(file=paste0(output_dir, "/diff_genes/", variant, "_diffGenes.csv"))
+diff_all <- read.csv(file=paste0(output_dir, "/diff_genes/pretreatment/", variant, "_diffGenes.csv"))
 
 
 rownames(diff_all) <- diff_all$X
@@ -287,8 +287,8 @@ ridgeplot(kk2)
 gseaplot2(em2, geneSetID = 3, title = em2$Description[3])
 gseaplot2(kk2, geneSetID = 2, title = kk2$Description[2])
 
-saveRDS(dot1, file = paste0(output_dir, "/figures/r_objects/ighv/enrich_dot_hm.rds"))
-saveRDS(dot2, file = paste0(output_dir, "/figures/r_objects/ighv/enrich_dot2.rds"))
+#saveRDS(dot1, file = paste0(output_dir, "/figures/r_objects/ighv/enrich_dot_hm.rds"))
+#saveRDS(dot2, file = paste0(output_dir, "/figures/r_objects/ighv/enrich_dot2.rds"))
 ```
 
 
@@ -322,8 +322,8 @@ pnet_kegg <- cnetplot(kk2_sub, categorySize="pvalue", foldChange=gene_lfc) +
 
 pnet_kegg
 
-saveRDS(pnet_kegg, file = paste0(output_dir, "/figures/r_objects/ighv/enrich_net_kegg.rds"))
-saveRDS(p_net, file = paste0(output_dir, "/figures/r_objects/ighv/enrich_net_hm.rds"))
+#saveRDS(pnet_kegg, file = paste0(output_dir, "/figures/r_objects/ighv/enrich_net_kegg.rds"))
+#saveRDS(p_net, file = paste0(output_dir, "/figures/r_objects/ighv/enrich_net_hm.rds"))
 
 ```
 

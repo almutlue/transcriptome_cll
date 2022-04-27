@@ -366,6 +366,7 @@ venn_pair <- draw.pairwise.venn(nrow(del17_area), nrow(TP53_area), nrow(Both_are
 grid.draw(venn_pair)
 
 grid.newpage()
+saveRDS(venn_pair, file = paste0(output_dir, "/figures/r_objects/TP53/venn_pair.rds"))
 
 ```
 

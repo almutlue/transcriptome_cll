@@ -306,6 +306,8 @@ de1 <- readRDS(paste0(fig_dir,"/TP53/de_genes/CDK12.rds"))
 de2 <- readRDS(paste0(fig_dir,"/TP53/de_genes/PGBD2.rds"))
 de3 <- readRDS(paste0(fig_dir,"/TP53/de_genes/HYPK.rds"))
 de4 <- readRDS(paste0(fig_dir,"/TP53/de_genes/MDM2.rds"))
+venn_o <- readRDS(paste0(fig_dir,"/TP53/venn_pair.rds"))
+venn <- grid.grabExpr(grid.draw(venn_o))
 
 ```
 
@@ -313,9 +315,9 @@ de4 <- readRDS(paste0(fig_dir,"/TP53/de_genes/MDM2.rds"))
 ```{r fig2 plot, fig.width=20, fig.height= 24}
 #Align subplots
 #pathw <- plot_grid(NULL, pathways, NULL, ncol = 3, rel_widths = c(1, 8, 1))
-p_sub <- plot_grid(NULL, tp_net, NULL, ncol = 1, rel_heights = c(1,8,1), labels = c('','A',''), label_size = 45)
+p_sub <- plot_grid(tp_net, venn, ncol = 1, rel_heights = c(8,3), labels = c('A','B'), label_size = 45)
 #p_sub <- plot_grid(p_sub, NULL, rel_widths = c(10, 2))
-p_sub2 <- plot_grid(NULL, de1, de2, de3, de4, NULL, ncol = 1, labels = c('', 'B', 'C', 'D', 'E', ''), label_size = 45, rel_heights = c(0.5, 4, 4, 4, 4, 0.5))
+p_sub2 <- plot_grid(NULL, de1, de2, de3, NULL, ncol = 1, labels = c('', 'C', 'D', 'E', ''), label_size = 45, rel_heights = c(0.5, 4, 4, 4, 0.5))
 
 
 figure2 <- plot_grid(p_sub, NULL, p_sub2, ncol = 3, rel_widths = c(8, 0.5, 5))

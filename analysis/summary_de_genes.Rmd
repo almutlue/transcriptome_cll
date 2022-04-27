@@ -61,8 +61,8 @@ Summarize de genes in a table
 ```{r summary table}
 #Function to summarize de genes
 variant_stats <- function(variant, chr){
-   diff_genes <-read.csv(file=paste0(output_dir, "/diff_genes/", variant, "_diffGenes.csv"))
-  sig_genes <- as.tibble(diff_genes) %>% filter(padj < 0.01 & abs(log2FoldChange) > 0) 
+   diff_genes <-read.csv(file=paste0(output_dir, "/diff_genes/pretreatment/", variant, "_diffGenes.csv"))
+  sig_genes <- as.tibble(diff_genes) %>% filter(padj < 0.05) 
   up_genes <- sig_genes %>% filter(log2FoldChange > 0) %>% mutate(chrom = rowData(ddsCLL)$chromosome[which(rownames(ddsCLL) %in% X)])
   dn_genes <- sig_genes %>% filter(log2FoldChange < 0) %>% mutate(chrom = rowData(ddsCLL)$chromosome[which(rownames(ddsCLL) %in% X)])
   chr_up <- ifelse(!is.na(chr), length(which(up_genes$chrom %in% chr)), 0)
@@ -88,7 +88,7 @@ input
 summary <- mapply(variant_stats, variants, chromo)
 sum_dat <- data.frame(matrix(unlist(summary), nrow=length(variants), byrow=T),stringsAsFactors=FALSE)
 colnames(sum_dat) <- c("variant", "n_genes", "up_genes", "dn_genes", "nr_up", "nr_dn", "nr_chrom", "nr_other")
-sum_dat <- sum_dat %>% filter(as.numeric(n_genes) >= 100)
+sum_dat <- sum_dat %>% filter(as.numeric(n_genes) >= 200)
 sum_order <- as.tibble(sum_dat) %>% arrange(desc(-1*as.numeric(n_genes))) %>% dplyr::select(variant)
 
 #sum_dat_long <- melt(sum_dat[,c("variant","up_genes", "dn_genes")], id.vars = c("variant")) #, variable_name = c("up_genes", "dn_genes"))
