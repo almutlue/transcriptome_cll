@@ -389,7 +389,7 @@ div.tocify {
 <div class="tab-content">
 <div id="summary" class="tab-pane fade in active">
 <p>
-<strong>Last updated:</strong> 2022-03-25
+<strong>Last updated:</strong> 2022-04-27
 </p>
 <p>
 <strong>Checks:</strong> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> 6 <span class="glyphicon glyphicon-exclamation-sign text-danger" aria-hidden="true"></span> 1
@@ -413,7 +413,7 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 </div>
 <div id="strongRMarkdownfilestronguncommittedchanges" class="panel-collapse collapse">
 <div class="panel-body">
-<p>The R Markdown is untracked by Git. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
+<p>The R Markdown file has unstaged changes. To know which version of the R Markdown file created these results, you’ll want to first commit it to the Git repo. If you’re still working on the analysis, you can ignore this warning. When you’re finished, you can run <code>wflow_publish</code> to commit the R Markdown file and build the HTML.</p>
 </div>
 </div>
 </div>
@@ -480,24 +480,30 @@ This reproducible <a href="https://rmarkdown.rstudio.com">R Markdown</a> analysi
 <div class="panel panel-default">
 <div class="panel-heading">
 <p class="panel-title">
-<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree08c606e2c0c56fad1d1759f95a8118bbf751251ctargetblank08c606ea"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/almutlue/transcriptome_cll/tree/08c606e2c0c56fad1d1759f95a8118bbf751251c" target="_blank">08c606e</a> </a>
+<a data-toggle="collapse" data-parent="#workflowr-checks" href="#strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltreedef17dbc829f0401e8cf0b29113df6b6e7a40a16targetblankdef17dba"> <span class="glyphicon glyphicon-ok text-success" aria-hidden="true"></span> <strong>Repository version:</strong> <a href="https://github.com/almutlue/transcriptome_cll/tree/def17dbc829f0401e8cf0b29113df6b6e7a40a16" target="_blank">def17db</a> </a>
 </p>
 </div>
-<div id="strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltree08c606e2c0c56fad1d1759f95a8118bbf751251ctargetblank08c606ea" class="panel-collapse collapse">
+<div id="strongRepositoryversionstrongahrefhttpsgithubcomalmutluetranscriptomeclltreedef17dbc829f0401e8cf0b29113df6b6e7a40a16targetblankdef17dba" class="panel-collapse collapse">
 <div class="panel-body">
 <p>
 Great! You are using Git for version control. Tracking code development and connecting the code version to the results is critical for reproducibility.
 </p>
 <p>
-The results in this page were generated with repository version <a href="https://github.com/almutlue/transcriptome_cll/tree/08c606e2c0c56fad1d1759f95a8118bbf751251c" target="_blank">08c606e</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
+The results in this page were generated with repository version <a href="https://github.com/almutlue/transcriptome_cll/tree/def17dbc829f0401e8cf0b29113df6b6e7a40a16" target="_blank">def17db</a>. See the <em>Past versions</em> tab to see a history of the changes made to the R Markdown and HTML files.
 </p>
 <p>
 Note that you need to be careful to ensure that all relevant files for the analysis have been committed to Git prior to generating the results (you can use <code>wflow_publish</code> or <code>wflow_git_commit</code>). workflowr only checks the R Markdown file, but you know if there are other scripts or data files that it depends on. Below is the status of the Git repository when the results were generated:
 </p>
 <pre><code>
+Ignored files:
+    Ignored:    analysis/figure/
+
 Untracked files:
-    Untracked:  analysis/epistasis_abruzzo.Rmd
-    Untracked:  data/abruzzo/
+    Untracked:  output/figures/r_objects/epistasis/abruzzo/
+    Untracked:  output/figures/r_objects/epistasis/epistasis_heatmap_abruzzo.rds
+
+Unstaged changes:
+    Modified:   analysis/epistasis_abruzzo.Rmd
 
 </code></pre>
 <p>
@@ -510,9 +516,69 @@ Note that any generated files, e.g. HTML, png, CSS, etc., are not included in t
 <hr>
 </div>
 <div id="versions" class="tab-pane fade">
+
 <p>
-There are no past versions. Publish this analysis with <code>wflow_publish()</code> to start tracking its development.
+These are the previous versions of the repository in which changes were made to the R Markdown (<code>analysis/epistasis_abruzzo.Rmd</code>) and HTML (<code>docs/epistasis_abruzzo.html</code>) files. If you’ve configured a remote Git repository (see <code>?wflow_git_remote</code>), click on the hyperlinks in the table below to view the files as they were in that past version.
 </p>
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+File
+</th>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+<th>
+Message
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+Rmd
+</td>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/def17dbc829f0401e8cf0b29113df6b6e7a40a16/analysis/epistasis_abruzzo.Rmd" target="_blank">def17db</a>
+</td>
+<td>
+almutlue
+</td>
+<td>
+2022-04-27
+</td>
+<td>
+add abruzzo analysis
+</td>
+</tr>
+<tr>
+<td>
+html
+</td>
+<td>
+<a href="https://rawcdn.githack.com/almutlue/transcriptome_cll/def17dbc829f0401e8cf0b29113df6b6e7a40a16/docs/epistasis_abruzzo.html" target="_blank">def17db</a>
+</td>
+<td>
+almutlue
+</td>
+<td>
+2022-04-27
+</td>
+<td>
+add abruzzo analysis
+</td>
+</tr>
+</tbody>
+</table>
+</div>
 <hr>
 </div>
 </div>
@@ -535,6 +601,9 @@ There are no past versions. Publish this analysis with <code>wflow_publish()</co
 })</code></pre>
 <p>Data</p>
 <pre class="r"><code>data_dir = here(&quot;data&quot;)
+output_dir &lt;- here(&quot;output&quot;)
+figure_dir &lt;- here(&quot;output/figures&quot;)
+
 express &lt;- read.csv(paste0(data_dir, &quot;/abruzzo/expressionData.csv&quot;))
 features &lt;- read.csv(paste0(data_dir, &quot;/abruzzo/probeFeatures.csv&quot;))
 clinical &lt;- read.csv(paste0(data_dir, &quot;/abruzzo/safeClinical.csv&quot;))</code></pre>
@@ -565,6 +634,43 @@ top3 &lt;- topTable(fit3, adjust=&quot;BH&quot;)</code></pre>
 <h3>results</h3>
 <pre class="r"><code>plotMDS(exprMat,labels=filtered_clin$Purity)</code></pre>
 <p><img src="figure/epistasis_abruzzo.Rmd/res%20plot-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-res-plot-1">
+Past versions of "res plot-1.png"
+</button>
+</p>
+<div id="fig-no-spaces-res-plot-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/def17dbc829f0401e8cf0b29113df6b6e7a40a16/docs/figure/epistasis_abruzzo.Rmd/res plot-1.png" target="_blank">def17db</a>
+</td>
+<td>
+almutlue
+</td>
+<td>
+2022-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre class="r"><code>pcaRes &lt;- prcomp(t(exprMat), scale =T)
 varExp &lt;- (pcaRes$sdev^2 / sum(pcaRes$sdev^2)) * 100
 pcaTab &lt;- data.frame(pcaRes$x[,c(1:10)])
@@ -582,6 +688,43 @@ pcaTab &lt;- cbind(pcaTab, filtered_clin[, c(&quot;Purity&quot;, &quot;mutation.
 
 p</code></pre>
 <p><img src="figure/epistasis_abruzzo.Rmd/pca%20ighv-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-pca-ighv-1">
+Past versions of "pca ighv-1.png"
+</button>
+</p>
+<div id="fig-no-spaces-pca-ighv-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/def17dbc829f0401e8cf0b29113df6b6e7a40a16/docs/figure/epistasis_abruzzo.Rmd/pca ighv-1.png" target="_blank">def17db</a>
+</td>
+<td>
+almutlue
+</td>
+<td>
+2022-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>trisomy12</p>
 <pre class="r"><code>p &lt;- ggscatter(pcaTab, x = &quot;PC1&quot;, y = &quot;PC2&quot;, color = &quot;Purity&quot;, palette = &quot;jco&quot;, size = 3, shape = &quot;mutation.status&quot;,
   ylab = sprintf(&quot;PC2 (%2.1f%%)&quot;,varExp[2]), xlab = sprintf(&quot;PC1 (%2.1f%%)&quot;,varExp[1]), 
@@ -590,6 +733,43 @@ p</code></pre>
 
 p</code></pre>
 <p><img src="figure/epistasis_abruzzo.Rmd/pca%20tri12-1.png" width="672" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-no-spaces-pca-tri12-1">
+Past versions of "pca tri12-1.png"
+</button>
+</p>
+<div id="fig-no-spaces-pca-tri12-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/def17dbc829f0401e8cf0b29113df6b6e7a40a16/docs/figure/epistasis_abruzzo.Rmd/pca tri12-1.png" target="_blank">def17db</a>
+</td>
+<td>
+almutlue
+</td>
+<td>
+2022-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <p>Top DE genes related to the interaction</p>
 <pre class="r"><code>diff &lt;- fit3$p.value %&gt;% as.vector() %&gt;% set_names(rownames(fit3$p.value))
 exprVariant &lt;- exprMat[order(diff, decreasing = F)[1:100],]
@@ -671,7 +851,44 @@ Call `lifecycle::last_lifecycle_warnings()` to see where this warning was genera
 IGHVTri12 &lt;- list(&quot;sig_Genes&quot; = gene_names$gene, &quot;geneExp&quot; = exprVariant.new, &quot;h1&quot;= h1)
 p1 &lt;- draw(h1) </code></pre>
 <p><img src="figure/epistasis_abruzzo.Rmd/heatmap-1.png" width="768" style="display: block; margin: auto;" /></p>
-<pre class="r"><code>#saveRDS(p1, file = paste0(output_dir, &quot;/figures/r_objects/epistasis/epistasis_heatmap_abruzzo.rds&quot;))</code></pre>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-heatmap-1">
+Past versions of heatmap-1.png
+</button>
+</p>
+<div id="fig-heatmap-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/def17dbc829f0401e8cf0b29113df6b6e7a40a16/docs/figure/epistasis_abruzzo.Rmd/heatmap-1.png" target="_blank">def17db</a>
+</td>
+<td>
+almutlue
+</td>
+<td>
+2022-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre class="r"><code>saveRDS(p1, file = paste0(output_dir, &quot;/figures/r_objects/epistasis/epistasis_heatmap_abruzzo.rds&quot;))</code></pre>
 <p>Genewise expression</p>
 <pre class="r"><code>cluster &lt;- c(&quot;synergy&quot;, &quot;buffering&quot;, &quot;supression&quot;, &quot;inversion&quot;)
 gene_by_cat &lt;- lapply(1:4, function(clusternr){
@@ -694,6 +911,7 @@ if you repeatedly execute this function, e.g. when row_km/column_km was
 set. It is more suggested to do as `ht = draw(ht); row_order(ht)`.</code></pre>
 <pre class="r"><code>#Add int probes to gene_names and expr
 int_probes &lt;- features[features$SYMBOL %in% c(&quot;EBF1&quot;, &quot;FGF2&quot;,&quot;LEF1&quot;), c(&quot;X&quot;, &quot;SYMBOL&quot;)]
+int_probes &lt;- int_probes[c(1,2,4,5), ]
 colnames(int_probes) &lt;- c(&quot;probes&quot;, &quot;gene&quot;)
 gene_names &lt;- rbind(gene_names, int_probes)
 exprVariant &lt;- rbind(exprVariant, as.matrix(express[int_probes$probes,]))
@@ -701,6 +919,7 @@ exprVariant &lt;- rbind(exprVariant, as.matrix(express[int_probes$probes,]))
 #function to create stripchart plots for specific genes
 gene_count &lt;- function(probe){
   gene_nam &lt;- gene_names$gene[which(gene_names$probe %in% probe)]
+  gene_nam &lt;- ifelse(length(gene_nam) &gt; 1, gene_nam[1], gene_nam)
   gene_cat &lt;- names(gene_by_cat) %&gt;% map(function(cat){
     cat_gene &lt;- &quot;none&quot;
     cat_gene &lt;- ifelse(any(gene_nam %in% gene_by_cat[[cat]]), cat, cat_gene) 
@@ -720,7 +939,7 @@ gene_count &lt;- function(probe){
           title = paste0(gene_nam, &quot;: &quot;, gene_cat),
           font.x = 20, font.y = 20, font.legend = 20, 
           ylab = &quot;normalised intensities&quot;) + font(&quot;xy.text&quot;, size = 20) + font(&quot;title&quot;, size = 20, face = &quot;bold&quot;)
-  #saveRDS(p, file = paste0(output_dir, &quot;/figures/r_objects/epistasis/de_genes/&quot;, gene_nam, &quot;.rds&quot;))
+  saveRDS(p, file = paste0(output_dir, &quot;/figures/r_objects/epistasis/abruzzo/de_genes/&quot;, gene_nam, &quot;.rds&quot;))
   p
 }
 #interesting genes
@@ -729,108 +948,1363 @@ geneList &lt;- c(geneList, int_probes$probes)
 lapply(geneList, gene_count)</code></pre>
 <pre><code>[[1]]</code></pre>
 <p><img src="figure/epistasis_abruzzo.Rmd/genewise-1.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-genewise-1">
+Past versions of genewise-1.png
+</button>
+</p>
+<div id="fig-genewise-1" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/def17dbc829f0401e8cf0b29113df6b6e7a40a16/docs/figure/epistasis_abruzzo.Rmd/genewise-1.png" target="_blank">def17db</a>
+</td>
+<td>
+almutlue
+</td>
+<td>
+2022-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[2]]</code></pre>
 <p><img src="figure/epistasis_abruzzo.Rmd/genewise-2.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-genewise-2">
+Past versions of genewise-2.png
+</button>
+</p>
+<div id="fig-genewise-2" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/def17dbc829f0401e8cf0b29113df6b6e7a40a16/docs/figure/epistasis_abruzzo.Rmd/genewise-2.png" target="_blank">def17db</a>
+</td>
+<td>
+almutlue
+</td>
+<td>
+2022-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[3]]</code></pre>
 <p><img src="figure/epistasis_abruzzo.Rmd/genewise-3.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-genewise-3">
+Past versions of genewise-3.png
+</button>
+</p>
+<div id="fig-genewise-3" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/def17dbc829f0401e8cf0b29113df6b6e7a40a16/docs/figure/epistasis_abruzzo.Rmd/genewise-3.png" target="_blank">def17db</a>
+</td>
+<td>
+almutlue
+</td>
+<td>
+2022-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[4]]</code></pre>
 <p><img src="figure/epistasis_abruzzo.Rmd/genewise-4.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-genewise-4">
+Past versions of genewise-4.png
+</button>
+</p>
+<div id="fig-genewise-4" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/def17dbc829f0401e8cf0b29113df6b6e7a40a16/docs/figure/epistasis_abruzzo.Rmd/genewise-4.png" target="_blank">def17db</a>
+</td>
+<td>
+almutlue
+</td>
+<td>
+2022-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[5]]</code></pre>
 <p><img src="figure/epistasis_abruzzo.Rmd/genewise-5.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-genewise-5">
+Past versions of genewise-5.png
+</button>
+</p>
+<div id="fig-genewise-5" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/def17dbc829f0401e8cf0b29113df6b6e7a40a16/docs/figure/epistasis_abruzzo.Rmd/genewise-5.png" target="_blank">def17db</a>
+</td>
+<td>
+almutlue
+</td>
+<td>
+2022-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[6]]</code></pre>
 <p><img src="figure/epistasis_abruzzo.Rmd/genewise-6.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-genewise-6">
+Past versions of genewise-6.png
+</button>
+</p>
+<div id="fig-genewise-6" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/def17dbc829f0401e8cf0b29113df6b6e7a40a16/docs/figure/epistasis_abruzzo.Rmd/genewise-6.png" target="_blank">def17db</a>
+</td>
+<td>
+almutlue
+</td>
+<td>
+2022-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[7]]</code></pre>
 <p><img src="figure/epistasis_abruzzo.Rmd/genewise-7.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-genewise-7">
+Past versions of genewise-7.png
+</button>
+</p>
+<div id="fig-genewise-7" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/def17dbc829f0401e8cf0b29113df6b6e7a40a16/docs/figure/epistasis_abruzzo.Rmd/genewise-7.png" target="_blank">def17db</a>
+</td>
+<td>
+almutlue
+</td>
+<td>
+2022-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[8]]</code></pre>
 <p><img src="figure/epistasis_abruzzo.Rmd/genewise-8.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-genewise-8">
+Past versions of genewise-8.png
+</button>
+</p>
+<div id="fig-genewise-8" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/def17dbc829f0401e8cf0b29113df6b6e7a40a16/docs/figure/epistasis_abruzzo.Rmd/genewise-8.png" target="_blank">def17db</a>
+</td>
+<td>
+almutlue
+</td>
+<td>
+2022-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[9]]</code></pre>
 <p><img src="figure/epistasis_abruzzo.Rmd/genewise-9.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-genewise-9">
+Past versions of genewise-9.png
+</button>
+</p>
+<div id="fig-genewise-9" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/def17dbc829f0401e8cf0b29113df6b6e7a40a16/docs/figure/epistasis_abruzzo.Rmd/genewise-9.png" target="_blank">def17db</a>
+</td>
+<td>
+almutlue
+</td>
+<td>
+2022-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[10]]</code></pre>
 <p><img src="figure/epistasis_abruzzo.Rmd/genewise-10.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-genewise-10">
+Past versions of genewise-10.png
+</button>
+</p>
+<div id="fig-genewise-10" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/def17dbc829f0401e8cf0b29113df6b6e7a40a16/docs/figure/epistasis_abruzzo.Rmd/genewise-10.png" target="_blank">def17db</a>
+</td>
+<td>
+almutlue
+</td>
+<td>
+2022-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[11]]</code></pre>
 <p><img src="figure/epistasis_abruzzo.Rmd/genewise-11.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-genewise-11">
+Past versions of genewise-11.png
+</button>
+</p>
+<div id="fig-genewise-11" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/def17dbc829f0401e8cf0b29113df6b6e7a40a16/docs/figure/epistasis_abruzzo.Rmd/genewise-11.png" target="_blank">def17db</a>
+</td>
+<td>
+almutlue
+</td>
+<td>
+2022-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[12]]</code></pre>
 <p><img src="figure/epistasis_abruzzo.Rmd/genewise-12.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-genewise-12">
+Past versions of genewise-12.png
+</button>
+</p>
+<div id="fig-genewise-12" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/def17dbc829f0401e8cf0b29113df6b6e7a40a16/docs/figure/epistasis_abruzzo.Rmd/genewise-12.png" target="_blank">def17db</a>
+</td>
+<td>
+almutlue
+</td>
+<td>
+2022-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[13]]</code></pre>
 <p><img src="figure/epistasis_abruzzo.Rmd/genewise-13.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-genewise-13">
+Past versions of genewise-13.png
+</button>
+</p>
+<div id="fig-genewise-13" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/def17dbc829f0401e8cf0b29113df6b6e7a40a16/docs/figure/epistasis_abruzzo.Rmd/genewise-13.png" target="_blank">def17db</a>
+</td>
+<td>
+almutlue
+</td>
+<td>
+2022-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[14]]</code></pre>
 <p><img src="figure/epistasis_abruzzo.Rmd/genewise-14.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-genewise-14">
+Past versions of genewise-14.png
+</button>
+</p>
+<div id="fig-genewise-14" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/def17dbc829f0401e8cf0b29113df6b6e7a40a16/docs/figure/epistasis_abruzzo.Rmd/genewise-14.png" target="_blank">def17db</a>
+</td>
+<td>
+almutlue
+</td>
+<td>
+2022-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[15]]</code></pre>
 <p><img src="figure/epistasis_abruzzo.Rmd/genewise-15.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-genewise-15">
+Past versions of genewise-15.png
+</button>
+</p>
+<div id="fig-genewise-15" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/def17dbc829f0401e8cf0b29113df6b6e7a40a16/docs/figure/epistasis_abruzzo.Rmd/genewise-15.png" target="_blank">def17db</a>
+</td>
+<td>
+almutlue
+</td>
+<td>
+2022-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[16]]</code></pre>
 <p><img src="figure/epistasis_abruzzo.Rmd/genewise-16.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-genewise-16">
+Past versions of genewise-16.png
+</button>
+</p>
+<div id="fig-genewise-16" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/def17dbc829f0401e8cf0b29113df6b6e7a40a16/docs/figure/epistasis_abruzzo.Rmd/genewise-16.png" target="_blank">def17db</a>
+</td>
+<td>
+almutlue
+</td>
+<td>
+2022-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[17]]</code></pre>
 <p><img src="figure/epistasis_abruzzo.Rmd/genewise-17.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-genewise-17">
+Past versions of genewise-17.png
+</button>
+</p>
+<div id="fig-genewise-17" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/def17dbc829f0401e8cf0b29113df6b6e7a40a16/docs/figure/epistasis_abruzzo.Rmd/genewise-17.png" target="_blank">def17db</a>
+</td>
+<td>
+almutlue
+</td>
+<td>
+2022-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[18]]</code></pre>
 <p><img src="figure/epistasis_abruzzo.Rmd/genewise-18.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-genewise-18">
+Past versions of genewise-18.png
+</button>
+</p>
+<div id="fig-genewise-18" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/def17dbc829f0401e8cf0b29113df6b6e7a40a16/docs/figure/epistasis_abruzzo.Rmd/genewise-18.png" target="_blank">def17db</a>
+</td>
+<td>
+almutlue
+</td>
+<td>
+2022-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[19]]</code></pre>
 <p><img src="figure/epistasis_abruzzo.Rmd/genewise-19.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-genewise-19">
+Past versions of genewise-19.png
+</button>
+</p>
+<div id="fig-genewise-19" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/def17dbc829f0401e8cf0b29113df6b6e7a40a16/docs/figure/epistasis_abruzzo.Rmd/genewise-19.png" target="_blank">def17db</a>
+</td>
+<td>
+almutlue
+</td>
+<td>
+2022-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[20]]</code></pre>
 <p><img src="figure/epistasis_abruzzo.Rmd/genewise-20.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-genewise-20">
+Past versions of genewise-20.png
+</button>
+</p>
+<div id="fig-genewise-20" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/def17dbc829f0401e8cf0b29113df6b6e7a40a16/docs/figure/epistasis_abruzzo.Rmd/genewise-20.png" target="_blank">def17db</a>
+</td>
+<td>
+almutlue
+</td>
+<td>
+2022-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[21]]</code></pre>
 <p><img src="figure/epistasis_abruzzo.Rmd/genewise-21.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-genewise-21">
+Past versions of genewise-21.png
+</button>
+</p>
+<div id="fig-genewise-21" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/def17dbc829f0401e8cf0b29113df6b6e7a40a16/docs/figure/epistasis_abruzzo.Rmd/genewise-21.png" target="_blank">def17db</a>
+</td>
+<td>
+almutlue
+</td>
+<td>
+2022-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[22]]</code></pre>
 <p><img src="figure/epistasis_abruzzo.Rmd/genewise-22.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-genewise-22">
+Past versions of genewise-22.png
+</button>
+</p>
+<div id="fig-genewise-22" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/def17dbc829f0401e8cf0b29113df6b6e7a40a16/docs/figure/epistasis_abruzzo.Rmd/genewise-22.png" target="_blank">def17db</a>
+</td>
+<td>
+almutlue
+</td>
+<td>
+2022-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[23]]</code></pre>
 <p><img src="figure/epistasis_abruzzo.Rmd/genewise-23.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-genewise-23">
+Past versions of genewise-23.png
+</button>
+</p>
+<div id="fig-genewise-23" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/def17dbc829f0401e8cf0b29113df6b6e7a40a16/docs/figure/epistasis_abruzzo.Rmd/genewise-23.png" target="_blank">def17db</a>
+</td>
+<td>
+almutlue
+</td>
+<td>
+2022-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[24]]</code></pre>
 <p><img src="figure/epistasis_abruzzo.Rmd/genewise-24.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-genewise-24">
+Past versions of genewise-24.png
+</button>
+</p>
+<div id="fig-genewise-24" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/def17dbc829f0401e8cf0b29113df6b6e7a40a16/docs/figure/epistasis_abruzzo.Rmd/genewise-24.png" target="_blank">def17db</a>
+</td>
+<td>
+almutlue
+</td>
+<td>
+2022-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[25]]</code></pre>
 <p><img src="figure/epistasis_abruzzo.Rmd/genewise-25.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-genewise-25">
+Past versions of genewise-25.png
+</button>
+</p>
+<div id="fig-genewise-25" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/def17dbc829f0401e8cf0b29113df6b6e7a40a16/docs/figure/epistasis_abruzzo.Rmd/genewise-25.png" target="_blank">def17db</a>
+</td>
+<td>
+almutlue
+</td>
+<td>
+2022-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[26]]</code></pre>
 <p><img src="figure/epistasis_abruzzo.Rmd/genewise-26.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-genewise-26">
+Past versions of genewise-26.png
+</button>
+</p>
+<div id="fig-genewise-26" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/def17dbc829f0401e8cf0b29113df6b6e7a40a16/docs/figure/epistasis_abruzzo.Rmd/genewise-26.png" target="_blank">def17db</a>
+</td>
+<td>
+almutlue
+</td>
+<td>
+2022-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[27]]</code></pre>
 <p><img src="figure/epistasis_abruzzo.Rmd/genewise-27.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-genewise-27">
+Past versions of genewise-27.png
+</button>
+</p>
+<div id="fig-genewise-27" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/def17dbc829f0401e8cf0b29113df6b6e7a40a16/docs/figure/epistasis_abruzzo.Rmd/genewise-27.png" target="_blank">def17db</a>
+</td>
+<td>
+almutlue
+</td>
+<td>
+2022-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[28]]</code></pre>
 <p><img src="figure/epistasis_abruzzo.Rmd/genewise-28.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-genewise-28">
+Past versions of genewise-28.png
+</button>
+</p>
+<div id="fig-genewise-28" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/def17dbc829f0401e8cf0b29113df6b6e7a40a16/docs/figure/epistasis_abruzzo.Rmd/genewise-28.png" target="_blank">def17db</a>
+</td>
+<td>
+almutlue
+</td>
+<td>
+2022-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[29]]</code></pre>
 <p><img src="figure/epistasis_abruzzo.Rmd/genewise-29.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-genewise-29">
+Past versions of genewise-29.png
+</button>
+</p>
+<div id="fig-genewise-29" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/def17dbc829f0401e8cf0b29113df6b6e7a40a16/docs/figure/epistasis_abruzzo.Rmd/genewise-29.png" target="_blank">def17db</a>
+</td>
+<td>
+almutlue
+</td>
+<td>
+2022-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[30]]</code></pre>
 <p><img src="figure/epistasis_abruzzo.Rmd/genewise-30.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-genewise-30">
+Past versions of genewise-30.png
+</button>
+</p>
+<div id="fig-genewise-30" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/def17dbc829f0401e8cf0b29113df6b6e7a40a16/docs/figure/epistasis_abruzzo.Rmd/genewise-30.png" target="_blank">def17db</a>
+</td>
+<td>
+almutlue
+</td>
+<td>
+2022-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[31]]</code></pre>
 <p><img src="figure/epistasis_abruzzo.Rmd/genewise-31.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-genewise-31">
+Past versions of genewise-31.png
+</button>
+</p>
+<div id="fig-genewise-31" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/def17dbc829f0401e8cf0b29113df6b6e7a40a16/docs/figure/epistasis_abruzzo.Rmd/genewise-31.png" target="_blank">def17db</a>
+</td>
+<td>
+almutlue
+</td>
+<td>
+2022-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
-[[32]]
-NULL
-
-[[33]]</code></pre>
+[[32]]</code></pre>
 <p><img src="figure/epistasis_abruzzo.Rmd/genewise-32.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-genewise-32">
+Past versions of genewise-32.png
+</button>
+</p>
+<div id="fig-genewise-32" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/def17dbc829f0401e8cf0b29113df6b6e7a40a16/docs/figure/epistasis_abruzzo.Rmd/genewise-32.png" target="_blank">def17db</a>
+</td>
+<td>
+almutlue
+</td>
+<td>
+2022-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<pre><code>
+[[33]]</code></pre>
+<p><img src="figure/epistasis_abruzzo.Rmd/genewise-33.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-genewise-33">
+Past versions of genewise-33.png
+</button>
+</p>
+<div id="fig-genewise-33" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/def17dbc829f0401e8cf0b29113df6b6e7a40a16/docs/figure/epistasis_abruzzo.Rmd/genewise-33.png" target="_blank">def17db</a>
+</td>
+<td>
+almutlue
+</td>
+<td>
+2022-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <pre><code>
 [[34]]</code></pre>
-<p><img src="figure/epistasis_abruzzo.Rmd/genewise-33.png" width="960" style="display: block; margin: auto;" /></p>
-<pre><code>
-[[35]]</code></pre>
 <p><img src="figure/epistasis_abruzzo.Rmd/genewise-34.png" width="960" style="display: block; margin: auto;" /></p>
+<p>
+<button type="button" class="btn btn-default btn-xs btn-workflowr btn-workflowr-fig" data-toggle="collapse" data-target="#fig-genewise-34">
+Past versions of genewise-34.png
+</button>
+</p>
+<div id="fig-genewise-34" class="collapse">
+<div class="table-responsive">
+<table class="table table-condensed table-hover">
+<thead>
+<tr>
+<th>
+Version
+</th>
+<th>
+Author
+</th>
+<th>
+Date
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>
+<a href="https://github.com/almutlue/transcriptome_cll/blob/def17dbc829f0401e8cf0b29113df6b6e7a40a16/docs/figure/epistasis_abruzzo.Rmd/genewise-34.png" target="_blank">def17db</a>
+</td>
+<td>
+almutlue
+</td>
+<td>
+2022-04-27
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
 <br>
 <p>
 <button type="button" class="btn btn-default btn-workflowr btn-workflowr-sessioninfo" data-toggle="collapse" data-target="#workflowr-sessioninfo" style="display: block;">
@@ -880,9 +2354,9 @@ loaded via a namespace (and not attached):
 [16] splines_4.1.3          doParallel_1.0.17      cachem_1.0.6          
 [19] geneplotter_1.72.0     knitr_1.37             jsonlite_1.8.0        
 [22] workflowr_1.7.0        broom_0.7.12           annotate_1.72.0       
-[25] cluster_2.1.2          png_0.1-7              compiler_4.1.3        
+[25] cluster_2.1.3          png_0.1-7              compiler_4.1.3        
 [28] httr_1.4.2             backports_1.4.1        assertthat_0.2.1      
-[31] Matrix_1.4-0           fastmap_1.1.0          cli_3.2.0             
+[31] Matrix_1.4-1           fastmap_1.1.0          cli_3.2.0             
 [34] later_1.3.0            htmltools_0.5.2        tools_4.1.3           
 [37] gtable_0.3.0           glue_1.6.2             GenomeInfoDbData_1.2.7
 [40] Rcpp_1.0.8.3           carData_3.0-5          jquerylib_0.1.4       
@@ -898,13 +2372,13 @@ loaded via a namespace (and not attached):
 [70] labeling_0.4.2         bit_4.0.4              tidyselect_1.1.2      
 [73] ggsci_2.9              R6_2.5.1               generics_0.1.2        
 [76] DelayedArray_0.20.0    DBI_1.1.2              pillar_1.7.0          
-[79] withr_2.5.0            survival_3.2-13        KEGGREST_1.34.0       
-[82] abind_1.4-5            RCurl_1.98-1.6         tibble_3.1.6          
-[85] crayon_1.5.0           car_3.0-12             utf8_1.2.2            
-[88] rmarkdown_2.13         GetoptLong_1.0.5       locfit_1.5-9.5        
-[91] blob_1.2.2             git2r_0.30.1           digest_0.6.29         
-[94] xtable_1.8-4           tidyr_1.2.0            httpuv_1.6.5          
-[97] munsell_0.5.0          bslib_0.3.1           </code></pre>
+[79] whisker_0.4            withr_2.5.0            survival_3.2-13       
+[82] KEGGREST_1.34.0        abind_1.4-5            RCurl_1.98-1.6        
+[85] tibble_3.1.6           crayon_1.5.0           car_3.0-12            
+[88] utf8_1.2.2             rmarkdown_2.13         GetoptLong_1.0.5      
+[91] locfit_1.5-9.5         blob_1.2.2             git2r_0.30.1          
+[94] digest_0.6.29          xtable_1.8-4           tidyr_1.2.0           
+[97] httpuv_1.6.5           munsell_0.5.0          bslib_0.3.1           </code></pre>
 </div>
 </div>
 </div>

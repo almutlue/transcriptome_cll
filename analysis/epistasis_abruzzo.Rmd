@@ -31,6 +31,9 @@ suppressPackageStartupMessages({
 Data
 ```{r data}
 data_dir = here("data")
+output_dir <- here("output")
+figure_dir <- here("output/figures")
+
 express <- read.csv(paste0(data_dir, "/abruzzo/expressionData.csv"))
 features <- read.csv(paste0(data_dir, "/abruzzo/probeFeatures.csv"))
 clinical <- read.csv(paste0(data_dir, "/abruzzo/safeClinical.csv"))
@@ -182,6 +185,7 @@ mutnames <- c("IGHV-UM", "IGHV-M", "tri12_IGHV-UM", "tri12_IGHV-M")
 
 IGHVTri12 <- list("sig_Genes" = gene_names$gene, "geneExp" = exprVariant.new, "h1"= h1)
 p1 <- draw(h1) 
+
 saveRDS(p1, file = paste0(output_dir, "/figures/r_objects/epistasis/epistasis_heatmap_abruzzo.rds"))
 ```
 
@@ -194,6 +198,7 @@ gene_by_cat <- lapply(1:4, function(clusternr){
 
 #Add int probes to gene_names and expr
 int_probes <- features[features$SYMBOL %in% c("EBF1", "FGF2","LEF1"), c("X", "SYMBOL")]
+int_probes <- int_probes[c(1,2,4,5), ]
 colnames(int_probes) <- c("probes", "gene")
 gene_names <- rbind(gene_names, int_probes)
 exprVariant <- rbind(exprVariant, as.matrix(express[int_probes$probes,]))
@@ -201,6 +206,7 @@ exprVariant <- rbind(exprVariant, as.matrix(express[int_probes$probes,]))
 #function to create stripchart plots for specific genes
 gene_count <- function(probe){
   gene_nam <- gene_names$gene[which(gene_names$probe %in% probe)]
+  gene_nam <- ifelse(length(gene_nam) > 1, gene_nam[1], gene_nam)
   gene_cat <- names(gene_by_cat) %>% map(function(cat){
     cat_gene <- "none"
     cat_gene <- ifelse(any(gene_nam %in% gene_by_cat[[cat]]), cat, cat_gene) 
