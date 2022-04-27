@@ -119,23 +119,24 @@ varPart <- fitExtractVarPartModel(expr, form, meta_sub, BPPARAM=MulticoreParam(4
 ```
 
 Plott variance partitioning
-```{r var part}
-type_data
-t1 <- ggtern(data=type_data, aes(vp_time_dias, vp_IGHV, vp_res)) +
-  guides(color = guide_legend(override.aes = list(size = 3, alpha = 1))) +
-  geom_point(aes(colour = dataset),size= 1.6, alpha = 0.9)  +
-  #scale_colour_manual(values = cols_data) +
+```{r var part, fig.width= 4, fig.height= 4}
+
+t1 <- ggtern(data=varPart, aes(time_diag, IGHV, Residuals)) +
+  geom_point(aes(colour = "blue"), size= 3, alpha = 0.6, show.legend = FALSE)  +
+  #scale_colour_manual(aes(), values = "blue") +
   #stat_density_tern(aes(fill=..level.., alpha=..level..),geom='polygon',bdl = 0.01,bdl.val = 1, base = "identity", n = 20) +
-  geom_density_tern(
-        bins=10,
-        bdl = 0.02,
-        color='black',
-        base = "identity", n = 20,
-        bdl.val = 0.1) +
-  Llab("cell\n \t type") +
-  Tlab("batch") +
-  Rlab("int.") +
+  Llab("time\n \t diagnosis") +
+  Tlab("IGHV") +
+  Rlab("Residuals") +
   ggtitle("Percent variance explained by ...:") +
+  theme(plot.title = element_text(size=14, hjust = 0.3),
+        plot.subtitle = element_text(size=20),    
+        panel.grid.major = element_blank(),    
+        axis.text.x = element_blank(),    
+        axis.text.y = element_blank(),    
+        panel.spacing = unit(0.2, "lines"),    
+        legend.position = "none",    
+        strip.text = element_text(face="bold", size=22))
 t1
 ```
 
