@@ -79,7 +79,7 @@ resOrdered <- res[order(res$pvalue),]
 resOrderedTab <- as.data.frame(resOrdered)
 resOrderedTab$symbol <- rowData(RNAnorm[rownames(resOrdered),])$symbol
 
-resSig <- subset(resOrdered, padj < 0.1)
+resSig <- subset(resOrdered, padj < 0.05)
 resTab <- as.data.frame(resSig)
 resTab$symbol <- rowData(RNAnorm[rownames(resSig),])$symbol
 
@@ -204,10 +204,10 @@ ha_genes <- rowAnnotation(link = row_anno_link(at = geneIDs, labels = labels,
   
   #svg(filename="~/git/figures_thesis/gene_expr/epistatsisTri12IGHV.svg", width=30, height=50)
   #pdf(file="/home/almut/Dokumente/git/Transcriptome_CLL/paper/figures/epistasis_Deseq.pdf", width=35, height=45)
-p1 <- draw(h1 + ha_genes ) 
+p1 <- draw(h1) 
   #dev.off()
   #draw(h1 + ha_chrom + ha_genes)
-#saveRDS(p1, file = paste0(output_dir, "/figures/r_objects/epistasis/epistasis_heatmap.rds"))
+saveRDS(p1, file = paste0(output_dir, "/figures/r_objects/epistasis/epistasis_heatmap.rds"))
 IGHVTri12 <- list("sig_Genes" = sig_Genes, "geneExp" = geneExpression_new, "h1"= h1)
 p1
 ```
@@ -793,5 +793,44 @@ p
 
 
 saveRDS(p, file = paste0(output_dir, "/figures/r_objects/epistasis/epistasis_scheme_lolli.rds"))
+
+```
+
+
+## Overlap with abruzzo results
+
+```{r overlap}
+#differentially expressed genes between del17p13 groups (see differential expression.html)
+abruzzo <- read.csv(file=paste0(output_dir, "/res_epistatsis_abruzzo.rds"))
+
+rownames(abruzzo) <- abruzzo$X
+del17 <- del17[which(del17$padj < 0.05 ),-1]
+del17<- del17[,-1]
+TP53 <- diff_all
+TP53  <- TP53[-which(TP53$Symbol %in% ""),]
+
+venntab <- unique(c(as.vector(del17$Symbol), as.vector(TP53$Symbol)))
+vennTab_new <- as.data.frame(venntab) %>% mutate(del17p13 = ifelse(as.character(venntab) %in% del17$Symbol, 1, 0)) %>% mutate(TP53 = ifelse(as.character(venntab) %in% TP53$Symbol, 1, 0))
+
+TP53_only <- vennTab_new %>% filter(del17p13 == 0 & TP53 == 1) %>% dplyr::select(venntab)
+del17_only <- vennTab_new %>% filter(del17p13 == 1 & TP53 == 0) %>% dplyr::select(venntab)
+
+
+vennTab_new <- vennTab_new[,-1]
+rownames(vennTab_new) <- venntab
+del17_area <- vennTab_new %>% filter(del17p13 == 1)
+TP53_area <- vennTab_new %>% filter(TP53 == 1)
+Both_area <- vennTab_new %>% filter(del17p13 == 1 & TP53 == 1)
+
+#vennList <- list("del17p13" = as.vector(del17$Symbol), "TP53" = as.vector(TP53$Symbol))
+#venn <- venn.diagram(vennList, filename = NULL)
+
+venn_pair <- draw.pairwise.venn(nrow(del17_area), nrow(TP53_area), nrow(Both_area), c("del17p13", "TP53"), fill = c("#00AFBB", "#E7B800"), cex = rep(2, 3), cat.cex = rep(2, 2),  ind = TRUE)
+
+
+grid.draw(venn_pair)
+
+grid.newpage()
+saveRDS(venn_pair, file = paste0(output_dir, "/figures/r_objects/epistasis/venn_pair_epi.rds"))
 
 ```

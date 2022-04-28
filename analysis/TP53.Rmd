@@ -56,11 +56,11 @@ variant <- "TP53"
 ddsCLL <- ddsCLL[, !is.na(colData(ddsCLL)[,variant])]
 
 #differentially expressed genes between TP53 groups (see differential expression.html)
-diff_all <- read.csv(file=paste0(output_dir, "/diff_genes/", variant, "_diffGenes.csv"))
+diff_all <- read.csv(file=paste0(output_dir, "/diff_genes/pretreatment/", variant, "_diffGenes.csv"))
 
 
 rownames(diff_all) <- diff_all$X
-diff_all <- diff_all[which(diff_all$padj < 0.01 ),-1]
+diff_all <- diff_all[which(diff_all$padj < 0.05 ),-1]
 diff <- diff_all
 
 
@@ -336,10 +336,10 @@ heatplot(kk2x, foldChange=gene_lfc, showCategory = 3 )
 
 ```{r overlap}
 #differentially expressed genes between del17p13 groups (see differential expression.html)
-del17 <- read.csv(file=paste0(output_dir, "/diff_genes/del17p13_diffGenes.csv"))
+del17 <- read.csv(file=paste0(output_dir, "/diff_genes/pretreatment/del17p13_diffGenes.csv"))
 
 rownames(del17) <- del17$X
-del17 <- del17[which(del17$padj < 0.01 ),-1]
+del17 <- del17[which(del17$padj < 0.05 ),-1]
 del17<- del17[,-1]
 TP53 <- diff_all
 TP53  <- TP53[-which(TP53$Symbol %in% ""),]

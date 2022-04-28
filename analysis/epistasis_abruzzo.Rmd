@@ -69,6 +69,7 @@ fit <- eBayes(fit)
 fit3 <- contrasts.fit(fit, c(0,-1, -1, 1))
 fit3 <- eBayes(fit3)
 top3 <- topTable(fit3, adjust="BH")
+saveRDS(top3, paste0(output_dir, "/res_epistatsis_abruzzo.rds"))
 ```
 
 ### results

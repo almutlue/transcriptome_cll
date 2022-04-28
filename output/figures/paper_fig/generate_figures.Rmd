@@ -356,3 +356,41 @@ ggsave(filename = paste0(output_dir, "/figure_meth_genes.svg"), plot = figure10)
 
 
 ```
+
+
+## Figure epistasis abruzzo
+
+```{r fig abruzzo objects}
+
+epi_hmap <-  readRDS(paste0(fig_dir,"/epistasis/epistasis_heatmap_abruzzo.rds"))
+epi_hmap <- grid.grabExpr(draw(epi_hmap))
+#types <- readRDS(paste0(fig_dir,"/epistasis/epistasis_scheme_lolli.rds"))
+#types <- grid.grabExpr(draw(types))
+#path_epi <- readRDS(paste0(fig_dir,"/epistasis/enrich_dot_buffering.rds"))
+
+de1 <- readRDS(paste0(fig_dir,"/epistasis/abruzzo/de_genes/EBF1.rds"))
+de2 <- readRDS(paste0(fig_dir,"/epistasis/abruzzo/de_genes/FGF2.rds"))
+#de3 <- readRDS(paste0(fig_dir,"/epistasis/abruzzo/de_genes/SYBU.rds"))
+de4 <- readRDS(paste0(fig_dir,"/epistasis/abruzzo/de_genes/LEF1.rds"))
+
+
+```
+
+
+```{r fig abruzzo plot, fig.width=18, fig.height= 24}
+#Align subplots
+p_sub2 <- plot_grid(de1, de2, de4, ncol = 1, align = "v", axis = "b", labels = c('A', 'B', 'C'), label_size = 45)
+p_sub3 <- plot_grid(NULL, p_sub2, NULL, ncol = 3, rel_widths = c(1.5 , 10, 1.5))
+#p_sub1 <- plot_grid(types, NULL,  ncol = 2, rel_widths = c(10, 1))
+p_sub6 <- plot_grid(NULL, epi_hmap,  ncol = 2, rel_widths = c(1, 10))
+p_sub <- plot_grid(NULL, p_sub1, NULL, p_sub6, ncol = 1, rel_heights = c(0.5, 4.5, 0.5, 8), labels = c('E','', 'G',''), label_size = 45)
+
+p_sub5 <- plot_grid(p_sub2, NULL, path_epi, ncol = 1, rel_heights = c(13, 0.5, 4), labels = c("", "F", ""), label_size = 45)
+
+figure4 <- plot_grid(p_sub5, NULL, p_sub, ncol = 3, rel_widths = c(10, 0.1, 11))
+figure4
+ggsave(filename = paste0(output_dir, "/figure_epi_abruzzo.pdf"), plot = figure4)
+ggsave(filename = paste0(output_dir, "/figure_epi_abruzzo.svg"), plot = figure4)
+```
+
+
